@@ -1,0 +1,18 @@
+name: Init WordPress.com Token (one-time)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  init_token:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Init Token
+        run: |
+          python3 init_token.py
+        env:
+          WP_COM_CLIENT_ID: ${{ secrets.WP_COM_CLIENT_ID }}
+          WP_COM_CLIENT_SECRET: ${{ secrets.WP_COM_CLIENT_SECRET }}
+          AUTH_CODE: ${{ secrets.AUTH_CODE }}
