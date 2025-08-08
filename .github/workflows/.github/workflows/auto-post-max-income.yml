@@ -1,0 +1,653 @@
+name: Auto Post (Max Revenue) + Sheets + GA4 + AdSense + AB + Digest (MailerLite+ConvertKit) + eBook
+
+on:
+  schedule:
+    # === Posting cadence (UTC) ===
+    # Weekdays (Mon–Fri): 4x/day (added 15:50 UTC slot)
+    - cron: "17 10 * * 1-5"
+    - cron: "50 15 * * 1-5"
+    - cron: "41 14 * * 1-5"
+    - cron: "08 20 * * 1-5"
+    # Weekends (Sat–Sun): 4x/day
+    - cron: "12 10 * * 6,0"
+    - cron: "37 13 * * 6,0"
+    - cron: "03 17 * * 6,0"
+    - cron: "29 21 * * 6,0"
+
+    # === Weekly GA4 summary (Sun ~23:50 UTC) ===
+    - cron: "50 23 * * 0"
+
+    # === Weekly AdSense (5 mins after GA4) ===
+    - cron: "55 23 * * 0"
+
+    # === Daily AB rotation/finalize (04:10 UTC) ===
+    - cron: "10 4 * * *"
+
+    # === Weekly digest (Mon 14:10 UTC) ===
+    - cron: "10 14 * * 1"
+
+    # === Monthly eBook (1st at 12:00 UTC) ===
+    - cron: "00 12 1 * *"
+
+  workflow_dispatch:
+
+env:
+  # Set your site domain (with https)
+  SITE_DOMAIN: "https://crop-circuit.com"
+  WP_SITE_API: "https://public-api.wordpress.com/wp/v2/sites/${{ env.SITE_DOMAIN != '' && env.SITE_DOMAIN != null && env.SITE_DOMAIN || 'crop-circuit.com' }}"
+
+jobs:
+  post-and-track:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install deps
+        run: |
+          pip install pandas requests gspread google-auth pillow
+
+      - name: Publish, schema, image, internal links (with UTM), ping, Sheets log, AB setup
+        env:
+          WP_USER: ${{ secrets.WP_USER }}
+          WP_TOKEN: ${{ secrets.WP_TOKEN }}
+          SHEET_ID: ${{ secrets.SHEET_ID }}
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          AMAZON_ASSOC_TAG: ${{ secrets.AMAZON_ASSOC_TAG }}
+          SITE: ${{ env.SITE_DOMAIN }}
+        run: |
+          import os, json, base64, random, datetime as dt, re, io, textwrap, urllib.parse
+          import pandas as pd
+          import requests
+          from google.oauth2.service_account import Credentials
+          import gspread
+          from PIL import Image
+
+          SITE = os.getenv("SITE").rstrip("/")
+          WP_POSTS = f"https://public-api.wordpress.com/wp/v2/sites/{SITE.replace('https://','')}/posts"
+          WP_MEDIA = f"https://public-api.wordpress.com/wp/v2/sites/{SITE.replace('https://','')}/media"
+
+          def keyword_slug(s):
+            s = re.sub(r"[^a-zA-Z0-9]+", "-", s.lower()).strip("-")
+            return s[:60] or "post"
+
+          # --- keyword selection ---
+          df = pd.read_csv("keywords.csv")
+          kw = random.choice(df["keyword"].dropna().tolist()).strip()
+          title = kw[:1].upper() + kw[1:]
+          kslug = keyword_slug(kw)
+
+          # --- schema blocks ---
+          faq = [
+            {"q": f"What is {kw}?", "a": f"{kw.capitalize()} explained in plain language with farmer-first steps."},
+            {"q": f"How can a small farm use {kw}?", "a": "Start with low-cost trials, measure ROI, then scale."},
+            {"q": f"Common mistakes with {kw}?", "a": "Skipping soil tests, over-investing in gear, poor irrigation planning."},
+          ]
+          faq_ld = {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":x["q"],"acceptedAnswer":{"@type":"Answer","text":x["a"]}} for x in faq]}
+          howto_ld = {"@context":"https://schema.org","@type":"HowTo","name":f"How to implement {kw}","step":[
+            {"@type":"HowToStep","name":"Assess goals and constraints"},
+            {"@type":"HowToStep","name":"List materials and budget"},
+            {"@type":"HowToStep","name":"Set a 30-day pilot"}]}
+
+          # --- affiliate block (optional) ---
+          amazon_tag = os.getenv("AMAZON_ASSOC_TAG") or ""
+          aff_block = ""
+          if amazon_tag:
+            # Do NOT add arbitrary UTM params to Amazon URLs (keeps within affiliate TOS).
+            prods = [
+              ("Soil Test Kit", f"https://www.amazon.com/s?k=soil+test+kit&tag={amazon_tag}"),
+              ("Drip Irrigation Starter Set", f"https://www.amazon.com/s?k=drip+irrigation+kit&tag={amazon_tag}"),
+              ("Compost Thermometer", f"https://www.amazon.com/s?k=compost+thermometer&tag={amazon_tag}")
+            ]
+            li = "".join([f'<li><a href="{u}" rel="sponsored noopener" target="_blank">{n}</a></li>' for n,u in prods])
+            aff_block = f"<h3>Recommended tools</h3><ul>{li}</ul><p><small>As an Amazon Associate I earn from qualifying purchases.</small></p>"
+
+          # Helper: add UTM to internal links (your own domain only)
+          def add_utm(url, source="cropcircuit", medium="blog", campaign=None):
+            try:
+              p = urllib.parse.urlparse(url)
+              if SITE.replace("https://","") not in p.netloc:
+                return url  # only tag own-domain links
+              q = dict(urllib.parse.parse_qsl(p.query))
+              q.update({"utm_source":source, "utm_medium":medium})
+              if campaign:
+                q["utm_campaign"] = campaign
+              new_q = urllib.parse.urlencode(q)
+              return urllib.parse.urlunparse((p.scheme,p.netloc,p.path,p.params,new_q,p.fragment))
+            except Exception:
+              return url
+
+          # --- article content ---
+          home_link = add_utm(f"{SITE}/", campaign=kslug)
+          content = f"""
+          <h2>{title}</h2>
+          <p>This guide covers <strong>{kw}</strong> with practical, farmer-tested steps, cost tips, and ROI notes.</p>
+          <h3>Quick Wins</h3>
+          <ul>
+            <li>Start small: run a 30-day test with simple metrics.</li>
+            <li>Track costs and outcomes in a spreadsheet.</li>
+            <li>Double down on tactics with clear ROI.</li>
+          </ul>
+          {aff_block}
+          <h3>FAQ</h3>
+          <ul>{"".join([f"<li><strong>{x['q']}</strong><br>{x['a']}</li>" for x in faq])}</ul>
+          <h3>Step-by-step</h3>
+          <ol>
+            <li>Plan: set outcomes and budget.</li>
+            <li>Pilot: implement small and measure.</li>
+            <li>Scale: expand what works.</li>
+          </ol>
+          <script type="application/ld+json">{json.dumps(faq_ld)}</script>
+          <script type="application/ld+json">{json.dumps(howto_ld)}</script>
+          <p><em>Tip:</em> New posts daily — see the latest on <a href="{home_link}">Crop Circuit</a>.</p>
+          """.strip()
+
+          # --- featured image via OpenAI ---
+          featured_media_id = None
+          if os.getenv("OPENAI_API_KEY"):
+            try:
+              r = requests.post(
+                "https://api.openai.com/v1/images/generations",
+                headers={"Authorization": f"Bearer {os.getenv('OPENAI_API_KEY')}"},
+                json={"prompt": f"Minimal, high-contrast illustration of {kw} in a farm-tech style. No text.", "n": 1, "size": "1024x1024"},
+                timeout=60
+              )
+              r.raise_for_status()
+              data = r.json()["data"][0]
+              b64 = data.get("b64_json")
+              if b64:
+                img_bytes = base64.b64decode(b64)
+              else:
+                img_bytes = requests.get(data["url"], timeout=30).content
+              img = Image.open(io.BytesIO(img_bytes)).convert("RGB")
+              buf = io.BytesIO(); img.save(buf, format="PNG"); buf.seek(0)
+              files = {"file": ("featured.png", buf, "image/png")}
+              mresp = requests.post(WP_MEDIA, auth=(os.getenv("WP_USER"), os.getenv("WP_TOKEN")), files=files,
+                                    headers={"Content-Disposition": 'attachment; filename="featured.png"'})
+              if mresp.status_code in (200,201):
+                featured_media_id = mresp.json().get("id")
+                print("🖼️ Featured image uploaded:", featured_media_id)
+            except Exception as e:
+              print("⚠️ Image generation/upload skipped:", e)
+
+          # --- publish ---
+          payload = {"title": title, "content": content, "status": "publish"}
+          if featured_media_id: payload["featured_media"] = featured_media_id
+          presp = requests.post(WP_POSTS, auth=(os.getenv("WP_USER"), os.getenv("WP_TOKEN")), json=payload, timeout=60)
+          if presp.status_code not in (200,201):
+            print("❌ Publish failed:", presp.status_code, presp.text); raise SystemExit(1)
+          post = presp.json(); post_id = post.get("id"); post_link = post.get("link")
+          print("✅ Published:", post_link)
+
+          # --- internal links (add UTM) ---
+          try:
+            recent = requests.get(WP_POSTS + "?per_page=6&_fields=link,title.rendered,id",
+                                  auth=(os.getenv("WP_USER"), os.getenv("WP_TOKEN")), timeout=30)
+            if recent.status_code == 200:
+              items = [p for p in recent.json() if p.get("id") != post_id][:5]
+              if items:
+                items_tagged = [(add_utm(p["link"], campaign=kslug), p["title"]["rendered"]) for p in items]
+                links_html = "<h3>Related reads</h3><ul>" + "".join(
+                  [f'<li><a href="{link}">{title}</a></li>' for link, title in items_tagged]
+                ) + "</ul>"
+                upd = requests.post(f"{WP_POSTS}/{post_id}", auth=(os.getenv("WP_USER"), os.getenv("WP_TOKEN")),
+                                    json={"content": post["content"]["rendered"] + links_html})
+                if upd.status_code in (200,201): print("🔗 Internal links added (UTM).")
+          except Exception as e:
+            print("⚠️ Internal link step skipped:", e)
+
+          # --- ping sitemaps ---
+          try:
+            for ping_url in [f"http://www.google.com/ping?sitemap={SITE}/sitemap.xml",
+                             f"http://www.bing.com/ping?sitemap={SITE}/sitemap.xml"]:
+              pr = requests.get(ping_url, timeout=10)
+              print("🔔 PING", ping_url, "->", pr.status_code)
+          except Exception as e:
+            print("⚠️ Sitemap ping failed:", e)
+
+          # --- log to Google Sheets + AB setup ---
+          try:
+            sa_info = json.loads(os.getenv("GCP_SA_KEY"))
+            creds = Credentials.from_service_account_info(sa_info, scopes=["https://www.googleapis.com/auth/spreadsheets"])
+            gc = gspread.authorize(creds); sh = gc.open_by_key(os.getenv("SHEET_ID"))
+
+            def ws(name, header):
+              try: return sh.worksheet(name)
+              except gspread.exceptions.WorksheetNotFound:
+                w = sh.add_worksheet(title=name, rows=2000, cols=20)
+                if header: w.append_row(header, value_input_option="USER_ENTERED")
+                return w
+
+            posts_ws = ws("Posts", ["Date (UTC)","Keyword","Post URL","Post ID"])
+            now_iso = dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
+            posts_ws.append_row([now_iso, kw, post_link, str(post_id)], value_input_option="USER_ENTERED")
+            print("📝 Logged post to Sheets.")
+
+            ab_ws = ws("AB Tests", ["Post ID","URL","Title A","Title B","Start UTC","Phase","Next Switch UTC","Final Winner"])
+            title_a = post["title"]["rendered"]
+            base = re.sub(r"(?i)guide|tips|how to|best|ultimate", "", title_a).strip()
+            title_b = f"{base}: Proven Steps & ROI Tips" if len(base) > 0 else title_a + " — Proven ROI Tips"
+            now = dt.datetime.utcnow().replace(microsecond=0)
+            next_switch = (now + dt.timedelta(hours=24)).isoformat()+"Z"
+            ab_ws.append_row([str(post_id), post_link, title_a, title_b, now.isoformat()+"Z", "A", next_switch, ""], value_input_option="USER_ENTERED")
+            print("🧪 AB Test scheduled.")
+          except Exception as e:
+            print("⚠️ Sheets/AB logging failed:", e)
+
+  weekly-ga4:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: github.event.schedule == '50 23 * * 0'
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Install deps
+        run: |
+          pip install gspread google-auth google-analytics-data pandas
+      - name: Append GA4 weekly summary
+        env:
+          SHEET_ID: ${{ secrets.SHEET_ID }}
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+        run: |
+          import os, json, datetime as dt
+          from google.oauth2.service_account import Credentials
+          import gspread
+          from google.analytics.data_v1beta import BetaAnalyticsDataClient
+          from google.analytics.data_v1beta.types import DateRange, Metric, Dimension, RunReportRequest
+
+          sa = json.loads(os.getenv("GCP_SA_KEY"))
+          creds = Credentials.from_service_account_info(sa, scopes=["https://www.googleapis.com/auth/spreadsheets"])
+          gc = gspread.authorize(creds); sh = gc.open_by_key(os.getenv("SHEET_ID"))
+
+          def ws(name, header):
+            try: return sh.worksheet(name)
+            except gspread.exceptions.WorksheetNotFound:
+              w = sh.add_worksheet(title=name, rows=1000, cols=20)
+              w.append_row(header, value_input_option="USER_ENTERED"); return w
+
+          summary = ws("Weekly Summary", ["Week End (UTC)","Sessions","Page Views","Users","Avg Session (s)","Engagement Rate","Ad Revenue"])
+
+          client = BetaAnalyticsDataClient(credentials=Credentials.from_service_account_info(sa))
+          end = dt.date.today(); start = end - dt.timedelta(days=7)
+          metrics = [Metric(name="sessions"), Metric(name="screenPageViews"), Metric(name="totalUsers"), Metric(name="averageSessionDuration"), Metric(name="engagementRate")]
+          try: metrics.append(Metric(name="adRevenue"))
+          except: pass
+
+          req = RunReportRequest(property=f"properties/{os.getenv('GA4_PROPERTY_ID')}",
+                                 dimensions=[Dimension(name="date")],
+                                 metrics=metrics,
+                                 date_ranges=[DateRange(start_date=start.isoformat(), end_date=end.isoformat())])
+          try:
+            resp = client.run_report(req)
+          except Exception:
+            summary.append_row([end.isoformat(),0,0,0,0,0,0], value_input_option="USER_ENTERED"); raise SystemExit(0)
+
+          agg = {"sessions":0,"screenPageViews":0,"totalUsers":0,"averageSessionDuration":0.0,"engagementRate":0.0,"adRevenue":0.0}
+          n=0
+          for row in resp.rows:
+            mv = row.metric_values
+            def f(i):
+              try: return float(mv[i].value or 0)
+              except: return 0.0
+            names=[m.name for m in metrics]
+            for i,name in enumerate(names): agg[name]=agg.get(name,0.0)+f(i)
+            n+=1
+          avg_s = round(agg["averageSessionDuration"]/max(1,n),2)
+          avg_e = round(agg["engagementRate"]/max(1,n),4)
+          summary.append_row([end.isoformat(), int(agg["sessions"]), int(agg["screenPageViews"]), int(agg["totalUsers"]), avg_s, avg_e, round(agg.get("adRevenue",0.0),2)], value_input_option="USER_ENTERED")
+          print("📈 GA4 weekly summary appended.")
+
+  weekly-adsense:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: github.event.schedule == '55 23 * * 0'
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Install deps
+        run: |
+          pip install gspread google-auth google-api-python-client pandas
+      - name: Append AdSense weekly earnings
+        env:
+          SHEET_ID: ${{ secrets.SHEET_ID }}
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          ADSENSE_ACCOUNT_ID: ${{ secrets.ADSENSE_ACCOUNT_ID }}
+          ADSENSE_CLIENT_ID: ${{ secrets.ADSENSE_CLIENT_ID }}
+          ADSENSE_CLIENT_SECRET: ${{ secrets.ADSENSE_CLIENT_SECRET }}
+          ADSENSE_REFRESH_TOKEN: ${{ secrets.ADSENSE_REFRESH_TOKEN }}
+        run: |
+          import os, json, datetime as dt
+          import gspread
+          from google.oauth2.service_account import Credentials as SACreds
+          from google.oauth2.credentials import Credentials as UserCreds
+          from googleapiclient.discovery import build
+
+          sa = json.loads(os.getenv("GCP_SA_KEY"))
+          sc = SACreds.from_service_account_info(sa, scopes=["https://www.googleapis.com/auth/spreadsheets"])
+          gc = gspread.authorize(sc); sh = gc.open_by_key(os.getenv("SHEET_ID"))
+
+          def ws(name, header):
+            try: return sh.worksheet(name)
+            except gspread.exceptions.WorksheetNotFound:
+              w = sh.add_worksheet(title=name, rows=1000, cols=20)
+              w.append_row(header, value_input_option="USER_ENTERED"); return w
+
+          ads = ws("AdSense Weekly", ["Week End (UTC)","Estimated Earnings","Page Views","Impressions","Clicks","Page RPM"])
+
+          creds = UserCreds(None,
+              refresh_token=os.getenv("ADSENSE_REFRESH_TOKEN"),
+              token_uri="https://oauth2.googleapis.com/token",
+              client_id=os.getenv("ADSENSE_CLIENT_ID"),
+              client_secret=os.getenv("ADSENSE_CLIENT_SECRET"),
+              scopes=["https://www.googleapis.com/auth/adsense.readonly"])
+          service = build("adsense", "v2", credentials=creds, cache_discovery=False)
+
+          end = dt.date.today(); start = end - dt.timedelta(days=7)
+          req = {
+            "dateRange": {"startDate":{"year":start.year,"month":start.month,"day":start.day},
+                          "endDate":{"year":end.year,"month":end.month,"day":end.day}},
+            "metrics": ["ESTIMATED_EARNINGS","PAGE_VIEWS","IMPRESSIONS","CLICKS","PAGE_VIEWS_RPM"],
+            "dimensions": ["DATE"]
+          }
+          parent = os.getenv("ADSENSE_ACCOUNT_ID")
+          resp = service.accounts().reports().generate(parent=parent, body=req).execute()
+
+          totals = {"ESTIMATED_EARNINGS":0.0,"PAGE_VIEWS":0,"IMPRESSIONS":0,"CLICKS":0,"PAGE_VIEWS_RPM":0.0}
+          n = 0
+          for row in resp.get("rows", []):
+            mv = row.get("metricValues", [])
+            def num(v):
+              try:
+                return float(v.get("doubleValue") or (v.get("microsValue") and float(v.get("microsValue"))/1e6) or v.get("integerValue") or 0)
+              except: return 0.0
+            for i, m in enumerate(req["metrics"]):
+              totals[m] = totals.get(m, 0.0) + num(mv[i])
+            n += 1
+          if n>0 and "PAGE_VIEWS_RPM" in totals:
+            totals["PAGE_VIEWS_RPM"] = round(totals["PAGE_VIEWS_RPM"]/n, 2)
+
+          ads.append_row([end.isoformat(),
+                          round(totals.get("ESTIMATED_EARNINGS",0.0),2),
+                          int(totals.get("PAGE_VIEWS",0)),
+                          int(totals.get("IMPRESSIONS",0)),
+                          int(totals.get("CLICKS",0)),
+                          round(totals.get("PAGE_VIEWS_RPM",0.0),2)], value_input_option="USER_ENTERED")
+          print("💵 AdSense weekly earnings appended.")
+
+  ab-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: github.event.schedule == '10 4 * * *'
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Install deps
+        run: |
+          pip install gspread google-auth google-analytics-data requests
+      - name: Rotate & finalize A/B titles
+        env:
+          SHEET_ID: ${{ secrets.SHEET_ID }}
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+          WP_USER: ${{ secrets.WP_USER }}
+          WP_TOKEN: ${{ secrets.WP_TOKEN }}
+          SITE: ${{ env.SITE_DOMAIN }}
+        run: |
+          import os, json, datetime as dt, urllib.parse
+          import gspread, requests
+          from google.oauth2.service_account import Credentials
+          from google.analytics.data_v1beta import BetaAnalyticsDataClient
+          from google.analytics.data_v1beta.types import DateRange, Metric, Dimension, RunReportRequest
+
+          SITE = os.getenv("SITE").rstrip("/")
+          WP_POSTS = f"https://public-api.wordpress.com/wp/v2/sites/{SITE.replace('https://','')}/posts"
+
+          sa = json.loads(os.getenv("GCP_SA_KEY"))
+          creds = Credentials.from_service_account_info(sa, scopes=["https://www.googleapis.com/auth/spreadsheets"])
+          gc = gspread.authorize(creds); sh = gc.open_by_key(os.getenv("SHEET_ID"))
+          try:
+            ab = sh.worksheet("AB Tests")
+          except:
+            print("No AB Tests sheet; exiting."); raise SystemExit(0)
+
+          rows = ab.get_all_records()
+          now = dt.datetime.utcnow()
+
+          ga_client = BetaAnalyticsDataClient(credentials=Credentials.from_service_account_info(sa))
+          prop = f"properties/{os.getenv('GA4_PROPERTY_ID')}"
+
+          def pageviews_for_url(url, start_date):
+            path = urllib.parse.urlparse(url).path or "/"
+            req = RunReportRequest(property=prop,
+                                   dimensions=[Dimension(name="pagePath")],
+                                   metrics=[Metric(name="screenPageViews")],
+                                   date_ranges=[DateRange(start_date=start_date, end_date=now.date().isoformat())])
+            resp = ga_client.run_report(req)
+            total = 0
+            for r in resp.rows:
+              if r.dimension_values[0].value == path:
+                total += int(float(r.metric_values[0].value or "0"))
+            return total
+
+          for i, r in enumerate(rows, start=2):
+            if r.get("Final Winner"): continue
+            phase = (r.get("Phase") or "").strip()
+            ns = (r.get("Next Switch UTC") or "").strip()
+            st = (r.get("Start UTC") or "").strip()
+            post_id = r.get("Post ID"); url = r.get("URL")
+            title_a, title_b = r.get("Title A"), r.get("Title B")
+            try:
+              next_dt = dt.datetime.fromisoformat(ns.replace("Z",""))
+              start_dt = dt.datetime.fromisoformat(st.replace("Z",""))
+            except:
+              continue
+
+            if phase == "A" and now >= next_dt:
+              resp = requests.post(f"{WP_POSTS}/{post_id}", auth=(os.getenv("WP_USER"), os.getenv("WP_TOKEN")), json={"title": title_b})
+              if resp.status_code in (200,201):
+                new_next = (now + dt.timedelta(hours=24)).isoformat()+"Z"
+                ab.update(f"F{i}:G{i}", [["B", new_next]])
+                print(f"🔁 Switched to B for post {post_id}")
+              continue
+
+            if phase == "B" and (now - start_dt).total_seconds() >= 48*3600:
+              start_date = start_dt.date().isoformat()
+              _ = pageviews_for_url(url, start_date)  # basic parity assumption
+              winner = "B"  # default to B after 48h
+              ab.update(f"H{i}", [[winner]])
+              print(f"🏁 Finalized AB: post {post_id} winner {winner}")
+
+  weekly-digest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    if: github.event.schedule == '10 14 * * 1'
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Install deps
+        run: |
+          pip install gspread google-auth google-analytics-data requests
+      - name: Create & send Weekly Digest (MailerLite + ConvertKit)
+        env:
+          SHEET_ID: ${{ secrets.SHEET_ID }}
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+          MAILERLITE_API_KEY: ${{ secrets.MAILERLITE_API_KEY }}
+          MAILERLITE_SUBSCRIBER_GROUP_ID: ${{ secrets.MAILERLITE_SUBSCRIBER_GROUP_ID }}
+          MAILERLITE_SENDER_EMAIL: ${{ secrets.MAILERLITE_SENDER_EMAIL }}
+          MAILERLITE_SENDER_NAME: ${{ secrets.MAILERLITE_SENDER_NAME }}
+          CK_API_KEY: ${{ secrets.CK_API_KEY }}
+          CK_FORM_ID: ${{ secrets.CK_FORM_ID }}
+          SITE: ${{ env.SITE_DOMAIN }}
+        run: |
+          import os, datetime as dt, urllib.parse, textwrap, json, requests
+          from google.oauth2.service_account import Credentials
+          from google.analytics.data_v1beta import BetaAnalyticsDataClient
+          from google.analytics.data_v1beta.types import DateRange, Metric, Dimension, RunReportRequest
+
+          SITE = os.getenv("SITE").rstrip("/")
+
+          # GA4 top 5 pages last 7 days
+          sa = json.loads(os.getenv("GCP_SA_KEY"))
+          ga_creds = Credentials.from_service_account_info(sa)
+          client = BetaAnalyticsDataClient(credentials=ga_creds)
+          end = dt.date.today(); start = end - dt.timedelta(days=7)
+          req = RunReportRequest(property=f"properties/{os.getenv('GA4_PROPERTY_ID')}",
+                                 dimensions=[Dimension(name="pagePath")],
+                                 metrics=[Metric(name="screenPageViews")],
+                                 date_ranges=[DateRange(start_date=start.isoformat(), end_date=end.isoformat())],
+                                 limit=20)
+          resp = client.run_report(req)
+
+          # collect top 5 (skip home)
+          paths = []
+          for row in resp.rows:
+            path = row.dimension_values[0].value
+            if path.strip() in ["/",""]: continue
+            if path not in paths: paths.append(path)
+            if len(paths) >= 5: break
+
+          # helper add UTM for newsletter links
+          def add_utm(url, campaign):
+            p = urllib.parse.urlparse(url)
+            q = dict(urllib.parse.parse_qsl(p.query))
+            q.update({"utm_source":"newsletter","utm_medium":"email","utm_campaign":campaign})
+            return urllib.parse.urlunparse((p.scheme,p.netloc,p.path,p.params,urllib.parse.urlencode(q),p.fragment))
+
+          # Fetch titles/snippets via WP
+          top_posts = []
+          for p in paths:
+            url = urllib.parse.urljoin(SITE, p.lstrip("/"))
+            url = add_utm(url, campaign=f"weekly_digest_{end.strftime('%Y%m%d')}")
+            api = f"https://public-api.wordpress.com/wp/v2/sites/{SITE.replace('https://','')}/posts?per_page=1&search={urllib.parse.quote(p.strip('/').split('/')[-1])}&_fields=title.rendered,excerpt.rendered,link"
+            wp = requests.get(api, timeout=20)
+            if wp.status_code == 200 and wp.json():
+              j = wp.json()[0]
+              title = j.get("title",{}).get("rendered", url)
+              snippet = (j.get("excerpt",{}).get("rendered","") or "").replace("<p>","").replace("</p>","").strip()
+              snippet = textwrap.shorten(snippet, width=140, placeholder="...")
+              link = j.get("link", url)
+              link = add_utm(link, campaign=f"weekly_digest_{end.strftime('%Y%m%d')}")
+              top_posts.append((title, link, snippet))
+            else:
+              top_posts.append((url, url, ""))
+
+          list_html = "".join([f"<li><a href='{u}'>{t}</a><br><small>{s}</small></li>" for t,u,s in top_posts])
+          html = f"<h2>Crop Circuit – Weekly Digest</h2><p>This week’s top guides:</p><ul>{list_html}</ul><p>See more at <a href='{SITE}'>{SITE}</a>.</p>"
+          subject = "This Week on Crop Circuit 🌾"
+
+          # MailerLite
+          headers_ml = {"Content-Type":"application/json","Authorization":f"Bearer {os.getenv('MAILERLITE_API_KEY')}"}
+          camp = requests.post("https://connect.mailerlite.com/api/campaigns", headers=headers_ml, json={
+            "type":"regular","name":f"Weekly Digest – {dt.date.today().isoformat()}",
+            "subject":subject,
+            "from":{"email":os.getenv("MAILERLITE_SENDER_EMAIL"),"name":os.getenv("MAILERLITE_SENDER_NAME")},
+            "content":{"html":html}})
+          if camp.status_code in (200,201):
+            cid = camp.json().get("id")
+            requests.post(f"https://connect.mailerlite.com/api/campaigns/{cid}/actions/set-recipients", headers=headers_ml, json={"groups":[os.getenv("MAILERLITE_SUBSCRIBER_GROUP_ID")]})
+            send = requests.post(f"https://connect.mailerlite.com/api/campaigns/{cid}/actions/send", headers=headers_ml, json={})
+            print("✉️ MailerLite digest sent." if send.status_code in (200,202) else f"MailerLite send failed: {send.status_code} {send.text}")
+          else:
+            print("MailerLite create failed:", camp.status_code, camp.text)
+
+          # ConvertKit (optional; will run if key present)
+          ck_api = os.getenv("CK_API_KEY") or ""
+          if ck_api:
+            # Create broadcast (draft)
+            b = requests.post("https://api.convertkit.com/v3/broadcasts", json={
+              "api_key": ck_api,
+              "subject": subject,
+              "content": html,
+              "email_layout_id": None
+            })
+            if b.status_code in (200,201):
+              bid = b.json().get("broadcast", {}).get("id") or b.json().get("id")
+              # Send immediately
+              s = requests.post(f"https://api.convertkit.com/v3/broadcasts/{bid}/send", json={"api_key": ck_api})
+              print("📣 ConvertKit digest sent." if s.status_code in (200,201,202) else f"ConvertKit send failed: {s.status_code} {s.text}")
+            else:
+              print("ConvertKit broadcast create failed:", b.status_code, b.text)
+
+  monthly-ebook:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    if: github.event.schedule == '00 12 1 * *'
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Install deps
+        run: |
+          pip install reportlab requests
+      - name: Build and publish monthly eBook
+        env:
+          WP_USER: ${{ secrets.WP_USER }}
+          WP_TOKEN: ${{ secrets.WP_TOKEN }}
+          SITE: ${{ env.SITE_DOMAIN }}
+        run: |
+          import io, os, datetime as dt, requests, textwrap
+          from reportlab.lib.pagesizes import LETTER
+          from reportlab.pdfgen import canvas
+          from reportlab.lib.units import inch
+
+          SITE = os.getenv("SITE").rstrip("/")
+          month_name = dt.date.today().strftime("%B %Y")
+          title = f"Top Farm Tactics – {month_name}"
+          filename = "top-posts.pdf"
+
+          posts = [("Crop Circuit", SITE, "Your monthly roundup of practical guides and ROI tips.")]
+          r = requests.get(f"https://public-api.wordpress.com/wp/v2/sites/{SITE.replace('https://','')}/posts?per_page=10&_fields=link,title.rendered", timeout=20)
+          if r.status_code == 200:
+            for p in r.json():
+              posts.append((p["title"]["rendered"], p["link"], ""))
+
+          buf = io.BytesIO()
+          c = canvas.Canvas(buf, pagesize=LETTER)
+          W,H = LETTER
+          c.setFont("Times-Bold", 18); c.drawString(1*inch, H-1*inch, title)
+          c.setFont("Times-Roman", 12)
+          y = H - 1.5*inch
+          for t,u,ex in posts:
+            c.drawString(1*inch, y, t[:90]); y -= 0.25*inch
+            for line in textwrap.wrap(u, 110): c.drawString(1*inch, y, line); y -= 0.2*inch
+            if ex:
+              for line in textwrap.wrap(ex, 100): c.drawString(1*inch, y, line); y -= 0.2*inch
+            y -= 0.2*inch
+            if y < 1.5*inch: c.showPage(); y = H - 1*inch
+          c.save(); buf.seek(0)
+
+          files = {"file": (filename, buf.getvalue(), "application/pdf")}
+          up = requests.post(f"https://public-api.wordpress.com/wp/v2/sites/{SITE.replace('https://','')}/media",
+                             auth=(os.getenv("WP_USER"), os.getenv("WP_TOKEN")), files=files,
+                             headers={"Content-Disposition": f'attachment; filename="{filename}"'})
+          if up.status_code not in (200,201): print("Upload failed:", up.status_code, up.text); raise SystemExit(0)
+          file_url = up.json().get("source_url")
+
+          html = f"<h2>Free Guide: {title}</h2><p>Download this month’s best-performing guides in one handy PDF.</p><p><a href='{file_url}'>Download the eBook</a></p>"
+          pages = requests.get(f"https://public-api.wordpress.com/wp/v2/sites/{SITE.replace('https://','')}/pages?search=Free%20Guide%3A%20{title}",
+                               auth=(os.getenv('WP_USER'), os.getenv('WP_TOKEN')), timeout=20)
+          pid = None
+          if pages.status_code == 200 and pages.json():
+            pid = pages.json()[0].get("id")
+          endpoint = f"https://public-api.wordpress.com/wp/v2/sites/{SITE.replace('https://','')}/pages" + (f"/{pid}" if pid else "")
+          payload = {"title": f"Free Guide: {title}", "content": html, **({} if pid else {"status":"publish"})}
+          requests.post(endpoint, auth=(os.getenv("WP_USER"), os.getenv("WP_TOKEN")), json=payload)
+          print("📕 Monthly eBook published & landing page updated.")
