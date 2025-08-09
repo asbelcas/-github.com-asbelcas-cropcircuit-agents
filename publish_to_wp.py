@@ -8,7 +8,7 @@ wp_user = os.getenv("WP_USER")
 wp_app_password = os.getenv("WP_APP_PASSWORD")
 
 # Specify the WordPress.com site slug (without protocol)
-site_slug = "cropcircuit.wordpress.com"
+site_slug = "crop-circuit.com
 # Build the API endpoint URL for creating posts
 site_url = "https://public-api.wordpress.com/wp/v2/sites/" + site_slug + "/posts"
 
