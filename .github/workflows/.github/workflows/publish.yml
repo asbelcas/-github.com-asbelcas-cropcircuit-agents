@@ -1,63 +1,27 @@
-Perfect — I can see you’ve already created the init-token.yml file in the right .github/workflows folder. ✅
-
-Next, we just need to add the second workflow file (the one that actually publishes your posts daily).
-
-
----
-
-📄 Step 2.2 – Create publish.yml
-
-1. In the same repo, click the .. at the top to go up one folder to .github/workflows if you’re not already there.
-
-
-2. Click Add file → Create new file.
-
-
-3. Name the file:
-
-.github/workflows/publish.yml
-
-
-4. Paste this code in:
-
-
-
-name: Publish Programmatic Posts
+name: Publish to WordPress
 
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: "0 14 * * *" # runs daily at 14:00 UTC
+  push:
+    branches:
+      - main
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Run Publisher
-        run: |
-          python3 publish.py
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install requests python-wordpress-xmlrpc markdown
+
+      - name: Publish to WordPress
+        run: python publish_to_wp.py
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          WP_SITE: ${{ secrets.WP_SITE }}
-          SITE_BRAND: ${{ secrets.SITE_BRAND }}
-          POSTS_PER_RUN: ${{ secrets.POSTS_PER_RUN }}
-          WP_COM_CLIENT_ID: ${{ secrets.WP_COM_CLIENT_ID }}
-          WP_COM_CLIENT_SECRET: ${{ secrets.WP_COM_CLIENT_SECRET }}
-          WP_COM_REFRESH_TOKEN: ${{ secrets.WP_COM_REFRESH_TOKEN }}
-
-5. Scroll down and click Commit new file.
-
-
-
-
----
-
-Once you’ve done that, tell me
-
-> “publish file is in”
-and I’ll give you the three tiny Python scripts so GitHub can actually run them.
-
-
-
+          WP_USER: ${{ secrets.WP_USER }}
+          WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
