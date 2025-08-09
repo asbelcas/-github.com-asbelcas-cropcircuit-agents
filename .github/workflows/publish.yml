@@ -34,7 +34,6 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      # Quick preflight: show which expected env names are present (names only, no values)
       - name: Preflight env check
         shell: bash
         run: |
@@ -53,7 +52,6 @@ jobs:
 
       - name: Run publish script
         env:
-          # Old/OpenAI + WordPress.com OAuth style (what your script screenshot showed)
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           SITE_BRAND: ${{ secrets.SITE_BRAND }}
           WP_SITE: ${{ secrets.WP_SITE }}
@@ -61,8 +59,6 @@ jobs:
           WP_COM_CLIENT_SECRET: ${{ secrets.WP_COM_CLIENT_SECRET }}
           WP_COM_REFRESH_TOKEN: ${{ secrets.WP_COM_REFRESH_TOKEN }}
           POSTS_PER_RUN: ${{ secrets.POSTS_PER_RUN }}
-
-          # Alternative basic auth to self-hosted WP (harmless if unused)
           WP_USER: ${{ secrets.WP_USER }}
           WP_APPLICATION_PASSWORD: ${{ secrets.WP_APPLICATION_PASSWORD }}
         run: python publish.py
