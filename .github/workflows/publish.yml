@@ -10,12 +10,11 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-
     steps:
       - name: Wait a random number of seconds (up to 900)
         run: |
           delay=$(( RANDOM % 900 ))
-          echo "Waiting $delay seconds before starting…"
+          echo "Waiting $delay seconds before starting..."
           sleep $delay
 
       - name: Checkout repository
