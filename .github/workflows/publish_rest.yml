@@ -29,4 +29,4 @@ jobs:
         run: pip install requests markdown
 
       - name: Publish posts to WordPress
-        run: python publish_to_wp.py
+        run: python y publish_to_wp_rest.py
