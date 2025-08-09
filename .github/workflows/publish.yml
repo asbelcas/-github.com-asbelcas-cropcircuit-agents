@@ -6,21 +6,22 @@ on:
     - cron: '15 17 * * *'  # 1:15 PM ET daily
     - cron: '5 22 * * *'   # 6:05 PM ET daily
     - cron: '45 3 * * *'   # 11:45 PM ET daily
-    - cron: '7 2 9 8 *'    # one-time: Aug 9 each year @ 10:07 PM ET
+    - cron: '7 2 9 8 *'    # one-time Aug 9 @ 10:07 PM ET each year
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+
     steps:
       - name: Log current date and time
         run: |
-          echo "Workflow triggered at: $(date)"
-          echo "Times are UTC in logs. Michigan is currently UTC-4."
+          echo "Workflow triggered at: $(date -u) (UTC)"
+          echo "Michigan is currently UTC-4 (EDT)."
 
       - name: Wait a random number of seconds
         run: |
           delay=$(( RANDOM % 900 ))
-          echo "Waiting $delay seconds before starting..."
+          echo "Waiting $delay seconds before starting…"
           sleep $delay
 
       - name: Checkout repository
@@ -39,7 +40,7 @@ jobs:
         run: |
           set -e
           check() { if [ -z "${!1}" ]; then echo "MISSING: $1"; else echo "OK: $1"; fi; }
-          echo "Checking OpenAI/WordPress environment variables..."
+          echo "Checking OpenAI/WordPress environment variables…"
           check OPENAI_API_KEY
           check SITE_BRAND
           check WP_SITE
