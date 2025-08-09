@@ -1,16 +1,22 @@
 name: Publish to WordPress
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:   # Allows you to run it manually
   schedule:
-    - cron: '15 13 * * *'
-    - cron: '5 18 * * *'
-    - cron: '45 23 * * *'
+    - cron: '15 17 * * *'  # 1:15 PM ET daily
+    - cron: '5 22 * * *'   # 6:05 PM ET daily
+    - cron: '45 3 * * *'   # 11:45 PM ET daily
+    - cron: '7 2 9 8 *'    # one-time: Aug 9, 2025 @ 10:07 PM ET (02:07 UTC)
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
+      - name: Log current date and time
+        run: |
+          echo "Workflow triggered at: $(date)"
+          echo "All times above are in UTC. Michigan is UTC-4 (Eastern Daylight Time)."
+
       - name: Wait a random number of seconds
         run: |
           delay=$(( RANDOM % 900 ))
