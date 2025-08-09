@@ -1,12 +1,12 @@
 name: Publish to WordPress
 
 on:
-  workflow_dispatch:   # Allows you to run it manually
+  workflow_dispatch:
   schedule:
     - cron: '15 17 * * *'  # 1:15 PM ET daily
     - cron: '5 22 * * *'   # 6:05 PM ET daily
     - cron: '45 3 * * *'   # 11:45 PM ET daily
-    - cron: '7 2 9 8 *'    # one-time: Aug 9, 2025 @ 10:07 PM ET (02:07 UTC)
+    - cron: '7 2 9 8 *'    # one-time: Aug 9 each year @ 10:07 PM ET
 
 jobs:
   publish:
@@ -15,7 +15,7 @@ jobs:
       - name: Log current date and time
         run: |
           echo "Workflow triggered at: $(date)"
-          echo "All times above are in UTC. Michigan is UTC-4 (Eastern Daylight Time)."
+          echo "Times are UTC in logs. Michigan is currently UTC-4."
 
       - name: Wait a random number of seconds
         run: |
@@ -29,13 +29,40 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: '3.11'
 
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      # Quick preflight: show which expected env names are present (names only, no values)
+      - name: Preflight env check
+        shell: bash
+        run: |
+          set -e
+          check() { if [ -z "${!1}" ]; then echo "MISSING: $1"; else echo "OK: $1"; fi; }
+          echo "Checking OpenAI/WordPress environment variables..."
+          check OPENAI_API_KEY
+          check SITE_BRAND
+          check WP_SITE
+          check WP_COM_CLIENT_ID
+          check WP_COM_CLIENT_SECRET
+          check WP_COM_REFRESH_TOKEN
+          check POSTS_PER_RUN
+          check WP_USER
+          check WP_APPLICATION_PASSWORD
+
       - name: Run publish script
         env:
+          # Old/OpenAI + WordPress.com OAuth style (what your script screenshot showed)
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SITE_BRAND: ${{ secrets.SITE_BRAND }}
+          WP_SITE: ${{ secrets.WP_SITE }}
+          WP_COM_CLIENT_ID: ${{ secrets.WP_COM_CLIENT_ID }}
+          WP_COM_CLIENT_SECRET: ${{ secrets.WP_COM_CLIENT_SECRET }}
+          WP_COM_REFRESH_TOKEN: ${{ secrets.WP_COM_REFRESH_TOKEN }}
+          POSTS_PER_RUN: ${{ secrets.POSTS_PER_RUN }}
+
+          # Alternative basic auth to self-hosted WP (harmless if unused)
           WP_USER: ${{ secrets.WP_USER }}
           WP_APPLICATION_PASSWORD: ${{ secrets.WP_APPLICATION_PASSWORD }}
         run: python publish.py
