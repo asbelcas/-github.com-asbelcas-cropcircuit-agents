@@ -18,7 +18,7 @@ jobs:
           python-version: '3.x'
 
       - name: Install dependencies
-        run: pip install requests python-wordpress-xmlrpc
+        run: pip install requests python-wordpress-xmlrpc markdown
 
       - name: Publish to WordPress
         run: python publish_to_wp.py
