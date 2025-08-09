@@ -5,7 +5,7 @@ from datetime import datetime
 wp_user = os.getenv("WP_USER")
 wp_app_password = os.getenv("WP_APP_PASSWORD")
 
-site_slug = "crop-circuit.wordpress.com"
+site_slug = "cropcircuit.wordpress.com"
 site_url = "https://public-api.wordpress.com/wp/v2/sites/" + site_slug + "/posts"
 
 post_title = f"GitHub Actions Test Post - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
