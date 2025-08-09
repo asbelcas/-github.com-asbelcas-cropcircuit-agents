@@ -1,5 +1,28 @@
-          - name: Set up Python
-        uses: actions/setup-python@v4
+name: Publish to WordPress (Randomized Times)
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '15 13 * * *'
+    - cron: '5 18 * * *'
+    - cron: '45 23 * * *'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Wait a random number of seconds (up to 900)
+        run: |
+          delay=$(( RANDOM % 900 ))
+          echo "Waiting $delay seconds before starting…"
+          sleep $delay
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
