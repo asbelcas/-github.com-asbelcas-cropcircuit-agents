@@ -1,2 +1,1 @@
 openai==0.28
-Pin OpenAI to old API version (fix ChatCompletion error)
