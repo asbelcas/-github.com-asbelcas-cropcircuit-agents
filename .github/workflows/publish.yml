@@ -30,8 +30,8 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install requests openai
-
+  run: pip install -r requirements.txt
+  
       - name: Run publish.py
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
