@@ -1,8 +1,35 @@
-on:
-  workflow_dispatch:
+name: Publish to WordPress
+
 on:
   workflow_dispatch:
   schedule:
     - cron: '15 13 * * *'
     - cron: '5 18 * * *'
     - cron: '45 23 * * *'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait a random number of seconds
+        run: |
+          delay=$(( RANDOM % 900 ))
+          echo "Waiting $delay seconds before starting..."
+          sleep $delay
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run publish script
+        env:
+          WP_USER: ${{ secrets.WP_USER }}
+          WP_APPLICATION_PASSWORD: ${{ secrets.WP_APPLICATION_PASSWORD }}
+        run: python publish.py
