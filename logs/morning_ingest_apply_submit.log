@@ -1,0 +1,32 @@
+[2026-02-15T12:45:27Z] morning_ingest_apply_submit_start
+/usr/lib/python3/dist-packages/requests/__init__.py:87: RequestsDependencyWarning: urllib3 (2.6.3) or chardet (4.0.0) doesn't match a supported version!
+  warnings.warn("urllib3 ({}) or chardet ({}) doesn't match a supported "
+/home/asbelcas/.local/lib/python3.10/site-packages/google/api_core/_python_version_support.py:275: FutureWarning: You are using a Python version (3.10.12) which Google will stop supporting in new releases of google.api_core once it reaches its end of life (2026-10-04). Please upgrade to the latest Python version, or at least Python 3.11, to continue receiving updates for google.api_core past that date.
+  warnings.warn(message, FutureWarning)
+Traceback (most recent call last):
+  File "/home/asbelcas/cropcircuit/bin/pull_targets_from_gmail.py", line 202, in <module>
+    raise SystemExit(main())
+  File "/home/asbelcas/cropcircuit/bin/pull_targets_from_gmail.py", line 177, in main
+    msg_id, subject, body = gmail_fetch_latest()
+  File "/home/asbelcas/cropcircuit/bin/pull_targets_from_gmail.py", line 138, in gmail_fetch_latest
+    raise RuntimeError(f"missing credentials file: {CREDS_FILE}")
+RuntimeError: missing credentials file: /home/asbelcas/.config/cropcircuit/gmail_credentials.json
+[2026-02-15T12:45:27Z] gmail_ingest_failed_fallback_prompt
+[2026-02-15T12:45:27Z] morning_apply_submit_start session=/home/asbelcas/cropcircuit/runtime/morning_targets.json
+[2026-02-15T12:45:27Z] program_index_start index=0
+[2026-02-15T12:45:27Z] program_index_result index=0 rc=3 result={"status": "error", "program": "USDA FSA Operating Microloan", "selected_page_url": "", "filled_fields": [], "click_selector": "", "screenshot_path": "", "errors": ["cdp_preflight_failed: <urlopen error [Errno 111] Connection refused>"]}
+[2026-02-15T12:45:27Z] morning_apply_submit_complete status=failed
+[2026-02-15T14:09:13Z] morning_ingest_apply_submit_start
+/usr/lib/python3/dist-packages/requests/__init__.py:87: RequestsDependencyWarning: urllib3 (2.6.3) or chardet (4.0.0) doesn't match a supported version!
+  warnings.warn("urllib3 ({}) or chardet ({}) doesn't match a supported "
+/home/asbelcas/.local/lib/python3.10/site-packages/google/api_core/_python_version_support.py:275: FutureWarning: You are using a Python version (3.10.12) which Google will stop supporting in new releases of google.api_core once it reaches its end of life (2026-10-04). Please upgrade to the latest Python version, or at least Python 3.11, to continue receiving updates for google.api_core past that date.
+  warnings.warn(message, FutureWarning)
+Traceback (most recent call last):
+  File "/home/asbelcas/cropcircuit/bin/pull_targets_from_gmail.py", line 202, in <module>
+    raise SystemExit(main())
+  File "/home/asbelcas/cropcircuit/bin/pull_targets_from_gmail.py", line 177, in main
+    msg_id, subject, body = gmail_fetch_latest()
+  File "/home/asbelcas/cropcircuit/bin/pull_targets_from_gmail.py", line 138, in gmail_fetch_latest
+    raise RuntimeError(f"missing credentials file: {CREDS_FILE}")
+RuntimeError: missing credentials file: /home/asbelcas/.config/cropcircuit/gmail_credentials.json
+[2026-02-15T14:09:14Z] gmail_ingest_failed_fallback_prompt

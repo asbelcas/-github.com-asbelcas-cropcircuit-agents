@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+TIMEOUT_SECONDS="${CLAUDE_REVIEW_TIMEOUT_SECONDS:-60}"
+MODEL_ARGS=()
+if [[ -n "${CLAUDE_REVIEW_MODEL:-}" ]]; then
+  MODEL_ARGS+=("--model" "${CLAUDE_REVIEW_MODEL}")
+fi
+
+if [[ ! -t 0 ]]; then
+  PROMPT="$(cat)"
+else
+  PROMPT="${1:-}"
+fi
+
+if [[ -z "$PROMPT" ]]; then
+  echo "ERROR: no prompt provided to claude_review" >&2
+  exit 2
+fi
+
+if ! command -v claude >/dev/null 2>&1; then
+  echo "ERROR: claude CLI not installed" >&2
+  exit 3
+fi
+
+set +e
+OUT="$(timeout "${TIMEOUT_SECONDS}s" claude -p "${PROMPT}" "${MODEL_ARGS[@]}" 2>&1)"
+RC=$?
+set -e
+
+if [[ $RC -eq 124 ]]; then
+  echo "ERROR: claude_review timeout after ${TIMEOUT_SECONDS}s" >&2
+  exit 124
+fi
+if [[ $RC -ne 0 ]]; then
+  echo "ERROR: claude_review failed (rc=$RC)" >&2
+  echo "$OUT" >&2
+  exit "$RC"
+fi
+
+printf '%s\n' "$OUT"

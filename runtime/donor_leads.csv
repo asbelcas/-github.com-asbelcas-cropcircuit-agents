@@ -1,0 +1,4 @@
+timestamp_utc,name,email,phone,interest,amount_range,message,status,welcome_sent,followup_1_date,followup_2_date,followup_3_date
+2026-02-16T01:10:59+00:00,Test Donor,donor.test@example.com,2695550101,monthly,100-250,Interested in soil health work.,NEW,,2026-02-19,2026-02-23,2026-03-02
+2026-02-16T01:12:09+00:00,Webhook Lead,webhook.lead@example.com,2695550133,one-time,250-500,Testing webhook->bridge->watcher->handler path,NEW,,2026-02-19,2026-02-23,2026-03-02
+2026-02-16T01:24:05+00:00,Watcher File Donor,watcher.file.donor@example.com,2695550155,monthly,250-500,auto file bridge test,NEW,,2026-02-19,2026-02-23,2026-03-02

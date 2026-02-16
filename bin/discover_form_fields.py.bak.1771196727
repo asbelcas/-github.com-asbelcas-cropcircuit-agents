@@ -1,0 +1,369 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import json
+import os
+from datetime import datetime, timezone
+from pathlib import Path
+from urllib.parse import urlsplit
+
+
+ROOT = Path("/home/asbelcas/cropcircuit")
+OUT_FILE = ROOT / "runtime" / "field_map.json"
+DUMP_FILE = ROOT / "runtime" / "field_dump.json"
+
+
+def now_iso() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+
+
+def safe_url(page):
+    try:
+        return page.url or ""
+    except Exception:
+        return ""
+
+
+def _target_domain_path(target_url: str) -> str:
+    if not target_url:
+        return ""
+    parts = urlsplit(target_url)
+    return f"{parts.netloc}{parts.path}".lower()
+
+
+def _wait_for_redirect_stabilization(page, timeout_ms: int = 10000):
+    try:
+        page.wait_for_load_state("domcontentloaded", timeout=timeout_ms)
+    except Exception:
+        pass
+    stable_rounds = 0
+    last = safe_url(page)
+    deadline = datetime.now(timezone.utc).timestamp() + (timeout_ms / 1000.0)
+    while datetime.now(timezone.utc).timestamp() < deadline:
+        page.wait_for_timeout(250)
+        current = safe_url(page)
+        if current == last:
+            stable_rounds += 1
+        else:
+            stable_rounds = 0
+            last = current
+        if stable_rounds >= 4:
+            break
+    return safe_url(page)
+
+
+def _count_form_elements(root):
+    selectors = {
+        "input": "input",
+        "textarea": "textarea",
+        "select": "select",
+        "submit_button": "button[type='submit']",
+    }
+    counts = {}
+    for key, sel in selectors.items():
+        try:
+            counts[key] = root.locator(sel).count()
+        except Exception:
+            counts[key] = 0
+    return counts
+
+
+def _count_inputs_selects_textareas(root):
+    counts = {}
+    for key, sel in {"input": "input", "textarea": "textarea", "select": "select"}.items():
+        try:
+            counts[key] = root.locator(sel).count()
+        except Exception:
+            counts[key] = 0
+    counts["total"] = counts["input"] + counts["textarea"] + counts["select"]
+    return counts
+
+
+def _safe_frame_url(frame):
+    try:
+        return frame.url or ""
+    except Exception:
+        return ""
+
+
+def _is_captcha_url(url: str) -> bool:
+    low = (url or "").lower()
+    for token in ["mtcaptcha", "captcha", "recaptcha", "hcaptcha", "turnstile"]:
+        if token in low:
+            return True
+    return False
+
+
+def _build_field_dump(scan_root, limit=30):
+    dump = []
+    loc = scan_root.locator("input,textarea,select,button")
+    total = loc.count()
+    for i in range(min(total, limit)):
+        el = loc.nth(i)
+        tag = ""
+        outer = ""
+        value = ""
+        try:
+            tag = (el.evaluate("e => e.tagName") or "").lower()
+        except Exception:
+            tag = ""
+        try:
+            outer = (el.evaluate("e => (e.outerHTML || '').slice(0, 160)") or "").strip()
+        except Exception:
+            outer = ""
+        try:
+            if tag in {"input", "textarea", "select"}:
+                value = (el.input_value(timeout=1200) or "").strip()
+            else:
+                value = (el.get_attribute("value") or "").strip()
+        except Exception:
+            value = ""
+        try:
+            visible = bool(el.is_visible())
+        except Exception:
+            visible = False
+        dump.append(
+            {
+                "tagName": tag,
+                "type": (el.get_attribute("type") or "").strip(),
+                "id": (el.get_attribute("id") or "").strip(),
+                "name": (el.get_attribute("name") or "").strip(),
+                "placeholder": (el.get_attribute("placeholder") or "").strip(),
+                "aria-label": (el.get_attribute("aria-label") or "").strip(),
+                "required": bool(el.get_attribute("required") is not None),
+                "value": value,
+                "isVisible": visible,
+                "outerHTML": outer,
+            }
+        )
+    return dump
+
+
+def _safe_key(raw: str, fallback: str):
+    cleaned = "".join(ch.lower() if ch.isalnum() else "_" for ch in raw).strip("_")
+    return cleaned or fallback
+
+
+def _has_captcha_hint(*values: str) -> bool:
+    joined = " ".join(v or "" for v in values).lower()
+    for token in ["mtcaptcha", "captcha", "recaptcha", "hcaptcha", "turnstile"]:
+        if token in joined:
+            return True
+    return False
+
+
+def _discover_fields_relaxed(scan_root):
+    discovered = {}
+    key_counts = {}
+    loc = scan_root.locator("input,textarea,select")
+    for i in range(loc.count()):
+        el = loc.nth(i)
+        try:
+            tag = (el.evaluate("e => e.tagName") or "").lower()
+        except Exception:
+            tag = ""
+        fid = (el.get_attribute("id") or "").strip()
+        name = (el.get_attribute("name") or "").strip()
+        aria = (el.get_attribute("aria-label") or "").strip()
+        if _has_captcha_hint(fid, name, aria):
+            continue
+        if not (fid or name or aria):
+            continue
+        if fid:
+            selector = f"#{fid}"
+            raw_key = fid
+        elif name:
+            selector = f"{tag}[name='{name}']"
+            raw_key = name
+        else:
+            selector = f"{tag}[aria-label='{aria}']"
+            raw_key = aria
+        base = _safe_key(raw_key, f"field_{i + 1}")
+        next_idx = key_counts.get(base, 0) + 1
+        key_counts[base] = next_idx
+        key = base if next_idx == 1 else f"{base}_{next_idx}"
+        discovered[key] = selector
+    return discovered
+
+
+def _submit_counts(scan_root):
+    counts = {"input_type_submit": 0, "button_type_submit": 0, "button_text_or_value_submit_continue": 0}
+    try:
+        counts["input_type_submit"] = scan_root.locator("input[type='submit']").count()
+    except Exception:
+        pass
+    try:
+        counts["button_type_submit"] = scan_root.locator("button[type='submit']").count()
+    except Exception:
+        pass
+    try:
+        counts["button_text_or_value_submit_continue"] = scan_root.locator(
+            "button:has-text('Submit'), button:has-text('Continue'), button[value*='Submit' i], button[value*='Continue' i]"
+        ).count()
+    except Exception:
+        pass
+    return counts
+
+
+def _aggregate_submit_counts(frames):
+    total = {"input_type_submit": 0, "button_type_submit": 0, "button_text_or_value_submit_continue": 0}
+    for frame in frames:
+        counts = _submit_counts(frame)
+        for k in total:
+            total[k] += counts.get(k, 0)
+    return total
+
+
+def attach_page(browser, target_url: str):
+    urls = []
+    pages = []
+    for ctx in browser.contexts:
+        for p in ctx.pages:
+            if p.is_closed():
+                continue
+            pages.append(p)
+            urls.append(safe_url(p))
+
+    selected = None
+    reason = ""
+    if target_url:
+        lt = target_url.lower()
+        for p in pages:
+            u = safe_url(p).lower()
+            if lt in u:
+                selected = p
+                reason = "matched_existing_page_by_target_url_substring"
+                break
+
+    if selected is None:
+        ctx = browser.new_context()
+        selected = ctx.new_page()
+        if target_url:
+            selected.goto(target_url, wait_until="domcontentloaded", timeout=30000)
+        final_url = _wait_for_redirect_stabilization(selected)
+        expected = _target_domain_path(target_url)
+        actual = _target_domain_path(final_url)
+        if expected and expected not in actual:
+            raise RuntimeError(
+                f"final_url_domain_path_mismatch expected_contains='{expected}' actual='{actual}'"
+            )
+        reason = "created_new_page_and_navigated_to_target_url"
+        urls.append(final_url)
+
+    return selected, {"total_page_count": len(pages), "page_urls": urls, "selection_reason": reason}
+
+
+def main() -> int:
+    cdp = os.environ.get("CDP_URL", "http://127.0.0.1:9222").strip()
+    target = os.environ.get("TARGET_URL", "").strip() or os.environ.get("GRANT_TARGET_URL", "").strip()
+    program_name = os.environ.get("PROGRAM_NAME", "USDA FSA Operating Microloan").strip()
+
+    from playwright.sync_api import sync_playwright
+
+    with sync_playwright() as p:
+        browser = p.chromium.connect_over_cdp(cdp, timeout=15000)
+        page, attach_info = attach_page(browser, target)
+        dom_ready = False
+        try:
+            page.wait_for_load_state("networkidle", timeout=15000)
+            dom_ready = True
+        except Exception:
+            dom_ready = False
+        page.wait_for_timeout(3000)
+
+        iframe_count = max(0, len(page.frames) - 1)
+        element_counts = _count_form_elements(page)
+        selectors_found = [k for k, v in element_counts.items() if v > 0]
+        frame_counts = []
+        eligible_frames = []
+        preferred_frames = []
+        target_domain_path = _target_domain_path(target)
+        for idx, frame in enumerate(page.frames):
+            counts = _count_inputs_selects_textareas(frame)
+            frame_url = _safe_frame_url(frame)
+            frame_domain_path = _target_domain_path(frame_url)
+            is_captcha = _is_captcha_url(frame_url)
+            matches_target = bool(target_domain_path and target_domain_path in frame_domain_path)
+            frame_data = {
+                "frame_index": idx,
+                "frame_url": frame_url,
+                "counts": counts,
+                "captcha_blacklisted": is_captcha,
+                "matches_target_domain_path": matches_target,
+            }
+            frame_counts.append(frame_data)
+            if not is_captcha:
+                eligible_frames.append((frame, frame_data))
+                if matches_target:
+                    preferred_frames.append((frame, frame_data))
+
+        best_frame = page.main_frame
+        best_frame_data = {
+            "frame_index": 0,
+            "frame_url": safe_url(page),
+            "counts": _count_inputs_selects_textareas(page.main_frame),
+            "captcha_blacklisted": _is_captcha_url(safe_url(page)),
+            "matches_target_domain_path": bool(target_domain_path and target_domain_path in _target_domain_path(safe_url(page))),
+        }
+        best_pool = preferred_frames if preferred_frames else eligible_frames
+        if best_pool:
+            best_frame, best_frame_data = max(best_pool, key=lambda x: x[1]["counts"]["total"])
+        best_frame_url = best_frame_data["frame_url"]
+        scan_root = best_frame
+
+        discovered = _discover_fields_relaxed(scan_root)
+        submit_counts = _aggregate_submit_counts(page.frames)
+        field_dump = _build_field_dump(scan_root, limit=30)
+        DUMP_FILE.parent.mkdir(parents=True, exist_ok=True)
+        dump_out = {
+            "timestamp_utc": now_iso(),
+            "program": program_name,
+            "target_url": target,
+            "selected_page_url": safe_url(page),
+            "best_frame_url": best_frame_url,
+            "counts_per_frame": frame_counts,
+            "submit_counts": submit_counts,
+            "elements": field_dump,
+        }
+        DUMP_FILE.write_text(json.dumps(dump_out, indent=2), encoding="utf-8")
+
+        # Persist structure as per-program map
+        OUT_FILE.parent.mkdir(parents=True, exist_ok=True)
+        existing = {}
+        if OUT_FILE.exists():
+            try:
+                existing = json.loads(OUT_FILE.read_text(encoding="utf-8"))
+            except Exception:
+                existing = {}
+        if not isinstance(existing, dict):
+            existing = {}
+        existing[program_name] = discovered
+        OUT_FILE.write_text(json.dumps(existing, indent=2), encoding="utf-8")
+
+        out = {
+            "status": "ok",
+            "timestamp_utc": now_iso(),
+            "program": program_name,
+            "total_page_count": attach_info["total_page_count"],
+            "page_urls": attach_info["page_urls"],
+            "selected_page_url": safe_url(page),
+            "selection_reason": attach_info["selection_reason"],
+            "dom_ready": dom_ready,
+            "element_counts": element_counts,
+            "iframe_count": iframe_count,
+            "selectors_found": selectors_found,
+            "best_frame_url": best_frame_url,
+            "counts_per_frame": frame_counts,
+            "submit_counts": submit_counts,
+            "field_dump_path": str(DUMP_FILE),
+            "field_dump_summary": {"dumped_elements": len(field_dump), "dump_limit": 30},
+            "discovered_keys_count": len(discovered),
+            "discovered": discovered,
+            "saved_to": str(OUT_FILE),
+        }
+        print(json.dumps(out))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

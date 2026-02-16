@@ -1,0 +1,16 @@
+{
+  "consecutive_degrade": 0,
+  "auto_patch_enabled": true,
+  "last_change": {
+    "timestamp": "2026-02-13T11:48:03Z",
+    "improvement": "Add a simple retry with exponential backoff on HA event delivery failure to handle transient network blips.",
+    "patch_type": "retry_logic",
+    "risk": "low",
+    "action": "auto_patch_applied",
+    "target": "/home/asbelcas/cropcircuit/.env.grant",
+    "backup": "/home/asbelcas/cropcircuit/patches/backups/env_20260213114803.bak",
+    "summary": "HA_RETRY_MAX 5->6"
+  }
+}stable
+stable
+stable

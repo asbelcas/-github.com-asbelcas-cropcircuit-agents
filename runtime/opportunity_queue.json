@@ -1,0 +1,978 @@
+{
+  "opportunities": [
+    {
+      "id": "opp_20260216_2092044c",
+      "type": "GRANT",
+      "source_type": "EMAIL",
+      "source_email": "test@example.com",
+      "subject": "Test Grant Opportunity",
+      "detected_at": "2026-02-16T00:56:28+00:00",
+      "deadline": null,
+      "amount_usd": 10000,
+      "links": [],
+      "keywords": [
+        "grant",
+        "agriculture"
+      ],
+      "snippet": "This is a dry-run test opportunity.",
+      "status": "NEW",
+      "program_id": null,
+      "notes": "dry-run test"
+    },
+    {
+      "id": "opp_20260216_6c55395a",
+      "type": "GRANT",
+      "source_type": "EMAIL",
+      "source_email": "usdafarmers@public.govdelivery.com",
+      "subject": "Welcome and thank you for subscribing",
+      "detected_at": "2026-02-16T01:13:37+00:00",
+      "deadline": null,
+      "amount_usd": null,
+      "links": [
+        "https://www.farmers.gov",
+        "https://public.govdelivery.com/accounts/USDAFARMERS/subscriber/new?preferences=true#tab1",
+        "https://www.fsa.usda.gov/",
+        "https://www.nrcs.usda.gov",
+        "https://www.rma.usda.gov/",
+        "https://www.farmers.gov/service-locator",
+        "https://www.flickr.com/photos/farmersgov/",
+        "https://public.govdelivery.com/accounts/USDAFARMERS/subscriber/edit?preferences=true#tab1",
+        "https://subscriberhelp.govdelivery.com/",
+        "https://www.farmers.gov/"
+      ],
+      "keywords": [
+        "conservation",
+        "agriculture",
+        "USDA",
+        "NRCS",
+        "FSA",
+        "deadline"
+      ],
+      "snippet": "Farmers.gov  [ https://www.farmers.gov ]  \r \r Thank you for subscribing to email alerts from Farmers.gov! You\u2019ll receive the latest news and updates on program announcements, deadline reminders and more from the Farm Service Agency, Natural Resources Conservation Service and Risk Management Agency.",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_0b0b57b4",
+      "type": "GRANT",
+      "source_type": "EMAIL",
+      "source_email": "baasdean@msu.edu",
+      "subject": "b'RE: Following Up \\x97 MDARD Regenerative Grant Partnership (MSU Extension - Sustainable Ag Educator)'",
+      "detected_at": "2026-02-16T01:13:37+00:00",
+      "deadline": "February 15, 2026",
+      "amount_usd": null,
+      "links": [],
+      "keywords": [
+        "grant",
+        "application",
+        "agriculture",
+        "MDARD",
+        "regenerative"
+      ],
+      "snippet": "Hi Casey,\r \r Since I am retired, I am no longer an employee of MSUE and cannot participate in or represent MSUE on any grant applications. Please contact:\r \r Sarah Zeiler\r Extension Environmental Management Educator and Sustainable Agriculture Research and Education Coordinator for Michigan\r Michiga",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_87de71f5",
+      "type": "LOAN",
+      "source_type": "EMAIL",
+      "source_email": "silpada@email.silpada.com",
+      "subject": "b'\\xe2\\xad\\x90 20% OFF EVERYTHING \\xe2\\x80\\xa2 25% OFF FOR MEMBERS \\xe2\\x9e\\x94 '",
+      "detected_at": "2026-02-16T01:13:38+00:00",
+      "deadline": "2/10/26",
+      "amount_usd": 50,
+      "links": [
+        "https://enews.silpada.com/q/qPvOCrVKzHucfVprl1MLl_sJb7abWxwIYbq3nZspR-3eEKkQtMVg3ai5P",
+        "https://enews.silpada.com/q/YfHHHA4P_Om0XTMkI4xt8pYXj9gzOvTPqpMZcOJYXNiZWxjYXNAZ21haWwuY29tw4giY6-w6C1e4zLK0JT5PwsFJIyIuw",
+        "https://enews.silpada.com/q/69F--ZPrzuV0XR1N0rD7mF6w93FWuW1Cjf5ZcOJYXNiZWxjYXNAZ21haWwuY29tw4gbyJkJWEFcbJLdlxyFwduxBmokYQ",
+        "https://enews.silpada.com/q/0BVEEb5diVw0XobG-ll13VjY7QPrVewpSbrZcOJYXNiZWxjYXNAZ21haWwuY29tw4gMnubJCXCdKfL0wZvydFvhmjd9ng",
+        "https://enews.silpada.com/q/QT-00uPji9w0XXwjLJra61oCF55x9gVa0JRZcOJYXNiZWxjYXNAZ21haWwuY29tw4gKNJy8tTBeK5LcvDD-QyUyYC3Udw",
+        "https://enews.silpada.com/q/YJrooWS8ofW0XZ_GfHtN3wjd5Qqnf0MKqAhZcOJYXNiZWxjYXNAZ21haWwuY29tw4gdQbayvgNf6WLX5BH84fYtIXAA3w",
+        "https://enews.silpada.com/q/jmvhhehS-Pm0XaaOckVEHC3rPcJOP1Sh2wYZcOJYXNiZWxjYXNAZ21haWwuY29tw4g6JSZuXrnfJ2L5desldIb0J-2SnA",
+        "https://enews.silpada.com/q/SCF33sc8VX90X11raBDUNrSYjWCxXsSZWjWZcOJYXNiZWxjYXNAZ21haWwuY29tw4gcr_aFpiad4ZL-RrBXvCuzane53w",
+        "https://enews.silpada.com/q/3kLYY4A4JK10XI_kuU_B8dY39qvfKusd1q_ZcOJYXNiZWxjYXNAZ21haWwuY29tw4gn9t6OrzbdrqLDxgzDqRIXIprdfw",
+        "https://enews.silpada.com/q/v1_ooRphxtJ0XU99UI9P0eihHu87tj-FPk-ZcOJYXNiZWxjYXNAZ21haWwuY29tw4gmvVU9LJbe5wLpnkwr96E9g5_zUQ"
+      ],
+      "keywords": [
+        "loan",
+        "apply"
+      ],
+      "snippet": "View in Browser (https://enews.silpada.com/q/qPvOCrVKzHucfVprl1MLl_sJb7abWxwIYbq3nZspR-3eEKkQtMVg3ai5P)\r \r Free ground shipping* on orders $50+.\r \r Silpada (https://enews.silpada.com/q/YfHHHA4P_Om0XTMkI4xt8pYXj9gzOvTPqpMZcOJYXNiZWxjYXNAZ21haWwuY29tw4giY6-w6C1e4zLK0JT5PwsFJIyIuw)\r \r  <table width=\"10",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_9a291d57",
+      "type": "DONATION",
+      "source_type": "EMAIL",
+      "source_email": "asbelcas@gmail.com",
+      "subject": "b'Farm Ops Report \\xe2\\x80\\x94 Feb 15, 2026'",
+      "detected_at": "2026-02-16T01:13:38+00:00",
+      "deadline": "Feb 15, 2026",
+      "amount_usd": 50,
+      "links": [],
+      "keywords": [
+        "grant",
+        "agriculture",
+        "NRCS",
+        "regenerative"
+      ],
+      "snippet": "============================================================ MORNING FIELD REPORT \u2014 Day 6, Week 1 Sunday, February 15, 2026 ============================================================  *** TODAY'S PRIORITY: WORKSHOP + REVIEW \u2014 List your first paid event. ***  --- WORK SCHEDULE ---    [    ] 7:00-8:",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_3e310da4",
+      "type": "GRANT",
+      "source_type": "EMAIL",
+      "source_email": "asbelcas@gmail.com",
+      "subject": "b'Farm Intel Brief \\xe2\\x80\\x94 Feb 15, 2026'",
+      "detected_at": "2026-02-16T01:13:38+00:00",
+      "deadline": "Feb 15, 2026",
+      "amount_usd": 700,
+      "links": [
+        "https://news.google.com/rss/articles/CBMisAFBVV95cUxNbE5pRWxFbGpST3FaVFRxQjYtUmlPRXZoQmg2Y2l1MWV4XzJEcWlYQjhpX21FTkRzTUFIUFlnU1R0MzNTdmFhRjhTOVlZNHZtdUQwYkZBUTY4NkZUeTQ1cElPWXNLSGRYOU95RWdDdUYxT3VRMXJuVm1mZHNCd2dlOG14aHZNbGEtMUFUbldLYkpnc1pmcUdRNlY3YVJXZTlxRC1COWt3RXNXYlh6bk5KUg?oc=5",
+        "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNenJQRk1mc0xxbV9vQkNIUC1ER3ZnU1pGMGpVWGRxTlRQTkhHY0FXWDFyeFplcnFfWkVqREhRcWxwb1hiMTV3eTZ0OGVBNlpEY3o1OURkSjhjWkk2NUxlWEQ0UWdOMGhoaG8xZ2hkNF9hWjB5bFNwZW0wVW1ZLVpJTGNKQVlfeXBQRUdET25CNXFhR0doazdtLWxWV0IzcWE0bGZ0VF8yZEg?oc=5",
+        "https://news.google.com/rss/articles/CBMiigFBVV95cUxPLUNGMUthUGFhLVVNcTFibGxQZkMyMGMtX0Fjd0hYVlM3aVUwUlF3bEhISUVUNHZ3T0lUNDVOSlV5VnN5cEJhQXdmb0M5TFhJbUU2SXE1NkRTa0ZIYjc3SVVIT2NVLTJjNWM3WWQ1SU5GZnlLaWZfRE9qMDlYbmppMFkwODJIWGFHY2c?oc=5",
+        "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOZU1jUVlFU3R5UmYxS3hjQ013NzNmbmJlWGo3RXgwbGlFc1hxTVZhVTJMOVVFc1haVGZpbW40a05nS3N3Q1RjYUlGRUJEVEJxaktQR2lSbHpmSjVyeVNqSTlkY3pQTDBvQ0tUNDBya3E3eG14emM0U2I0Z0N5ZU9XaXQwRTVNWWV1SXhVVEtBeW1ST1dvRVJ2UVM3aURCM0M2akdhNlY3N0Q0TnNGbm5yWTZsX3VueFNBWU0xUTR5N19uSUlSNUliT1c2a0t1Ml9LZFNpczVjaENOaGZQ?oc=5",
+        "https://news.google.com/rss/articles/CBMinwFBVV95cUxQRG9icGFOcTBKbzNhSkNHdlRuNGlSMnVYSURiQkp6b2t1WTNkU093SlhWTGlVdmVwS0FGRHA2X2tvUTRKRmJkc2ZXc0g4MUhjbU5LT2dHY29CQWotQlpSVHg4MU41NDc2MHE1eUpya3dVOTdPN0dNYVJGN1h5dm1TX0R4OUVDUkdPVENtLXB2VDN6QTVEOXFlYW9IRlVmNkU?oc=5",
+        "https://news.google.com/rss/articles/CBMirgFBVV95cUxNbEI0SnAzWUFsc3gxaDNOcXMzbFNGQXNUNE5BOHQ4RlRZN1l2QXRIM09aZUJtbkpZSUFuZ09WRVFoN21TWTdiSldxLXJtQW1nNjdyOEc5VHpZN09LeG1rR1NRQmhseDFaRjdIanFQclBmZWxTS3lqV09IYmNYSVJldkVXRkRsc1B4dU5FMXBXYS00UHlIWDFrNjhMamswdjVFcUI2b0U4WUZ4MFBSUHc?oc=5",
+        "https://news.google.com/rss/articles/CBMic0FVX3lxTE1IUDdxQmV6V21qaFIySmZyTEF6cWR1TmFXN0pOV0d4NElrTW1tM3FzYU1TeUlKTF9ZUHRmTExIV2h0SXNYaFNaVzA0OVU3WGVoeEFtRHZCVEJ3UzluRFNCTmMtd0lwZTlRa0hDZDM4c3Y2R0k?oc=5",
+        "https://news.google.com/rss/articles/CBMinAFBVV95cUxPU2tWVkNpUDVHYWRrS2dSa2RKRTQtdkJVQXlNaFo5VnhXS0ExZEh1VkZieWhqVTFnel9WVUsyS2F6ZFB0Y3ZsWDlvTjVtOVlVOUREUUdqWHdIdENuZHBaQjNfSnp5UkswRHRoaUdUOWtySWp6VVpOV0FEV2JSRzBaNVd6SENKcy1lUW9xOGZBbVZOYzFiSGxDNU9kbUw?oc=5",
+        "https://news.google.com/rss/articles/CBMipgFBVV95cUxPR1BwemtMU2hOakRlN2ZYUDVSU0Rub3p1cGppUzVhWmxwakVaRDFJUlZXVTk1R09jNlhUMnZGdGQ1NHJIZGl2Vl9ydnRlb3JfVWg3RUt3QnZoVkNQbFVMQldaZ0tPMVJOMFRjckJTYjJ5UWI0ZXlhcnhnY1pHenhyczdVRlVUamV6NUZhT25SaEZuQkJaQ2U4S2dKM0pNTGVlaTczME1R?oc=5",
+        "https://news.google.com/rss/articles/CBMikAFBVV95cUxNdDZERmpzQWo2eEU5VXJwMDRPN3lxd09tMnM5Wnl3ZFZkMVhYb1dMOTBoN3ZlRlg2aWprbjRDWTBrS3RMVUo2dHAxWXg4TTI2N3VJZHdhYm03cE93RjY0ZmhNWUs5clVqbWJZVF9MdWNqRG5LZFd0TE5abnhTNkgwQnJfODNfMTIwVVl2a3FjT2Y?oc=5"
+      ],
+      "keywords": [
+        "grant",
+        "funding",
+        "application",
+        "conservation",
+        "agriculture",
+        "USDA",
+        "regenerative"
+      ],
+      "snippet": "# DAILY INTELLIGENCE BRIEF **Date:** Sunday, February 15, 2026 | Day 6 **Focus:** Regenerative agriculture, climate adaptation, livestock systems **Sources scanned:** 10 feeds **Relevant articles found:** 13  ---  ## FUNDING & GRANTS  ### USDA Value-Added Producer Grant Open for Application - CLA (C",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_e3730f3d",
+      "type": "LOAN",
+      "source_type": "EMAIL",
+      "source_email": "thredup@email.thredup.com",
+      "subject": "14 new items for Dresses \"Black metallic long sleeve shift dress with pleated texture and oversized balloon sleeves\" including markdowns!",
+      "detected_at": "2026-02-16T01:13:38+00:00",
+      "deadline": null,
+      "amount_usd": 898,
+      "links": [
+        "https://smart-shopping.thredup.com/assets/responsysimages/content/thredup/email_banner@650.jpg",
+        "https://clicks.thredup.com/q/JXsvGeM7tZoGf7MzwKWMSg~~/AAQRxRA~/ZMIVCIp8MP8zssUiDGdqkUa4bqR3UKVsiGocO9otj7ZHkiZBCAVw_5oqwV-4jz5vEVYESeVPcHRBEpnSGVog0g~~",
+        "https://clicks.thredup.com/f/open-in-app/fsw1bW8ot-euUfqcSpsBcw~~/AAQRxRA~/HzwVILmpqESbej1VYF3gnjDyoBwc52ULotiw-a1yuvJHchs71NCIRtvhPIsCWFF7l3cakGBK34ZluJXoZKdSElAUveLbhNHsgShzADkmaf1TV52gJ2JlhTiopldfOwx0jE_NokW7ysKwj2phcumlj3BSafeEXJ1ARgA_foW9GBu_Ib6gcFz25TBk1C71aD9H7rEp4whQNHBodlWvT8ZIBV9KlrgIUfEnk5wT073BQzhJoO0Mya0DxU3sC0N26yW7USf3gAjYsadAPhdkDsrXBvY01kPQchVfNC5Ieg_Vhs2n31qgCDTfhBt0iv9IGOFZbmhDXgBRo3MLhSNF5WcGvENhp0nEfp9SGF9VwafeGXQ1C9gBL_D0xVnrbnUP5gDi_HI561yzRtI3r3k2mBW0bW5v3ZiGn3MO-YJSukV7pTA~",
+        "https://clicks.thredup.com/f/open-in-app/6Oc1ExJrvVZ2otgvk8WDiw~~/AAQRxRA~/OiBNa6yU8BT6jkGbLvY3Adk_uZGSZO67gbPWIXl-8q15d1FdnPX-KcYSPY5bEk2NT9vPXujq_AYRt93j69aFUVpxr9BL9yzOqkysHrJ5gq7h5yqCMzIIijxf1mfmx47YWpuSm-eAHcJ2zU4bo78cmksyMFDnhjHxzOPvTyUCED6LbEaKHYEDYmCWIjg1IC2uesjhhfUboWLUSsqr5LMaq5TBGf1FBXak5IwQp8p9W9M~",
+        "https://braze-images.com/appboy/communication/assets/image_assets/images/68c0911a977d390064827fb7/original.png?1757450522",
+        "https://clicks.thredup.com/f/open-in-app/fzqtMXVDt9L9UdB1-PQSiQ~~/AAQRxRA~/DtfJV5zpCvN0OoBqkAuC8JrABYd56vdngg-zjDLvYxJ5X8XAWy2mDmWlbXbCvOoKKWpXOOOL-kfm7xogyhuO3C0fYgN7Jc6kMv4qwD4YKRWrvnbU5IhWrbc5jPWyWiPcj9ficJmXLESd_o1HZWRB516AEgisPutYFEIt0ffurAlisvazTQZiBxWvA4lXWiDf32iE32gcdF-gU83LNL36EUk2JADYvzYnD98duf1CWfURo4H0FKkSbJuYZDxwODBs",
+        "https://clicks.thredup.com/f/open-in-app/lUsO_10xA8s6bwWOlMu8PQ~~/AAQRxRA~/ZQD7H4pPMWaTCaqLetNfbyCA5sPZBUe5fijExPCc1iQEGttEodEcScbZElLkEBo2tjtcx4VOq5dGY5xx3EOIjPmOKsrWfhkmlxGpO0EAOAPBro8HhrJ-WpptxzaXDlWIlVpKsEGR0OgMBqF6XSYBMvKQexyv1o4F1aI_xJXBZ3SWZHzzRfrA2cio0EH-8xpcFvZXWzd7aTQFJcOktr3jEecEA5ngaHCVOMoFQ0YcdnGx64WgQFnxSaeZoPDvUWeL",
+        "https://clicks.thredup.com/f/open-in-app/khDW6frBPi5qPUdTR0_kRg~~/AAQRxRA~/DtfJV5zpCvN0OoBqkAuC8JrABYd56vdngg-zjDLvYxLMK045Io4OyvETL0m7xDAm_6f2A-zo0cXJQ9dgL7zTsUY5MXK48elmS41wK0-TwNe4BpSaLLA3FgNQ2xPlsUUZLLKyvuRVIUBqC_UI_rdTpC9PKY-bu0UdvDc1R-36R5CkJsqNJfuSbfqzIAbRHtDn3QZi2Y9Vsc7O76Up0PWMLErPU2XXm6cOLWOJXr8EUNjQ2r3CP0NGWEFEKlmRQUP9",
+        "https://clicks.thredup.com/f/open-in-app/kF7aEMU-r_TCUEJKQrCTgg~~/AAQRxRA~/0K77NEMX0-HBFImbRHQfjZf65r9Junf_2NWzpBq2iE_LzIRkt-vFSZ6WCF7MX0qqt1Zp3tsUuNqss7W9l0DYeOuJq9UQEiyWuEtiQViBSK_l4Xiz_enHGnE_6YpbHXoa2EmC0rMrckieBLdWi_U1VRrspFI3V42ewJXt72XqeIHB1P3FqDasbbnFOrTwg63FH6jrK8Usz-7qwsqVMi5EbW9GtaVwrznUJDB4DsCUron5JpUJKFHlzFmJhNr05JwM",
+        "https://braze-images.com/appboy/communication/assets/image_assets/images/68c0b9409259d400756c8539/original.png?1757460800"
+      ],
+      "keywords": [
+        "grant",
+        "CSP",
+        "RFP"
+      ],
+      "snippet": "<!DOCTYPE html> <html lang=\"en\"> <head> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"> <title>ThredUp | Fashion, meet Forever.</title> <meta charset=\"utf-8\"> <meta name=\"viewport\" content=\"width=device-width\">    <style>body { padding: 0; width: 100%; margin: 0 auto; background-",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_3823a205",
+      "type": "GRANT",
+      "source_type": "EMAIL",
+      "source_email": "baasdean@msu.edu",
+      "subject": "b'RE: MDARD Regenerative Farmer Network Grant \\x97 Seeking MSU Extension Support in Calhoun County'",
+      "detected_at": "2026-02-16T01:13:39+00:00",
+      "deadline": "February 13, 2026",
+      "amount_usd": 50000,
+      "links": [],
+      "keywords": [
+        "grant",
+        "agriculture",
+        "MDARD",
+        "regenerative",
+        "apply"
+      ],
+      "snippet": "Hi Casey,\r \r I retired from MSU Extension about 3 years ago, so I'm no longer the right person to talk to. I suggest you contact:\r \r Christine Charles\r Michigan State University Extension Educator\r Field Crops and Regenerative Agriculture\r Cell: 973-255-6097\r charl122@msu.edu\r \r She is located at th",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_ca191068",
+      "type": "LOAN",
+      "source_type": "EMAIL",
+      "source_email": "silpada@email.silpada.com",
+      "subject": "b'Spoil yourself: Top Valentine\\xe2\\x80\\x99s faves + double points \\xf0\\x9f\\x92\\x96 '",
+      "detected_at": "2026-02-16T01:13:39+00:00",
+      "deadline": "2/10/26",
+      "amount_usd": 50,
+      "links": [
+        "https://enews.silpada.com/q/x3QIe92w3oit1NFZUUGaIaA2wetc6vBB4W1KdAQuHQNY7XVQKNNzsETp3",
+        "https://enews.silpada.com/q/axX77ICJDtc0Xo0dATGLsBXjmo_RtuISZIjZcOJYXNiZWxjYXNAZ21haWwuY29tw4gmTqPHjBtcLeLcsW57eKmvwJ48iw",
+        "https://enews.silpada.com/q/xXZDDsn4J9B0Xm_Cc4rcmd6zpo5w939NIHSZcOJYXNiZWxjYXNAZ21haWwuY29tw4gBXAdiKwWdrWLiaF8_r2M03QJ2GQ",
+        "https://enews.silpada.com/q/ZsMyy29zHF70XG81PoHqJrhQcvjxFLzn82mZcOJYXNiZWxjYXNAZ21haWwuY29tw4gX867ifyGdoyLVUIvIWVxPiVjIvw",
+        "https://enews.silpada.com/q/yR2RRPJTqL90XE_r8HhqNSSiOWU1LqwbEGSZcOJYXNiZWxjYXNAZ21haWwuY29tw4guZ4MjsWec57L1WIHHPXGrlL6YCA",
+        "https://enews.silpada.com/q/8mwDDTBfuMa0XB6HVN9qPcLZczVpMXFsGukZcOJYXNiZWxjYXNAZ21haWwuY29tw4gUYFJVKvEfrJL5mppmZixPllaHTQ",
+        "https://enews.silpada.com/q/-diSSWYTwN00X8CPrW3hnnddko6ANgZy2mbZcOJYXNiZWxjYXNAZ21haWwuY29tw4g8rQJFTLSdo4LdK8Dq5GxVYvWyDQ",
+        "https://enews.silpada.com/q/nwJaaCC4WJe0XnJ6hb1uUcYvQOgKJ00ze5BZcOJYXNiZWxjYXNAZ21haWwuY29tw4gGEPNs4sXf5xL5MNKdypYz6x9FyQ",
+        "https://enews.silpada.com/q/GBGGGvDKBCw0XSfmhgB6-pc5cldbCE74oraZcOJYXNiZWxjYXNAZ21haWwuY29tw4gE1-DvrgNdLLLRpYky66HuEBRZhw",
+        "https://enews.silpada.com/q/Sixdd4dcFxz0XOSdkCBVssXxC4-FxxDCz8OZcOJYXNiZWxjYXNAZ21haWwuY29tw4g-CZ13lnXd4ZLNfVDRSYnF7v8gcQ"
+      ],
+      "keywords": [
+        "loan",
+        "apply"
+      ],
+      "snippet": "View in Browser (https://enews.silpada.com/q/x3QIe92w3oit1NFZUUGaIaA2wetc6vBB4W1KdAQuHQNY7XVQKNNzsETp3)\r \r Free ground shipping* on orders $50+.\r \r Silpada (https://enews.silpada.com/q/axX77ICJDtc0Xo0dATGLsBXjmo_RtuISZIjZcOJYXNiZWxjYXNAZ21haWwuY29tw4gmTqPHjBtcLeLcsW57eKmvwJ48iw)\r \r  <table width=\"10",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_8fb21da2",
+      "type": "GRANT",
+      "source_type": "EMAIL",
+      "source_email": "calhouncd@gmail.com",
+      "subject": "b'Fwd: Partnership Opportunity \\xe2\\x80\\x94 MDARD Regenerative Farmer Network Grant in Calhoun County'",
+      "detected_at": "2026-02-16T01:13:40+00:00",
+      "deadline": "Feb 13, 2026",
+      "amount_usd": 50000,
+      "links": [
+        "http://www.calhouncd.org/",
+        "http://www.calhouncd.org/",
+        "http://www.calhouncd.org/"
+      ],
+      "keywords": [
+        "grant",
+        "conservation",
+        "USDA",
+        "NRCS",
+        "MDARD",
+        "regenerative",
+        "deadline",
+        "apply"
+      ],
+      "snippet": "*Calhoun Conservation District*\r USDA Marshall Service Center\r 13464 Preston Drive, Suite 120\r Marshall, MI  49068\r \r *(269) 781-4867, ext. 5*\r *www.CalhounCD.org <http://www.calhouncd.org/>*\r \r \r \r ---------- Forwarded message ---------\r From: Ryan Reincke <rreincke.calhouncd@gmail.com>\r Date: Fri,",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_d8e4cff7",
+      "type": "GRANT",
+      "source_type": "EMAIL",
+      "source_email": "rivka.hodgkinson@macd.org",
+      "subject": "Re: Request for Partnership and Farmer Referrals",
+      "detected_at": "2026-02-16T01:13:40+00:00",
+      "deadline": "Feb 13, 2026",
+      "amount_usd": 50000,
+      "links": [
+        "https://www.linkedin.com/in/meetrivka/",
+        "https://www.linkedin.com/in/meetrivka/"
+      ],
+      "keywords": [
+        "grant",
+        "funding",
+        "application",
+        "conservation",
+        "agriculture",
+        "NRCS",
+        "EQIP",
+        "MDARD",
+        "regenerative",
+        "deadline",
+        "apply"
+      ],
+      "snippet": "Thanks Casey, my schedule for next week is fully booked, so I recommend you\r and Ryan try to connect without me and I can jump back in as needed. And\r can review anything you email over.\r \r *Rivka Hodgkinson **(She/her)*\r *Executive Director, MACD*\r *Ottawa Conservation District Board Member*\r \r 616",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_2a536910",
+      "type": "LOAN",
+      "source_type": "EMAIL",
+      "source_email": "silpada@email.silpada.com",
+      "subject": "b'\\xe2\\xad\\x90 20% OFF SITEWIDE \\xe2\\x80\\xa2  25% OFF FOR MEMBERS \\xe2\\xad\\x90 '",
+      "detected_at": "2026-02-16T01:13:40+00:00",
+      "deadline": null,
+      "amount_usd": 50,
+      "links": [
+        "https://enews.silpada.com/q/wOnW_GegKlvagmL8m3MYatKj-YA1pXw_u9yA3Wl86ECO0A3QQcmu3ionO",
+        "https://enews.silpada.com/q/xGU4408P5Un0XYpELuDS0TSPIG5jUHE-LmpZcOJYXNiZWxjYXNAZ21haWwuY29tw4ghwg2NlykfrFLCaeZvBcrpyY4BMg",
+        "https://enews.silpada.com/q/gge664To0Vt0XyEZUzjcic2unhgtV2IK81tZcOJYXNiZWxjYXNAZ21haWwuY29tw4g2G4zm9BMebKLFDT1iga4iJdFnNw",
+        "https://enews.silpada.com/q/AtQffiSYx6I0XmtWxqAmKb_b54fX6e_ftdoZcOJYXNiZWxjYXNAZ21haWwuY29tw4gLSaq_-b0ebCLSb7fWvUc6ByQvrg",
+        "https://enews.silpada.com/q/8aSqqq-Kxs10X_pH9c6wPdL-8rjGsYUs8rdZcOJYXNiZWxjYXNAZ21haWwuY29tw4grGIML68-fplLvAWDKqDdm6aVrCA",
+        "https://enews.silpada.com/q/7jJssuHzOSs0XiriLsft40Q0rr2rSbJuZx0ZcOJYXNiZWxjYXNAZ21haWwuY29tw4gJbYtOwP0dZgLkiIiX9iAwdyy_KQ",
+        "https://enews.silpada.com/q/2IrRR5jWHGX0XRKZE9M6iH2C8gAUGMtGgAUZcOJYXNiZWxjYXNAZ21haWwuY29tw4gT0On8-Lie5fL-rv_le6IBLkZKow",
+        "https://enews.silpada.com/q/x8h666Z9hnB0XMgGDkyu3TjSpltbnZZS0dmZcOJYXNiZWxjYXNAZ21haWwuY29tw4gJvr9GH04cJGLHcR_duHx2ES_z-Q",
+        "https://enews.silpada.com/q/HB488HObgvR0X5iLQLUwEqHrb_wjvFLGCesZcOJYXNiZWxjYXNAZ21haWwuY29tw4gbj8OAvEpdLzLiDPdOYhyAkGc2Cg",
+        "https://enews.silpada.com/q/92y551sTrv30XOJPXc7gnPdc4ofxvNGvZvbZcOJYXNiZWxjYXNAZ21haWwuY29tw4gidNGFp6DeqiLFL0COlt9n94DaQg"
+      ],
+      "keywords": [
+        "loan",
+        "apply"
+      ],
+      "snippet": "View in Browser (https://enews.silpada.com/q/wOnW_GegKlvagmL8m3MYatKj-YA1pXw_u9yA3Wl86ECO0A3QQcmu3ionO)\r \r Free ground shipping* on orders $50+.\r \r Silpada (https://enews.silpada.com/q/xGU4408P5Un0XYpELuDS0TSPIG5jUHE-LmpZcOJYXNiZWxjYXNAZ21haWwuY29tw4ghwg2NlykfrFLCaeZvBcrpyY4BMg)\r \r  <table width=\"10",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_98c7b89f",
+      "type": "GRANT",
+      "source_type": "EMAIL",
+      "source_email": "calhouncd@gmail.com",
+      "subject": "b'Re: Partnership Opportunity \\xe2\\x80\\x94 MDARD Regenerative Farmer Network Grant in Calhoun County'",
+      "detected_at": "2026-02-16T01:13:41+00:00",
+      "deadline": "Feb 13, 2026",
+      "amount_usd": 50000,
+      "links": [
+        "http://www.calhouncd.org/"
+      ],
+      "keywords": [
+        "grant",
+        "conservation",
+        "USDA",
+        "NRCS",
+        "MDARD",
+        "regenerative",
+        "deadline",
+        "apply"
+      ],
+      "snippet": "I am currently on vacation, could we have a call next week?\r \r Thanks\r \r *Calhoun Conservation District*\r USDA Marshall Service Center\r 13464 Preston Drive, Suite 120\r Marshall, MI  49068\r \r *(269) 781-4867, ext. 5*\r *www.CalhounCD.org <http://www.calhouncd.org/>*\r \r \r \r On Fri, Feb 13, 2026 at 7:24",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_491b9b15",
+      "type": "GRANT",
+      "source_type": "EMAIL",
+      "source_email": "rivka.hodgkinson@macd.org",
+      "subject": "Request for Partnership and Farmer Referrals",
+      "detected_at": "2026-02-16T01:13:41+00:00",
+      "deadline": "Feb 10, 2026",
+      "amount_usd": 50000,
+      "links": [
+        "https://www.linkedin.com/in/meetrivka/"
+      ],
+      "keywords": [
+        "grant",
+        "funding",
+        "application",
+        "conservation",
+        "agriculture",
+        "NRCS",
+        "EQIP",
+        "MDARD",
+        "regenerative",
+        "deadline",
+        "apply"
+      ],
+      "snippet": "Good morning Ryan and Cassandra! Making some introductions that will\r hopefully be helpful to you both.\r \r Ryan - Cassandra reached out to MACD because she is interested in applying\r for the MDARD farmer-led group grant. See her full email for context below.\r \r Cassandra - Ryan is the Executive Dire",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_e5fa585c",
+      "type": "GRANT",
+      "source_type": "EMAIL",
+      "source_email": "asbelcas@gmail.com",
+      "subject": "b'Farm Ops Report \\xe2\\x80\\x94 Feb 13, 2026'",
+      "detected_at": "2026-02-16T01:13:41+00:00",
+      "deadline": "Feb 13, 2026",
+      "amount_usd": 35,
+      "links": [],
+      "keywords": [
+        "application",
+        "NRCS",
+        "regenerative",
+        "submit",
+        "apply"
+      ],
+      "snippet": "============================================================ MORNING FIELD REPORT \u2014 Day 4, Week 1 Friday, February 13, 2026 ============================================================  *** TODAY'S PRIORITY: MARKET ACCESS \u2014 Apply to sell somewhere. ***  --- WORK SCHEDULE ---    [    ] 6:00-7:00 AM",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_936b002e",
+      "type": "GRANT",
+      "source_type": "EMAIL",
+      "source_email": "asbelcas@gmail.com",
+      "subject": "b'Farm Intel Brief \\xe2\\x80\\x94 Feb 13, 2026'",
+      "detected_at": "2026-02-16T01:13:41+00:00",
+      "deadline": "Feb 13, 2026",
+      "amount_usd": null,
+      "links": [
+        "https://news.google.com/rss/articles/CBMiwAFBVV95cUxORjQ4OUstZzBrbEV1RklJVWRsV3Z1dURZZGw4ZDVGM3BMTnU3cXp3NEc5UVc0UWRycjlUR1ZqT3BuM3AtVGtlVVBiQkRJbnFZblBoT2VvR0RIMHdpX1BBYmRCRTVVWTVwQmZkV0o1NUdwemNmbXA0c0tqM3pHNUNEVTVRYzFaQV9EQWhjN1E3bkpoem5ObG0xRWs0Z216V3F3N0VQUTd2NXdQLWlRaXVhT2E5TEhGS3RsaXd4R3dDak0?oc=5",
+        "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOb2NDSXpMUnVxanNxNTFUMkNKSGpXeUZOUVRRRzRldFRJU2x6WkthS2Y5dVNXVnZWMzloNk5RYjNPZ0xudDRGLXBzQnJNSW5RN0lEajJTS3ltcHdsVGRIZnhsQ3QySkV6aDJNSnV0R1Y5eHdVMk0yV3Y3Nk5iQ2lKMGJPSWJVLTNGMHVSMEk4UkxjaHNpUDNaTGl4b2pzS0FJeHc4UHo2Sk9IQV9qdGQ5ZlVKSE9NWFBDOVZTek1DM0s0M2hObnFmeXhJVmVTWmtKaWFCZExn?oc=5",
+        "https://news.google.com/rss/articles/CBMilgFBVV95cUxOcWhLUElGMTZHNWVtMkRrLTRsQkNLa3dneFd1dUM3aHRlcXIzemtGNnQ0QnU5YzA5dVhWRnR1WFR5d2Z6RkdfeGsxR1RtTWVJWnExSUJzZUJHUE9SYnVpTlE2YmV3a09XR0hfN0dDT1FUd3JlOTdiVkJrdFBmbWNybnI5ak1ialRNdm1VZ0FEZC1BUmpEOXc?oc=5",
+        "https://news.google.com/rss/articles/CBMipgFBVV95cUxPelZac05talJ2M0piVWZONWtxa2FiQW1PYVptbUF5X3JCcHNsdUw2TmxWSHBEZ1o3eTIzbjI1S1E3clRjZDR1MW1nN19JbndNRzBwdG5mMzR1YkNWWmkwd2Fkc2ZScDhmellOVXE1VUJMZFdldFdsZFBaSUNNMWdYeWFXNXlWNGhYMktOSzN1WHZTRktYREVqaWVDdnkzWENfUTJZanNn?oc=5",
+        "https://news.google.com/rss/articles/CBMiwwFBVV95cUxOa1ZlT2VLMnhlUTNxWC1iMDVoNDZTUVVsR19NMjN2RUN1WmFGdkFPUnJvdzF5dFJKcUx3eU5PY2J5Tnlwako0WDZsSkZaSGh1bnVmX3ZDM1BEUGx4anZwWGNWTDgtTW1xQVNYLVc5WFpvcWFTSVZpOTJSd1FmdnhBeWxYVWVEX0h2VWF3ajdQYUJnNDExNGo0NWRxZzFSOG1JUU8tMW1vM1oxbHVMT0lSYmVFT01ucXVFTjVFU0dzLXJJcXM?oc=5",
+        "https://news.google.com/rss/articles/CBMilgFBVV95cUxOMVd0a0JOWnhDWVRwOW8yVEpobEFvOWt5WEtuOU9Nd1pDTm9UZEtJTzBodHFiZTcyWlZ1b3VvYWZoNC1Ca294T0pLZF9LUXZycDl3MG8yem9kOGduYnhjQkcwTm1mWTc3dGxxUVhvLVBodGJXOFpmYXo5NGt5Z2FzOTBuVDF2UUdlb01RUTdleWtTQm1HaFE?oc=5",
+        "https://news.google.com/rss/articles/CBMinAFBVV95cUxQRVJOT0ZQS2lkVmNXei1lWHJybmk5ejg1N0FIWThQdklsTjQ4Sk93ZS1PUUZKUFQzX283VGxVa1FDQ1ZKLTluVEZxSGQ2d0o5Tm95MkhOY3pOcFQ2Nk1Lbkdqa05jTGdpaTIwWW81b3NpZFhmakgyNkN4OEk5SHlJLVh4clFBcl9FQ19VVm9QREtHU1F4WVNINk5Uc3Q?oc=5",
+        "https://news.google.com/rss/articles/CBMiogFBVV95cUxOS3diZjZ3cmhLbUFHdjVHYm5oMEo5N19sNGVPWmM5ZlB4eG50S0pBOWh6UDhwMlZleGt5eEpiTzlwMnY1c19BNS10cy1PUDE5NUphcUtoU3BGd0xaOVVoSzF4QlZHbHlXU1FWQWpsc25xazlHeVkzTG05YzlDVlh0bUhjM2UybUFBR2ViTjB4blNfVUVzLVR2R2ExUEFMQlZ2YkE?oc=5",
+        "https://news.google.com/rss/articles/CBMinwFBVV95cUxPQ3ZFRFpzbTIzWGVqZXBFSUFfSXJTQ0x5ai1LQWJQcWkzV1FkaEpTVHhqM3VCZUZiVWl5UDI5NUJXVHlWTlotcy1DQUxMRk4xQ0lITS1oMXR2ZE5EM1pReTFSVlJNQVVlVndGUUd0VjVXc0Ixc2lQSDJINTlQYlE2TW1JcmlycmJTMzFsSHdjOEJZM1N3cE5aZzN0elZIZXM?oc=5",
+        "https://news.google.com/rss/articles/CBMiywFBVV95cUxPYlVGOWFlNl9fc2JoTDRCUW5HaHd4Y0tYRVlYVE5RTExuMjd5ZkNsVWowUDZOaklYZ2hTeVFYd3hMSTNveWJ5S3hwRVhCbDJXVnhqQUdneDAyTkMyVlZQdmpWMlRGUUxqMHRQMWdZTmZwaHk3ZUNoNkowaXYxZHJPZUpyQmZHM2hKZ2Q1dDYtTlVDeHprRTlOTVlFM1FTdzJZa2o4cWFrNmpiclB1TDY1OGc4Mm5pM0tqWG93bDNnekdyN0p1WHh1Y082dw?oc=5"
+      ],
+      "keywords": [
+        "grant",
+        "funding",
+        "application",
+        "conservation",
+        "agriculture",
+        "USDA",
+        "FSA",
+        "MDARD",
+        "regenerative",
+        "RFP"
+      ],
+      "snippet": "# DAILY INTELLIGENCE BRIEF **Date:** Friday, February 13, 2026 | Day 4 **Focus:** Regenerative agriculture, climate adaptation, livestock systems **Sources scanned:** 10 feeds **Relevant articles found:** 20  ---  ## FUNDING & GRANTS  ### USDA Funding Will Expand Global Markets for Tennessee Hardwoo",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_312ddb79",
+      "type": "GRANT",
+      "source_type": "EMAIL",
+      "source_email": "joscha@substack.com",
+      "subject": "\"I had a feeling that Epstein had a dark heart\"",
+      "detected_at": "2026-02-16T01:13:42+00:00",
+      "deadline": null,
+      "amount_usd": null,
+      "links": [
+        "https://joscha.substack.com/p/i-had-a-feeling-that-epstein-had",
+        "https://substack.com/redirect/7426cacc-3290-4539-8329-15554b2c23c3?j=eyJ1IjoiMXB2anh3In0.uoBo791CC8SzQBqEoPiiloTArGNOeY70Lx5wY5Rum-s",
+        "https://substack.com/redirect/2/eyJlIjoiaHR0cHM6Ly9qb3NjaGEuc3Vic3RhY2suY29tL2FjdGlvbi9kaXNhYmxlX2VtYWlsP3Rva2VuPWV5SjFjMlZ5WDJsa0lqb3hNRE01TWpnM05UWXNJbkJ2YzNSZmFXUWlPakU0TnpjNU1qazFOQ3dpYVdGMElqb3hOemN3T1RNek1qYzFMQ0psZUhBaU9qRTRNREkwTmpreU56VXNJbWx6Y3lJNkluQjFZaTA0TkRrMU5qTWlMQ0p6ZFdJaU9pSmthWE5oWW14bFgyVnRZV2xzSW4wLlU0REZBTWZFZEdUNllHMjFJQUc3ckFBRTQ5MGRjMGs1VFpjRFc3azJPcjQiLCJwIjoxODc3OTI5NTQsInMiOjg0OTU2MywiZiI6dHJ1ZSwidSI6MTAzOTI4NzU2LCJpYXQiOjE3NzA5MzMyNzUsImV4cCI6MjA4NjUwOTI3NSwiaXNzIjoicHViLTAiLCJzdWIiOiJsaW5rLXJlZGlyZWN0In0.3wcT4BiZw7drFkIp3CsZy-LsJ8EpEwdCNIv2pIBbFRQ?"
+      ],
+      "keywords": [
+        "grant",
+        "funding",
+        "submit"
+      ],
+      "snippet": "View this post on the web at https://joscha.substack.com/p/i-had-a-feeling-that-epstein-had\r \r (The Interview with Sibylle Anderl [ https://substack.com/redirect/7426cacc-3290-4539-8329-15554b2c23c3?j=eyJ1IjoiMXB2anh3In0.uoBo791CC8SzQBqEoPiiloTArGNOeY70Lx5wY5Rum-s ] originally appeared in German. Th",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_fc37e0c6",
+      "type": "LOAN",
+      "source_type": "EMAIL",
+      "source_email": "MDARD-AgD@govsubscriptions.michigan.gov",
+      "subject": "b'Food & Ag Business Development Monthly Newsletter: February 2026'",
+      "detected_at": "2026-02-16T01:13:42+00:00",
+      "deadline": "March 31, 2026",
+      "amount_usd": 50,
+      "links": [
+        "https://mcbc.connect.space/michigan-craft-beverage-summit/details",
+        "https://mcbc.connect.space/michigan-craft-beverage-summit/pages/hotel-information",
+        "https://mcbc.connect.space/michigan-craft-beverage-summit/schedule",
+        "https://mcbc.connect.space/michigan-craft-beverage-summit/expo",
+        "https://links-2.govdelivery.com/CL0/https:%2F%2Fmcbc.connect.space%2Fmichigan-craft-beverage-summit/1/0101019bec12dd76-7694ae9b-8413-4320-8668-885b3a2525c8-000000/toUk5UW3nWmqGKCJAXwG-UYOh6T6nHX_ZWXq2dzCteI=441",
+        "https://www.michigan.gov/mdard/business-development/grantfund/food-and-agriculture-investment-fund-grants",
+        "https://links-2.govdelivery.com/CL0/https:%2F%2Fwww.michigan.gov%2Fmdard%2Fbusiness-development%2Fgrow-your-business/1/0101019affc397bd-74e5d7b6-a9c7-4586-84d2-8dce0cfd323c-000000/MiKcPbBGduJomr70jdoxQ3otTWmUykiJVVhgWBmLXPc=434",
+        "https://www.foodexport.org/programs/market-promotion/branded-program/",
+        "https://sweetsandsnacks.com/",
+        "https://www.foodexport.org/programs/market-promotion/branded-program/"
+      ],
+      "keywords": [
+        "grant",
+        "application",
+        "agriculture",
+        "MDARD",
+        "regenerative",
+        "apply"
+      ],
+      "snippet": "February 2026 Newsletter Header \r  \r  \r  \r \r  \r  \r  \r  \r  \r  \r \r Register Now for the 2026 Michigan Craft Beverage Summit\r \r Logo for Michigan Craft Beverage Council \r \r Join more than 300 craft beverage industry professionals in Muskegon from March 23 to 25 for Michigan\u2019s most inclusive industry co",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_d504eb3b",
+      "type": "GRANT",
+      "source_type": "EMAIL",
+      "source_email": "MDARD@govsubscriptions.michigan.gov",
+      "subject": "b'MDARD\\xa0Opens Application for\\xa02026 Agriculture Exporter of the Year\\xa0Award\\xa0'",
+      "detected_at": "2026-02-16T01:13:42+00:00",
+      "deadline": "February 12, 2026",
+      "amount_usd": 3,
+      "links": [
+        "https://www.michigan.gov/mdard/business-development/international-marketing/michigan-ag-exporter-of-the-year-award",
+        "https://gcc02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fstorymaps.arcgis.com%2Fstories%2F8e839c609bee4e2a8533c253a6318b66&data=05%7C02%7CPeetersN%40michigan.gov%7Cca18f96dd7db478559a108de6a41048b%7Cd5fb7087377742ad966a892ef47225d1%7C0%7C0%7C639065024635545471%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=1pBKfQJtL%2BsFhIqqkfmQBGoUAe3IX477Q881m%2BxrYKo%3D&reserved=0",
+        "https://www.michigan.gov/mdard/business-development/international-marketing/michigan-ag-exporter-of-the-year-award",
+        "http://www.michigan.gov/mdard/",
+        "https://www.michigan.gov/mdard/about/contact-mdard",
+        "https://www.michigan.gov/mdard/about/media/email",
+        "https://www.Michigan.gov/Vote",
+        "http://public.govdelivery.com/accounts/MIDARD/subscribers/new?preferences=true",
+        "https://subscriberhelp.govdelivery.com/",
+        "https://public.govdelivery.com/accounts/MIDARD/subscriber/new"
+      ],
+      "keywords": [
+        "application",
+        "agriculture",
+        "MDARD",
+        "apply"
+      ],
+      "snippet": "Apply today to become Michigan's Agriculture Exporter of the Year!  \r \r  \r \r bob new header \r \r For immediate release: February 12, 2026\r \r Media contact: Lynsey Mukomel <MDARD-Press@michigan.gov>, 517-290-1734\r \r  \r MDARD\u00a0Opens Application for\u00a02026 Agriculture Exporter of the Year\u00a0Award\u00a0 \r \r *\"Appl",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_7475ab42",
+      "type": "LOAN",
+      "source_type": "EMAIL",
+      "source_email": "silpada@email.silpada.com",
+      "subject": "b'Valentine\\xe2\\x80\\x99s Day is almost here \\xf0\\x9f\\x92\\x8c '",
+      "detected_at": "2026-02-16T01:13:43+00:00",
+      "deadline": "2/10/26",
+      "amount_usd": 50,
+      "links": [
+        "https://enews.silpada.com/q/vS6xouZwShN9_mT8xkqheNL_IxTRH6qUm5M8ITPAWMMu7DsQIcmMNOhuS",
+        "https://enews.silpada.com/q/00MttXGehG-0X-DKxuzqkL88RNdcGTNnB57ZcOJYXNiZWxjYXNAZ21haWwuY29tw4gk1y3NuTRfJhLUAyQFOOWsCpBVtQ",
+        "https://enews.silpada.com/q/Isd22iOk8rU0X6bDbge4vgdtm_0LrgtMstHZcOJYXNiZWxjYXNAZ21haWwuY29tw4gb-U5nivJeb2LjOl2f2ET8KmzsOw",
+        "https://enews.silpada.com/q/PIImmi-Iu9m0XxDh_dhN1m5hQtcI9wUPSr0ZcOJYXNiZWxjYXNAZ21haWwuY29tw4gcH3nIL6cfoBLcFNqXexWcOHN05Q",
+        "https://enews.silpada.com/q/mIICCs1qkkm0XGsed2_ZSbVEiuyhkUAwVFMZcOJYXNiZWxjYXNAZ21haWwuY29tw4gePNZ3xwLeqkLfgrh9jMAGUnv6Ww",
+        "https://enews.silpada.com/q/Xxu88VbNLdz0Xt-d88NXshXGyGEiduC0SROZcOJYXNiZWxjYXNAZ21haWwuY29tw4g1YgDMk9zcbpLKQVCl0GlEJtaBAQ",
+        "https://enews.silpada.com/q/LiBII_QOQsA0XrJLnpauE7HJM_qosFe3dYQZcOJYXNiZWxjYXNAZ21haWwuY29tw4g5DklTnaCcp7LOvNe53x2ktucwJw",
+        "https://enews.silpada.com/q/VUsuuodHuQW0XYw9Y_et0riBwuEgQskhti2ZcOJYXNiZWxjYXNAZ21haWwuY29tw4gK_Ojw85xdpBL88O4SK-vD7Sj6oQ",
+        "https://enews.silpada.com/q/rTHqqJ2mOcJ0Xlh_DmFgW1hKs_vMca9qhoPZcOJYXNiZWxjYXNAZ21haWwuY29tw4gaSMJjweucrKL6CMddmi7uIWoqCw",
+        "https://enews.silpada.com/q/5L8UU-ufHX50XHPafzNtNfLMNEOzXXxHLviZcOJYXNiZWxjYXNAZ21haWwuY29tw4gp9VJ8nabcbaLxqc5KG6dctaTcSw"
+      ],
+      "keywords": [
+        "loan",
+        "apply"
+      ],
+      "snippet": "View in Browser (https://enews.silpada.com/q/vS6xouZwShN9_mT8xkqheNL_IxTRH6qUm5M8ITPAWMMu7DsQIcmMNOhuS)\r \r Free ground shipping* on orders $50+.\r \r Silpada (https://enews.silpada.com/q/00MttXGehG-0X-DKxuzqkL88RNdcGTNnB57ZcOJYXNiZWxjYXNAZ21haWwuY29tw4gk1y3NuTRfJhLUAyQFOOWsCpBVtQ)\r \r  <table width=\"10",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_2308bcd5",
+      "type": "GRANT",
+      "source_type": "EMAIL",
+      "source_email": "MDARD@govsubscriptions.michigan.gov",
+      "subject": "b'MDARD\\x92s Clean Sweep Program Removes More Than 4 Million Pounds of Hazardous Pesticide Containers from Michigan Communities'",
+      "detected_at": "2026-02-16T01:13:43+00:00",
+      "deadline": "February 12, 2026",
+      "amount_usd": 280000,
+      "links": [
+        "https://www.michigan.gov/mdard/plant-pest/pesticides/cleansweep",
+        "https://app.powerbigov.us/view?r=eyJrIjoiMjJmNjkyYTctMjY4ZS00ODQ2LWFlNmEtYzRhZTgwZGEwZTJmIiwidCI6ImQ1ZmI3MDg3LTM3NzctNDJhZC05NjZhLTg5MmVmNDcyMjVkMSJ9",
+        "http://www.michigan.gov/mdard/plant-pest/pesticides/cleansweep",
+        "http://www.michigan.gov/mdard/",
+        "https://www.michigan.gov/mdard/about/contact-mdard",
+        "https://www.michigan.gov/mdard/about/media/email",
+        "https://www.Michigan.gov/Vote",
+        "http://public.govdelivery.com/accounts/MIDARD/subscribers/new?preferences=true",
+        "https://subscriberhelp.govdelivery.com/",
+        "https://public.govdelivery.com/accounts/MIDARD/subscriber/new"
+      ],
+      "keywords": [
+        "grant",
+        "agriculture",
+        "MDARD",
+        "apply"
+      ],
+      "snippet": "bob new header \r \r For immediate release: February 12, 2026\r \r Media contact: Lynsey Mukomel <MDARD-Press@michigan.gov>, 517-290-1734\r \r  \r MDARD\u2019s\u00a0Clean Sweep Program\u00a0Removes More Than\u00a04\u00a0Million\u00a0Pounds of Hazardous Pesticide\u00a0Containers\u00a0from Michigan Communities\u00a0 \r \r \"*Milestone reached as U.S. reco",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_a675eb9c",
+      "type": "LOAN",
+      "source_type": "EMAIL",
+      "source_email": "silpada@email.silpada.com",
+      "subject": "b'\\xe2\\xad\\x90 20% OFF EVERYTHING \\xe2\\xad\\x90 25% OFF FOR MEMBERS \\xe2\\xad\\x90\\xef\\xb8\\x8f'",
+      "detected_at": "2026-02-16T01:13:44+00:00",
+      "deadline": null,
+      "amount_usd": 50,
+      "links": [
+        "https://enews.silpada.com/q/HlEsk_kU7AB86o2v8SrLsgbSPRvpLyMN-LdFW6Ft9odDq2BQhkoxOqell",
+        "https://enews.silpada.com/q/ZR355f9LJJP0XW2QfffBSFpA686HJBrecRVZcOJYXNiZWxjYXNAZ21haWwuY29tw4gLSk4FtgtearLk5WnkhHnkwS0hOQ",
+        "https://enews.silpada.com/q/udSeepuq-xP0XNvQPEYASapGu8hfxSf_rPVZcOJYXNiZWxjYXNAZ21haWwuY29tw4g3jfsNwBpd7aLdJCnQcnJk694_7Q",
+        "https://enews.silpada.com/q/SyC88BAoxdQ0XRVpnckLmbh3iNRRdq4G6JMZcOJYXNiZWxjYXNAZ21haWwuY29tw4gV2om5DW6f54LNY-83RH58LVdiJw",
+        "https://enews.silpada.com/q/_GO22grUmUb0Xceld7KaZ69tGJUAUElA-cTZcOJYXNiZWxjYXNAZ21haWwuY29tw4gAqKHX3JLfpyLe6jKT7fwJ0gKqhg",
+        "https://enews.silpada.com/q/vJ6IIbsuuLf0XwMvftHyeYc9BRRCLZeW80FZcOJYXNiZWxjYXNAZ21haWwuY29tw4gynrwxaL2cZ9LCytMW94WlDspy8Q",
+        "https://enews.silpada.com/q/rrSjj29OWBu0XKJaEDzQN6LE_hUIBuVCsbiZcOJYXNiZWxjYXNAZ21haWwuY29tw4gJVRE7x1xdpOLt1g6zSOV0BCVcRQ",
+        "https://enews.silpada.com/q/6c1GG9AolYB0X-fCzAqTmc6xsOE3Yj5VbXyZcOJYXNiZWxjYXNAZ21haWwuY29tw4gOmCtYNHifY_LrN-7_gwUQjTporA",
+        "https://enews.silpada.com/q/_fS00fCeJE30Xqk1EfYBJMhfT4FIE2lmbOcZcOJYXNiZWxjYXNAZ21haWwuY29tw4gT1wt5A7EfKzLAzMJKjcVhX09ULA",
+        "https://enews.silpada.com/q/ExfOOu4ZnHO0XRcx0GtwYEROkyVsH_wFEKyZcOJYXNiZWxjYXNAZ21haWwuY29tw4gTJd0qogge6tL5bImxRYc19kyfdQ"
+      ],
+      "keywords": [
+        "loan",
+        "apply"
+      ],
+      "snippet": "View in Browser (https://enews.silpada.com/q/HlEsk_kU7AB86o2v8SrLsgbSPRvpLyMN-LdFW6Ft9odDq2BQhkoxOqell)\r \r Free ground shipping* on orders $50+.\r \r Silpada (https://enews.silpada.com/q/ZR355f9LJJP0XW2QfffBSFpA686HJBrecRVZcOJYXNiZWxjYXNAZ21haWwuY29tw4gLSk4FtgtearLk5WnkhHnkwS0hOQ)\r \r  <table width=\"10",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_47914691",
+      "type": "GRANT",
+      "source_type": "EMAIL",
+      "source_email": "MDARD@govsubscriptions.michigan.gov",
+      "subject": "b'Connect with MDARD\\x92s Farm to Family Program at Upcoming Events!'",
+      "detected_at": "2026-02-16T01:13:44+00:00",
+      "deadline": null,
+      "amount_usd": 3,
+      "links": [
+        "https://content.govdelivery.com/accounts/MIDARD/bulletins/40947b8",
+        "https://content.govdelivery.com/accounts/MIDARD/bulletins/40947b8?reqfrom=share",
+        "https://gcc02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fforms.office.com%2Fpages%2Fresponsepage.aspx%3Fid%3Dh3D71Xc3rUKWaoku9HIl0Rti0LTJmMVDjT2316aJ2GtUMFREN1kyTEhaU1hEMkE5VlBSVDJIREpVVC4u%26route%3Dshorturl&data=05%7C02%7CPeetersN%40michigan.gov%7C2c00759d10ee4f39217c08de5d24787b%7Cd5fb7087377742ad966a892ef47225d1%7C0%7C0%7C639050608373039257%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=7UaqE%2B9YWIb32kg2O48Qb2CRMP4D57evjNGYbX368j0%3D&reserved=0",
+        "https://www.farmstops.net/",
+        "https://gcc02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fforms.office.com%2Fg%2FP1dpCJqyx3&data=05%7C02%7CPeetersN%40michigan.gov%7C2c00759d10ee4f39217c08de5d24787b%7Cd5fb7087377742ad966a892ef47225d1%7C0%7C0%7C639050608373054391%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=7gX0BeE6I5B9j0AWVEr0ynqm1VH3JXPI788T2fHAoXM%3D&reserved=0",
+        "https://gcc02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.canr.msu.edu%2Fevents%2Ffarm-to-family-listening-ession&data=05%7C02%7CPeetersN%40michigan.gov%7C2c00759d10ee4f39217c08de5d24787b%7Cd5fb7087377742ad966a892ef47225d1%7C0%7C0%7C639050608373069484%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=f4pLPxEgmO%2BbpQQVC4UOsN9XJZexFANxUS0hGMwQ88M%3D&reserved=0",
+        "https://www.michigan.gov/mdard/food-dairy/industry-resources/farm-to-family",
+        "http://www.michigan.gov/mdard/",
+        "https://www.michigan.gov/mdard/about/contact-mdard",
+        "https://www.michigan.gov/mdard/about/media/email"
+      ],
+      "keywords": [
+        "grant",
+        "funding",
+        "agriculture",
+        "MDARD"
+      ],
+      "snippet": "Having trouble viewing this email? View it as a Web page [ https://content.govdelivery.com/accounts/MIDARD/bulletins/40947b8 ].\r \r Bookmark and Share [ https://content.govdelivery.com/accounts/MIDARD/bulletins/40947b8?reqfrom=share ]\r \r \u00a0\r \r *Want to Boost Access to Locally Grown Foods in Your Commu",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_c07ca731",
+      "type": "GRANT",
+      "source_type": "EMAIL",
+      "source_email": "updates-noreply@linkedin.com",
+      "subject": "Jennifer N. and others share their thoughts on LinkedIn",
+      "detected_at": "2026-02-16T01:13:45+00:00",
+      "deadline": null,
+      "amount_usd": null,
+      "links": [
+        "https://www.linkedin.com/comm/feed/update/urn:li:activity:7424619737516507136?origin=NETWORK_CONVERSATIONS&lipi=urn%3Ali%3Apage%3Aemail_email_network_conversations_01%3BQBqePhYTRCiKR8ixraqX2w%3D%3D&midToken=AQGaC35BoEl_fg&midSig=3cXnfpFgGmlc81&trk=eml-email_network_conversations_01-network~post~cta~text-0-read~more&trkEmail=eml-email_network_conversations_01-network~post~cta~text-0-read~more-null-d6r6c3~mlhbe34y~ev-null-null&eid=d6r6c3-mlhbe34y-ev&otpToken=MTUwYzE5ZTQxMjJiYzBjNGIzMjQwNGVkNDExZWUwYjM4ZWNjZDg0MDliYWM4ODYxNzljNzAwNmI0YTU5NTlmMWYxZGNkZjllNGNmMGIwZDk2Yzg3ZDdhZThhZGZiNjY0NGY3OTBiOGIxN2M0MjljZWIzOGM3MiwxLDE%3D",
+        "https://www.linkedin.com/comm/feed/update/urn:li:activity:7422718574751854593?origin=NETWORK_CONVERSATIONS&lipi=urn%3Ali%3Apage%3Aemail_email_network_conversations_01%3BQBqePhYTRCiKR8ixraqX2w%3D%3D&midToken=AQGaC35BoEl_fg&midSig=3cXnfpFgGmlc81&trk=eml-email_network_conversations_01-network~post~cta~text-0-read~more&trkEmail=eml-email_network_conversations_01-network~post~cta~text-0-read~more-null-d6r6c3~mlhbe34y~ev-null-null&eid=d6r6c3-mlhbe34y-ev&otpToken=MTUwYzE5ZTQxMjJiYzBjNGIzMjQwNGVkNDExZWUwYjM4ZWNjZDg0MDliYWM4ODYxNzljNzAwNmI0YTU5NTlmMWYxZGNkZjllNGNmMGIwZDk2Yzg3ZDdhZThhZGZiNjY0NGY3OTBiOGIxN2M0MjljZWIzOGM3MiwxLDE%3D",
+        "https://www.linkedin.com/comm/feed/update/urn:li:activity:7420182522451615744?origin=NETWORK_CONVERSATIONS&lipi=urn%3Ali%3Apage%3Aemail_email_network_conversations_01%3BQBqePhYTRCiKR8ixraqX2w%3D%3D&midToken=AQGaC35BoEl_fg&midSig=3cXnfpFgGmlc81&trk=eml-email_network_conversations_01-network~post~cta~text-0-read~more&trkEmail=eml-email_network_conversations_01-network~post~cta~text-0-read~more-null-d6r6c3~mlhbe34y~ev-null-null&eid=d6r6c3-mlhbe34y-ev&otpToken=MTUwYzE5ZTQxMjJiYzBjNGIzMjQwNGVkNDExZWUwYjM4ZWNjZDg0MDliYWM4ODYxNzljNzAwNmI0YTU5NTlmMWYxZGNkZjllNGNmMGIwZDk2Yzg3ZDdhZThhZGZiNjY0NGY3OTBiOGIxN2M0MjljZWIzOGM3MiwxLDE%3D",
+        "https://www.linkedin.com/comm/feed/update/urn:li:activity:7425002977465249792?origin=NETWORK_CONVERSATIONS&lipi=urn%3Ali%3Apage%3Aemail_email_network_conversations_01%3BQBqePhYTRCiKR8ixraqX2w%3D%3D&midToken=AQGaC35BoEl_fg&midSig=3cXnfpFgGmlc81&trk=eml-email_network_conversations_01-network~post~cta~text-0-read~more&trkEmail=eml-email_network_conversations_01-network~post~cta~text-0-read~more-null-d6r6c3~mlhbe34y~ev-null-null&eid=d6r6c3-mlhbe34y-ev&otpToken=MTUwYzE5ZTQxMjJiYzBjNGIzMjQwNGVkNDExZWUwYjM4ZWNjZDg0MDliYWM4ODYxNzljNzAwNmI0YTU5NTlmMWYxZGNkZjllNGNmMGIwZDk2Yzg3ZDdhZThhZGZiNjY0NGY3OTBiOGIxN2M0MjljZWIzOGM3MiwxLDE%3D",
+        "https://www.linkedin.com/comm/feed/update/urn:li:activity:7424162696184516608?origin=NETWORK_CONVERSATIONS&lipi=urn%3Ali%3Apage%3Aemail_email_network_conversations_01%3BQBqePhYTRCiKR8ixraqX2w%3D%3D&midToken=AQGaC35BoEl_fg&midSig=3cXnfpFgGmlc81&trk=eml-email_network_conversations_01-network~post~cta~text-0-read~more&trkEmail=eml-email_network_conversations_01-network~post~cta~text-0-read~more-null-d6r6c3~mlhbe34y~ev-null-null&eid=d6r6c3-mlhbe34y-ev&otpToken=MTUwYzE5ZTQxMjJiYzBjNGIzMjQwNGVkNDExZWUwYjM4ZWNjZDg0MDliYWM4ODYxNzljNzAwNmI0YTU5NTlmMWYxZGNkZjllNGNmMGIwZDk2Yzg3ZDdhZThhZGZiNjY0NGY3OTBiOGIxN2M0MjljZWIzOGM3MiwxLDE%3D",
+        "https://www.linkedin.com/comm/feed/?lipi=urn%3Ali%3Apage%3Aemail_email_network_conversations_01%3BQBqePhYTRCiKR8ixraqX2w%3D%3D&midToken=AQGaC35BoEl_fg&midSig=3cXnfpFgGmlc81&trk=eml-email_network_conversations_01-footer_promo-0-footer_see_all&trkEmail=eml-email_network_conversations_01-footer_promo-0-footer_see_all-null-d6r6c3~mlhbe34y~ev-null-null&eid=d6r6c3-mlhbe34y-ev&otpToken=MTUwYzE5ZTQxMjJiYzBjNGIzMjQwNGVkNDExZWUwYjM4ZWNjZDg0MDliYWM4ODYxNzljNzAwNmI0YTU5NTlmMWYxZGNkZjllNGNmMGIwZDk2Yzg3ZDdhZThhZGZiNjY0NGY3OTBiOGIxN2M0MjljZWIzOGM3MiwxLDE%3D",
+        "https://www.linkedin.com/help/linkedin/answer/4788?lang=en&lipi=urn%3Ali%3Apage%3Aemail_email_network_conversations_01%3BQBqePhYTRCiKR8ixraqX2w%3D%3D&midToken=AQGaC35BoEl_fg&midSig=3cXnfpFgGmlc81&trk=eml-email_network_conversations_01-SecurityHelp-0-textfooterglimmer&trkEmail=eml-email_network_conversations_01-SecurityHelp-0-textfooterglimmer-null-d6r6c3~mlhbe34y~ev-null-null&eid=d6r6c3-mlhbe34y-ev&otpToken=MTUwYzE5ZTQxMjJiYzBjNGIzMjQwNGVkNDExZWUwYjM4ZWNjZDg0MDliYWM4ODYxNzljNzAwNmI0YTU5NTlmMWYxZGNkZjllNGNmMGIwZDk2Yzg3ZDdhZThhZGZiNjY0NGY3OTBiOGIxN2M0MjljZWIzOGM3MiwxLDE%3D",
+        "https://www.linkedin.com/mypreferences/d/language-for-translation",
+        "https://www.linkedin.com/help/linkedin/answer/67?lang=en&lipi=urn%3Ali%3Apage%3Aemail_email_network_conversations_01%3BQBqePhYTRCiKR8ixraqX2w%3D%3D&midToken=AQGaC35BoEl_fg&midSig=3cXnfpFgGmlc81&trk=eml-email_network_conversations_01-help-0-textfooterglimmer&trkEmail=eml-email_network_conversations_01-help-0-textfooterglimmer-null-d6r6c3~mlhbe34y~ev-null-null&eid=d6r6c3-mlhbe34y-ev&otpToken=MTUwYzE5ZTQxMjJiYzBjNGIzMjQwNGVkNDExZWUwYjM4ZWNjZDg0MDliYWM4ODYxNzljNzAwNmI0YTU5NTlmMWYxZGNkZjllNGNmMGIwZDk2Yzg3ZDdhZThhZGZiNjY0NGY3OTBiOGIxN2M0MjljZWIzOGM3MiwxLDE%3D"
+      ],
+      "keywords": [
+        "conservation",
+        "apply"
+      ],
+      "snippet": "Jennifer N. shared a post: My department is hiring an Assistant Teaching Professor in Sociology to join our incredible team of colleagues at the University of Missouri-Saint\u2026\r LIKE 12, 2 Comments\r LinkedIn\r \r Read more: https://www.linkedin.com/comm/feed/update/urn:li:activity:7424619737516507136?or",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_24485641",
+      "type": "GRANT",
+      "source_type": "EMAIL",
+      "source_email": "MDARD@govsubscriptions.michigan.gov",
+      "subject": "b'MDARD Surpasses $250 Million in Grants Awarded During Whitmer Administration'",
+      "detected_at": "2026-02-16T01:13:45+00:00",
+      "deadline": "February 10, 2026",
+      "amount_usd": 250,
+      "links": [
+        "https://app.powerbigov.us/view?r=eyJrIjoiMGIxMjBiNjctZDA3Zi00NmEyLThiNWQtZDQxZTU4NTE4OTIwIiwidCI6ImQ1ZmI3MDg3LTM3NzctNDJhZC05NjZhLTg5MmVmNDcyMjVkMSJ9",
+        "https://www.michigan.gov/mdard/food-dairy/industry-resources/farm-to-family",
+        "https://www.michigan.gov/mdard/about/media/pressreleases/2025/05/27/mdard-awards-nearly-%24400k-through-new-farm-to-family-program?utm_source=pr&utm_medium=web&utm_campaign=mdard-pr-Dec16",
+        "https://www.michigan.gov/mdard/about/media/pressreleases/2025/08/04/mdard-awards-more-than-%24340k-to-farm-stops?utm_source=pr&utm_medium=web&utm_campaign=mdard-pr-Dec16",
+        "https://www.michigan.gov/mdard/business-development/grantfund/regenerative-farmer-network-grant",
+        "https://www.michigan.gov/mdard/about/media/pressreleases/2025/09/18/mdard-awards-over-1-million-for-projects-that-create-jobs-boost-local-agriculture-businesses",
+        "https://www.michigan.gov/mdard/about/media/pressreleases/2025/07/23/mdard-mi-ag-commission-award-400k-in-grant-funding-to-boost-state-food-and-ag-industry",
+        "https://www.michigan.gov/mdard/about/media/pressreleases/2025/04/17/mdard-awards-1-million-of-grant-funding-for-rural-infrastructure-and-industry",
+        "https://www.michigan.gov/mdard/about/media/pressreleases/2025/05/22/mdard-awards-1-million-of-grant-funding-to-county-fairs-and-expositions",
+        "https://www.michigan.gov/mdard/about/media/pressreleases/2025/10/16/mdard-announces-more-than-2-million-of-specialty-crop-block-grants"
+      ],
+      "keywords": [
+        "grant",
+        "funding",
+        "application",
+        "conservation",
+        "agriculture",
+        "MDARD",
+        "regenerative",
+        "apply"
+      ],
+      "snippet": "bob new header \r \r For immediate release: February 10, 2026\r \r Media contact: Lynsey Mukomel <MDARD-Press@michigan.gov>, 517-290-1734\r \r \u00a0\r \r *MDARD Surpasses $250 Million in Grants Awarded During Whitmer Administration*\r \r \u00a0\r \r *LANSING, Mich.* \u2013 The Michigan Department of Agriculture and Rural Dev",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_2ec2ce9e",
+      "type": "LOAN",
+      "source_type": "EMAIL",
+      "source_email": "silpada@email.silpada.com",
+      "subject": "b'LAST DAY for priority shipping + Trending gifts under $50 \\xf0\\x9f\\x92\\x8c'",
+      "detected_at": "2026-02-16T01:13:46+00:00",
+      "deadline": null,
+      "amount_usd": 50,
+      "links": [
+        "https://enews.silpada.com/q/JdfgpuXC7q9Hk8YBZEAxxLppIlpUa2XJt-fk3Ymdm5vb_x4QqT8jt4h9d",
+        "https://enews.silpada.com/q/BRymm0NusCl0XnGqMwwSysgFP1eaC66J7o0ZcOJYXNiZWxjYXNAZ21haWwuY29tw4gru9KNymKc7kLs-kItZcwaCqzsSQ",
+        "https://enews.silpada.com/q/BOIaa65nrCb0XrplVXtcZ39zXJE_C9GaOLGZcOJYXNiZWxjYXNAZ21haWwuY29tw4gzPKiYP6fdL6LiDQ9MVmBc6c7xoQ",
+        "https://enews.silpada.com/q/mhcyyvuMBat0Xv-wvlfgDyQMu893agTOmzfZcOJYXNiZWxjYXNAZ21haWwuY29tw4gFvYxuislfI5LcYrcNFu1YixT1Mg",
+        "https://enews.silpada.com/q/NmR99OSHrNG0XEb-MZ4t8KKqIameN170v-AZcOJYXNiZWxjYXNAZ21haWwuY29tw4gvHXs7D5wfa9LOkPCGQcyx2b527w",
+        "https://enews.silpada.com/q/Y2Quu_LeWsD0Xv7yq_U0q29spAy-sHGVhiZZcOJYXNiZWxjYXNAZ21haWwuY29tw4gisxdPG89epmLbla-H7f9FBYjPXg",
+        "https://enews.silpada.com/q/8kCEECNr3Va0Xwc8w4PoQnRoW0nIVLAbth-ZcOJYXNiZWxjYXNAZ21haWwuY29tw4gPbxwzbkCfp_LZn7ECdEIRJz-_cw",
+        "https://enews.silpada.com/q/UelPPvUXXw90Xr6iDqg_4nQEJYulwLihYqPZcOJYXNiZWxjYXNAZ21haWwuY29tw4gQ4Vq-aACeJVLOY6N4C7BjrEGGaQ",
+        "https://enews.silpada.com/q/P1uhhUcYqUQ0XGbpVFP7m0hT57uTUKx3ykoZcOJYXNiZWxjYXNAZ21haWwuY29tw4gxkDnfU6OeLOLsIezd0LvwicRD5A",
+        "https://enews.silpada.com/q/X20OOoVqnB20Xj_Ml1qk_8d9LosSBz-kd0sZcOJYXNiZWxjYXNAZ21haWwuY29tw4gHB6QIVmbe7QLuEtG9ZhhINx4dkw"
+      ],
+      "keywords": [
+        "loan",
+        "apply"
+      ],
+      "snippet": "View in Browser (https://enews.silpada.com/q/JdfgpuXC7q9Hk8YBZEAxxLppIlpUa2XJt-fk3Ymdm5vb_x4QqT8jt4h9d)\r \r Free ground shipping* on orders $50+.\r \r Silpada (https://enews.silpada.com/q/BRymm0NusCl0XnGqMwwSysgFP1eaC66J7o0ZcOJYXNiZWxjYXNAZ21haWwuY29tw4gru9KNymKc7kLs-kItZcwaCqzsSQ)\r \r  <table width=\"10",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_86cf46bb",
+      "type": "LOAN",
+      "source_type": "EMAIL",
+      "source_email": "thredup@email.thredup.com",
+      "subject": "3 new items for Dresses \"Black metallic long sleeve shift dress with pleated texture and oversized balloon sleeves\" including markdowns!",
+      "detected_at": "2026-02-16T01:13:46+00:00",
+      "deadline": null,
+      "amount_usd": 64,
+      "links": [
+        "https://smart-shopping.thredup.com/assets/responsysimages/content/thredup/email_banner@650.jpg",
+        "https://clicks.thredup.com/q/ynwCOsZzwnIHl4RtPaEGNg~~/AAQRxRA~/j2wiDToB_f1ofg4gSrDd5wdyc6kkuyuc0rYOVr6wbo-c3m4DDN3eLtZnI_wieOeIX-XquC-pqlAnD45jI7QXwQ~~",
+        "https://clicks.thredup.com/f/open-in-app/T3gRIMpqGJGr9vf3mSNulA~~/AAQRxRA~/Uh4WlZrs_IC5T7vo4TdGFeAQTvXaIOhAgScsFdQIcPSGR_4ywsZixXCetd87fKF9MhPgoLwhPEBqWxzDNgvatR1Up9ibXh7sbvXpf4M30N5YU69pKr04emSWzWztXaftg3ZnXLA7gvqu_HEkRDw8H9duhMRVaL8esuhpRi_vrGg24bAhQCAQ1NLzNLHSLeaSNQusnsMRy6WZFfYpswplauKZzt1-_3_D3kuWIVjvv78~",
+        "https://braze-images.com/appboy/communication/assets/image_assets/images/68c0911a977d390064827fb7/original.png?1757450522",
+        "https://clicks.thredup.com/f/open-in-app/i19-hffp3DvZLRYjvazcxA~~/AAQRxRA~/0wi5Viu1NKDcGfaBexRcSF4Tr5qBivQ7IC02DBPK9A6irnXXsSzy_dJ0pPXifamujhnVucJus2kT8ZyhWYvI3zuSZ4M10wrm96CX2H4bojaIAH0MOpDzjk82vlzAQFRZJo9cWmP2nEvRhB-0H26Fm3qdBid_aQrRFA046SgIMSHXn80gfR8tP6dFHv3zF3PamuvJqq4ufjvLdm4vqmEQrT0mieCASpQl67Xo7fkt9umen9kJyoQCj3-mG5aDehR6",
+        "https://clicks.thredup.com/f/open-in-app/ZD7EOGJIVd7mp2x2X4U-aw~~/AAQRxRA~/LkdEIGn4-P-O2iQSR3rnlHWrGZwGzLD84rVZpzkSH05NBDmJN2coeBP20hkzPbQvoJmXyxlgg3bQ4XQa-EjZ9fAAVTwC7LuNErtF_mfZ67p71BaiAzJbZKCe3K1ElzsCUlSAi5yWyMP7653ax1ReVBUOlD1FDgyPdfRVA2rXIk5m9O7ubQ0hwCIGbO8kr-adxjRo2T47xdkJUW60rLDVwBq7D1uSQe5klcQfSAJ3xqK-h34fNjiF0k8XMcCzvQnT",
+        "https://clicks.thredup.com/f/open-in-app/hqkZ6fJb_xawoX-Tu18Nbw~~/AAQRxRA~/0wi5Viu1NKDcGfaBexRcSF4Tr5qBivQ7IC02DBPK9A67rku__Y7jJLTUS54OynNQ7Usb1fBL9Xp_Qc5BT6N-2oEn3bXvVOWdXFoKryPQ0HsrR54SXFS7CCIE4hH5hfMsVKm2bJ8U6z-TLr-POigzKUG8-M3NgFt3A-RXKNq7UtAqOHkic2TyVAmoCUSkyQArs39q4n-ix0696d8hbNE13TqtF7FJL2IuXAPwSoYKtZyZogqeaKDF1N7c_oUHVTe9",
+        "https://clicks.thredup.com/f/open-in-app/cibhGUEObUdILrHLRq6EpA~~/AAQRxRA~/ZVAb2mBaRxgW0mOwnUY5RMkDqvdDSpPYB8kDoeKCIZ2dC5pJv5NQn2mvT70xWAudcPLJrr8Opo_xQpW0UNCuoZ602rl1oStnhpcVXOSIdLBjxWFXOiyf4t49JuBcMo2cwXS8vVcLQ35nf-Hagr4KESfvopff0i7_WwEkIY0_g4VLpYqtLfKnht5UAGDx3vYhqtqczQT61tzbr-lVfmXXmD_cwVRSts787hIrSy4ZxWXWhwfF2NusOMYFaHOosuNC",
+        "https://braze-images.com/appboy/communication/assets/image_assets/images/68c0b9409259d400756c8539/original.png?1757460800",
+        "https://clicks.thredup.com/f/open-in-app/6sEL78dF_x5maklP3SR7WQ~~/AAQRxRA~/Oacz1ySJNjsabdTLZ1xMRlK_SBVp6p9mXxH1oN7gIp0Q_-62N__IOwtexhJJRNV8EG8C98F4RQSru4h5wC6r_ANFQswVlBvCTY30Dug4QuWQI_Hdi4YXU6y_-q9_-wKvkFCFINIBAdQt9mY-YMKqKSmlM29Wzjbb0-ZZ4uDOWyCVZoTQlmt0C6fcwLI5PV9-gzLpa6PNGJRcLkGZLQ7pjdWxyg0qJP_quKMjjvVqge6GWS0mWNBsBObDf4Xmxw8z"
+      ],
+      "keywords": [
+        "grant",
+        "FSA",
+        "RFP",
+        "RFA"
+      ],
+      "snippet": "<!DOCTYPE html> <html lang=\"en\"> <head> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"> <title>ThredUp | Fashion, meet Forever.</title> <meta charset=\"utf-8\"> <meta name=\"viewport\" content=\"width=device-width\">    <style>body { padding: 0; width: 100%; margin: 0 auto; background-",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_6a82fa06",
+      "type": "GRANT",
+      "source_type": "EMAIL",
+      "source_email": "MDARD@govsubscriptions.michigan.gov",
+      "subject": "b'MDHHS and MDARD urge residents to use caution when buying and using pesticides'",
+      "detected_at": "2026-02-16T01:13:46+00:00",
+      "deadline": "February 9, 2026",
+      "amount_usd": 2700,
+      "links": [
+        "https://www.michigan.gov/mdhhs/safety-injury-prev/environmental-health/topics/mitracking/pesticide-related-illnesses-and-injuries",
+        "https://www.michigan.gov/mdard/plant-pest/pesticides",
+        "http://www.michigan.gov/mdard/",
+        "https://www.michigan.gov/mdard/about/contact-mdard",
+        "https://www.michigan.gov/mdard/about/media/email",
+        "https://www.Michigan.gov/Vote",
+        "http://public.govdelivery.com/accounts/MIDARD/subscribers/new?preferences=true",
+        "https://subscriberhelp.govdelivery.com/",
+        "https://public.govdelivery.com/accounts/MIDARD/subscriber/new",
+        "https://content.govdelivery.com/accounts/MIDARD/bulletins/4090827"
+      ],
+      "keywords": [
+        "agriculture",
+        "MDARD"
+      ],
+      "snippet": "MDHHS and MDARD urge residents to use caution when buying and using pesticides  \r \r  \r \r bob new header \r \r For immediate release: February 9, 2026\r \r Media contacts: MDHHS, Lynn Sutfin, 517-241-2112, Sutfinl1@michigan.gov and Lynsey Mukomel, 517-290-1734, MDARD-Press@Michigan.gov\r \r MDHHS and MDARD",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_c1ff4814",
+      "type": "LOAN",
+      "source_type": "EMAIL",
+      "source_email": "jacobhernandez@milmarbuildings.com",
+      "subject": "Our pole buildings are more affordable than ever!",
+      "detected_at": "2026-02-16T01:13:47+00:00",
+      "deadline": null,
+      "amount_usd": null,
+      "links": [
+        "https://milmarbuildings.com/hs/preferences-center/en/direct?data=W2nXS-N30h-RRW41QQlr2FCygFW4kmPjQ2-DG7lW3ZFj88347DGDW4mJv5s2qWR2hW2G0cbr47KKTKW3b8K4L2WvGj5W3VMXz547zPWkW4mdv_M3VM8nSW3jn9ZL4kmQ5ZW4pK2_23F9B1gW1S4Q5d23nct8W1XtxS01SvnDlW1Z01RZ4kCfB8W3DZXt41Zlkj9W2-Nd8_3QMrTkW2vK3662zY25KW2MDKb13g75qPW2PM8P-2D1lRDW4rzNNj3D_-rHW3jl--v2vZQ5TW2xSkDx2TqcWYW32Gl7D2sCRJsW2vJy9z1LmxHcW21qwlz2F-xG_W3GKTBr4t4lkFW2YgN043DXpnBW3JKbM23SQ8VNW3QCFmS3_YjxWW2qQNt41LHylKW1W-YLS4kf6_PW2Fz-Xd3XLtSRW2RktYk3VBmVDW1VfjjL3LYYMxW4hHB6n3Y03ZZW3DWb7z2vK2NpW3jf8Tr2p3nKyW2CVPYQ2FM6F-W2zY-HT2RDL6ZW38tbM0258MfsW1XgMs132BdRpW2HZ9m11NvpTfW2PVCDq3VHm1JW2CHz1-3LG4TsW1Lg5R645RG8gW43pDZn32rH8KW3bt0DH4fHqQlW21qwK72WswwjW2-J1vw2zZLHhW1T_ZWJ3d3YBfW34x27c4p8ZYRW4pD2pZ3644fDW21qxds4hKDjcW3NLY6S45TQWPW2FWq_M1BqScxf2WgB0z04&_hsenc=p2ANqtz--uylqRrWhRYX5sIxThZX2GmIKGr6mBz5-VIwx4w1Avze2gz9_24CXsHgCtaCgYEe7kOvzthFBfsPo3n96niNEmvqYkGA&_hsmi=393419750",
+        "https://milmarbuildings.com/hs/preferences-center/en/page?data=W2nXS-N30h-RRW41QQlr2FCygFW4kmPjQ2-DG7lW3ZFj88347DGDW4mJv5s2qWR2hW2G0cbr47KKTKW3b8K4L2WvGj5W3VMXz547zPWkW4mdv_M3VM8nSW3jn9ZL4kmQ5ZW4pK2_23F9B1gW1S4Q5d23nct8W1XtxS01SvnDlW1Z01RZ4kCfB8W3DZXt41Zlkj9W2-Nd8_3QMrTkW2vK3662zY25KW2MDKb13g75qPW2PM8P-2D1lRDW4rzNNj3D_-rHW3jl--v2vZQ5TW2xSkDx2TqcWYW32Gl7D2sCRJsW2vJy9z1LmxHcW21qwlz2F-xG_W3GKTBr4t4lkFW2YgN043DXpnBW3JKbM23SQ8VNW3QCFmS3_YjxWW2qQNt41LHylKW1W-YLS4kf6_PW2Fz-Xd3XLtSRW2RktYk3VBmVDW1VfjjL3LYYMxW4hHB6n3Y03ZZW3DWb7z2vK2NpW3jf8Tr2p3nKyW2CVPYQ2FM6F-W2zY-HT2RDL6ZW38tbM0258MfsW1XgMs132BdRpW2HZ9m11NvpTfW2PVCDq3VHm1JW2CHz1-3LG4TsW1Lg5R645RG8gW43pDZn32rH8KW3bt0DH4fHqQlW21qwK72WswwjW2-J1vw2zZLHhW1T_ZWJ3d3YBfW34x27c4p8ZYRW4pD2pZ3644fDW21qxds4hKDjcW3NLY6S45TQWPW2FWq_M1BqScxf2WgB0z04&_hsenc=p2ANqtz--uylqRrWhRYX5sIxThZX2GmIKGr6mBz5-VIwx4w1Avze2gz9_24CXsHgCtaCgYEe7kOvzthFBfsPo3n96niNEmvqYkGA&_hsmi=393419750"
+      ],
+      "keywords": [
+        "loan",
+        "funding"
+      ],
+      "snippet": "In 2026 we are offering brand new financing options.\r \r Hi Cassandra,\r \r New for 2026, MilMar Buildings is now both lowering some prices AND offering several affordable financing options for your building project, making it easier than ever for you to get the building of your dreams!\r \r 1. Convenien",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_566294bd",
+      "type": "LOAN",
+      "source_type": "EMAIL",
+      "source_email": "silpada@email.silpada.com",
+      "subject": "b'Galentine\\xe2\\x80\\x99s & self-love gifts \\xf0\\x9f\\x92\\x8c '",
+      "detected_at": "2026-02-16T01:13:47+00:00",
+      "deadline": null,
+      "amount_usd": 50,
+      "links": [
+        "https://enews.silpada.com/q/rp1DnRDcgtRaOd8_yIgaHXRCBUhaWlFOdUIsu2-ImBXmndRQ1_dgSu6Qp",
+        "https://enews.silpada.com/q/iToddlXJcSN0XCu690GyUAYnCIFUSh66YGVZcOJYXNiZWxjYXNAZ21haWwuY29tw4gVm2GIRHee7ILI02hM2dxsS1Fqgw",
+        "https://enews.silpada.com/q/RZx99Fh0OqI0XL6WdAygK2_Se4M4qogaZptZcOJYXNiZWxjYXNAZ21haWwuY29tw4gFVi3EBP8fYrLZwIQwvvlh-BJfsg",
+        "https://enews.silpada.com/q/e5CDDaxsGk50X5Zac5iNN5LXChggkKogJu6ZcOJYXNiZWxjYXNAZ21haWwuY29tw4gemw5loSfcKvLkeGjrVpbMMn1rPA",
+        "https://enews.silpada.com/q/3GjbbGgaIGo0XcgSarS497e0DUd5Gmiwly7ZcOJYXNiZWxjYXNAZ21haWwuY29tw4gEGfe04MQdpvLqUZueDlmoVxdg2w",
+        "https://enews.silpada.com/q/aV7ooYsCUcC0X7X3NO_L7RVO_yThc-3YfYxZcOJYXNiZWxjYXNAZ21haWwuY29tw4gUZIJ5ywDcasLHefZDnJU6DFaVDA",
+        "https://enews.silpada.com/q/ukKSS8pbJiu0XHRFw7M7jjG0j2qei-lnx_GZcOJYXNiZWxjYXNAZ21haWwuY29tw4g9QFl8yYzcJ7LwVEGdXaODoPIGYA",
+        "https://enews.silpada.com/q/IwGnnh8XJWx0X8sCDvaVmG6l0c_uWKAechpZcOJYXNiZWxjYXNAZ21haWwuY29tw4g3kZW07TPerULrhOLhQHAaldlBUw",
+        "https://enews.silpada.com/q/-0pCCR2I3gw0XRl1fx4RJlhuES6jgcumHRXZcOJYXNiZWxjYXNAZ21haWwuY29tw4gjEEZZIGLfLSLJrej008vHsItGHA",
+        "https://enews.silpada.com/q/IbkVVFoP3hJ0X6Dzs_dW7ab86cnFhOtMrnkZcOJYXNiZWxjYXNAZ21haWwuY29tw4gwu6IYjWlf62LLMXHuWAHUFsXpjQ"
+      ],
+      "keywords": [
+        "loan",
+        "apply"
+      ],
+      "snippet": "View in Browser (https://enews.silpada.com/q/rp1DnRDcgtRaOd8_yIgaHXRCBUhaWlFOdUIsu2-ImBXmndRQ1_dgSu6Qp)\r \r Free ground shipping* on orders $50+.\r \r Silpada (https://enews.silpada.com/q/iToddlXJcSN0XCu690GyUAYnCIFUSh66YGVZcOJYXNiZWxjYXNAZ21haWwuY29tw4gVm2GIRHee7ILI02hM2dxsS1Fqgw)\r \r  <table width=\"10",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_1bce0897",
+      "type": "LOAN",
+      "source_type": "EMAIL",
+      "source_email": "thredup@email.thredup.com",
+      "subject": "15 new items for Dresses \"Black metallic long sleeve shift dress with pleated texture and oversized balloon sleeves\" including markdowns!",
+      "detected_at": "2026-02-16T01:13:47+00:00",
+      "deadline": null,
+      "amount_usd": 382,
+      "links": [
+        "https://smart-shopping.thredup.com/assets/responsysimages/content/thredup/email_banner@650.jpg",
+        "https://clicks.thredup.com/q/YfRiRHrTkMdFjUrmXpwT5Q~~/AAQRxRA~/nvLTX9Uv7ZU6pQIyqrNL3ZEUVsIV-hMlNU3HnGaOa4aGmaOzvIyePwlY1Eg1W7G36jEeHQK8zfnDGRP0OEBXzA~~",
+        "https://clicks.thredup.com/f/open-in-app/k3491idghF57zCWx1N3PLg~~/AAQRxRA~/z7wOpI6W-EHAy-8FCRnydAk_5ZFE1GECUyC_xwKr2C6p5N1FDZfAIakh4nS8B7ytQjA49DwX-Q7cqKda256nLxxlYur3a-0I37XOIiDeg7PQ3tjFAhvDTR2233byFsBAvb32oqFDwPScZ0E6HhUJh4VWuDHlTi2wXSrAFiA2knIZlPBeJIiZXB5udFspgfk_ruksZsMpfULARfv8N3RM12yWGhVi2mUFWrXBjd0VJMQ~",
+        "https://braze-images.com/appboy/communication/assets/image_assets/images/68c0911a977d390064827fb7/original.png?1757450522",
+        "https://clicks.thredup.com/f/open-in-app/p0EX7WpLolaVdASb9RzSQg~~/AAQRxRA~/mamVJJW7MpoDPJBgFnal5nSsGmyIpEgRcI2S9yqouyoOPQbnIGhO0u8LrH7rfsaOO83ujylzo40sFqi15xwlXV7apZEh00LmtsBmiVEQ4M8AaHSFsIZUrXzN0hcbBGvkSa9K56_qjRBofYhhYmurPaKCsQFtqOcmbZHRc0sprBlGUP1BbQincq-bOZ-_T0yzokKN_0tK5SwYd1F2nb3Wa6HoFMeILgRfJ7iIf-RG1CFAvQ3Ila3eKsSEGpFmk5cN",
+        "https://clicks.thredup.com/f/open-in-app/2PM1lj1ZOdcNTTRNAHDS3A~~/AAQRxRA~/Asyfb-ak9CO8Vh4XygonuPlzF2s9zrx6aPvRk6KXxeaD3NjtEMHsvv2K437J4h6QPSaWLPA-RcMCeHHg75fV5rjpQ6gMM2zVqkQ-sEBh221GyIvL_nfizNyXbeQI6BUAv4IAn7HG4U7-q7nJjlTU5dIjSvXp7vb3FBQ9mONDBvFsoG2ULF0ZKzX466zQ2uD6x_arNqMrBArH3fdzGxGmFNa0cUN0OZ0IDNz-E4ZA3FUASIViIFMpuKwXATyzCAgs",
+        "https://clicks.thredup.com/f/open-in-app/6wCAr356od2f5Jl0Sekbtg~~/AAQRxRA~/mamVJJW7MpoDPJBgFnal5nSsGmyIpEgRcI2S9yqouyqwmSTVwl769tjJa5Sv-5YfZlA4Izh_6jO9-vz4nz_1XcBo0H-nFOK7eYtabpHMABhUDqd4rdpyeNymDpv0xqH1S6kydIDkN6EUfYf5QPjoYA9m-OghrjuAv6ayGQUYrEVNso5kJJLgBmun_VJ7koAi9_aaX_94zGwPAmE6ej3rx-aViugSYH5MTUnPBGXWWunD-uAQe70i7hxkRtNgcPfE",
+        "https://clicks.thredup.com/f/open-in-app/DE4YnS1oIecsz1hRX4HzXQ~~/AAQRxRA~/_V_kv39vJTloP-nUyEleDDF3a56o2YPhz9IP_3-vOYROlx4nVexxnr-IhfLpu8sl4KLGVNlFSgkn7Btsv2CTGvO4UFerx_hNbqeyDlAIyJR-8nt9EqBOZMNK3a6ATRt3QUHQ0bBh5sLlxVIX1Yk4WEWLus1vtIZweOIiIfABjXSCLtMhjsxfsbKrS5eGa-OkSKqL0Kf-bkNCXi-rfPnZ9Z5BYYc_n4oP5CI0Rwjrx7Z6Hw7jtx9M7O4p-aOpan8R",
+        "https://braze-images.com/appboy/communication/assets/image_assets/images/68c0b9409259d400756c8539/original.png?1757460800",
+        "https://clicks.thredup.com/f/open-in-app/c2lQU6Wb2hEmo6ezWqrVig~~/AAQRxRA~/XMHGlox6R-tUCsojyaEYYATPh2Nx6tUqG6U5GaOyEs2LUH0KI96ySUoVOAcoPcflzpzxfwpZT5oYFIznZ19laBXboMzxO4ouIuRaAOcFR1BZUXZJjlVJKJk3tDiDhMiJ6O6Ho0c9jYbGMQj-qhHTIzhOXbyH-ggI6cGpMn4GjjQ6d6IGHBJhfgIBG98WfGfgFNEiIXc7EkVus_xjKPqgwNPAJeUFlelqRfFlkGeFXjHo0eKUM1Nmt4-pkAM1JMfH"
+      ],
+      "keywords": [
+        "grant",
+        "FSA",
+        "RFP"
+      ],
+      "snippet": "<!DOCTYPE html> <html lang=\"en\"> <head> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"> <title>ThredUp | Fashion, meet Forever.</title> <meta charset=\"utf-8\"> <meta name=\"viewport\" content=\"width=device-width\">    <style>body { padding: 0; width: 100%; margin: 0 auto; background-",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_9fec83ea",
+      "type": "LOAN",
+      "source_type": "EMAIL",
+      "source_email": "silpada@email.silpada.com",
+      "subject": "b'\\xf0\\x9f\\x8f\\x88 Back in Stock: The REAL MVPs'",
+      "detected_at": "2026-02-16T01:13:48+00:00",
+      "deadline": null,
+      "amount_usd": 50,
+      "links": [
+        "https://enews.silpada.com/q/p48_LDtDZ6YuCQpQDqpOxPIgMjw9jygv9UUAMUeD7BpxqxAQs7QtKSYY4",
+        "https://enews.silpada.com/q/k5844cFIvxo0XtmExo720USykIeIxhMQnTgZcOJYXNiZWxjYXNAZ21haWwuY29tw4grO6Yb6ORcodLmOrCN-3_Os6jtng",
+        "https://enews.silpada.com/q/PqNIItdwHy00XvnelsFzSaVPzjqGyzmcafGZcOJYXNiZWxjYXNAZ21haWwuY29tw4gp8_fzd8lfJWL6nNUGcnaZgaPM2Q",
+        "https://enews.silpada.com/q/VkghheCGh0V0X3umzWsE-wcxNaLV0UQTo8UZcOJYXNiZWxjYXNAZ21haWwuY29tw4gdupHLlird4YLHnIc2jFtH43LpQQ",
+        "https://enews.silpada.com/q/C-G55LwU9l30Xyd1X8j1JqhyfSZFlWjs-8hZcOJYXNiZWxjYXNAZ21haWwuY29tw4g07k74wP8fZsLxAoG_EE19Lde6PQ",
+        "https://enews.silpada.com/q/orrPPFAXRbl0X4xS5wrI9WebNW_Ub6hj2wsZcOJYXNiZWxjYXNAZ21haWwuY29tw4gPBtXLed7c71Lf9w_pHWZUsjgYUQ",
+        "https://enews.silpada.com/q/gLayyFxYytM0XNx9uAna0XiRnuh3tDYngD0ZcOJYXNiZWxjYXNAZ21haWwuY29tw4gi7lbEn2cfICLv1qX-0xW6E4-6XQ",
+        "https://enews.silpada.com/q/Eubyy1_rYeG0X_D4ynzsVrKdQMGzeBE26W9ZcOJYXNiZWxjYXNAZ21haWwuY29tw4gFH-g6vfqeItLpG0ViSz4pZxB8pg",
+        "https://enews.silpada.com/q/L3vffI5KnAb0Xfz7HosWHMJfFfx7Aw-Dt0iZcOJYXNiZWxjYXNAZ21haWwuY29tw4gZ43LIUDzdqHL7i5Pdhw9LYWOOzQ",
+        "https://enews.silpada.com/q/dtCNNrcYAxR0X-WL_fWyEuHNt9iLx8_mH3_ZcOJYXNiZWxjYXNAZ21haWwuY29tw4goYQwHaldeZTLCxalgPWp75qWHNg"
+      ],
+      "keywords": [
+        "loan",
+        "apply"
+      ],
+      "snippet": "View in Browser (https://enews.silpada.com/q/p48_LDtDZ6YuCQpQDqpOxPIgMjw9jygv9UUAMUeD7BpxqxAQs7QtKSYY4)\r \r Free ground shipping* on orders $50+.\r \r Silpada (https://enews.silpada.com/q/k5844cFIvxo0XtmExo720USykIeIxhMQnTgZcOJYXNiZWxjYXNAZ21haWwuY29tw4grO6Yb6ORcodLmOrCN-3_Os6jtng)\r \r  <table width=\"10",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    },
+    {
+      "id": "opp_20260216_05a44e07",
+      "type": "LOAN",
+      "source_type": "EMAIL",
+      "source_email": "auctions@liveauctioneers.com",
+      "subject": "Auction Calendar",
+      "detected_at": "2026-02-16T01:13:48+00:00",
+      "deadline": null,
+      "amount_usd": 1,
+      "links": [
+        "https://link.liveauctioneers.com/view/696b99d07c60867fb7005486q3cpz.2e470/784e4b31",
+        "https://link.liveauctioneers.com/click/43826471.4017852/aHR0cDovL3d3dy5saXZlYXVjdGlvbmVlcnMuY29tLz91dG1fc291cmNlPUF1Y3Rpb24rRW1haWwmdXRtX21lZGl1bT1lbWFpbCZ1dG1fY29udGVudD1jYXRhbG9nJnV0bV9jYW1wYWlnbj0yMDI2MDIwOF9BdWN0aW9uQ2FsZW5kYXI/696b99d07c60867fb7005486Bc399a636",
+        "https://link.liveauctioneers.com/click/43826471.4017852/aHR0cHM6Ly93d3cubGl2ZWF1Y3Rpb25lZXJzLmNvbS9jYXRhbG9nLzQwNDYwNF9pY29ucy1vZi1sdXh1cnktY29sbGVjdG9ycy1hdWN0aW9uLw/696b99d07c60867fb7005486B3e210bc4",
+        "https://link.liveauctioneers.com/click/43826471.4017852/aHR0cHM6Ly93d3cubGl2ZWF1Y3Rpb25lZXJzLmNvbS9jYXRhbG9nLzM5ODU1NV9zdGFydC0xLWV1cm9wZWFuLWFuZC1ydXNzaWFuLWNvbGxlY3RpYmxlcy8/696b99d07c60867fb7005486Bbbd364c6",
+        "https://link.liveauctioneers.com/click/43826471.4017852/aHR0cHM6Ly93d3cubGl2ZWF1Y3Rpb25lZXJzLmNvbS9jYXRhbG9nLzQwMTk4Nl9maW5lLWpld2Vscnktc3Rlcmxpbmctc2lsdmVyLWFuZC11cmFuaXVtLWdsYXNzLw/696b99d07c60867fb7005486B8051fba3",
+        "https://link.liveauctioneers.com/click/43826471.4017852/aHR0cHM6Ly93d3cubGl2ZWF1Y3Rpb25lZXJzLmNvbS9jYXRhbG9nLzQwNTI5NF9tb2Rlcm4tbWFzdGVycy1hbmQtbmV3LXZvaWNlcy8/696b99d07c60867fb7005486Bea09c3a5",
+        "https://link.liveauctioneers.com/click/43826471.4017852/aHR0cHM6Ly93d3cubGl2ZWF1Y3Rpb25lZXJzLmNvbS9jYXRhbG9nLzQwNTUzOV9zdGVybGluZy1zaWx2ZXItZ29sZC12aW50YWdlLWpld2VscnktcG9rZW1vbi8/696b99d07c60867fb7005486B83778d5c",
+        "https://link.liveauctioneers.com/click/43826471.4017852/aHR0cHM6Ly93d3cubGl2ZWF1Y3Rpb25lZXJzLmNvbS9jYXRhbG9nLzQwNTQ0OV9iZWFyaXN0cnktZXN0YXRlLWF1Y3Rpb24tbHh2aWlpLw/696b99d07c60867fb7005486B624ee266",
+        "https://link.liveauctioneers.com/click/43826471.4017852/aHR0cHM6Ly93d3cubGl2ZWF1Y3Rpb25lZXJzLmNvbS9jYXRhbG9nLzQwNTc3Ml90aW1lZGF1Y3Rpb24tYW5jaWVudC1yZWxpY3MtdW5lYXJ0aGVkLXNlcmllNTMv/696b99d07c60867fb7005486Bf0766a96",
+        "https://link.liveauctioneers.com/click/43826471.4017852/aHR0cHM6Ly93d3cubGl2ZWF1Y3Rpb25lZXJzLmNvbS9jYXRhbG9nLzQwNDQ0MF9hcnQtYW50aXF1ZXMtdGV4dGlsZXMtYW5kLWNhcnBldHMv/696b99d07c60867fb7005486B08661f2e"
+      ],
+      "keywords": [
+        "grant",
+        "loan"
+      ],
+      "snippet": "View this week's auction lineup and be the first to bid on your favorite items. Participate in hundreds of auctions every week on LiveAuctioneers.\r \r Having trouble viewing this email? click here to view it online <https://link.liveauctioneers.com/view/696b99d07c60867fb7005486q3cpz.2e470/784e4b31>.",
+      "status": "NEW",
+      "program_id": null,
+      "notes": ""
+    }
+  ],
+  "updated_at": "2026-02-16T01:25:03+00:00",
+  "stats": {
+    "total": 33,
+    "NEW": 33,
+    "REVIEWED": 0,
+    "QUEUED": 0,
+    "SUBMITTED": 0,
+    "REJECTED": 0
+  }
+}

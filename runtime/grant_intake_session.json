@@ -1,0 +1,28 @@
+{
+  "timestamp_utc": "2026-02-15T11:03:28Z",
+  "program": "USDA FSA Operating Microloan",
+  "submission_url": "https://www.fsa.usda.gov/programs-and-services/farm-loan-programs/farm-operating-loans",
+  "packet_path": "/home/asbelcas/cropcircuit/grants/submissions/USDA_FSA_Operating_Microloan_packet.md",
+  "docs_checklist": [
+    "Borrower identification and filing proof",
+    "Revenue/financial records",
+    "Acreage/production summary",
+    "Livestock summary",
+    "Prior federal funding disclosure statement"
+  ],
+  "answers": {
+    "Name": "cassandra marie armstrong",
+    "Entity": "individual farmer",
+    "EIN/SSN": "ssn 383113615",
+    "Address": "5828 n 38th st augusta michigan 49012",
+    "Phone": "269-986-8595",
+    "Email": "asbelcas@gmail.com",
+    "Acreage": "18 acres",
+    "Livestock": "15 sheep, 10 goats, 15 chickens, 10 quail, 1 bee hive",
+    "Revenue": "0 startup",
+    "Requested Amount": "27500",
+    "Collateral": "none",
+    "Docs ready? (Y/N)": "Y"
+  },
+  "anything_missing": "car"
+}

@@ -1,0 +1,25 @@
+{
+  "timestamp_utc": "2026-02-16T00:48:54+00:00",
+  "status": "dry_run_captcha_required",
+  "last_screenshot_path": "/home/asbelcas/cropcircuit/logs/submission_proof_20260216T004830Z.png",
+  "result_url": "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify",
+  "selected_page_url": "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify",
+  "selected_frame_url": "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify",
+  "failures": [
+    {
+      "field": "subscriber_password",
+      "selector": "#subscriber_password",
+      "reason": "not_found"
+    },
+    {
+      "field": "subscriber_password_confirm",
+      "selector": "#subscriber_password_confirm",
+      "reason": "not_found"
+    },
+    {
+      "field": "subscriber_privacy_consent",
+      "selector": "#subscriber_privacy_consent",
+      "reason": "not_found"
+    }
+  ]
+}

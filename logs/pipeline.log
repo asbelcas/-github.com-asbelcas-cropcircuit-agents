@@ -1,0 +1,505 @@
+2026-02-15T14:26:19.212051 dry_run selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T14:26:19.212181 dry_run selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T14:26:19.212247 dry_run filled subscription_type=email
+2026-02-15T14:26:19.212318 dry_run filled email=cr****************@example.com
+2026-02-15T14:26:19.212379 dry_run skipped country_code_display reason=not_visible
+2026-02-15T14:26:19.212439 dry_run skipped name reason=not_visible
+2026-02-15T14:26:19.212498 dry_run skipped phone reason=not_visible
+2026-02-15T14:26:19.212563 dry_run submit_skipped screenshot=/home/asbelcas/cropcircuit/logs/submission_proof_20260215T192618Z.png result_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T14:26:41.154068 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T14:26:41.154201 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T14:26:41.154273 filled subscription_type=email
+2026-02-15T14:26:41.154349 filled email=cr****************@example.com
+2026-02-15T14:26:41.154417 skipped country_code_display reason=not_visible
+2026-02-15T14:26:41.154482 skipped name reason=not_visible
+2026-02-15T14:26:41.154546 skipped phone reason=not_visible
+2026-02-15T14:26:41.154616 submit_clicked selector=input[name='commit'] result_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify screenshot=/home/asbelcas/cropcircuit/logs/submission_proof_20260215T192639Z.png
+2026-02-15T14:29:48.911508 dry_run selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T14:29:48.911671 dry_run selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T14:29:48.911740 dry_run cookie_dismissed selector=button[aria-label*='Dismiss']
+2026-02-15T14:29:48.911808 dry_run filled subscription_type=email
+2026-02-15T14:29:48.911894 dry_run filled email=cr****************@example.com
+2026-02-15T14:29:48.911964 dry_run skipped country_code_display reason=not_visible
+2026-02-15T14:29:48.912043 dry_run skipped name reason=not_visible
+2026-02-15T14:29:48.912114 dry_run skipped phone reason=not_visible
+2026-02-15T14:29:49.231501 dry_run submit_skipped pre_screenshot=/home/asbelcas/cropcircuit/logs/submission_proof_20260215T192948Z_pre.png post_screenshot=/home/asbelcas/cropcircuit/logs/submission_proof_20260215T192948Z_post.png result_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-15T19:39:21Z] ha_grant_pipeline start
+2026-02-15T14:39:37.030642 captcha_blocked_submit
+2026-02-15T14:39:37.403239 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T14:39:37.403309 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T14:39:37.403347 cookie_dismissed selector=button[aria-label*='Dismiss']
+2026-02-15T14:39:37.403384 filled subscription_type=email
+2026-02-15T14:39:37.403428 filled email=cr****************@example.com
+2026-02-15T14:39:37.403464 skipped country_code_display reason=not_visible
+2026-02-15T14:39:37.403499 skipped name reason=not_visible
+2026-02-15T14:39:37.403534 skipped phone reason=not_visible
+2026-02-15T14:39:37.403573 submit_clicked selector=input[name='commit'] result_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify pre_screenshot=/home/asbelcas/cropcircuit/logs/submission_proof_20260215T193933Z_pre.png post_screenshot=/home/asbelcas/cropcircuit/logs/submission_proof_20260215T193933Z_post.png
+[2026-02-15T19:39:37Z] ha_grant_pipeline selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-15T19:39:37Z] ha_grant_pipeline status=captcha_blocked_submit exit_code=1 last_screenshot_path=/home/asbelcas/cropcircuit/logs/submission_proof_20260215T193933Z_post.png result_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-15T19:42:29Z] ha_grant_pipeline start
+2026-02-15T14:42:42.762067 captcha_blocked_submit
+2026-02-15T14:42:43.144279 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T14:42:43.144393 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T14:42:43.144464 cookie_dismissed selector=button[aria-label*='Dismiss']
+2026-02-15T14:42:43.144529 filled subscription_type=email
+2026-02-15T14:42:43.144601 filled email=cr****************@example.com
+2026-02-15T14:42:43.144662 skipped country_code_display reason=not_visible
+2026-02-15T14:42:43.144723 skipped name reason=not_visible
+2026-02-15T14:42:43.144785 skipped phone reason=not_visible
+2026-02-15T14:42:43.144852 submit_clicked selector=input[name='commit'] result_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify pre_screenshot=/home/asbelcas/cropcircuit/logs/submission_proof_20260215T194239Z_pre.png post_screenshot=/home/asbelcas/cropcircuit/logs/submission_proof_20260215T194239Z_post.png
+[2026-02-15T19:42:43Z] ha_grant_pipeline selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-15T19:42:43Z] ha_grant_pipeline status=captcha_required exit_code=1 last_screenshot_path=/home/asbelcas/cropcircuit/logs/submission_proof_20260215T194239Z_post.png result_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T14:57:39.328202 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T14:57:39.328291 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T14:57:39.328360 page_urls=["about:blank", "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify"]
+2026-02-15T14:57:39.484651 selector_failure field=subscriber_email selector=#subscriber_email reason=not_found
+2026-02-15T14:57:39.487659 selector_failure field=subscriber_email_confirm selector=#subscriber_email_confirm reason=not_found
+2026-02-15T14:57:39.490317 selector_failure field=subscriber_country_code_display selector=#subscriber_country_code_display reason=not_found
+2026-02-15T14:57:39.493491 selector_failure field=subscriber_country_code selector=#subscriber_country_code reason=not_found
+2026-02-15T14:57:39.496065 selector_failure field=subscriber_phone selector=#subscriber_phone reason=not_found
+2026-02-15T14:57:39.498369 selector_failure field=subscriber_phone_confirm selector=#subscriber_phone_confirm reason=not_found
+2026-02-15T14:57:39.501007 selector_failure field=subscriber_password selector=#subscriber_password reason=not_found
+2026-02-15T14:57:39.503967 selector_failure field=subscriber_password_confirm selector=#subscriber_password_confirm reason=not_found
+2026-02-15T14:57:47.533814 selector_failure field=name selector=#name reason=not_visible
+2026-02-15T14:57:47.538124 selector_failure field=subscriber_privacy_consent selector=#subscriber_privacy_consent reason=not_found
+2026-02-15T14:57:47.595778 captcha_required
+[2026-02-15T19:57:59Z] ha_grant_pipeline bootstrap
+[2026-02-15T19:57:59Z] ha_grant_pipeline start
+2026-02-15T14:58:02.896557 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T14:58:02.896675 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T14:58:02.896785 page_urls=["about:blank", "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify"]
+2026-02-15T14:58:03.045688 selector_failure field=subscriber_email selector=#subscriber_email reason=not_found
+2026-02-15T14:58:03.048403 selector_failure field=subscriber_email_confirm selector=#subscriber_email_confirm reason=not_found
+2026-02-15T14:58:03.051914 selector_failure field=subscriber_country_code_display selector=#subscriber_country_code_display reason=not_found
+2026-02-15T14:58:03.055348 selector_failure field=subscriber_country_code selector=#subscriber_country_code reason=not_found
+2026-02-15T14:58:03.060232 selector_failure field=subscriber_phone selector=#subscriber_phone reason=not_found
+2026-02-15T14:58:03.064885 selector_failure field=subscriber_phone_confirm selector=#subscriber_phone_confirm reason=not_found
+2026-02-15T14:58:03.068431 selector_failure field=subscriber_password selector=#subscriber_password reason=not_found
+2026-02-15T14:58:03.070615 selector_failure field=subscriber_password_confirm selector=#subscriber_password_confirm reason=not_found
+2026-02-15T14:58:11.091612 selector_failure field=name selector=#name reason=not_visible
+2026-02-15T14:58:11.095154 selector_failure field=subscriber_privacy_consent selector=#subscriber_privacy_consent reason=not_found
+2026-02-15T14:58:11.144875 captcha_required
+[2026-02-15T19:58:11Z] ha_grant_pipeline selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-15T19:58:11Z] ha_grant_pipeline status=captcha_required exit_code=1 last_screenshot_path=/home/asbelcas/cropcircuit/logs/submission_proof_20260215T195759Z.png result_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-15T20:19:09Z] ha_grant_pipeline bootstrap
+[2026-02-15T20:19:09Z] ha_grant_pipeline start
+2026-02-15T15:19:09.402022 morning_targets_loaded overrides={"loan_amount": "25000", "projected_income": "3000", "grant_goal": "50000"}
+2026-02-15T15:19:13.054101 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T15:19:13.054207 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T15:19:13.054294 page_urls=["about:blank", "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify"]
+2026-02-15T15:19:13.178448 dry_run would_fill field=subscription_type selector=#subscription_type value=email
+2026-02-15T15:19:13.181386 selector_failure field=subscriber_email selector=#subscriber_email reason=not_found
+2026-02-15T15:19:13.183987 selector_failure field=subscriber_email_confirm selector=#subscriber_email_confirm reason=not_found
+2026-02-15T15:19:13.186125 selector_failure field=subscriber_country_code_display selector=#subscriber_country_code_display reason=not_found
+2026-02-15T15:19:13.188297 selector_failure field=subscriber_country_code selector=#subscriber_country_code reason=not_found
+2026-02-15T15:19:13.190490 selector_failure field=subscriber_phone selector=#subscriber_phone reason=not_found
+2026-02-15T15:19:13.192693 selector_failure field=subscriber_phone_confirm selector=#subscriber_phone_confirm reason=not_found
+2026-02-15T15:19:13.195018 selector_failure field=subscriber_password selector=#subscriber_password reason=not_found
+2026-02-15T15:19:13.197054 selector_failure field=subscriber_password_confirm selector=#subscriber_password_confirm reason=not_found
+2026-02-15T15:19:13.214031 dry_run would_fill field=name selector=#name value=Crop Circuit Test
+2026-02-15T15:19:13.217056 selector_failure field=subscriber_privacy_consent selector=#subscriber_privacy_consent reason=not_found
+2026-02-15T15:19:13.248736 captcha_required
+[2026-02-15T20:19:13Z] ha_grant_pipeline selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-15T20:19:13Z] ha_grant_pipeline status=captcha_required exit_code=1 last_screenshot_path=/home/asbelcas/cropcircuit/logs/submission_proof_20260215T201909Z.png result_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-15T20:19:53Z] ha_grant_pipeline bootstrap
+[2026-02-15T20:19:53Z] ha_grant_pipeline start
+2026-02-15T15:19:53.473203 morning_targets_loaded overrides={"loan_amount": "25000", "projected_income": "3000", "grant_goal": "50000"}
+2026-02-15T15:19:57.104647 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T15:19:57.104755 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T15:19:57.104814 page_urls=["about:blank", "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify"]
+2026-02-15T15:19:57.228742 dry_run would_fill field=subscription_type selector=#subscription_type value=email
+2026-02-15T15:19:57.231164 selector_failure field=subscriber_email selector=#subscriber_email reason=not_found
+2026-02-15T15:19:57.233448 selector_failure field=subscriber_email_confirm selector=#subscriber_email_confirm reason=not_found
+2026-02-15T15:19:57.235724 selector_failure field=subscriber_country_code_display selector=#subscriber_country_code_display reason=not_found
+2026-02-15T15:19:57.238895 selector_failure field=subscriber_country_code selector=#subscriber_country_code reason=not_found
+2026-02-15T15:19:57.241723 selector_failure field=subscriber_phone selector=#subscriber_phone reason=not_found
+2026-02-15T15:19:57.244964 selector_failure field=subscriber_phone_confirm selector=#subscriber_phone_confirm reason=not_found
+2026-02-15T15:19:57.247607 selector_failure field=subscriber_password selector=#subscriber_password reason=not_found
+2026-02-15T15:19:57.250448 selector_failure field=subscriber_password_confirm selector=#subscriber_password_confirm reason=not_found
+2026-02-15T15:19:57.265432 dry_run would_fill field=name selector=#name value=Crop Circuit Test
+2026-02-15T15:19:57.267370 selector_failure field=subscriber_privacy_consent selector=#subscriber_privacy_consent reason=not_found
+2026-02-15T15:19:57.305633 captcha_detected
+2026-02-15T15:19:57.305693 dry_run submit_skipped filled=2 failures=9 captcha=True
+[2026-02-15T20:19:57Z] ha_grant_pipeline selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-15T20:19:57Z] ha_grant_pipeline status=dry_run_captcha_required exit_code=0 last_screenshot_path=/home/asbelcas/cropcircuit/logs/submission_proof_20260215T201953Z.png result_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-15T22:34:36Z] ha_grant_pipeline bootstrap
+[2026-02-15T22:34:36Z] ha_grant_pipeline start
+2026-02-15T17:34:36.621756 morning_targets_loaded overrides={"loan_amount": "25000", "projected_income": "3000", "grant_goal": "50000"}
+2026-02-15T17:34:40.359768 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T17:34:40.359874 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T17:34:40.359956 page_urls=["about:blank", "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify"]
+2026-02-15T17:34:40.503255 selector_failure field=subscriber_email selector=#subscriber_email reason=not_found
+2026-02-15T17:34:40.509450 selector_failure field=subscriber_email_confirm selector=#subscriber_email_confirm reason=not_found
+2026-02-15T17:34:40.512656 selector_failure field=subscriber_country_code_display selector=#subscriber_country_code_display reason=not_found
+2026-02-15T17:34:40.517679 selector_failure field=subscriber_country_code selector=#subscriber_country_code reason=not_found
+2026-02-15T17:34:40.519986 selector_failure field=subscriber_phone selector=#subscriber_phone reason=not_found
+2026-02-15T17:34:40.522129 selector_failure field=subscriber_phone_confirm selector=#subscriber_phone_confirm reason=not_found
+2026-02-15T17:34:40.525139 selector_failure field=subscriber_password selector=#subscriber_password reason=not_found
+2026-02-15T17:34:40.527979 selector_failure field=subscriber_password_confirm selector=#subscriber_password_confirm reason=not_found
+2026-02-15T17:34:48.551532 selector_failure field=name selector=#name reason=not_visible
+2026-02-15T17:34:48.555731 selector_failure field=subscriber_privacy_consent selector=#subscriber_privacy_consent reason=not_found
+2026-02-15T17:34:48.612367 captcha_detected
+2026-02-15T17:34:48.612494 captcha_required
+[2026-02-15T22:34:49Z] ha_grant_pipeline selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-15T22:34:49Z] ha_grant_pipeline status=captcha_required exit_code=1 last_screenshot_path=/home/asbelcas/cropcircuit/logs/submission_proof_20260215T223436Z.png result_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-15T22:48:47Z] ha_grant_pipeline bootstrap
+[2026-02-15T22:48:47Z] ha_grant_pipeline start
+2026-02-15T17:48:48.074987 morning_targets_loaded overrides={"loan_amount": "25000", "projected_income": "3000", "grant_goal": "50000"}
+2026-02-15T17:48:51.712429 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T17:48:51.712481 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T17:48:51.712515 page_urls=["about:blank", "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify"]
+2026-02-15T17:48:51.865422 selector_failure field=subscriber_email selector=#subscriber_email reason=not_found
+2026-02-15T17:48:51.869179 selector_failure field=subscriber_email_confirm selector=#subscriber_email_confirm reason=not_found
+2026-02-15T17:48:51.871663 selector_failure field=subscriber_country_code_display selector=#subscriber_country_code_display reason=not_found
+2026-02-15T17:48:51.874497 selector_failure field=subscriber_country_code selector=#subscriber_country_code reason=not_found
+2026-02-15T17:48:51.877123 selector_failure field=subscriber_phone selector=#subscriber_phone reason=not_found
+2026-02-15T17:48:51.879818 selector_failure field=subscriber_phone_confirm selector=#subscriber_phone_confirm reason=not_found
+2026-02-15T17:48:51.882470 selector_failure field=subscriber_password selector=#subscriber_password reason=not_found
+2026-02-15T17:48:51.885574 selector_failure field=subscriber_password_confirm selector=#subscriber_password_confirm reason=not_found
+2026-02-15T17:48:59.911329 selector_failure field=name selector=#name reason=not_visible
+2026-02-15T17:48:59.916641 selector_failure field=subscriber_privacy_consent selector=#subscriber_privacy_consent reason=not_found
+2026-02-15T17:48:59.965050 captcha_detected
+2026-02-15T17:48:59.965133 captcha_required
+[2026-02-15T22:49:00Z] ha_grant_pipeline selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-15T22:49:00Z] ha_grant_pipeline status=captcha_required exit_code=1 last_screenshot_path=/home/asbelcas/cropcircuit/logs/submission_proof_20260215T224848Z.png result_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-15T22:54:40Z] ha_grant_pipeline bootstrap
+[2026-02-15T22:54:40Z] ha_grant_pipeline start
+2026-02-15T17:54:40.184069 morning_targets_loaded overrides={"loan_amount": "25000", "projected_income": "3000", "grant_goal": "50000"}
+2026-02-15T17:54:43.868418 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T17:54:43.868527 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T17:54:43.868620 page_urls=["about:blank", "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify"]
+2026-02-15T17:54:44.033155 selector_failure field=subscriber_email selector=#subscriber_email reason=not_found
+2026-02-15T17:54:44.037086 selector_failure field=subscriber_email_confirm selector=#subscriber_email_confirm reason=not_found
+2026-02-15T17:54:44.040513 selector_failure field=subscriber_country_code_display selector=#subscriber_country_code_display reason=not_found
+2026-02-15T17:54:44.043608 selector_failure field=subscriber_country_code selector=#subscriber_country_code reason=not_found
+2026-02-15T17:54:44.045760 selector_failure field=subscriber_phone selector=#subscriber_phone reason=not_found
+2026-02-15T17:54:44.048039 selector_failure field=subscriber_phone_confirm selector=#subscriber_phone_confirm reason=not_found
+2026-02-15T17:54:44.050854 selector_failure field=subscriber_password selector=#subscriber_password reason=not_found
+2026-02-15T17:54:44.053492 selector_failure field=subscriber_password_confirm selector=#subscriber_password_confirm reason=not_found
+2026-02-15T17:54:52.080946 selector_failure field=name selector=#name reason=not_visible
+2026-02-15T17:54:52.084336 selector_failure field=subscriber_privacy_consent selector=#subscriber_privacy_consent reason=not_found
+2026-02-15T17:54:52.136466 captcha_detected
+2026-02-15T17:54:52.136564 captcha_required
+[2026-02-15T22:54:52Z] ha_grant_pipeline selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-15T22:54:52Z] ha_grant_pipeline status=captcha_required exit_code=1 last_screenshot_path=/home/asbelcas/cropcircuit/logs/submission_proof_20260215T225440Z.png result_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-15T22:54:52Z] ha_grant_pipeline ha_event_post rc=0
+2026-02-15T17:59:31.151300 morning_target_needs_mapping field=loan_amount value=25000
+2026-02-15T17:59:31.151354 morning_target_needs_mapping field=projected_income value=3000
+2026-02-15T17:59:31.151371 morning_target_needs_mapping field=grant_goal value=50000
+2026-02-15T17:59:31.151407 morning_targets_loaded overrides={"loan_amount": "25000", "projected_income": "3000", "grant_goal": "50000"}
+2026-02-15T17:59:34.801287 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T17:59:34.801341 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T17:59:34.801376 page_urls=["about:blank", "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify"]
+2026-02-15T17:59:34.926945 dry_run would_fill field=subscription_type selector=#subscription_type value=email
+2026-02-15T17:59:34.929468 selector_failure field=subscriber_email selector=#subscriber_email reason=not_found
+2026-02-15T17:59:34.931694 selector_failure field=subscriber_email_confirm selector=#subscriber_email_confirm reason=not_found
+2026-02-15T17:59:34.934201 selector_failure field=subscriber_country_code_display selector=#subscriber_country_code_display reason=not_found
+2026-02-15T17:59:34.936453 selector_failure field=subscriber_country_code selector=#subscriber_country_code reason=not_found
+2026-02-15T17:59:34.938797 selector_failure field=subscriber_phone selector=#subscriber_phone reason=not_found
+2026-02-15T17:59:34.941280 selector_failure field=subscriber_phone_confirm selector=#subscriber_phone_confirm reason=not_found
+2026-02-15T17:59:34.943826 selector_failure field=subscriber_password selector=#subscriber_password reason=not_found
+2026-02-15T17:59:34.946088 selector_failure field=subscriber_password_confirm selector=#subscriber_password_confirm reason=not_found
+2026-02-15T17:59:34.966211 dry_run would_fill field=name selector=#name value=Crop Circuit Test
+2026-02-15T17:59:34.968632 selector_failure field=subscriber_privacy_consent selector=#subscriber_privacy_consent reason=not_found
+2026-02-15T17:59:35.004355 captcha_detected
+2026-02-15T17:59:35.004409 dry_run submit_skipped filled=2 failures=9 captcha=True
+2026-02-15T17:59:38.021710 morning_target_needs_mapping field=loan_amount value=25000
+2026-02-15T17:59:38.021765 morning_target_needs_mapping field=projected_income value=3000
+2026-02-15T17:59:38.021783 morning_target_needs_mapping field=grant_goal value=50000
+2026-02-15T17:59:38.021815 morning_targets_loaded overrides={"loan_amount": "25000", "projected_income": "3000", "grant_goal": "50000"}
+2026-02-15T17:59:41.564429 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T17:59:41.564483 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T17:59:41.564517 page_urls=["about:blank", "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify"]
+2026-02-15T17:59:41.672349 dry_run would_fill field=subscription_type selector=#subscription_type value=email
+2026-02-15T17:59:41.674887 selector_failure field=subscriber_email selector=#subscriber_email reason=not_found
+2026-02-15T17:59:41.678433 selector_failure field=subscriber_email_confirm selector=#subscriber_email_confirm reason=not_found
+2026-02-15T17:59:41.682159 selector_failure field=subscriber_country_code_display selector=#subscriber_country_code_display reason=not_found
+2026-02-15T17:59:41.684943 selector_failure field=subscriber_country_code selector=#subscriber_country_code reason=not_found
+2026-02-15T17:59:41.687901 selector_failure field=subscriber_phone selector=#subscriber_phone reason=not_found
+2026-02-15T17:59:41.691135 selector_failure field=subscriber_phone_confirm selector=#subscriber_phone_confirm reason=not_found
+2026-02-15T17:59:41.694422 selector_failure field=subscriber_password selector=#subscriber_password reason=not_found
+2026-02-15T17:59:41.697402 selector_failure field=subscriber_password_confirm selector=#subscriber_password_confirm reason=not_found
+2026-02-15T17:59:41.718241 dry_run would_fill field=name selector=#name value=Crop Circuit Test
+2026-02-15T17:59:41.720526 selector_failure field=subscriber_privacy_consent selector=#subscriber_privacy_consent reason=not_found
+2026-02-15T17:59:41.771105 captcha_detected
+2026-02-15T17:59:41.771254 dry_run submit_skipped filled=2 failures=9 captcha=True
+2026-02-15T18:06:28.864062 morning_target_needs_mapping field=loan_amount value=25000
+2026-02-15T18:06:28.864109 morning_target_needs_mapping field=projected_income value=3000
+2026-02-15T18:06:28.864127 morning_target_needs_mapping field=grant_goal value=50000
+2026-02-15T18:06:28.864158 morning_targets_loaded overrides={"loan_amount": "25000", "projected_income": "3000", "grant_goal": "50000"}
+2026-02-15T18:06:32.542957 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T18:06:32.543095 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T18:06:32.543196 page_urls=["about:blank", "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify"]
+2026-02-15T18:06:32.664044 dry_run would_fill field=subscription_type selector=#subscription_type value=email
+2026-02-15T18:06:32.667127 selector_failure field=subscriber_email selector=#subscriber_email reason=not_found
+2026-02-15T18:06:32.670283 selector_failure field=subscriber_email_confirm selector=#subscriber_email_confirm reason=not_found
+2026-02-15T18:06:32.673339 selector_failure field=subscriber_country_code_display selector=#subscriber_country_code_display reason=not_found
+2026-02-15T18:06:32.677370 selector_failure field=subscriber_country_code selector=#subscriber_country_code reason=not_found
+2026-02-15T18:06:32.680755 selector_failure field=subscriber_phone selector=#subscriber_phone reason=not_found
+2026-02-15T18:06:32.683247 selector_failure field=subscriber_phone_confirm selector=#subscriber_phone_confirm reason=not_found
+2026-02-15T18:06:32.685882 selector_failure field=subscriber_password selector=#subscriber_password reason=not_found
+2026-02-15T18:06:32.688423 selector_failure field=subscriber_password_confirm selector=#subscriber_password_confirm reason=not_found
+2026-02-15T18:06:32.704925 dry_run would_fill field=name selector=#name value=Crop Circuit Test
+2026-02-15T18:06:32.709946 selector_failure field=subscriber_privacy_consent selector=#subscriber_privacy_consent reason=not_found
+2026-02-15T18:06:32.745524 captcha_detected
+2026-02-15T18:06:32.745580 dry_run submit_skipped filled=2 failures=9 captcha=True
+[2026-02-15T23:07:02Z] ha_grant_pipeline bootstrap
+[2026-02-15T23:07:02Z] ha_grant_pipeline start
+2026-02-15T18:07:02.213040 morning_target_needs_mapping field=loan_amount value=25000
+2026-02-15T18:07:02.213093 morning_target_needs_mapping field=projected_income value=3000
+2026-02-15T18:07:02.213111 morning_target_needs_mapping field=grant_goal value=50000
+2026-02-15T18:07:02.213157 morning_targets_loaded overrides={"loan_amount": "25000", "projected_income": "3000", "grant_goal": "50000"}
+2026-02-15T18:07:05.803210 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T18:07:05.803298 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T18:07:05.803363 page_urls=["about:blank", "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify"]
+2026-02-15T18:07:05.962159 selector_failure field=subscriber_email selector=#subscriber_email reason=not_found
+2026-02-15T18:07:05.967036 selector_failure field=subscriber_email_confirm selector=#subscriber_email_confirm reason=not_found
+2026-02-15T18:07:05.970535 selector_failure field=subscriber_country_code_display selector=#subscriber_country_code_display reason=not_found
+2026-02-15T18:07:05.972915 selector_failure field=subscriber_country_code selector=#subscriber_country_code reason=not_found
+2026-02-15T18:07:05.975667 selector_failure field=subscriber_phone selector=#subscriber_phone reason=not_found
+2026-02-15T18:07:05.978134 selector_failure field=subscriber_phone_confirm selector=#subscriber_phone_confirm reason=not_found
+2026-02-15T18:07:05.981992 selector_failure field=subscriber_password selector=#subscriber_password reason=not_found
+2026-02-15T18:07:05.984530 selector_failure field=subscriber_password_confirm selector=#subscriber_password_confirm reason=not_found
+2026-02-15T18:07:14.002438 selector_failure field=name selector=#name reason=not_visible
+2026-02-15T18:07:14.006873 selector_failure field=subscriber_privacy_consent selector=#subscriber_privacy_consent reason=not_found
+2026-02-15T18:07:14.060517 captcha_detected
+2026-02-15T18:07:14.060595 captcha_required
+[2026-02-15T23:07:14Z] ha_grant_pipeline selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-15T23:07:14Z] ha_grant_pipeline status=captcha_required exit_code=1 last_screenshot_path=/home/asbelcas/cropcircuit/logs/submission_proof_20260215T230702Z.png result_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-15T23:07:14Z] ha_grant_pipeline ha_event_post rc=0
+[2026-02-16T00:03:03Z] ha_grant_pipeline resume_after_captcha
+[2026-02-16T00:03:03Z] ha_grant_pipeline start
+2026-02-15T19:03:03.440658 morning_target_needs_mapping field=loan_amount value=25000
+2026-02-15T19:03:03.440719 morning_target_needs_mapping field=projected_income value=3000
+2026-02-15T19:03:03.440737 morning_target_needs_mapping field=grant_goal value=50000
+2026-02-15T19:03:03.440772 morning_targets_loaded overrides={"loan_amount": "25000", "projected_income": "3000", "grant_goal": "50000"}
+2026-02-15T19:03:07.116481 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T19:03:07.116569 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T19:03:07.116632 page_urls=["about:blank", "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify"]
+2026-02-15T19:03:07.279420 selector_fallback field=subscriber_email primary=#subscriber_email using=#email
+2026-02-15T19:03:09.003843 selector_fallback field=subscriber_email_confirm primary=#subscriber_email_confirm using=#email
+2026-02-15T19:03:10.731253 selector_fallback field=subscriber_country_code_display primary=#subscriber_country_code_display using=#country_code_display
+2026-02-15T19:03:18.756842 selector_failure field=subscriber_country_code_display selector=#country_code_display reason=not_visible
+2026-02-15T19:03:18.764627 selector_fallback field=subscriber_country_code primary=#subscriber_country_code using=#country_code
+2026-02-15T19:03:18.787296 selector_fallback field=subscriber_phone primary=#subscriber_phone using=#phone
+2026-02-15T19:03:26.806702 selector_failure field=subscriber_phone selector=#phone reason=not_visible
+2026-02-15T19:03:26.813735 selector_fallback field=subscriber_phone_confirm primary=#subscriber_phone_confirm using=#phone
+2026-02-15T19:03:34.832426 selector_failure field=subscriber_phone_confirm selector=#phone reason=not_visible
+2026-02-15T19:03:34.841642 selector_failure field=subscriber_password selector=#subscriber_password reason=not_found
+2026-02-15T19:03:34.851802 selector_failure field=subscriber_password_confirm selector=#subscriber_password_confirm reason=not_found
+2026-02-15T19:03:42.875297 selector_failure field=name selector=#name reason=not_visible
+2026-02-15T19:03:42.941571 captcha_check_skipped (resume mode)
+[2026-02-16T00:03:43Z] ha_grant_pipeline selected_page_url= selected_frame_url=
+[2026-02-16T00:03:43Z] ha_grant_pipeline status=runtime_failure exit_code=2 last_screenshot_path= result_url=
+[2026-02-16T00:03:43Z] ha_grant_pipeline ha_event_post rc=0
+[2026-02-16T00:04:46Z] ha_grant_pipeline resume_after_captcha
+[2026-02-16T00:04:46Z] ha_grant_pipeline start
+2026-02-15T19:04:46.112980 morning_target_needs_mapping field=loan_amount value=25000
+2026-02-15T19:04:46.113049 morning_target_needs_mapping field=projected_income value=3000
+2026-02-15T19:04:46.113067 morning_target_needs_mapping field=grant_goal value=50000
+2026-02-15T19:04:46.113099 morning_targets_loaded overrides={"loan_amount": "25000", "projected_income": "3000", "grant_goal": "50000"}
+2026-02-15T19:04:49.714867 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T19:04:49.714952 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T19:04:49.715030 page_urls=["about:blank", "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify"]
+2026-02-15T19:04:49.910805 selector_fallback field=subscriber_email primary=#subscriber_email using=#email
+2026-02-15T19:04:51.655216 selector_fallback field=subscriber_email_confirm primary=#subscriber_email_confirm using=#email
+2026-02-15T19:04:53.366039 selector_fallback field=subscriber_country_code_display primary=#subscriber_country_code_display using=#country_code_display
+2026-02-15T19:05:01.389856 selector_failure field=subscriber_country_code_display selector=#country_code_display reason=not_visible
+2026-02-15T19:05:01.399247 selector_fallback field=subscriber_country_code primary=#subscriber_country_code using=#country_code
+2026-02-15T19:05:01.422575 selector_fallback field=subscriber_phone primary=#subscriber_phone using=#phone
+2026-02-15T19:05:09.443114 selector_failure field=subscriber_phone selector=#phone reason=not_visible
+2026-02-15T19:05:09.449287 selector_fallback field=subscriber_phone_confirm primary=#subscriber_phone_confirm using=#phone
+2026-02-15T19:05:16.347812 selector_failure field=subscriber_phone_confirm selector=#phone reason=not_visible
+2026-02-15T19:05:16.390638 selector_failure field=subscriber_password selector=#subscriber_password reason=not_found
+2026-02-15T19:05:16.397100 selector_failure field=subscriber_password_confirm selector=#subscriber_password_confirm reason=not_found
+2026-02-15T19:05:16.401681 selector_failure field=name selector=#name reason=not_found
+2026-02-15T19:05:16.409132 selector_failure field=subscriber_privacy_consent selector=#subscriber_privacy_consent reason=not_found
+2026-02-15T19:05:16.409189 captcha_check_skipped (resume mode)
+[2026-02-16T00:05:16Z] ha_grant_pipeline selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-16T00:05:16Z] ha_grant_pipeline status=selector_failure exit_code=2 last_screenshot_path=/home/asbelcas/cropcircuit/logs/submission_proof_20260216T000446Z.png result_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscriber/qualify
+[2026-02-16T00:05:16Z] ha_grant_pipeline ha_event_post rc=0
+2026-02-15T19:05:48.822340 morning_target_needs_mapping field=loan_amount value=25000
+2026-02-15T19:05:48.822412 morning_target_needs_mapping field=projected_income value=3000
+2026-02-15T19:05:48.822429 morning_target_needs_mapping field=grant_goal value=50000
+2026-02-15T19:05:48.822480 morning_targets_loaded overrides={"loan_amount": "25000", "projected_income": "3000", "grant_goal": "50000"}
+2026-02-15T19:05:52.455745 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T19:05:52.455873 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T19:05:52.455953 page_urls=["about:blank", "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify"]
+2026-02-15T19:05:52.572444 dry_run would_fill field=subscription_type selector=#subscription_type value=email
+2026-02-15T19:05:52.576522 selector_fallback field=subscriber_email primary=#subscriber_email using=#email
+2026-02-15T19:05:52.596853 dry_run would_fill field=subscriber_email selector=#email value=asbelcas+test@example.com
+2026-02-15T19:05:52.601869 selector_fallback field=subscriber_email_confirm primary=#subscriber_email_confirm using=#email
+2026-02-15T19:05:52.617279 dry_run would_fill field=subscriber_email_confirm selector=#email value=asbelcas+test@example.com
+2026-02-15T19:05:52.623103 selector_fallback field=subscriber_country_code_display primary=#subscriber_country_code_display using=#country_code_display
+2026-02-15T19:05:52.633973 dry_run would_fill field=subscriber_country_code_display selector=#country_code_display value=1 (US)
+2026-02-15T19:05:52.639067 selector_fallback field=subscriber_country_code primary=#subscriber_country_code using=#country_code
+2026-02-15T19:05:52.653277 selector_fallback field=subscriber_phone primary=#subscriber_phone using=#phone
+2026-02-15T19:05:52.667286 dry_run would_fill field=subscriber_phone selector=#phone value=2025550147
+2026-02-15T19:05:52.676526 selector_fallback field=subscriber_phone_confirm primary=#subscriber_phone_confirm using=#phone
+2026-02-15T19:05:52.690923 dry_run would_fill field=subscriber_phone_confirm selector=#phone value=2025550147
+2026-02-15T19:05:52.698630 selector_failure field=subscriber_password selector=#subscriber_password reason=not_found
+2026-02-15T19:05:52.711392 selector_failure field=subscriber_password_confirm selector=#subscriber_password_confirm reason=not_found
+2026-02-15T19:05:52.728532 dry_run would_fill field=name selector=#name value=Crop Circuit Test
+2026-02-15T19:05:52.741244 selector_failure field=subscriber_privacy_consent selector=#subscriber_privacy_consent reason=not_found
+2026-02-15T19:05:52.783424 captcha_detected
+2026-02-15T19:05:52.783480 dry_run submit_skipped filled=7 failures=3 captcha=True
+2026-02-15T19:06:35.685690 morning_target_needs_mapping field=loan_amount value=25000
+2026-02-15T19:06:35.685739 morning_target_needs_mapping field=projected_income value=3000
+2026-02-15T19:06:35.685757 morning_target_needs_mapping field=grant_goal value=50000
+2026-02-15T19:06:35.685822 program_input_loaded program_id=usda_fsa_operating_microloan keys=['country_code_display', 'email', 'name', 'phone', 'subscription_type']
+2026-02-15T19:06:35.685856 morning_targets_loaded overrides={"loan_amount": "25000", "projected_income": "3000", "grant_goal": "50000", "name": "Crop Circuit Test", "email": "replace-with-test-email@example.com", "phone": "2025550147", "subscription_type": "email", "country_code_display": "1 (US)"}
+2026-02-15T19:06:39.258476 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T19:06:39.258560 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T19:06:39.258622 page_urls=["about:blank", "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify"]
+2026-02-15T19:06:39.381492 morning_target_override field=subscription_type value=email
+2026-02-15T19:06:39.381575 dry_run would_fill field=subscription_type selector=#subscription_type value=email
+2026-02-15T19:06:39.386742 selector_fallback field=subscriber_email primary=#subscriber_email using=#email
+2026-02-15T19:06:39.398634 dry_run would_fill field=subscriber_email selector=#email value=asbelcas+test@example.com
+2026-02-15T19:06:39.403267 selector_fallback field=subscriber_email_confirm primary=#subscriber_email_confirm using=#email
+2026-02-15T19:06:39.416866 dry_run would_fill field=subscriber_email_confirm selector=#email value=asbelcas+test@example.com
+2026-02-15T19:06:39.422388 selector_fallback field=subscriber_country_code_display primary=#subscriber_country_code_display using=#country_code_display
+2026-02-15T19:06:39.439588 dry_run would_fill field=subscriber_country_code_display selector=#country_code_display value=1 (US)
+2026-02-15T19:06:39.444466 selector_fallback field=subscriber_country_code primary=#subscriber_country_code using=#country_code
+2026-02-15T19:06:39.460907 selector_fallback field=subscriber_phone primary=#subscriber_phone using=#phone
+2026-02-15T19:06:39.473027 dry_run would_fill field=subscriber_phone selector=#phone value=2025550147
+2026-02-15T19:06:39.477267 selector_fallback field=subscriber_phone_confirm primary=#subscriber_phone_confirm using=#phone
+2026-02-15T19:06:39.487255 dry_run would_fill field=subscriber_phone_confirm selector=#phone value=2025550147
+2026-02-15T19:06:39.497099 selector_failure field=subscriber_password selector=#subscriber_password reason=not_found
+2026-02-15T19:06:39.505674 selector_failure field=subscriber_password_confirm selector=#subscriber_password_confirm reason=not_found
+2026-02-15T19:06:39.520118 morning_target_override field=name value=Crop Circuit Test
+2026-02-15T19:06:39.520166 dry_run would_fill field=name selector=#name value=Crop Circuit Test
+2026-02-15T19:06:39.526767 selector_failure field=subscriber_privacy_consent selector=#subscriber_privacy_consent reason=not_found
+2026-02-15T19:06:39.574950 captcha_detected
+2026-02-15T19:06:39.575053 dry_run submit_skipped filled=7 failures=3 captcha=True
+[2026-02-16T00:09:20Z] ha_grant_pipeline resume_after_captcha
+[2026-02-16T00:09:20Z] ha_grant_pipeline start
+2026-02-15T19:09:20.336872 morning_target_needs_mapping field=loan_amount value=25000
+2026-02-15T19:09:20.336916 morning_target_needs_mapping field=projected_income value=3000
+2026-02-15T19:09:20.336934 morning_target_needs_mapping field=grant_goal value=50000
+2026-02-15T19:09:20.336965 morning_targets_loaded overrides={"loan_amount": "25000", "projected_income": "3000", "grant_goal": "50000"}
+2026-02-15T19:09:24.012842 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T19:09:24.012950 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T19:09:24.013057 page_urls=["about:blank", "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify"]
+2026-02-15T19:09:24.169851 selector_fallback field=subscriber_email primary=#subscriber_email using=#email
+2026-02-15T19:09:25.879435 selector_fallback field=subscriber_email_confirm primary=#subscriber_email_confirm using=#email
+2026-02-15T19:09:27.572958 selector_fallback field=subscriber_country_code_display primary=#subscriber_country_code_display using=#country_code_display
+2026-02-15T19:09:35.601553 selector_failure field=subscriber_country_code_display selector=#country_code_display reason=not_visible
+2026-02-15T19:09:35.609684 selector_fallback field=subscriber_country_code primary=#subscriber_country_code using=#country_code
+2026-02-15T19:09:35.638286 selector_fallback field=subscriber_phone primary=#subscriber_phone using=#phone
+2026-02-15T19:09:43.664252 selector_failure field=subscriber_phone selector=#phone reason=not_visible
+2026-02-15T19:09:43.670875 selector_fallback field=subscriber_phone_confirm primary=#subscriber_phone_confirm using=#phone
+2026-02-15T19:09:51.693853 selector_failure field=subscriber_phone_confirm selector=#phone reason=not_visible
+2026-02-15T19:10:01.845148 selector_failure field=name selector=#name reason=not_visible
+2026-02-15T19:10:01.923326 captcha_check_skipped (resume mode)
+[2026-02-16T00:10:02Z] ha_grant_pipeline selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-16T00:10:02Z] ha_grant_pipeline status=selector_failure exit_code=2 last_screenshot_path=/home/asbelcas/cropcircuit/logs/submission_proof_20260216T000920Z.png result_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscriber/qualify
+[2026-02-16T00:10:02Z] ha_grant_pipeline ha_event_post rc=0
+2026-02-15T19:15:52.025148 morning_target_needs_mapping field=loan_amount value=25000
+2026-02-15T19:15:52.025197 morning_target_needs_mapping field=projected_income value=3000
+2026-02-15T19:15:52.025215 morning_target_needs_mapping field=grant_goal value=50000
+2026-02-15T19:15:52.025247 morning_targets_loaded overrides={"loan_amount": "25000", "projected_income": "3000", "grant_goal": "50000"}
+2026-02-15T19:15:55.639797 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T19:15:55.639906 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T19:15:55.639990 page_urls=["about:blank", "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify"]
+2026-02-15T19:15:55.708841 dry_run would_fill field=subscription_type selector=#subscription_type value=email
+2026-02-15T19:15:55.737395 dry_run would_fill field=email selector=#email value=asbelcas+test@example.com
+2026-02-15T19:15:55.790477 captcha_detected
+2026-02-15T19:15:55.790540 dry_run submit_skipped filled=2 failures=0 captcha=True
+2026-02-15T19:16:59.422494 morning_target_needs_mapping field=loan_amount value=25000
+2026-02-15T19:16:59.422557 morning_target_needs_mapping field=projected_income value=3000
+2026-02-15T19:16:59.422574 morning_target_needs_mapping field=grant_goal value=50000
+2026-02-15T19:16:59.422606 morning_targets_loaded overrides={"loan_amount": "25000", "projected_income": "3000", "grant_goal": "50000"}
+2026-02-15T19:17:23.230970 captcha_auto_verify_timeout after 20s
+2026-02-15T19:17:23.298755 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T19:17:23.298867 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T19:17:23.298958 page_urls=["about:blank", "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify"]
+2026-02-15T19:17:23.373357 dry_run would_fill field=subscription_type selector=#subscription_type value=email
+2026-02-15T19:17:23.396890 dry_run would_fill field=email selector=#email value=asbelcas+test@example.com
+2026-02-15T19:17:23.445039 captcha_detected
+2026-02-15T19:17:23.445105 dry_run submit_skipped filled=2 failures=0 captcha=True
+2026-02-15T19:19:43.700896 morning_target_needs_mapping field=loan_amount value=25000
+2026-02-15T19:19:43.700960 morning_target_needs_mapping field=projected_income value=3000
+2026-02-15T19:19:43.700978 morning_target_needs_mapping field=grant_goal value=50000
+2026-02-15T19:19:43.701031 morning_targets_loaded overrides={"loan_amount": "25000", "projected_income": "3000", "grant_goal": "50000"}
+2026-02-15T19:20:05.662810 captcha_auto_verify_timeout after 20s
+2026-02-15T19:20:05.724292 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T19:20:05.724376 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T19:20:05.724439 page_urls=["https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify"]
+2026-02-15T19:20:05.788879 dry_run would_fill field=subscription_type selector=#subscription_type value=email
+2026-02-15T19:20:05.812414 dry_run would_fill field=email selector=#email value=asbelcas+test@example.com
+2026-02-15T19:20:05.812475 captcha_check_skipped (resume mode)
+2026-02-15T19:20:05.812497 dry_run submit_skipped filled=2 failures=0 captcha=False
+2026-02-15T19:20:13.045531 morning_target_needs_mapping field=loan_amount value=25000
+2026-02-15T19:20:13.045593 morning_target_needs_mapping field=projected_income value=3000
+2026-02-15T19:20:13.045611 morning_target_needs_mapping field=grant_goal value=50000
+2026-02-15T19:20:13.045643 morning_targets_loaded overrides={"loan_amount": "25000", "projected_income": "3000", "grant_goal": "50000"}
+2026-02-15T19:20:34.995343 captcha_auto_verify_timeout after 20s
+2026-02-15T19:20:35.051826 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T19:20:35.051926 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T19:20:35.052009 page_urls=["https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify"]
+2026-02-15T19:20:36.875313 captcha_check_skipped (resume mode)
+2026-02-15T19:21:06.987370 submit_failed
+[2026-02-16T00:27:33Z] ha_grant_pipeline resume_after_captcha
+[2026-02-16T00:27:33Z] ha_grant_pipeline start
+2026-02-15T19:27:33.352020 morning_target_needs_mapping field=loan_amount value=25000
+2026-02-15T19:27:33.352076 morning_target_needs_mapping field=projected_income value=3000
+2026-02-15T19:27:33.352095 morning_target_needs_mapping field=grant_goal value=50000
+2026-02-15T19:27:33.352128 morning_targets_loaded overrides={"loan_amount": "25000", "projected_income": "3000", "grant_goal": "50000"}
+2026-02-15T19:27:55.262780 captcha_auto_verify_timeout after 20s
+2026-02-15T19:27:55.340790 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T19:27:55.340845 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T19:27:55.340879 page_urls=["https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify"]
+2026-02-15T19:27:56.723227 captcha_check_skipped (resume mode)
+2026-02-15T19:27:56.996933 submit_clicked selector=input[name='commit'] result_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-16T00:27:57Z] ha_grant_pipeline selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-16T00:27:57Z] ha_grant_pipeline status=success exit_code=0 last_screenshot_path=/home/asbelcas/cropcircuit/logs/submission_proof_20260216T002733Z.png result_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-16T00:27:57Z] ha_grant_pipeline ha_event_post rc=0
+[2026-02-16T00:31:20Z] ha_grant_pipeline resume_after_captcha
+[2026-02-16T00:31:20Z] ha_grant_pipeline start
+2026-02-15T19:31:20.488482 morning_target_needs_mapping field=loan_amount value=25000
+2026-02-15T19:31:20.488528 morning_target_needs_mapping field=projected_income value=3000
+2026-02-15T19:31:20.488546 morning_target_needs_mapping field=grant_goal value=50000
+2026-02-15T19:31:20.488577 morning_targets_loaded overrides={"loan_amount": "25000", "projected_income": "3000", "grant_goal": "50000"}
+2026-02-15T19:31:40.238626 captcha_auto_verified wait_seconds=17
+2026-02-15T19:31:40.300090 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T19:31:40.300169 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T19:31:40.300229 page_urls=["about:blank", "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify"]
+2026-02-15T19:31:41.638248 captcha_check_skipped (resume mode)
+2026-02-15T19:31:43.176343 submit_clicked selector=input[name='commit'] result_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscriber/qualify
+[2026-02-16T00:31:43Z] ha_grant_pipeline selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-16T00:31:43Z] ha_grant_pipeline status=success exit_code=0 last_screenshot_path=/home/asbelcas/cropcircuit/logs/submission_proof_20260216T003120Z.png result_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscriber/qualify
+[2026-02-16T00:31:43Z] ha_grant_pipeline ha_event_post rc=0
+[2026-02-16T00:48:29Z] ha_grant_pipeline bootstrap
+[2026-02-16T00:48:29Z] ha_grant_pipeline start
+2026-02-15T19:48:30.061796 morning_target_needs_mapping field=loan_amount value=25000
+2026-02-15T19:48:30.061857 morning_target_needs_mapping field=projected_income value=3000
+2026-02-15T19:48:30.061874 morning_target_needs_mapping field=grant_goal value=50000
+2026-02-15T19:48:30.061939 program_input_loaded program_id=usda_fsa_operating_microloan keys=['country_code_display', 'email', 'name', 'phone', 'subscription_type']
+2026-02-15T19:48:30.061973 morning_targets_loaded overrides={"loan_amount": "25000", "projected_income": "3000", "grant_goal": "50000", "name": "Crop Circuit Test", "email": "replace-with-test-email@example.com", "phone": "2025550147", "subscription_type": "email", "country_code_display": "1 (US)"}
+2026-02-15T19:48:53.901785 captcha_auto_verify_timeout after 20s
+2026-02-15T19:48:53.977985 selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T19:48:53.978092 selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+2026-02-15T19:48:53.978156 page_urls=["about:blank", "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify"]
+2026-02-15T19:48:54.086430 morning_target_override field=subscription_type value=email
+2026-02-15T19:48:54.086538 dry_run would_fill field=subscription_type selector=#subscription_type value=email
+2026-02-15T19:48:54.094311 selector_fallback field=subscriber_email primary=#subscriber_email using=#email
+2026-02-15T19:48:54.114594 dry_run would_fill field=subscriber_email selector=#email value=asbelcas@gmail.com
+2026-02-15T19:48:54.122231 selector_fallback field=subscriber_email_confirm primary=#subscriber_email_confirm using=#email
+2026-02-15T19:48:54.140449 dry_run would_fill field=subscriber_email_confirm selector=#email value=asbelcas@gmail.com
+2026-02-15T19:48:54.147598 selector_fallback field=subscriber_country_code_display primary=#subscriber_country_code_display using=#country_code_display
+2026-02-15T19:48:54.163361 dry_run would_fill field=subscriber_country_code_display selector=#country_code_display value=1 (US)
+2026-02-15T19:48:54.168805 selector_fallback field=subscriber_country_code primary=#subscriber_country_code using=#country_code
+2026-02-15T19:48:54.189012 selector_fallback field=subscriber_phone primary=#subscriber_phone using=#phone
+2026-02-15T19:48:54.205689 dry_run would_fill field=subscriber_phone selector=#phone value=2025550147
+2026-02-15T19:48:54.212073 selector_fallback field=subscriber_phone_confirm primary=#subscriber_phone_confirm using=#phone
+2026-02-15T19:48:54.225251 dry_run would_fill field=subscriber_phone_confirm selector=#phone value=2025550147
+2026-02-15T19:48:54.232649 selector_failure field=subscriber_password selector=#subscriber_password reason=not_found
+2026-02-15T19:48:54.241586 selector_failure field=subscriber_password_confirm selector=#subscriber_password_confirm reason=not_found
+2026-02-15T19:48:54.257989 morning_target_override field=name value=Crop Circuit Test
+2026-02-15T19:48:54.258058 dry_run would_fill field=name selector=#name value=Crop Circuit Test
+2026-02-15T19:48:54.264554 selector_failure field=subscriber_privacy_consent selector=#subscriber_privacy_consent reason=not_found
+2026-02-15T19:48:54.303611 captcha_detected
+2026-02-15T19:48:54.303662 dry_run submit_skipped filled=7 failures=3 captcha=True
+[2026-02-16T00:48:54Z] ha_grant_pipeline selected_page_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify selected_frame_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-16T00:48:54Z] ha_grant_pipeline status=dry_run_captcha_required exit_code=0 last_screenshot_path=/home/asbelcas/cropcircuit/logs/submission_proof_20260216T004830Z.png result_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify
+[2026-02-16T00:48:54Z] ha_grant_pipeline ha_event_post rc=0

@@ -1,0 +1,23 @@
+2026-02-16T01:09:04Z | START: autonomous takeover initiated
+2026-02-16T01:09:19Z | P0 checks: watcher active; pipeline status present (dry_run_captcha_required); /grants and /local image curl failed (connection refused/unreachable) | next: implement donor intake bridge scripts locally and validate by direct invocation
+2026-02-16T01:12:28Z | HEARTBEAT: implementing P1 donor intake bridge and validating watcher path | next: apply HA shell_command update + verify opportunity scan trigger
+2026-02-16T01:12:28Z | P1 complete(local): added bin/donor_lead_bridge.py; replaced fragile grant_donor_write_lead command in setup script; validated enqueue->trigger->watcher->donor_intake_handler processing and csv/log outputs
+2026-02-16T01:14:16Z | PATCH LIST:
+  - bin/donor_lead_bridge.py: new deterministic donor webhook bridge (normalize+append pending+trigger)
+  - bin/setup_ha_grant_commands.sh: grant_donor_write_lead now calls donor_lead_bridge.py; dedupe managed key removal added
+  - bin/fill_and_submit.py: selector normalization fallback + --program-id program-scoped load/state writes
+  - runtime/programs/usda_fsa_operating_microloan/{field_map.json,input.json,state.json}: initialized program-scoped runtime
+  - bin/autonomous_watchdog.sh: watchdog self-prompt utility
+2026-02-16T01:25:19Z | HEARTBEAT: validating donor webhook/file bridge + HA opportunity scan service path | next: finalize blocker notes and patch summary
+2026-02-16T01:25:19Z | P1 donor plumbing: added file-safe bridge bin/donor_lead_bridge.py; watcher now auto-processes /opt/homeassistant/config/grant_triggers/donor_lead_payload.json and triggers donor_intake; validated payload consumed + donor_leads.csv appended + donor_intake.log updated
+2026-02-16T01:25:20Z | P1 HA commands: setup script refreshed; grant_donor_enqueue + grant_donor_write_lead + grant_donor_intake present after HA restart; recommended automation path: webhook writes donor_lead_payload.json then call shell_command.grant_donor_enqueue (or rely on watcher auto-file polling)
+2026-02-16T01:25:20Z | P2 opportunity scanner: python3 bin/opportunity_scanner.py --dry-run ok; shell_command.grant_opportunity_scan trigger validated via watcher and logs; queue at runtime/opportunity_queue.json
+2026-02-16T01:25:20Z | BLOCKER: cropcircuit is not a git repo (git rev-parse fails). Safest next step: do not git init blindly; keep patch list in this worklog and continue ops hardening.
+2026-02-16T01:25:20Z | TEST CMDS: donor file bridge => cat > /opt/homeassistant/config/grant_triggers/donor_lead_payload.json <<JSON ...; systemctl --user restart grant-pipeline-watcher; tail -n 30 logs/pipeline_watcher.log. HA scan => POST /api/services/shell_command/grant_opportunity_scan.
+2026-02-16T01:27:37Z | REPO LINKAGE: starting verification (pwd + ls -la)
+2026-02-16T01:46:07Z | REPO LINKAGE: received token, proceeding with remote clone/link flow
+2026-02-16T01:46:07Z | cloned remote repo to /tmp/cropcircuit_repo_link
+2026-02-16T01:46:07Z | linked .git directory into workspace (no git init)
+2026-02-16T01:46:07Z | set origin remote for workspace
+2026-02-16T01:46:08Z | git pull rc=0
+2026-02-16T01:46:27Z | BLOCKER: pathspec mismatch while staging fixed path list (homeassistant/ missing). Options: (1) strict existing-path check, (2) ignore-missing add, (3) broad git add . . Picked safest: strict existing-path check.

@@ -1,0 +1,4 @@
+[2026-02-15T11:55:48Z] morning_apply_and_submit start
+{"updated_files": [], "requested_amount_usd": 25000}
+[2026-02-15T11:55:48Z] program=USDA FSA Operating Microloan target_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify submit_selector=input[type="submit"]
+[2026-02-15T11:55:49Z] morning_apply_and_submit complete

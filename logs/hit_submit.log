@@ -1,0 +1,93 @@
+[2026-02-15T11:09:09Z] grant_hit_submit start
+{"status": "error", "screenshot": "", "url": "", "error": "playwright_import_failed: No module named 'playwright'"}
+[2026-02-15T11:14:21Z] grant_hit_submit start
+(node:167977) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+{"status": "error", "screenshot": "", "url": "", "error": "cdp_connect_failed: BrowserType.connect_over_cdp: connect EPERM 127.0.0.1:9222 - Local (undefined:undefined)\nCall log:\n  - <ws preparing> retrieving websocket url from http://127.0.0.1:9222\n"}
+[2026-02-15T11:15:02Z] grant_hit_submit start
+{"status":"error","screenshot":"","url":"","error":"cdp_unreachable: start chrome with --remote-debugging-port=9222 and ensure HA runtime can reach http://127.0.0.1:9222"}
+[2026-02-15T11:15:02Z] grant_hit_submit exit_code=3
+[2026-02-15T11:16:50Z] grant_hit_submit start
+{"status":"error","screenshot":"","url":"","error":"cdp_unreachable: start chrome with --remote-debugging-port=9222 and ensure HA runtime can reach http://127.0.0.1:9222"}
+[2026-02-15T11:16:50Z] grant_hit_submit exit_code=3
+[2026-02-15T11:17:30Z] grant_hit_submit start
+(node:169260) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+{"status": "not_found", "screenshot": "/home/asbelcas/cropcircuit/logs/submission_proof_20260215T111730Z.png", "url": "chrome://new-tab-page/", "error": "submit_control_not_found"}
+[2026-02-15T11:18:42Z] grant_hit_submit start
+{"status":"error","screenshot":"","url":"","error":"cdp_unreachable: start chrome with --remote-debugging-port=9222 and ensure HA runtime can reach http://127.0.0.1:9222"}
+[2026-02-15T11:18:42Z] grant_hit_submit exit_code=3
+[2026-02-15T11:23:40Z] grant_hit_submit start
+{"status":"error","screenshot":"","url":"","error":"cdp_unreachable: start chrome with --remote-debugging-port=9222 and ensure HA runtime can reach http://127.0.0.1:9222"}
+[2026-02-15T11:23:40Z] grant_hit_submit exit_code=3
+[2026-02-15T11:24:00Z] grant_hit_submit start
+(node:171126) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+{"status": "error", "screenshot": "", "url": "chrome://new-tab-page/", "error": "screenshot_failed: Page.screenshot: Timeout 30000ms exceeded.\nCall log:\n  - taking page screenshot\n  - waiting for fonts to load...\n  - fonts loaded\n"}
+[2026-02-15T11:25:59Z] grant_hit_submit start
+(node:171422) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+{"status": "error", "screenshot": "", "url": "chrome://new-tab-page/", "error": "screenshot_failed: Page.screenshot: Timeout 30000ms exceeded.\nCall log:\n  - taking page screenshot\n  - waiting for fonts to load...\n  - fonts loaded\n"}
+[2026-02-15T11:28:44Z] grant_hit_submit start
+(node:171692) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+{"status": "error", "screenshot": "", "url": "chrome://new-tab-page/", "error": "screenshot_failed: Page.screenshot: Timeout 30000ms exceeded.\nCall log:\n  - taking page screenshot\n  - waiting for fonts to load...\n  - fonts loaded\n"}
+[2026-02-15T11:36:33Z] grant_hit_submit start
+[2026-02-15T11:36:33Z] cdp_url=http://127.0.0.1:9222 target_url=<unset> selector_hint=<unset>
+(node:172637) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+{"status": "not_found", "screenshot": "", "url": "chrome://new-tab-page/", "selected_page_url": "chrome://new-tab-page/", "selected_page_title": "New Tab", "click_result": "not_found", "error": "screenshot_failed: Page.screenshot: Timeout 6000ms exceeded.\nCall log:\n  - taking page screenshot\n  - waiting for fonts to load...\n  - fonts loaded\n"}
+[2026-02-15T11:36:40Z] grant_hit_submit exit_code=1
+[2026-02-15T11:36:47Z] grant_hit_submit start
+[2026-02-15T11:36:47Z] cdp_url=http://127.0.0.1:9222 target_url=<unset> selector_hint=<unset>
+(node:172698) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+{"status": "not_found", "screenshot": "", "url": "chrome://new-tab-page/", "selected_page_url": "chrome://new-tab-page/", "selected_page_title": "New Tab", "click_result": "not_found", "error": "screenshot_failed: Page.screenshot: Timeout 6000ms exceeded.\nCall log:\n  - taking page screenshot\n  - waiting for fonts to load...\n  - fonts loaded\n"}
+[2026-02-15T11:36:54Z] grant_hit_submit exit_code=1
+[2026-02-15T11:37:14Z] grant_hit_submit start
+[2026-02-15T11:37:14Z] cdp_url=http://127.0.0.1:9222 target_url=https://www.fsa.usda.gov/programs-and-services/farm-loan-programs/farm-operating-loans selector_hint=<unset>
+(node:172768) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+{"status": "not_found", "screenshot": "", "url": "chrome://new-tab-page/", "selected_page_url": "chrome://new-tab-page/", "selected_page_title": "New Tab", "click_result": "not_found", "error": "screenshot_failed: Page.screenshot: Timeout 6000ms exceeded.\nCall log:\n  - taking page screenshot\n  - waiting for fonts to load...\n  - fonts loaded\n"}
+[2026-02-15T11:37:21Z] grant_hit_submit exit_code=1
+[2026-02-15T11:44:46Z] grant_hit_submit start
+[2026-02-15T11:44:46Z] cdp_url=http://127.0.0.1:9222 target_url=<unset> selector_hint=<unset>
+(node:173545) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+{"timestamp_utc": "20260215T114446Z", "status": "clicked", "error": "", "cdp_url": "http://127.0.0.1:9222", "target_url": "https://www.fsa.usda.gov/programs-and-services/farm-loan-programs/farm-operating-loans", "target_regex": "", "selected_page_url": "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify", "selected_page_title": "Farmers.gov", "click_selector": "input[type='submit']", "screenshot": "/home/asbelcas/cropcircuit/logs/submission_proof_20260215T114446Z.png"}
+{"timestamp_utc": "20260215T114446Z", "status": "clicked", "error": "", "cdp_url": "http://127.0.0.1:9222", "target_url": "https://www.fsa.usda.gov/programs-and-services/farm-loan-programs/farm-operating-loans", "target_regex": "", "selected_page_url": "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify", "selected_page_title": "Farmers.gov", "click_selector": "input[type='submit']", "screenshot": "/home/asbelcas/cropcircuit/logs/submission_proof_20260215T114446Z.png"}
+[2026-02-15T11:44:52Z] grant_hit_submit exit_code=0
+[2026-02-15T11:55:48Z] grant_hit_submit start
+[2026-02-15T11:55:48Z] cdp_url=http://127.0.0.1:9222 target_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify selector_hint=<unset>
+(node:174722) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+{"status": "clicked", "selected_page_url": "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify", "selected_page_title": "Farmers.gov", "click_selector_used": "input[type=\"submit\"]", "screenshot_path": "/home/asbelcas/cropcircuit/logs/submission_proof_20260215T115548Z.png", "error": ""}
+[2026-02-15T11:55:49Z] grant_hit_submit exit_code=0
+[2026-02-15T12:08:54Z] grant_hit_submit start
+[2026-02-15T12:08:54Z] cdp_url=http://127.0.0.1:9222 target_url=<unset> selector_hint=<unset> targets_file=/home/asbelcas/cropcircuit/runtime/morning_targets.json
+(node:176153) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+{"status": "clicked", "selected_page_url": "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify", "selected_page_title": "Farmers.gov", "filled_fields": [], "click_selector": "input[type=submit]", "screenshot_path": "", "error": "screenshot_failed: Page.screenshot: Timeout 10000ms exceeded.\nCall log:\n  - taking page screenshot\n  - waiting for fonts to load...\n  - fonts loaded\n", "program_results": [{"name": "USDA FSA Operating Microloan", "status": "clicked", "selected_page_url": "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify", "selected_page_title": "Farmers.gov", "filled_fields": [], "click_selector": "input[type=submit]", "screenshot_path": "", "error": "screenshot_failed: Page.screenshot: Timeout 10000ms exceeded.\nCall log:\n  - taking page screenshot\n  - waiting for fonts to load...\n  - fonts loaded\n"}]}
+[2026-02-15T12:09:06Z] grant_hit_submit exit_code=0
+[2026-02-15T12:12:38Z] grant_hit_submit start
+[2026-02-15T12:12:38Z] cdp_url=http://127.0.0.1:9222 target_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify selector_hint=<unset> targets_file=/home/asbelcas/cropcircuit/runtime/morning_targets.json
+(node:176741) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+{"status": "clicked", "selected_page_url": "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify", "selected_page_title": "Farmers.gov", "filled_fields": [], "click_selector": "input[type=submit]", "screenshot_path": "", "error": "screenshot_failed: Page.screenshot: Timeout 10000ms exceeded.\nCall log:\n  - taking page screenshot\n  - waiting for fonts to load...\n  - fonts loaded\n", "program_results": [{"name": "USDA FSA Operating Microloan", "status": "clicked", "selected_page_url": "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify", "selected_page_title": "Farmers.gov", "filled_fields": [], "click_selector": "input[type=submit]", "screenshot_path": "", "error": "screenshot_failed: Page.screenshot: Timeout 10000ms exceeded.\nCall log:\n  - taking page screenshot\n  - waiting for fonts to load...\n  - fonts loaded\n"}]}
+[2026-02-15T12:12:49Z] grant_hit_submit exit_code=0
+[2026-02-15T12:13:08Z] grant_hit_submit start
+[2026-02-15T12:13:08Z] cdp_url=http://127.0.0.1:9222 target_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify selector_hint=<unset> targets_file=/home/asbelcas/cropcircuit/runtime/morning_targets.json
+(node:176835) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+{"status": "clicked", "selected_page_url": "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify", "selected_page_title": "Farmers.gov", "filled_fields": [], "click_selector": "input[type=submit]", "screenshot_path": "/home/asbelcas/cropcircuit/logs/submission_proof_20260215T121308Z.png", "error": "screenshot_fallback_used: Page.screenshot: Timeout 10000ms exceeded.\nCall log:\n  - taking page screenshot\n  - waiting for fonts to load...\n  - fonts loaded\n", "program_results": [{"name": "USDA FSA Operating Microloan", "status": "clicked", "selected_page_url": "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify", "selected_page_title": "Farmers.gov", "filled_fields": [], "click_selector": "input[type=submit]", "screenshot_path": "/home/asbelcas/cropcircuit/logs/submission_proof_20260215T121308Z.png", "error": "screenshot_fallback_used: Page.screenshot: Timeout 10000ms exceeded.\nCall log:\n  - taking page screenshot\n  - waiting for fonts to load...\n  - fonts loaded\n"}]}
+[2026-02-15T12:13:19Z] grant_hit_submit exit_code=0
+{"status": "error", "program": "USDA FSA Operating Microloan", "selected_page_url": "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify", "selected_page_title": "Farmers.gov", "filled_fields": [], "click_selector": "", "screenshot_path": "/home/asbelcas/cropcircuit/logs/submission_proof_20260215T121804Z_usda-fsa-operating-microloan.png", "errors": ["field_not_found:requested_amount_usd:input[name='requestedAmount']"]}
+{"status": "error", "program": "USDA FSA Operating Microloan", "selected_page_url": "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify", "selected_page_title": "Farmers.gov", "filled_fields": [], "click_selector": "", "screenshot_path": "/home/asbelcas/cropcircuit/logs/submission_proof_20260215T121813Z_usda-fsa-operating-microloan.png", "errors": ["field_not_found:requested_amount_usd:input[name='requestedAmount']", "screenshot_fallback_used:Page.screenshot: Timeout 9000ms exceeded.\nCall log:\n  - taking page screenshot\n  - waiting for fonts to load...\n  - fonts loaded\n"]}
+{"status": "error", "program": "USDA FSA Operating Microloan", "selected_page_url": "", "filled_fields": [], "click_selector": "", "screenshot_path": "", "errors": ["cdp_preflight_failed: <urlopen error [Errno 111] Connection refused>"]}
+{"status": "error", "program": "USDA FSA Operating Microloan", "selected_page_url": "", "filled_fields": [], "click_selector": "", "screenshot_path": "", "errors": ["cdp_preflight_failed: <urlopen error [Errno 111] Connection refused>"]}
+[2026-02-15T12:50:57Z] grant_hit_submit start
+[2026-02-15T12:50:57Z] cdp_url=http://127.0.0.1:9222 target_url=https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify selector_hint=<unset> targets_file=/home/asbelcas/cropcircuit/runtime/morning_targets.json
+{"status":"error","screenshot":"","url":"","error":"cdp_unreachable: start chrome with --remote-debugging-port=9222 and ensure HA runtime can reach http://127.0.0.1:9222"}
+[2026-02-15T12:50:57Z] grant_hit_submit exit_code=3
+{"status": "error", "program": "USDA FSA Operating Microloan", "selected_page_url": "", "filled_fields": [], "click_selector": "", "screenshot_path": "", "errors": ["cdp_preflight_failed: <urlopen error [Errno 111] Connection refused>"]}
+{"status": "not_found", "program": "USDA FSA Operating Microloan", "selected_page_url": "about:blank", "selected_page_title": "", "filled_fields": [], "click_selector": "", "screenshot_path": "/home/asbelcas/cropcircuit/logs/submission_proof_20260215T131924Z_usda-fsa-operating-microloan.png", "errors": ["submit_not_found"]}

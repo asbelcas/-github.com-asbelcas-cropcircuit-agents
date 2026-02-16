@@ -1,0 +1,196 @@
+{
+  "timestamp_utc": "2026-02-16T00:14:17+00:00",
+  "program": "USDA FSA Operating Microloan",
+  "target_url": "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify",
+  "selected_page_url": "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify",
+  "best_frame_url": "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify",
+  "counts_per_frame": [
+    {
+      "frame_index": 0,
+      "frame_url": "https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify",
+      "counts": {
+        "input": 10,
+        "textarea": 0,
+        "select": 2,
+        "total": 12
+      },
+      "captcha_blacklisted": false,
+      "matches_target_domain_path": true
+    },
+    {
+      "frame_index": 1,
+      "frame_url": "https://service.mtcaptcha.com/mtcv1/client/iframe.html?v=2024-11-14.21.50.58&sitekey=MTPublic-0I4pIzisA&iframeId=mtcaptcha-iframe-1&widgetSize=standard&custom=false&widgetInstance=mtcaptcha&challengeType=standard&theme=basic&lang=en&action=&autoFadeOuterText=false&host=https%3A%2F%2Fpublic.govdelivery.com&hostname=public.govdelivery.com&serviceDomain=service.mtcaptcha.com&textLength=0&lowFrictionInvisible=true&enableMouseFlow=false",
+      "counts": {
+        "input": 5,
+        "textarea": 0,
+        "select": 0,
+        "total": 5
+      },
+      "captcha_blacklisted": true,
+      "matches_target_domain_path": false
+    }
+  ],
+  "submit_counts": {
+    "input_type_submit": 1,
+    "button_type_submit": 0,
+    "button_text_or_value_submit_continue": 0
+  },
+  "elements": [
+    {
+      "tagName": "button",
+      "type": "",
+      "id": "",
+      "name": "",
+      "placeholder": "",
+      "aria-label": "Dismiss Cookie Message",
+      "required": false,
+      "value": "",
+      "isVisible": true,
+      "outerHTML": "<button aria-label=\"Dismiss Cookie Message\"><i class=\"icon-close\"></i></button>"
+    },
+    {
+      "tagName": "input",
+      "type": "hidden",
+      "id": "",
+      "name": "utf8",
+      "placeholder": "",
+      "aria-label": "",
+      "required": false,
+      "value": "\u2713",
+      "isVisible": false,
+      "outerHTML": "<input name=\"utf8\" type=\"hidden\" value=\"\u2713\">"
+    },
+    {
+      "tagName": "input",
+      "type": "hidden",
+      "id": "",
+      "name": "authenticity_token",
+      "placeholder": "",
+      "aria-label": "",
+      "required": false,
+      "value": "JuPyPxvjVysomWgUNIOcEJ0BrP6uM2yGKOYQkpCFbCSHnBa87+f86TCtFaYm6cPXHPvmz6oxA5nYtKIHmE42JA==",
+      "isVisible": false,
+      "outerHTML": "<input type=\"hidden\" name=\"authenticity_token\" value=\"JuPyPxvjVysomWgUNIOcEJ0BrP6uM2yGKOYQkpCFbCSHnBa87+f86TCtFaYm6cPXHPvmz6oxA5nYtKIHmE42JA==\">"
+    },
+    {
+      "tagName": "select",
+      "type": "",
+      "id": "subscription_type",
+      "name": "subscription_type",
+      "placeholder": "",
+      "aria-label": "",
+      "required": false,
+      "value": "email",
+      "isVisible": true,
+      "outerHTML": "<select name=\"subscription_type\" id=\"subscription_type\"><option value=\"email\">Email</option>\n<option value=\"phone\">SMS/Text Message</option></select>"
+    },
+    {
+      "tagName": "select",
+      "type": "",
+      "id": "country_code_display",
+      "name": "country_code_display",
+      "placeholder": "",
+      "aria-label": "Country code",
+      "required": false,
+      "value": "1 (US)",
+      "isVisible": false,
+      "outerHTML": "<select name=\"country_code_display\" id=\"country_code_display\" disabled=\"disabled\" aria-label=\"Country code\"><option value=\"1 (US)\">1 (US)</option>\n<option value"
+    },
+    {
+      "tagName": "input",
+      "type": "hidden",
+      "id": "country_code",
+      "name": "country_code",
+      "placeholder": "",
+      "aria-label": "",
+      "required": false,
+      "value": "1",
+      "isVisible": false,
+      "outerHTML": "<input type=\"hidden\" name=\"country_code\" id=\"country_code\" value=\"1\" title=\"Country code\">"
+    },
+    {
+      "tagName": "input",
+      "type": "tel",
+      "id": "phone",
+      "name": "phone",
+      "placeholder": "e.g. 4165551212",
+      "aria-label": "",
+      "required": false,
+      "value": "",
+      "isVisible": false,
+      "outerHTML": "<input type=\"tel\" name=\"phone\" id=\"phone\" value=\"\" class=\"medium wireless_text_field\" title=\"Provide your full phone number without country code or characters s"
+    },
+    {
+      "tagName": "input",
+      "type": "email",
+      "id": "email",
+      "name": "email",
+      "placeholder": "",
+      "aria-label": "",
+      "required": true,
+      "value": "asbelcas@gmail.com",
+      "isVisible": true,
+      "outerHTML": "<input type=\"email\" name=\"email\" id=\"email\" value=\"\" class=\"long email_text_field\" aria-describedby=\"errorExplanation\" required=\"required\">"
+    },
+    {
+      "tagName": "input",
+      "type": "text",
+      "id": "name",
+      "name": "name",
+      "placeholder": "",
+      "aria-label": "",
+      "required": false,
+      "value": "",
+      "isVisible": false,
+      "outerHTML": "<input type=\"text\" name=\"name\" id=\"name\" value=\"\" aria-disabled=\"true\" autocomplete=\"off\">"
+    },
+    {
+      "tagName": "input",
+      "type": "hidden",
+      "id": "mtcaptcha_info",
+      "name": "mtcaptcha_info",
+      "placeholder": "",
+      "aria-label": "",
+      "required": false,
+      "value": "Mtcaptcha JS loaded at: 2026-02-16T00:14:04.237Z\nMtcaptcha rendered at: 2026-02-16T00:14:04.528Z\nVisible Mtcaptcha verified at: 2026-02-16T00:14:16.658Z",
+      "isVisible": false,
+      "outerHTML": "<input type=\"hidden\" name=\"mtcaptcha_info\" id=\"mtcaptcha_info\" value=\"Mtcaptcha JS loaded at: 2026-02-16T00:14:04.237Z\nMtcaptcha rendered at: 2026-02-16T00:14:0"
+    },
+    {
+      "tagName": "input",
+      "type": "hidden",
+      "id": "mtcaptcha-verifiedtoken-1",
+      "name": "mtcaptcha-verifiedtoken",
+      "placeholder": "",
+      "aria-label": "",
+      "required": false,
+      "value": "v1(ff3b7eef,196cab0e,MTPublic-0I4pIzisA,c203ee55e30e7501a7668b30eff9713c,8EHNVTOj_nWe7VouU1d0ggnBffW-Y5uAt2i-kCXwkGVMUdOA8ZdF68EvghA0qcZrysN9qLTKJxYsdTAOg3I9c4SFpQjvfP4cGjeDGzQ3A3ac-dcsnL9vjuLqW7XkXqqwMd4I4Bh1bDIPB2kyYZIsJPHHSxmefyd6kw0u-0CGtgV_5nPGqIUfV5aXjwInUh3w4K_OVTb2KjuyI9lFQ1pPY6uWTXflQCRhn6PDVEad4dNETJiVyyelZUdvFnAzDbDbeIBAYl4h6fr7b2mgNOeeHhdQ5qGt_S-cbLze57arGWLc57TLSXasRGjygEzuRhbaKpxjRk_HbyKS4J0Td5EiKqlZuDcxCDUXDm51Bw0cz6x6Ez86Sbhds_QnyY2dFgnGTzwE6o7X034s7ZuLplUh7Q**)",
+      "isVisible": false,
+      "outerHTML": "<input type=\"hidden\" class=\"mtcaptcha-verifiedtoken\" name=\"mtcaptcha-verifiedtoken\" id=\"mtcaptcha-verifiedtoken-1\" readonly=\"readonly\" value=\"v1(ff3b7eef,196cab"
+    },
+    {
+      "tagName": "input",
+      "type": "submit",
+      "id": "",
+      "name": "commit",
+      "placeholder": "",
+      "aria-label": "Sign up with email or SMS",
+      "required": false,
+      "value": "Submit",
+      "isVisible": true,
+      "outerHTML": "<input type=\"submit\" name=\"commit\" value=\"Submit\" aria-label=\"Sign up with email or SMS\" data-disable-with=\"Submit\">"
+    },
+    {
+      "tagName": "input",
+      "type": "button",
+      "id": "",
+      "name": "",
+      "placeholder": "",
+      "aria-label": "",
+      "required": false,
+      "value": "Cancel",
+      "isVisible": true,
+      "outerHTML": "<input type=\"button\" value=\"Cancel\" class=\"cancel_button\">"
+    }
+  ]
+}

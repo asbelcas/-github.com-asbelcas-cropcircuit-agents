@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+CHROME="/usr/bin/google-chrome"
+PROFILE="/home/asbelcas/.config/cropcircuit/chrome-profile"
+LOG_DIR="/home/asbelcas/cropcircuit/logs"
+
+mkdir -p "$PROFILE"
+mkdir -p "$LOG_DIR"
+
+# kill stale chrome using this profile
+pkill -f "$PROFILE" 2>/dev/null
+
+# remove stale locks
+rm -f "$PROFILE/SingletonLock" "$PROFILE/SingletonSocket" "$PROFILE/SingletonCookie"
+
+# launch chrome with crash-safe flags
+"$CHROME" \
+  --remote-debugging-port=9222 \
+  --user-data-dir="$PROFILE" \
+  --no-first-run \
+  --no-default-browser-check \
+  --disable-extensions \
+  --disable-notifications \
+  --disable-sync \
+  --disable-gpu \
+  --disable-software-rasterizer \
+  --no-sandbox \
+  --disable-dev-shm-usage \
+  --disable-features=RendererCodeIntegrity \
+  https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify \
+  >> "$LOG_DIR/chrome_guard.log" 2>&1 &

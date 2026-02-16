@@ -1,0 +1,9 @@
+{
+  "USDA FSA Operating Microloan": "USDA FSA Operating Microloan::IMMEDIATE SUBMISSION QUEUE (ROLLING)",
+  "USDA NRCS EQIP (Michigan)": "USDA NRCS EQIP (Michigan)::FILE NOW + QUEUE NEXT RANKING BATCH",
+  "USDA NRCS CSP (Michigan)": "USDA NRCS CSP (Michigan)::FILE NOW + QUEUE NEXT RANKING BATCH",
+  "USDA FSA Direct Operating Loan": "USDA FSA Direct Operating Loan::IMMEDIATE SUBMISSION QUEUE (ROLLING)",
+  "USDA FSA Farm Ownership Loan": "USDA FSA Farm Ownership Loan::IMMEDIATE SUBMISSION QUEUE (ROLLING)",
+  "USDA FSA Beginning Farmer Down Payment FO Loan": "USDA FSA Beginning Farmer Down Payment FO Loan::IMMEDIATE SUBMISSION QUEUE (ROLLING)",
+  "USDA FSA FSFL": "USDA FSA FSFL::IMMEDIATE SUBMISSION QUEUE (ROLLING)"
+}

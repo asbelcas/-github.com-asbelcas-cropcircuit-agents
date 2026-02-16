@@ -1,0 +1,20 @@
+2026-02-15T20:10:59.875349 donor_bridge queued email=donor.test@example.com pending_count=1
+2026-02-15T20:10:59.875439 donor_bridge trigger_donor_intake=True
+2026-02-15T20:10:59.922186 donor_intake start dry_run=True
+2026-02-15T20:10:59.922476 donor_lead_logged name=Test Donor email=donor.test@example.com interest=monthly
+2026-02-15T20:10:59.922497 welcome_email_skipped to=donor.test@example.com dry_run=True
+2026-02-15T20:10:59.922550 donor_intake complete processed=1
+2026-02-15T20:11:00.572724 donor_intake start dry_run=False
+2026-02-15T20:11:00.572788 donor_intake no_pending_leads
+2026-02-15T20:12:08.635091 donor_bridge queued email=webhook.lead@example.com pending_count=1
+2026-02-15T20:12:08.635180 donor_bridge trigger_donor_intake=True
+2026-02-15T20:12:09.819174 donor_intake start dry_run=False
+2026-02-15T20:12:09.819399 donor_lead_logged name=Webhook Lead email=webhook.lead@example.com interest=one-time
+2026-02-15T20:12:11.324704 welcome_email_sent to=webhook.lead@example.com
+2026-02-15T20:12:11.325299 donor_intake complete processed=1
+2026-02-15T20:24:04.745987 donor_bridge queued email=watcher.file.donor@example.com pending_count=1
+2026-02-15T20:24:04.746085 donor_bridge trigger_donor_intake=True
+2026-02-15T20:24:05.007800 donor_intake start dry_run=False
+2026-02-15T20:24:05.008031 donor_lead_logged name=Watcher File Donor email=watcher.file.donor@example.com interest=monthly
+2026-02-15T20:24:06.490883 welcome_email_sent to=watcher.file.donor@example.com
+2026-02-15T20:24:06.491145 donor_intake complete processed=1

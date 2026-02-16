@@ -1,0 +1,7 @@
+{
+  "USDA FSA Operating Microloan": {
+    "subscription_type": "#subscription_type",
+    "email": "#email",
+    "commit": "input[name='commit']"
+  }
+}

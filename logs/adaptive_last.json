@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-02-13T11:48:03Z",
+  "improvement": "Add a simple retry with exponential backoff on HA event delivery failure to handle transient network blips.",
+  "risk": "low",
+  "action": "auto_patch_applied",
+  "outcome_delta": "failures:0->0;latency:6.00->0.00;ha:ok->ok;degrade=no"
+}
