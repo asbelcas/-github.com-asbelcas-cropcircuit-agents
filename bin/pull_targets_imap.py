@@ -17,17 +17,23 @@ import imaplib
 import json
 import os
 import re
+import socket
+import subprocess
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+
+from email_guard import build_thread_key, is_priority_contact, notify_ha_block, record_email_event
 
 
 ROOT = Path("/home/asbelcas/cropcircuit")
 OUT_FILE = ROOT / "runtime" / "morning_targets.json"
 INGEST_LOG = ROOT / "logs" / "targets_ingest.log"
+PRIORITY_ALERT_LOG = ROOT / "runtime" / "priority_alerts.log"
+OFFLINE_MODE_JSON = ROOT / "runtime" / "offline_mode.json"
 
-GMAIL_USER = "asbelcas@gmail.com"
-IMAP_HOST = "imap.gmail.com"
-IMAP_PORT = 993
+GMAIL_USER = os.environ.get("IMAP_USER", "asbelcas@gmail.com")
+IMAP_HOST = os.environ.get("IMAP_HOST", "imap.gmail.com")
+IMAP_PORT = int(os.environ.get("IMAP_PORT", "993"))
 
 DEFAULTS = {
     "monthly_stability_usd": 3000,
@@ -116,9 +122,62 @@ def extract_text(msg: email.message.Message) -> str:
     return "\n".join(parts)
 
 
-def imap_fetch_latest(app_password: str) -> tuple[str, str, str]:
-    """Fetch latest matching email via IMAP. Returns (uid, subject, body)."""
-    conn = imaplib.IMAP4_SSL(IMAP_HOST, IMAP_PORT)
+def resolve_host_ipv4(host: str) -> list[str]:
+    """Resolve host A records with system DNS fallback to local DoH helper script."""
+    ips = []
+    try:
+        records = socket.getaddrinfo(host, None, socket.AF_INET, socket.SOCK_STREAM)
+        ips.extend([item[4][0] for item in records if item and item[4]])
+    except Exception:
+        pass
+    if ips:
+        return list(dict.fromkeys(ips))
+
+    # Fallback to DoH helper over HTTPS when resolver is flaky in automation runtime.
+    helper = ROOT / "bin" / "doh_resolve.py"
+    try:
+        out = subprocess.check_output(
+            ["python3", str(helper), host],
+            text=True,
+            timeout=12,
+            stderr=subprocess.DEVNULL,
+        ).strip()
+    except Exception:
+        out = ""
+    return [out] if out else []
+
+
+def imap_connect(host: str, port: int):
+    """Connect IMAP using normal hostname path, then fallback to IP+SNI stream."""
+    try:
+        return imaplib.IMAP4_SSL(host, port)
+    except Exception:
+        ips = resolve_host_ipv4(host)
+        if not ips:
+            raise
+        ip = ips[0]
+
+        # Build an IMAPS tunnel to resolved IP with cert verification + SNI for host.
+        cmd = f"openssl s_client -quiet -connect {ip}:{port} -servername {host} 2>/dev/null"
+        return imaplib.IMAP4_stream(cmd)
+
+
+def _msg_dt_utc(msg: email.message.Message) -> datetime:
+    raw = msg.get("Date", "")
+    try:
+        dt = email.utils.parsedate_to_datetime(raw)
+    except Exception:
+        dt = None
+    if dt is None:
+        return datetime.now(timezone.utc)
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt.astimezone(timezone.utc)
+
+
+def imap_fetch_latest(app_password: str) -> tuple[str, str, str, dict]:
+    """Fetch latest matching email via IMAP. Returns (uid, subject, body, message_meta)."""
+    conn = imap_connect(IMAP_HOST, IMAP_PORT)
     conn.login(GMAIL_USER, app_password)
     conn.select("INBOX", readonly=True)
 
@@ -130,11 +189,15 @@ def imap_fetch_latest(app_password: str) -> tuple[str, str, str]:
     uid = ""
     subject = ""
     body = ""
+    msg_meta = {}
     for criteria in [
         f'(SINCE "{since_date}" SUBJECT "CropCircuit")',
         f'(SINCE "{since_date}" SUBJECT "targets")',
         f'(SINCE "{since_date}" SUBJECT "morning")',
         f'(SINCE "{since_date}" SUBJECT "grant")',
+        f'(SINCE "{since_date}" FROM "calhouncd@gmail.com")',
+        f'(SINCE "{since_date}" FROM "calhouncd")',
+        f'(SINCE "{since_date}" SUBJECT "Calhoun Conservation District")',
         f'(SINCE "{since_date}" FROM "asbelcas")',
     ]:
         try:
@@ -153,6 +216,14 @@ def imap_fetch_latest(app_password: str) -> tuple[str, str, str]:
             uid = latest_id.decode() if isinstance(latest_id, bytes) else str(latest_id)
             subject = str(msg.get("Subject", ""))
             body = extract_text(msg)
+            from_addr = email.utils.parseaddr(str(msg.get("From", "")))[1].lower()
+            refs = str(msg.get("References", "")).strip() or str(msg.get("Message-ID", "")).strip()
+            msg_meta = {
+                "from_addr": from_addr,
+                "thread_refs": refs,
+                "message_id": str(msg.get("Message-ID", "")).strip(),
+                "date_utc": _msg_dt_utc(msg).isoformat(),
+            }
             if body.strip():
                 break
         except Exception:
@@ -163,7 +234,7 @@ def imap_fetch_latest(app_password: str) -> tuple[str, str, str]:
     if not body:
         raise RuntimeError("no_matching_messages")
 
-    return uid, subject, body
+    return uid, subject, body, msg_meta
 
 
 def main() -> int:
@@ -172,6 +243,7 @@ def main() -> int:
     args = ap.parse_args()
 
     app_password = os.environ.get("GMAIL_APP_PASSWORD", "")
+    offline_mode = OFFLINE_MODE_JSON.exists() and '"active": true' in OFFLINE_MODE_JSON.read_text(encoding="utf-8", errors="ignore").lower()
 
     if args.dry_run:
         uid = "dry-run"
@@ -182,16 +254,42 @@ def main() -> int:
             "requested_amount_usd: 25000\n"
         )
     else:
+        try:
+            preflight_raw = subprocess.check_output(
+                ["python3", str(ROOT / "bin" / "preflight_imap.py")],
+                text=True,
+                timeout=45,
+            ).strip()
+            preflight_detail = json.loads(preflight_raw.splitlines()[-1]) if preflight_raw else {}
+            ok_preflight = bool(preflight_detail.get("ok"))
+        except subprocess.CalledProcessError as exc:
+            text = (exc.output or "").strip()
+            try:
+                preflight_detail = json.loads(text.splitlines()[-1]) if text else {}
+            except Exception:
+                preflight_detail = {"ok": False, "error": f"preflight_process_error: {text[:160]}"}
+            ok_preflight = False
+        except Exception as exc:
+            preflight_detail = {"ok": False, "error": f"preflight_exception: {str(exc)[:160]}"}
+            ok_preflight = False
+
+        if offline_mode and not ok_preflight:
+            print(json.dumps({"ok": False, "error": "offline_mode_imap_blocked", "preflight": preflight_detail}))
+            return 2
+        if not ok_preflight:
+            print(json.dumps({"ok": False, "error": "preflight_imap_failed", "preflight": preflight_detail}))
+            return 2
         if not app_password:
             print(json.dumps({"ok": False, "error": "GMAIL_APP_PASSWORD not set"}))
             return 1
         try:
-            uid, subject, body = imap_fetch_latest(app_password)
+            uid, subject, body, msg_meta = imap_fetch_latest(app_password)
         except RuntimeError as e:
             # No matching messages — use defaults
             uid = "no-match"
             subject = str(e)
             body = ""
+            msg_meta = {}
         except Exception as e:
             print(json.dumps({"ok": False, "error": str(e)[:200]}))
             return 1
@@ -212,6 +310,36 @@ def main() -> int:
         "stored": str(OUT_FILE),
         "dry_run": args.dry_run,
     })
+
+    # Guard integration: record inbound_seen event for reply-aware send gate.
+    if not args.dry_run and uid != "no-match":
+        from_addr = str(msg_meta.get("from_addr", "")).strip().lower()
+        refs = str(msg_meta.get("thread_refs", "")).strip()
+        thread_key = build_thread_key(subject, from_addr, refs)
+        ts = str(msg_meta.get("date_utc") or now_utc_iso())
+        record_email_event(
+            "inbound_seen",
+            thread_key,
+            ts,
+            {
+                "source": "pull_targets_imap",
+                "uid": uid,
+                "from_addr": from_addr,
+                "subject": subject,
+                "message_id": str(msg_meta.get("message_id", "")),
+            },
+        )
+        priority_hit = is_priority_contact(from_addr) or ("calhouncd" in from_addr.lower()) or ("calhoun conservation district" in subject.lower())
+        if priority_hit:
+            alert_line = f"{now_utc_iso()} PRIORITY_REPLY from={from_addr} subject={subject[:180]}"
+            PRIORITY_ALERT_LOG.parent.mkdir(parents=True, exist_ok=True)
+            with PRIORITY_ALERT_LOG.open("a", encoding="utf-8") as fh:
+                fh.write(alert_line + "\n")
+            notify_ha_block(
+                "Priority Reply Alert",
+                f"Priority thread replied: {from_addr} | {subject}",
+            )
+
     print(json.dumps({"ok": True, "source": "imap", "uid": uid, "targets": targets, "stored": str(OUT_FILE)}))
     return 0
 

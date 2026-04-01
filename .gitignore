@@ -1,0 +1,70 @@
+# Secrets
+.env*
+!.env.example
+linkedin_engine/.env.secrets
+linkedin_engine/.env.secrets.*
+*.swp
+
+# Logs - all log files
+logs/
+*.log
+grant_automation.log
+grant_autopilot.log
+grant_autopilot_status.md
+automation_runs.csv
+followup_queue.csv
+
+# Runtime data - generated state files
+runtime/*.json
+runtime/*.jsonl
+runtime/*.csv
+runtime/*.ndjson
+runtime/*.sqlite
+runtime/*.log
+runtime/*.pid
+runtime/drafts/
+runtime/outbound/
+runtime/outbox_emails/
+runtime/templates/
+runtime/email_drafts/
+runtime/marketplace_email_drafts/
+runtime/letters/
+runtime/match_letters/
+runtime/letters_requested/
+runtime/submission_packet/
+
+# Submission proofs and screenshots
+logs/submission_proof_*.png
+logs/x_post_*.png
+logs/*.png
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Bridge runtime
+bridge/from_claude.log
+bridge/to_claude.fifo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary/backup files
+*.bak
+*.save
+*.tmp
+*~
+
+# Lock files
+*.lock
+.locked_frameworks/
+.grant_autopilot.lock
+
+# Large archives
+*.zip
+
+# Odd files
+**\"
+"No"

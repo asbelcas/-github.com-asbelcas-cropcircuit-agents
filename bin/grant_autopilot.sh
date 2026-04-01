@@ -20,6 +20,9 @@ if [[ -f "$ROOT_DIR/.env.grant" ]]; then
   source "$ROOT_DIR/.env.grant"
 fi
 
+# Ensure user-local bin is in PATH (needed when running from cron)
+export PATH="$PATH:/home/asbelcas/.local/bin"
+
 if [[ "$AUTOPILOT_DRY_RUN" != "0" && "$AUTOPILOT_DRY_RUN" != "1" ]]; then
   echo "ERROR: AUTOPILOT_DRY_RUN must be 0 or 1" >&2
   exit 2
@@ -437,10 +440,10 @@ NEXT_STEP:
       if [[ "$CURRENT_STRATEGY" == "outreach" && ! "$channel" =~ ^(grant|donor|partnership)$ ]]; then
         funding_accepted=0
       fi
-      if printf '%s %s\n' "$move" "$next_step" | tr '[:upper:]' '[:lower:]' | rg -q '(vanity|social growth|experimental|experiment)'; then
+      if printf '%s %s\n' "$move" "$next_step" | tr '[:upper:]' '[:lower:]' | grep -qE '(vanity|social growth|experimental|experiment)'; then
         funding_accepted=0
       fi
-      if printf '%s %s\n' "$move" "$next_step" | tr '[:upper:]' '[:lower:]' | rg -q '(manual|constant attention|daily hand|one-off spike|short-term)'; then
+      if printf '%s %s\n' "$move" "$next_step" | tr '[:upper:]' '[:lower:]' | grep -qE '(manual|constant attention|daily hand|one-off spike|short-term)'; then
         funding_accepted=0
       fi
       if [[ "$(is_channel_overconcentrated "$channel" 2>/dev/null || echo 0)" == "1" ]]; then

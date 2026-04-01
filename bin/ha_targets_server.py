@@ -12,6 +12,7 @@ from pathlib import Path
 ROOT = Path("/home/asbelcas/cropcircuit")
 RUNTIME_JSON = ROOT / "runtime" / "morning_targets.json"
 LOG_FILE = ROOT / "logs" / "morning_targets.log"
+DONOR_PAYLOAD_JSON = Path("/opt/homeassistant/config/grant_triggers/donor_lead_payload.json")
 HOST = "0.0.0.0"
 PORT = 8777
 
@@ -43,6 +44,44 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(out)
 
     def do_POST(self):  # noqa: N802
+        if self.path == "/donor":
+            try:
+                length = int(self.headers.get("Content-Length", "0"))
+                raw = self.rfile.read(length).decode("utf-8")
+                payload = json.loads(raw)
+                if not isinstance(payload, dict):
+                    raise ValueError("payload_must_be_object")
+                donor = {
+                    "name": str(payload.get("name", "") or "").strip(),
+                    "email": str(payload.get("email", "") or "").strip(),
+                    "phone": str(payload.get("phone", "") or "").strip(),
+                    "interest": str(payload.get("interest", "") or "").strip(),
+                    "amount_range": str(payload.get("amount_range", "") or "").strip(),
+                    "message": str(payload.get("message", "") or "").strip(),
+                    "source": str(payload.get("source", "ha_webhook") or "ha_webhook"),
+                }
+                if not donor["email"]:
+                    raise ValueError("missing_email")
+                atomic_write_json(DONOR_PAYLOAD_JSON, donor)
+                append_log(
+                    json.dumps(
+                        {
+                            "timestamp_utc": now_iso(),
+                            "event": "donor_payload_received",
+                            "path": str(DONOR_PAYLOAD_JSON),
+                            "email": donor["email"],
+                        },
+                        ensure_ascii=True,
+                    )
+                )
+                self._send(200, {"ok": True, "stored": str(DONOR_PAYLOAD_JSON)})
+            except Exception as exc:
+                append_log(
+                    json.dumps({"timestamp_utc": now_iso(), "event": "donor_payload_error", "error": str(exc)}, ensure_ascii=True)
+                )
+                self._send(400, {"ok": False, "error": str(exc)})
+            return
+
         if self.path != "/targets":
             self._send(404, {"ok": False, "error": "not_found"})
             return

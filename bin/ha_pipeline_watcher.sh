@@ -11,6 +11,7 @@ RESULT_DIR="/opt/homeassistant/config/grant_results"
 LOG_FILE="$ROOT_DIR/logs/pipeline_watcher.log"
 POLL_INTERVAL=3
 DONOR_PAYLOAD_FILE="$TRIGGER_DIR/donor_lead_payload.json"
+CHAIN_GRANT_AFTER_DONOR="${CHAIN_GRANT_AFTER_DONOR:-1}"
 
 export DISPLAY="${DISPLAY:-:0}"
 export HOME="${HOME:-/home/asbelcas}"
@@ -31,6 +32,9 @@ log() {
 log "Pipeline watcher started (PID $$)"
 
 while true; do
+  # Keep ai_liaison status JSON mirrored into /config/www for HA REST sensors.
+  python3 "$ROOT_DIR/bin/ai_liaison_control.py" sync --channel all >/dev/null 2>> "$LOG_FILE" || true
+
   # Auto-bridge donor payload file (webhook/file writers can drop payload here).
   if [[ -s "$DONOR_PAYLOAD_FILE" ]]; then
     log "Detected donor payload file: $(basename "$DONOR_PAYLOAD_FILE")"
@@ -57,6 +61,8 @@ while true; do
     # Read trigger contents
     action="run"
     program_id=""
+    canary_email_id=""
+    send_wave_count=""
     extra_args=()
     donor_name=""
     donor_email=""
@@ -69,6 +75,8 @@ while true; do
       action="$(python3 -c "import json,sys; d=json.loads(open('$trigger').read()); print(d.get('action','run'))" 2>/dev/null || echo "run")"
       dry_run="$(python3 -c "import json,sys; d=json.loads(open('$trigger').read()); print(str(d.get('dry_run',False)).lower())" 2>/dev/null || echo "false")"
       program_id="$(python3 -c "import json,sys; d=json.loads(open('$trigger').read()); print(d.get('program_id',''))" 2>/dev/null || echo "")"
+      canary_email_id="$(python3 -c "import json,sys; d=json.loads(open('$trigger').read()); print(d.get('email_id',''))" 2>/dev/null || echo "")"
+      send_wave_count="$(python3 -c "import json,sys; d=json.loads(open('$trigger').read()); print(d.get('count',''))" 2>/dev/null || echo "")"
       donor_name="$(python3 -c "import json,sys; d=json.loads(open('$trigger').read()); print(d.get('name',''))" 2>/dev/null || echo "")"
       donor_email="$(python3 -c "import json,sys; d=json.loads(open('$trigger').read()); print(d.get('email',''))" 2>/dev/null || echo "")"
       donor_phone="$(python3 -c "import json,sys; d=json.loads(open('$trigger').read()); print(d.get('phone',''))" 2>/dev/null || echo "")"
@@ -114,11 +122,63 @@ while true; do
         rc=$?
         log "Opportunity scan completed with exit code $rc"
         ;;
+      marketplace_liaison)
+        log "Running ai_liaison.marketplace pipeline"
+        python3 "$ROOT_DIR/bin/ha_marketplace_liaison.py" >> "$LOG_FILE" 2>&1
+        rc=$?
+        log "ai_liaison.marketplace completed with exit code $rc"
+        ;;
+      send_canary)
+        canary_id="${canary_email_id:-1}"
+        log "Running one-message canary send (email_id=${canary_id})"
+        python3 "$ROOT_DIR/bin/send_grant_email.py" "$canary_id" --execute --tag SAFE_AUTOSEND_CANARY >> "$LOG_FILE" 2>&1
+        rc=$?
+        log "Canary send completed with exit code $rc"
+        ;;
+      send_wave)
+        wave_count="${send_wave_count:-3}"
+        log "Running controlled send wave (count=${wave_count})"
+        python3 "$ROOT_DIR/bin/send_marketplace_wave.py" --count "$wave_count" >> "$LOG_FILE" 2>&1
+        rc=$?
+        log "Send wave completed with exit code $rc"
+        ;;
+      ai_marketplace_mark_sent)
+        log "Marking ai_liaison.marketplace item as sent"
+        python3 "$ROOT_DIR/bin/ai_liaison_control.py" approve --channel marketplace >> "$LOG_FILE" 2>&1
+        rc=$?
+        log "ai_liaison.marketplace mark-sent completed with exit code $rc"
+        ;;
+      ai_marketplace_skip)
+        log "Skipping ai_liaison.marketplace item"
+        python3 "$ROOT_DIR/bin/ai_liaison_control.py" skip --channel marketplace >> "$LOG_FILE" 2>&1
+        rc=$?
+        log "ai_liaison.marketplace skip completed with exit code $rc"
+        ;;
+      ai_email_mark_sent)
+        log "Marking ai_liaison.email item as sent"
+        python3 "$ROOT_DIR/bin/ai_liaison_control.py" approve --channel email >> "$LOG_FILE" 2>&1
+        rc=$?
+        log "ai_liaison.email mark-sent completed with exit code $rc"
+        ;;
+      ai_email_skip)
+        log "Skipping ai_liaison.email item"
+        python3 "$ROOT_DIR/bin/ai_liaison_control.py" skip --channel email >> "$LOG_FILE" 2>&1
+        rc=$?
+        log "ai_liaison.email skip completed with exit code $rc"
+        ;;
       donor_intake)
         log "Processing donor intake"
         python3 "$ROOT_DIR/bin/donor_intake_handler.py" >> "$LOG_FILE" 2>&1
         rc=$?
         log "Donor intake completed with exit code $rc"
+        if [[ $rc -eq 0 && "$CHAIN_GRANT_AFTER_DONOR" == "1" ]]; then
+          if ! ls "$TRIGGER_DIR"/trigger_run*.json >/dev/null 2>&1; then
+            echo '{"action":"run"}' > "$TRIGGER_DIR/trigger_run_after_donor.json"
+            log "Chained grant pipeline run trigger after donor intake"
+          else
+            log "Skipped chained grant trigger; existing run trigger present"
+          fi
+        fi
         ;;
       donor_webhook)
         log "Processing donor webhook payload"
@@ -144,6 +204,20 @@ while true; do
       status)
         log "Status check requested"
         rc=0
+        ;;
+      x_post_queue)
+        log "X/Twitter: posting next queued item"
+        source "$ROOT_DIR/.env.x" 2>/dev/null || true
+        python3 "$ROOT_DIR/bin/x_bot.py" post_from_queue >> "$LOG_FILE" 2>&1
+        rc=$?
+        log "X post_from_queue completed with exit code $rc"
+        ;;
+      x_fetch_mentions)
+        log "X/Twitter: fetching mentions"
+        source "$ROOT_DIR/.env.x" 2>/dev/null || true
+        python3 "$ROOT_DIR/bin/x_bot.py" fetch_mentions >> "$LOG_FILE" 2>&1
+        rc=$?
+        log "X fetch_mentions completed with exit code $rc"
         ;;
       *)
         log "Unknown action: $action"
@@ -181,6 +255,11 @@ except: pass
     # Copy opportunity queue to HA-accessible location
     if [[ -f "$ROOT_DIR/runtime/opportunity_queue.json" ]]; then
       cp "$ROOT_DIR/runtime/opportunity_queue.json" "$RESULT_DIR/opportunity_queue.json"
+    fi
+
+    # Copy X bot status to HA-accessible location
+    if [[ -f "$ROOT_DIR/logs/x_mentions.json" ]]; then
+      cp "$ROOT_DIR/logs/x_mentions.json" "$RESULT_DIR/x_mentions.json"
     fi
 
     # Write result file

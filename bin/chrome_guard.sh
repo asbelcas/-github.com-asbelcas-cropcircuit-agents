@@ -4,12 +4,34 @@
 # Logs all actions to chrome_guard.log.
 set -euo pipefail
 
-CHROME="/usr/bin/google-chrome"
-PROFILE="/home/asbelcas/.config/cropcircuit/chrome-profile"
+PROFILE="/home/asbelcas/.chrome-ha"
 LOG="/home/asbelcas/cropcircuit/logs/chrome_guard.log"
 PORT=9222
 DISPLAY="${DISPLAY:-:0}"
 export DISPLAY
+
+pick_browser_bin() {
+  if [[ -n "${AUTOMATION_BROWSER_BIN:-}" && -x "${AUTOMATION_BROWSER_BIN}" ]]; then
+    echo "${AUTOMATION_BROWSER_BIN}"
+    return 0
+  fi
+
+  local pw
+  pw="$(ls -1d "$HOME"/.cache/ms-playwright/chromium-*/chrome-linux64/chrome 2>/dev/null | tail -n 1 || true)"
+  if [[ -n "$pw" && -x "$pw" ]]; then
+    echo "$pw"
+    return 0
+  fi
+
+  if command -v chromium-browser >/dev/null 2>&1; then
+    command -v chromium-browser
+    return 0
+  fi
+
+  command -v google-chrome
+}
+
+CHROME="$(pick_browser_bin)"
 
 mkdir -p "$PROFILE" "$(dirname "$LOG")"
 
@@ -45,14 +67,18 @@ if ! pgrep -f "remote-debugging-port=${PORT}" >/dev/null 2>&1; then
 fi
 
 log "Launching Chrome with remote debugging on port $PORT"
+log "Using browser binary: $CHROME"
 
-"$CHROME" \
+nohup nice -n 15 "$CHROME" \
+  --remote-debugging-address=127.0.0.1 \
   --remote-debugging-port="$PORT" \
   --user-data-dir="$PROFILE" \
+  --headless=new \
   --no-first-run \
   --no-default-browser-check \
   --disable-extensions \
   --disable-notifications \
+  --disable-background-networking \
   --disable-sync \
   --disable-gpu \
   --disable-software-rasterizer \
@@ -62,8 +88,8 @@ log "Launching Chrome with remote debugging on port $PORT"
   --disable-crash-reporter \
   --disable-features=RendererCodeIntegrity,TranslateUI \
   --window-size=1280,900 \
-  https://public.govdelivery.com/accounts/USDAFARMERS/subscribers/qualify \
-  >> "$LOG" 2>&1 &
+  about:blank \
+  >> "$LOG" 2>&1 < /dev/null &
 
 CHROME_PID=$!
 log "Chrome launched with PID $CHROME_PID"

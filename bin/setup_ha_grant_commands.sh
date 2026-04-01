@@ -16,7 +16,7 @@ if [[ ! -f "$HA_SHELL_CMD" ]]; then
 fi
 
 tmp_file="$(mktemp)"
-MANAGED_KEYS_RE='^(grant_orchestrator_dryrun|grant_orchestrator_live|grant_send_single|grant_submit_dispatch_now|grant_submit_dispatch_watch|grant_live_intake|grant_dispatch_from_session|grant_mark_submitted|grant_pipeline_run|grant_pipeline_resume|grant_pipeline_dryrun|grant_pipeline_status|grant_targets_ingest|grant_pipeline_program|grant_pipeline_program_dryrun|grant_opportunity_scan|grant_donor_intake|grant_donor_write_lead|grant_donor_enqueue):'
+MANAGED_KEYS_RE='^(grant_orchestrator_dryrun|grant_orchestrator_live|grant_send_single|grant_submit_dispatch_now|grant_submit_dispatch_watch|grant_live_intake|grant_dispatch_from_session|grant_mark_submitted|grant_pipeline_run|grant_pipeline_resume|grant_pipeline_dryrun|grant_pipeline_status|grant_targets_ingest|grant_pipeline_program|grant_pipeline_program_dryrun|grant_opportunity_scan|grant_donor_intake|grant_donor_write_lead|grant_donor_enqueue|x_post_queue_item|x_fetch_mentions|x_bot_status|ai_liaison_marketplace_run):'
 awk -v begin="$SECTION_BEGIN" -v end="$SECTION_END" -v managed="$MANAGED_KEYS_RE" '
   $0 == begin {in_block=1; next}
   $0 == end {in_block=0; next}
@@ -43,8 +43,14 @@ grant_pipeline_program: "echo '{\"action\":\"run\",\"program_id\":\"{{ program_i
 grant_pipeline_program_dryrun: "echo '{\"action\":\"run\",\"program_id\":\"{{ program_id }}\",\"dry_run\":true}' > /config/grant_triggers/trigger_program_dryrun.json"
 grant_opportunity_scan: 'echo "{\"action\":\"scan\"}" > /config/grant_triggers/trigger_scan.json'
 grant_donor_intake: 'echo "{\"action\":\"donor_intake\"}" > /config/grant_triggers/trigger_donor.json'
+# Keep this command template-free; donor payload should be written via rest_command -> /donor.
 grant_donor_write_lead: 'echo "{\"action\":\"donor_webhook_from_file\"}" > /config/grant_triggers/trigger_donor_enqueue.json'
 grant_donor_enqueue: 'echo "{\"action\":\"donor_webhook_from_file\"}" > /config/grant_triggers/trigger_donor_enqueue.json'
+# --- X/Twitter Bot Commands ---
+x_post_queue_item: 'echo "{\"action\":\"x_post_queue\"}" > /config/grant_triggers/trigger_x_post.json'
+x_fetch_mentions: 'echo "{\"action\":\"x_fetch_mentions\"}" > /config/grant_triggers/trigger_x_mentions.json'
+x_bot_status: "cat /config/grant_results/x_mentions.json 2>/dev/null || echo '{\"status\":\"no data\"}'"
+ai_liaison_marketplace_run: 'echo "{\"action\":\"marketplace_liaison\"}" > /config/grant_triggers/trigger_marketplace_liaison.json'
 # === GRANT OUTREACH AUTOMATION (END) ===
 YAML
 

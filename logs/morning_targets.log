@@ -1,3 +1,0 @@
-{"timestamp_utc": "2026-02-15T11:55:22+00:00", "event": "targets_server_start", "bind": "0.0.0.0:8777"}
-{"timestamp_utc": "2026-02-15T11:55:31+00:00", "event": "targets_received", "path": "/home/asbelcas/cropcircuit/runtime/morning_targets.json", "program_count": 1}
-{"timestamp_utc": "2026-02-15T14:25:00+00:00", "event": "targets_server_start", "bind": "0.0.0.0:8777"}
