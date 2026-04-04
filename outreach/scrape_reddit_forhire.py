@@ -16,9 +16,8 @@ from pathlib import Path
 
 import requests
 
-SUBREDDIT = "forhire"
-# Reddit requires a descriptive User-Agent in this format
-# https://github.com/reddit-archive/reddit/wiki/API
+# Search both subs: forhire (hiring posts) and slavelabour ([Task] posts)
+SUBREDDITS = ["forhire", "slavelabour"]
 SEARCH_TERMS = [
     "python script",
     "python automation",
@@ -45,8 +44,8 @@ OUT = Path(__file__).parent / "reddit_forhire_leads.csv"
 HEADERS = {"User-Agent": "script:cropcircuit-lead-scraper:1.0 (by /u/cropcircuit_bot)"}
 
 
-def search_reddit(query: str, session: requests.Session, retries: int = 3) -> list[dict]:
-    url = f"https://www.reddit.com/r/{SUBREDDIT}/search.json"
+def search_reddit(subreddit: str, query: str, session: requests.Session, retries: int = 3) -> list[dict]:
+    url = f"https://www.reddit.com/r/{subreddit}/search.json"
     params = {
         "q": query,
         "restrict_sr": "1",
@@ -73,15 +72,31 @@ def search_reddit(query: str, session: requests.Session, retries: int = 3) -> li
     return []
 
 
-def is_hiring_post(post: dict) -> bool:
+def is_relevant_post(post: dict, subreddit: str) -> bool:
+    """
+    Relaxed filter — accept any post that looks like a client request.
+    r/forhire: keep [Hiring]/[H] flair OR title, skip [For Hire]/[FH]
+    r/slavelabour: keep [Task]/[T] posts, skip [Completed]
+    """
     flair = (post.get("link_flair_text") or "").lower().strip()
     title = post.get("title", "").lower()
-    # Accept posts with hiring flair, or title starting with [H] / [Hiring]
-    if flair in HIRING_FLAIRS:
-        return True
-    if title.startswith("[h]") or title.startswith("[hiring]"):
-        return True
-    return False
+
+    if subreddit == "slavelabour":
+        # Skip completed/offering posts
+        if any(x in flair for x in ["complete", "offering", "for hire"]):
+            return False
+        if title.startswith("[complete") or title.startswith("[fh]") or title.startswith("[for hire"):
+            return False
+        return True  # Accept all non-completed slavelabour posts
+
+    # forhire: skip [For Hire] posts
+    if flair in {"for hire", "[for hire]", "fh", "[fh]"}:
+        return False
+    if title.startswith("[fh]") or title.startswith("[for hire]"):
+        return False
+    # Accept if flair is hiring OR title has [H]/[Hiring] OR no flair at all
+    # (many posts have no flair set but are legitimate hiring posts)
+    return True
 
 
 def score_post(post: dict) -> int:
@@ -106,48 +121,63 @@ def main():
 
     seen_ids: set[str] = set()
     leads: list[dict] = []
+    total_fetched = total_filtered_flair = total_filtered_skip = total_filtered_score = 0
 
-    print(f"Searching r/{SUBREDDIT} for {len(SEARCH_TERMS)} queries...")
+    print(f"Searching {SUBREDDITS} for {len(SEARCH_TERMS)} queries each...")
 
-    for term in SEARCH_TERMS:
-        posts = search_reddit(term, session)
-        for item in posts:
-            post = item["data"]
-            pid = post.get("id", "")
-            if pid in seen_ids:
-                continue
-            seen_ids.add(pid)
+    for subreddit in SUBREDDITS:
+        for term in SEARCH_TERMS:
+            posts = search_reddit(subreddit, term, session)
+            print(f"  r/{subreddit} {term!r}: {len(posts)} raw posts")
+            total_fetched += len(posts)
 
-            if not is_hiring_post(post):
-                continue
+            for item in posts:
+                post = item["data"]
+                pid = post.get("id", "")
+                if pid in seen_ids:
+                    continue
+                seen_ids.add(pid)
 
-            title = post.get("title", "")
-            body = post.get("selftext", "")
+                if not is_relevant_post(post, subreddit):
+                    total_filtered_flair += 1
+                    continue
 
-            if any(skip in (title + body).lower() for skip in SKIP_WORDS):
-                continue
+                title = post.get("title", "")
+                body = post.get("selftext", "")
 
-            score = score_post(post)
-            if score == 0:
-                continue
+                if any(skip in (title + body).lower() for skip in SKIP_WORDS):
+                    total_filtered_skip += 1
+                    continue
 
-            created = datetime.fromtimestamp(
-                post.get("created_utc", 0), tz=timezone.utc
-            ).strftime("%Y-%m-%d")
+                s = score_post(post)
+                if s == 0:
+                    total_filtered_score += 1
+                    continue
 
-            leads.append({
-                "title": title,
-                "score": score,
-                "budget": extract_budget(title + " " + body),
-                "url": f"https://reddit.com{post.get('permalink','')}",
-                "posted": created,
-                "author": post.get("author", ""),
-                "snippet": body[:200].replace("\n", " "),
-                "contact_attempted": "",
-                "notes": "",
-            })
+                created = datetime.fromtimestamp(
+                    post.get("created_utc", 0), tz=timezone.utc
+                ).strftime("%Y-%m-%d")
 
-        time.sleep(1.0)
+                leads.append({
+                    "title": title,
+                    "score": s,
+                    "subreddit": subreddit,
+                    "budget": extract_budget(title + " " + body),
+                    "url": f"https://reddit.com{post.get('permalink', '')}",
+                    "posted": created,
+                    "author": post.get("author", ""),
+                    "snippet": body[:200].replace("\n", " "),
+                    "contact_attempted": "",
+                    "notes": "",
+                })
+
+            time.sleep(1.0)
+
+    print(f"\nFunnel: {total_fetched} fetched → "
+          f"{total_filtered_flair} filtered (flair) → "
+          f"{total_filtered_skip} filtered (skip words) → "
+          f"{total_filtered_score} filtered (score=0) → "
+          f"{len(leads)} leads")
 
     # Deduplicate and sort
     seen_titles: set[str] = set()
@@ -159,21 +189,31 @@ def main():
             unique.append(lead)
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    fieldnames = ["title", "score", "budget", "url", "posted", "author",
-                  "snippet", "contact_attempted", "notes"]
+    fieldnames = ["title", "score", "subreddit", "budget", "url", "posted",
+                  "author", "snippet", "contact_attempted", "notes"]
     with open(OUT, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(unique)
 
-    # Save meta
-    meta = {"scraped_at": datetime.now().isoformat(), "total_leads": len(unique),
-            "search_terms": SEARCH_TERMS}
+    meta = {
+        "scraped_at": datetime.now().isoformat(),
+        "total_leads": len(unique),
+        "subreddits": SUBREDDITS,
+        "search_terms": SEARCH_TERMS,
+        "funnel": {
+            "fetched": total_fetched,
+            "filtered_flair": total_filtered_flair,
+            "filtered_skip": total_filtered_skip,
+            "filtered_score": total_filtered_score,
+        },
+    }
     (OUT.parent / "reddit_forhire_meta.json").write_text(json.dumps(meta, indent=2))
 
-    print(f"\nFound {len(unique)} leads → {OUT}")
+    print(f"Wrote {len(unique)} leads → {OUT}")
     for i, lead in enumerate(unique[:10], 1):
-        print(f"  {i:2}. score={lead['score']}  {lead['budget'] or '?':>6}  {lead['title'][:65]}")
+        print(f"  {i:2}. [{lead['subreddit']:<12}] score={lead['score']}  "
+              f"{lead['budget'] or '?':>6}  {lead['title'][:55]}")
 
 
 if __name__ == "__main__":
