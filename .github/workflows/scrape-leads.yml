@@ -42,10 +42,8 @@ jobs:
         run: python outreach/scrape_reddit_forhire.py
         continue-on-error: true
 
-      - name: Scrape Upwork job browse
-        if: ${{ contains(github.event.inputs.sources || 'reddit,upwork', 'upwork') }}
-        run: python outreach/scrape_upwork_jobs.py
-        continue-on-error: true
+      # Upwork blocked by Cloudflare on GitHub Actions IPs (confirmed 2026-04-04)
+      # scrape_upwork_jobs.py kept for local use only
 
       - name: Scrape Craigslist computer gigs
         if: ${{ contains(github.event.inputs.sources || 'reddit,upwork', 'craigslist') }}
