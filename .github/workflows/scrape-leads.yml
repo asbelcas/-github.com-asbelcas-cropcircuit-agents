@@ -1,0 +1,61 @@
+name: Scrape Leads
+
+# Trigger options:
+#   1. Manual: GitHub UI → Actions → "Scrape Leads" → Run workflow
+#   2. Agent: any agent pushes a commit touching .github/trigger/scrape
+#   3. Schedule: runs every 6 hours automatically
+on:
+  workflow_dispatch:
+    inputs:
+      sources:
+        description: "Sources to scrape (comma-separated: reddit,upwork,craigslist)"
+        default: "reddit,upwork"
+        required: false
+  push:
+    paths:
+      - ".github/trigger/scrape"
+  schedule:
+    - cron: "0 */6 * * *"   # every 6 hours
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4 playwright && playwright install chromium --with-deps
+
+      - name: Scrape r/forhire [Hiring] posts
+        if: ${{ contains(github.event.inputs.sources || 'reddit,upwork', 'reddit') }}
+        run: python outreach/scrape_reddit_forhire.py
+        continue-on-error: true
+
+      - name: Scrape Upwork job browse
+        if: ${{ contains(github.event.inputs.sources || 'reddit,upwork', 'upwork') }}
+        run: python outreach/scrape_upwork_jobs.py
+        continue-on-error: true
+
+      - name: Scrape Craigslist computer gigs
+        if: ${{ contains(github.event.inputs.sources || 'reddit,upwork', 'craigslist') }}
+        run: python outreach/scrape_craigslist_gigs.py
+        continue-on-error: true
+
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add outreach/*.csv outreach/*.json
+          git diff --cached --quiet || git commit -m "chore: update lead lists [$(date -u +%Y-%m-%dT%H:%M)]"
+          git push
