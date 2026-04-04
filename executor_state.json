@@ -1,0 +1,10 @@
+{
+  "session_id": "session_20260403_125517",
+  "start_time": "2026-04-03T12:55:17.255446",
+  "jobs_processed": 0,
+  "checkpoints_created": 2,
+  "checkpoints_approved": 0,
+  "checkpoints_rejected": 0,
+  "errors": [],
+  "status": "WAITING_FOR_APPROVALS"
+}

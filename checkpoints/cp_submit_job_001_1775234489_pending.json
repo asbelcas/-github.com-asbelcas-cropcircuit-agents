@@ -1,0 +1,30 @@
+{
+  "checkpoint_id": "cp_submit_job_001_1775234489",
+  "task_id": "submit_job_001",
+  "autonomy_level": 3,
+  "reason": "Proposal ready for submission - requires human approval",
+  "data_presented": {
+    "opportunity": {
+      "id": "job_001",
+      "platform": "Upwork",
+      "title": "Python Automation Script Needed",
+      "budget": "$200-500",
+      "description": "Need to automate data extraction from website",
+      "match_score": 0.95,
+      "urgency": "high",
+      "proposal_deadline": "24 hours"
+    },
+    "proposal_text": "Hi there,\n\nI can help with your python automation script needed.\n\nRelevant experience:\n\u2022 Built automated trading system (2,291 lines Python)\n\u2022 Expert in web scraping and data extraction  \n\u2022 Deliver projects in 24-48 hours\n\nMy approach:\n1. Understand your exact requirements\n2. Design robust solution with error handling\n3. Build and test thoroughly\n4. Deliver with documentation\n\nI can start immediately and have this done within your timeline.\n\nQuestions:\n1. What specific data do you need extracted?\n2. What format do you prefer for delivery (CSV, JSON, etc.)?\n3. Are there any anti-bot measures on the target site?\n\nLooking forward to working with you.\n\nBest regards",
+    "platform": "Upwork",
+    "estimated_value": "$200-500"
+  },
+  "options": [
+    "approve - Submit proposal as drafted",
+    "edit - I'll modify the proposal first",
+    "reject - Skip this opportunity",
+    "pause - Wait for me to review later"
+  ],
+  "human_decision": null,
+  "timestamp_created": "2026-04-03T12:41:29.453398",
+  "timestamp_resolved": null
+}

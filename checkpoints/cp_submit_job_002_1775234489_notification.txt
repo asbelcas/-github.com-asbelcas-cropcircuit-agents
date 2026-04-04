@@ -1,0 +1,39 @@
+
+╔══════════════════════════════════════════════════════════════════╗
+║                    ⏸️  CHECKPOINT REQUIRED                        ║
+╚══════════════════════════════════════════════════════════════════╝
+
+Task: submit_job_002
+Reason: Proposal ready for submission - requires human approval
+Checkpoint ID: cp_submit_job_002_1775234489
+
+Data Presented:
+{
+  "opportunity": {
+    "id": "job_002",
+    "platform": "Fiverr",
+    "title": "Web Scraping Expert Required",
+    "budget": "$150",
+    "description": "Scrape product data from e-commerce site",
+    "match_score": 0.88,
+    "urgency": "medium",
+    "proposal_deadline": "3 days"
+  },
+  "proposal_text": "Hi there,\n\nI can help with your web scraping expert required.\n\nRelevant experience:\n\u2022 Built automated trading system (2,291 lines Python)\n\u2022 Expert in web scraping and data extraction  \n\u2022 Deliver projects in 24-48 hours\n\nMy approach:\n1. Understand your exact requirements\n2. Design robust solution with error handling\n3. Build and test thoroughly\n4. Deliver with documentation\n\nI can start immediately and have this done within your timeline.\n\nQuestions:\n1. What specific data do you need extracted?\n2. What format do you prefer for delivery (CSV, JSON, etc.)?\n3. Are there any anti-bot measures on the target site?\n\nLooking forward to working with you.\n\nBest regards",
+  "platform": "Fiverr",
+  "estimated_value": "$150"
+}
+
+Options:
+  1. approve - Submit proposal as drafted
+  2. edit - I'll modify the proposal first
+  3. reject - Skip this opportunity
+  4. pause - Wait for me to review later
+
+To approve:
+  echo "cp_submit_job_002_1775234489:approve" >> /home/asbelcas/rm-qpt/checkpoint_responses.txt
+
+To reject:
+  echo "cp_submit_job_002_1775234489:reject" >> /home/asbelcas/rm-qpt/checkpoint_responses.txt
+
+File: /home/asbelcas/rm-qpt/checkpoints/cp_submit_job_002_1775234489_pending.json

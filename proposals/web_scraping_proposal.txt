@@ -1,0 +1,15 @@
+Hi {client_name},
+
+I can build your web scraping solution in 24 hours.
+
+What I'll deliver:
+✓ Python script using Selenium/BeautifulSoup
+✓ Data exported to CSV/JSON/Excel
+✓ Error handling and retry logic
+✓ Clean, documented code
+
+Recent work: Built automated trading system (2,291 lines of Python)
+
+Available to start immediately.
+
+Best regards

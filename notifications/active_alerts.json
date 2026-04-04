@@ -1,0 +1,93 @@
+{
+  "updated_at": "2026-04-03T08:56:27.960975",
+  "alerts": [
+    {
+      "alert_id": "money_incoming",
+      "alert_type": "threshold",
+      "condition": ">",
+      "threshold": 0.01,
+      "message_template": "\ud83d\udcb0 +${amount:.2f} incoming! Total today: ${daily_total:.2f}",
+      "channels": [
+        "console",
+        "file",
+        "dashboard"
+      ],
+      "enabled": true,
+      "last_triggered": "2026-04-03T08:56:27.959673",
+      "trigger_count": 1
+    },
+    {
+      "alert_id": "daily_milestone_100",
+      "alert_type": "threshold",
+      "condition": ">=",
+      "threshold": 100.0,
+      "message_template": "\ud83c\udfaf DAILY MILESTONE: ${amount:.2f} reached! Keep it flowing!",
+      "channels": [
+        "console",
+        "file",
+        "dashboard"
+      ],
+      "enabled": true,
+      "last_triggered": "2026-04-03T08:56:27.960497",
+      "trigger_count": 1
+    },
+    {
+      "alert_id": "daily_milestone_500",
+      "alert_type": "threshold",
+      "condition": ">=",
+      "threshold": 500.0,
+      "message_template": "\ud83d\udd25 $500 DAY! Exceptional performance! Total: ${amount:.2f}",
+      "channels": [
+        "console",
+        "file",
+        "dashboard"
+      ],
+      "enabled": true,
+      "last_triggered": null,
+      "trigger_count": 0
+    },
+    {
+      "alert_id": "hourly_check",
+      "alert_type": "frequency",
+      "condition": "every",
+      "threshold": 3600,
+      "message_template": "\u23f0 Hourly check: ${hourly_total:.2f} this hour, ${daily_total:.2f} today",
+      "channels": [
+        "file",
+        "dashboard"
+      ],
+      "enabled": true,
+      "last_triggered": null,
+      "trigger_count": 0
+    },
+    {
+      "alert_id": "no_money_warning",
+      "alert_type": "anomaly",
+      "condition": "<",
+      "threshold": 0.01,
+      "message_template": "\u26a0\ufe0f WARNING: No money in last hour! Investigating...",
+      "channels": [
+        "console",
+        "file"
+      ],
+      "enabled": true,
+      "last_triggered": null,
+      "trigger_count": 0
+    },
+    {
+      "alert_id": "big_transaction",
+      "alert_type": "threshold",
+      "condition": ">",
+      "threshold": 100.0,
+      "message_template": "\ud83d\ude80 BIG ONE! +${amount:.2f} from {source}!",
+      "channels": [
+        "console",
+        "file",
+        "dashboard"
+      ],
+      "enabled": true,
+      "last_triggered": "2026-04-03T08:56:27.960971",
+      "trigger_count": 1
+    }
+  ]
+}

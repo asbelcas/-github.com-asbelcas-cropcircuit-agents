@@ -1,0 +1,1 @@
+{"message": "\ud83d\udcb0 +$124.42 incoming! Total today: $124.42", "level": "ALERT", "channels": ["console", "file", "dashboard"], "timestamp": "2026-04-03T08:56:27.959645", "data": {"alert_id": "money_incoming", "amount": 124.42, "source": "affiliate_conversion", "daily_total": 124.42}, "logged_at": "2026-04-03T08:56:27.960273"}

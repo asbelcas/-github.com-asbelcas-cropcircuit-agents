@@ -1,0 +1,190 @@
+{
+  "generated_at": "2026-04-03T08:56:21.238058",
+  "system": "RM-QPT Secure Receipt Logger",
+  "summary": {
+    "total_receipts": 3,
+    "total_earned_usd": 150.0,
+    "total_deposited_usd": 0.0,
+    "pending_usd": 150.0
+  },
+  "last_24h": {
+    "period_days": 1,
+    "total_receipts": 3,
+    "total_usd": 150.0,
+    "total_confirmed": 150.0,
+    "by_crypto": {
+      "BTC": {
+        "count": 1,
+        "amount_usd": 25.0,
+        "amount_crypto": 0.0003744813433394748
+      },
+      "ETH": {
+        "count": 1,
+        "amount_usd": 50.0,
+        "amount_crypto": 0.024389530062534755
+      },
+      "USDC": {
+        "count": 1,
+        "amount_usd": 75.0,
+        "amount_crypto": 75.00210005880164
+      }
+    },
+    "by_source": {
+      "test_transaction": {
+        "count": 3,
+        "amount_usd": 150.0
+      }
+    },
+    "receipts": [
+      {
+        "receipt_id": "RCP_260403085620_652620ff",
+        "timestamp": "2026-04-03T08:56:20.913087",
+        "transaction_type": "deposit",
+        "amount_usd": 25.0,
+        "amount_crypto": 0.0003744813433394748,
+        "crypto_type": "BTC",
+        "usd_rate": 66759,
+        "wallet_reference": "1yQdHk...z4v2",
+        "wallet_hash": "6985f982ba859768",
+        "source": "test_transaction",
+        "method": "auto",
+        "status": "confirmed",
+        "confirmation_count": 0,
+        "network": "mainnet",
+        "fee_usd": 1.0,
+        "receipt_hash": "fcd42414646fe4c3ea1d1c22ec44aef8"
+      },
+      {
+        "receipt_id": "RCP_260403085621_0fa8027a",
+        "timestamp": "2026-04-03T08:56:21.078411",
+        "transaction_type": "deposit",
+        "amount_usd": 50.0,
+        "amount_crypto": 0.024389530062534755,
+        "crypto_type": "ETH",
+        "usd_rate": 2050.06,
+        "wallet_reference": "0x0D4c...06b3",
+        "wallet_hash": "f02998ea680631db",
+        "source": "test_transaction",
+        "method": "auto",
+        "status": "confirmed",
+        "confirmation_count": 0,
+        "network": "mainnet",
+        "fee_usd": 1.0,
+        "receipt_hash": "2b4e9eb7d827581e8851add4e9a19dd3"
+      },
+      {
+        "receipt_id": "RCP_260403085621_90c04549",
+        "timestamp": "2026-04-03T08:56:21.237417",
+        "transaction_type": "deposit",
+        "amount_usd": 75.0,
+        "amount_crypto": 75.00210005880164,
+        "crypto_type": "USDC",
+        "usd_rate": 0.999972,
+        "wallet_reference": "0xa75F...02d6",
+        "wallet_hash": "9faa687473446928",
+        "source": "test_transaction",
+        "method": "auto",
+        "status": "confirmed",
+        "confirmation_count": 0,
+        "network": "mainnet",
+        "fee_usd": 1.0,
+        "receipt_hash": "8107bc7a38c106548ab99f8cc7d6dc09"
+      }
+    ]
+  },
+  "last_7d": {
+    "period_days": 7,
+    "total_receipts": 3,
+    "total_usd": 150.0,
+    "total_confirmed": 150.0,
+    "by_crypto": {
+      "BTC": {
+        "count": 1,
+        "amount_usd": 25.0,
+        "amount_crypto": 0.0003744813433394748
+      },
+      "ETH": {
+        "count": 1,
+        "amount_usd": 50.0,
+        "amount_crypto": 0.024389530062534755
+      },
+      "USDC": {
+        "count": 1,
+        "amount_usd": 75.0,
+        "amount_crypto": 75.00210005880164
+      }
+    },
+    "by_source": {
+      "test_transaction": {
+        "count": 3,
+        "amount_usd": 150.0
+      }
+    },
+    "receipts": [
+      {
+        "receipt_id": "RCP_260403085620_652620ff",
+        "timestamp": "2026-04-03T08:56:20.913087",
+        "transaction_type": "deposit",
+        "amount_usd": 25.0,
+        "amount_crypto": 0.0003744813433394748,
+        "crypto_type": "BTC",
+        "usd_rate": 66759,
+        "wallet_reference": "1yQdHk...z4v2",
+        "wallet_hash": "6985f982ba859768",
+        "source": "test_transaction",
+        "method": "auto",
+        "status": "confirmed",
+        "confirmation_count": 0,
+        "network": "mainnet",
+        "fee_usd": 1.0,
+        "receipt_hash": "fcd42414646fe4c3ea1d1c22ec44aef8"
+      },
+      {
+        "receipt_id": "RCP_260403085621_0fa8027a",
+        "timestamp": "2026-04-03T08:56:21.078411",
+        "transaction_type": "deposit",
+        "amount_usd": 50.0,
+        "amount_crypto": 0.024389530062534755,
+        "crypto_type": "ETH",
+        "usd_rate": 2050.06,
+        "wallet_reference": "0x0D4c...06b3",
+        "wallet_hash": "f02998ea680631db",
+        "source": "test_transaction",
+        "method": "auto",
+        "status": "confirmed",
+        "confirmation_count": 0,
+        "network": "mainnet",
+        "fee_usd": 1.0,
+        "receipt_hash": "2b4e9eb7d827581e8851add4e9a19dd3"
+      },
+      {
+        "receipt_id": "RCP_260403085621_90c04549",
+        "timestamp": "2026-04-03T08:56:21.237417",
+        "transaction_type": "deposit",
+        "amount_usd": 75.0,
+        "amount_crypto": 75.00210005880164,
+        "crypto_type": "USDC",
+        "usd_rate": 0.999972,
+        "wallet_reference": "0xa75F...02d6",
+        "wallet_hash": "9faa687473446928",
+        "source": "test_transaction",
+        "method": "auto",
+        "status": "confirmed",
+        "confirmation_count": 0,
+        "network": "mainnet",
+        "fee_usd": 1.0,
+        "receipt_hash": "8107bc7a38c106548ab99f8cc7d6dc09"
+      }
+    ]
+  },
+  "wallets_used": [
+    "6985f982ba859768",
+    "f02998ea680631db",
+    "9faa687473446928"
+  ],
+  "receipt_ids": [
+    "RCP_260403085620_652620ff",
+    "RCP_260403085621_0fa8027a",
+    "RCP_260403085621_90c04549"
+  ]
+}

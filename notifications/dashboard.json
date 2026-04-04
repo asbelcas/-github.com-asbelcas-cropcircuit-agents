@@ -1,0 +1,35 @@
+{
+  "last_updated": "2026-04-03T08:56:27.960623",
+  "last_notification": {
+    "message": "\ud83d\udcb0 +$124.42 incoming! Total today: $124.42",
+    "level": "ALERT",
+    "channels": [
+      "console",
+      "file",
+      "dashboard"
+    ],
+    "timestamp": "2026-04-03T08:56:27.959645",
+    "data": {
+      "alert_id": "money_incoming",
+      "amount": 124.42,
+      "source": "affiliate_conversion",
+      "daily_total": 124.42
+    }
+  },
+  "stats": {
+    "total_notifications": 0,
+    "by_level": {
+      "DEBUG": 0,
+      "INFO": 0,
+      "SUCCESS": 0,
+      "WARNING": 0,
+      "ALERT": 0,
+      "CRITICAL": 0
+    },
+    "by_channel": {
+      "console": 1,
+      "file": 1,
+      "dashboard": 0
+    }
+  }
+}

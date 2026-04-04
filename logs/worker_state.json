@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-04-03T11:23:00.829560",
+  "session_start": "2026-04-03T11:23:00.829519",
+  "session_end": "2026-04-03T23:23:00.829519",
+  "stats": {
+    "checks": 1,
+    "errors": 0
+  },
+  "url": "https://www.coinbase.com/home"
+}

@@ -1,0 +1,36 @@
+
+╔══════════════════════════════════════════════════════════════════╗
+║                    ⏸️  CHECKPOINT: APPROVE SUBMISSION?             ║
+╚══════════════════════════════════════════════════════════════════╝
+
+Job: Python Automation Script Needed
+Platform: Upwork
+Budget: $200-500
+
+PROPOSAL PREVIEW:
+======================================================================
+Hi there,
+
+I can help with your Python Automation Script Needed.
+
+Relevant experience:
+• Built automated trading system (2,291 lines Python)
+• Expert in web scraping and data extraction  
+• Deliver projects in 24-48 hours
+
+My approach:
+1. Understand your exact requirements
+2. Design robust solution ...
+======================================================================
+
+TO APPROVE:
+  echo "cp_job_001_1775235317:approve" >> /home/asbelcas/rm-qpt/checkpoint_responses.txt
+
+TO REJECT:
+  echo "cp_job_001_1775235317:reject" >> /home/asbelcas/rm-qpt/checkpoint_responses.txt
+
+TO EDIT FIRST:
+  Edit: /home/asbelcas/rm-qpt/checkpoints/cp_job_001_1775235317.json
+  Then: echo "cp_job_001_1775235317:approve" >> checkpoint_responses.txt
+
+Checkpoints pending: 1

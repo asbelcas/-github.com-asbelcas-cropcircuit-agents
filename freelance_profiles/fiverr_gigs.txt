@@ -1,0 +1,9 @@
+
+GIG 1: Python Automation Script - $100
+"I will create a python automation script for your business"
+
+GIG 2: Web Scraping - $150
+"I will scrape any website and deliver structured data"
+
+GIG 3: Code Fix/Debug - $50
+"I will fix your python code or automation issue"

@@ -1,0 +1,30 @@
+{
+  "streams": {
+    "data_sales": {
+      "enabled": false,
+      "target_monthly": 1000
+    },
+    "affiliate_content": {
+      "enabled": false,
+      "target_monthly": 500
+    },
+    "digital_products": {
+      "enabled": false,
+      "target_monthly": 2000
+    },
+    "api_services": {
+      "enabled": false,
+      "target_monthly": 500
+    },
+    "arbitrage": {
+      "enabled": false,
+      "target_monthly": 300
+    },
+    "lead_gen": {
+      "enabled": false,
+      "target_monthly": 1500
+    }
+  },
+  "auto_reinvest": true,
+  "withdrawal_threshold": 100
+}

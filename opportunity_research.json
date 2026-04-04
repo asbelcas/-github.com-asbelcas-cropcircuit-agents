@@ -1,0 +1,34 @@
+{
+  "freelance": {
+    "platforms": [
+      "Upwork",
+      "Fiverr",
+      "Freelancer"
+    ],
+    "skills": [
+      "Python",
+      "Automation",
+      "Web Scraping"
+    ],
+    "rate_range": "$40-100/hour",
+    "timeline": "Can start today"
+  },
+  "service_agency": {
+    "model": "Sell high, outsource low",
+    "margin": "50-70%",
+    "example": "Web dev $1000, outsource $300, profit $700",
+    "timeline": "After freelance reputation"
+  },
+  "ghost_agent_saas": {
+    "product": "Automated crypto trading service",
+    "price": "$50-100/month",
+    "requirement": "$1000+ capital per customer",
+    "timeline": "Phase 3 (after funding)"
+  },
+  "immediate_cash": {
+    "flipping": "Sell items on Facebook",
+    "gig_work": "Uber/DoorDash",
+    "pawn": "If desperate (high interest)",
+    "loans": "Personal loan if credit good"
+  }
+}

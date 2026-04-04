@@ -1,0 +1,15 @@
+Hi {client_name},
+
+I can process and transform your data efficiently.
+
+Services:
+• Data cleaning and normalization
+• Format conversion (CSV, JSON, Excel, SQL)
+• Automated processing pipelines
+• Data validation and error handling
+
+Tools: Python, Pandas, NumPy
+
+Ready to start immediately.
+
+Best regards

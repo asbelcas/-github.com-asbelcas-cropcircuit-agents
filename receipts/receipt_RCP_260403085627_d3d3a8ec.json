@@ -1,0 +1,19 @@
+{
+  "receipt_id": "RCP_260403085627_d3d3a8ec",
+  "timestamp": "2026-04-03T08:56:27.958859",
+  "transaction_type": "earning",
+  "amount_usd": 124.42,
+  "amount_crypto": 0.001463764705882353,
+  "crypto_type": "BTC",
+  "usd_rate": 85000,
+  "wallet_reference": "1yQdHk...z4v2",
+  "wallet_hash": "6985f982ba859768",
+  "source": "affiliate_conversion",
+  "method": "autonomous",
+  "status": "confirmed",
+  "confirmation_count": 0,
+  "network": "mainnet",
+  "fee_usd": 1.0,
+  "receipt_hash": "e3665a420ee06a65243f3a4c28472b02",
+  "wallet_address": "1yQdHkfK3FRh2ChqMGdWcrxjqhtqbz4v2"
+}

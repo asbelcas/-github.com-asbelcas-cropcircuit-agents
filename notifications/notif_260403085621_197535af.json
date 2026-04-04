@@ -1,0 +1,12 @@
+{
+  "type": "new_receipt",
+  "timestamp": "2026-04-03T08:56:21.078411",
+  "receipt_id": "RCP_260403085621_0fa8027a",
+  "amount_usd": 50.0,
+  "amount_crypto": 0.024389530062534755,
+  "crypto_type": "ETH",
+  "wallet_masked": "0x0D4c...06b3",
+  "source": "test_transaction",
+  "status": "confirmed",
+  "message": "\ud83d\udcb0 +$50.00 (0.024390 ETH)"
+}

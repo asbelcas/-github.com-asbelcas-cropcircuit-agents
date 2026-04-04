@@ -1,0 +1,19 @@
+{
+  "receipt_id": "RCP_260403085621_0fa8027a",
+  "timestamp": "2026-04-03T08:56:21.078411",
+  "transaction_type": "deposit",
+  "amount_usd": 50.0,
+  "amount_crypto": 0.024389530062534755,
+  "crypto_type": "ETH",
+  "usd_rate": 2050.06,
+  "wallet_reference": "0x0D4c...06b3",
+  "wallet_hash": "f02998ea680631db",
+  "source": "test_transaction",
+  "method": "auto",
+  "status": "confirmed",
+  "confirmation_count": 0,
+  "network": "mainnet",
+  "fee_usd": 1.0,
+  "receipt_hash": "2b4e9eb7d827581e8851add4e9a19dd3",
+  "wallet_address": "0x0D4c35BA7BcC639EfDC36e5e1102aaC3519E06b3"
+}

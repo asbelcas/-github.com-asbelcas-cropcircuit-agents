@@ -1,0 +1,20 @@
+{
+  "streams": {
+    "data_collection": {
+      "enabled": true,
+      "interval": 3600
+    },
+    "product_creation": {
+      "enabled": true,
+      "interval": 86400
+    },
+    "market_monitoring": {
+      "enabled": true,
+      "interval": 1800
+    },
+    "opportunity_alert": {
+      "enabled": true,
+      "interval": 7200
+    }
+  }
+}

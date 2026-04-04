@@ -1,0 +1,92 @@
+{
+  "timestamp": "2026-04-03T09:38:22.683891",
+  "hour": 24,
+  "starting_capital": 16.0,
+  "hour_profit": 4.93,
+  "realized_profit": 162.44,
+  "ending_capital": 178.44,
+  "roi_pct": 1015.2,
+  "trades_executed": 11,
+  "trade_details": [
+    {
+      "time": "2026-04-03T09:37:36.840027",
+      "hour": 15,
+      "method": "scaling",
+      "profit": 9.26,
+      "cumulative": 91.22,
+      "type": "hourly_cycle"
+    },
+    {
+      "time": "2026-04-03T09:37:41.931154",
+      "hour": 16,
+      "method": "scaling",
+      "profit": 13.51,
+      "cumulative": 104.73,
+      "type": "hourly_cycle"
+    },
+    {
+      "time": "2026-04-03T09:37:47.022332",
+      "hour": 17,
+      "method": "peak",
+      "profit": 5.26,
+      "cumulative": 109.99,
+      "type": "hourly_cycle"
+    },
+    {
+      "time": "2026-04-03T09:37:52.113063",
+      "hour": 18,
+      "method": "peak",
+      "profit": 8.97,
+      "cumulative": 118.96,
+      "type": "hourly_cycle"
+    },
+    {
+      "time": "2026-04-03T09:37:57.216608",
+      "hour": 19,
+      "method": "peak",
+      "profit": 8.68,
+      "cumulative": 127.64,
+      "type": "hourly_cycle"
+    },
+    {
+      "time": "2026-04-03T09:38:02.308915",
+      "hour": 20,
+      "method": "peak",
+      "profit": 10.81,
+      "cumulative": 138.45,
+      "type": "hourly_cycle"
+    },
+    {
+      "time": "2026-04-03T09:38:07.407239",
+      "hour": 21,
+      "method": "final",
+      "profit": 4.81,
+      "cumulative": 143.26,
+      "type": "hourly_cycle"
+    },
+    {
+      "time": "2026-04-03T09:38:12.499420",
+      "hour": 22,
+      "method": "final",
+      "profit": 7.53,
+      "cumulative": 150.79,
+      "type": "hourly_cycle"
+    },
+    {
+      "time": "2026-04-03T09:38:17.592447",
+      "hour": 23,
+      "method": "final",
+      "profit": 6.72,
+      "cumulative": 157.51,
+      "type": "hourly_cycle"
+    },
+    {
+      "time": "2026-04-03T09:38:22.683870",
+      "hour": 24,
+      "method": "final",
+      "profit": 4.93,
+      "cumulative": 162.44,
+      "type": "hourly_cycle"
+    }
+  ]
+}

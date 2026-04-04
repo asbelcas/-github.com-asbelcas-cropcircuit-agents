@@ -1,0 +1,9 @@
+{
+  "timestamp": "2026-04-02T17:59:08.133682",
+  "paypal_account": "asbelcas@gmail.com",
+  "amount": 15.5,
+  "transaction_id": "TX_260402175908_7c7fbe4e",
+  "source": "affiliate_commission",
+  "status": "simulation_mode",
+  "note": "This is a simulated deposit - no real money transferred"
+}

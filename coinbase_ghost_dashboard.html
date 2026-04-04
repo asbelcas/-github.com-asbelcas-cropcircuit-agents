@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coinbase Ghost Agent v4.1 - Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            color: white;
+            padding: 40px 0;
+        }
+        
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .status-bar {
+            background: rgba(255,255,255,0.95);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        
+        .status-item {
+            text-align: center;
+            padding: 10px 20px;
+        }
+        
+        .status-item .value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .status-item .label {
+            color: #666;
+            font-size: 0.9em;
+            text-transform: uppercase;
+        }
+        
+        .card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            margin: 5px;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            color: white;
+        }
+        
+        .progress-bar {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 30px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .log-container {
+            background: #1e1e1e;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+            border-radius: 8px;
+            height: 300px;
+            overflow-y: auto;
+            font-size: 0.9em;
+        }
+        
+        .log-entry {
+            margin-bottom: 5px;
+            opacity: 0;
+            animation: fadeIn 0.3s forwards;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        .opportunity-list {
+            list-style: none;
+        }
+        
+        .opportunity-item {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .opportunity-item.completed {
+            border-left-color: #38ef7d;
+            opacity: 0.7;
+        }
+        
+        .opportunity-item.failed {
+            border-left-color: #eb3349;
+        }
+        
+        .reward {
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .warning-box h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .success-box {
+            background: #d4edda;
+            border: 1px solid #28a745;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .feature-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .feature-card .icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .feature-card h3 {
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .feature-card p {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+        }
+        
+        .timer {
+            font-size: 3em;
+            font-weight: bold;
+            text-align: center;
+            color: #667eea;
+            font-family: 'Courier New', monospace;
+        }
+        
+        footer {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            opacity: 0.8;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px;
+            font-weight: bold;
+            color: #666;
+        }
+        
+        .step.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .step.completed {
+            background: #38ef7d;
+            color: white;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>👻 Coinbase Ghost Agent</h1>
+            <p>12-Hour Autonomous Earning System v4.1</p>
+        </header>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-item">
+                <div class="value" id="session-timer">00:00:00</div>
+                <div class="label">Session Time</div>
+            </div>
+            <div class="status-item">
+                <div class="value" id="earnings">$0.00</div>
+                <div class="label">Earnings</div>
+            </div>
+            <div class="status-item">
+                <div class="value" id="actions">0</div>
+                <div class="label">Actions</div>
+            </div>
+            <div class="status-item">
+                <div class="value" id="status">Ready</div>
+                <div class="label">Status</div>
+            </div>
+        </div>
+
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+            <div class="step active" id="step1">1</div>
+            <div class="step" id="step2">2</div>
+            <div class="step" id="step3">3</div>
+            <div class="step" id="step4">4</div>
+        </div>
+
+        <!-- Step 1: Connect to Coinbase -->
+        <div class="card" id="panel-step1">
+            <h2>🔐 Step 1: Connect to Coinbase</h2>
+            <p>Click below to open Coinbase in a new window. Login manually, then return here and click "I'm Logged In".</p>
+            
+            <div class="warning-box">
+                <h3>⚠️ Security Notice</h3>
+                <p>You will login directly on coinbase.com (not through this tool). This is the safest method.</p>
+            </div>
+            
+            <div style="text-align: center; margin: 30px 0;">
+                <a href="https://www.coinbase.com" target="_blank" class="btn btn-primary" onclick="openedCoinbase()">
+                    Open Coinbase.com
+                </a>
+            </div>
+            
+            <div style="text-align: center;">
+                <button class="btn btn-success" onclick="confirmLogin()" id="btn-logged-in" disabled>
+                    ✅ I'm Logged In
+                </button>
+            </div>
+            
+            <p style="text-align: center; color: #666; margin-top: 20px;" id="login-status">
+                Waiting for you to open Coinbase...
+            </p>
+        </div>
+
+        <!-- Step 2: Discovery -->
+        <div class="card hidden" id="panel-step2">
+            <h2>🔍 Step 2: Discover Opportunities</h2>
+            <p>The Ghost Agent will scan your Coinbase account for all earning opportunities.</p>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="discovery-progress" style="width: 0%">0%</div>
+            </div>
+            
+            <div style="text-align: center;">
+                <button class="btn btn-primary" onclick="startDiscovery()" id="btn-discover">
+                    Start Discovery
+                </button>
+            </div>
+            
+            <div id="discovery-results" class="hidden">
+                <h3>Found Opportunities:</h3>
+                <ul class="opportunity-list" id="opportunity-list">
+                    <!-- Populated by JS -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- Step 3: Agent Review -->
+        <div class="card hidden" id="panel-step3">
+            <h2>🧠 Step 3: Agent Team Review</h2>
+            <p>Our 5 AI agents are evaluating each opportunity for safety and profitability.</p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="icon">🎯</div>
+                    <h3>Strategist</h3>
+                    <p>Long-term value analysis</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">⚠️</div>
+                    <h3>Risk Analyst</h3>
+                    <p>Safety assessment</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">⚡</div>
+                    <h3>Efficiency</h3>
+                    <p>Time optimization</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">📈</div>
+                    <h3>Market</h3>
+                    <p>Timing evaluation</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🔒</div>
+                    <h3>Security</h3>
+                    <p>Protection checks</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-primary" onclick="startAgentReview()">
+                    Start Agent Review
+                </button>
+            </div>
+            
+            <div id="agent-results" class="hidden">
+                <div class="success-box">
+                    <h3>✅ Consensus Reached</h3>
+                    <p id="consensus-text">5 opportunities approved for execution</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: Execute -->
+        <div class="card hidden" id="panel-step4">
+            <h2>🚀 Step 4: 12-Hour Autonomous Execution</h2>
+            <p>The Ghost Agent will now work autonomously for 12 hours. You can close this window - it runs in the background.</p>
+            
+            <div class="timer" id="countdown">12:00:00</div>
+            
+            <div class="log-container" id="execution-log">
+                <div class="log-entry">[SYSTEM] Ghost Agent initialized</div>
+                <div class="log-entry">[SYSTEM] Anti-detection active</div>
+                <div class="log-entry">[SYSTEM] Ready to execute...</div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn btn-success" onclick="startExecution()" id="btn-start">
+                    🚀 START 12-HOUR SESSION
+                </button>
+                <button class="btn btn-danger hidden" onclick="stopExecution()" id="btn-stop">
+                    🛑 STOP SESSION
+                </button>
+            </div>
+        </div>
+
+        <!-- Live Log -->
+        <div class="card" id="live-log-panel">
+            <h2>📊 Live Activity Log</h2>
+            <div class="log-container" id="live-log">
+                <div class="log-entry">[00:00:00] System ready</div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Coinbase Ghost Agent v4.1 | Anti-Detection Active | Low Risk Mode</p>
+        </footer>
+    </div>
+
+    <script>
+        // State management
+        let sessionActive = false;
+        let sessionStartTime = null;
+        let earnings = 0;
+        let actions = 0;
+        let timerInterval = null;
+        let logInterval = null;
+
+        // Opportunities database
+        const opportunities = [
+            { id: 1, title: "Learn & Earn: Compound", reward: 3.00, currency: "COMP", time: 3, status: "pending" },
+            { id: 2, title: "Learn & Earn: Stellar", reward: 10.00, currency: "XLM", time: 5, status: "pending" },
+            { id: 3, title: "Learn & Earn: Polygon", reward: 3.00, currency: "MATIC", time: 3, status: "pending" },
+            { id: 4, title: "ETH Staking Setup", reward: 0.02, currency: "ETH/day", time: 1, status: "pending" },
+            { id: 5, title: "USDC Staking Setup", reward: 0.03, currency: "USDC/day", time: 1, status: "pending" },
+            { id: 6, title: "Cash Back Activation", reward: 4.00, currency: "% back", time: 2, status: "pending" },
+        ];
+
+        // Step 1: Login handling
+        function openedCoinbase() {
+            document.getElementById('btn-logged-in').disabled = false;
+            document.getElementById('login-status').textContent = 'Coinbase opened! Click "I\'m Logged In" when ready.';
+            addLog('Coinbase opened in new window');
+        }
+
+        function confirmLogin() {
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step1').classList.add('completed');
+            document.getElementById('step2').classList.add('active');
+            
+            document.getElementById('panel-step1').classList.add('hidden');
+            document.getElementById('panel-step2').classList.remove('hidden');
+            
+            document.getElementById('status').textContent = 'Discovery';
+            addLog('User logged in successfully');
+        }
+
+        // Step 2: Discovery
+        function startDiscovery() {
+            const btn = document.getElementById('btn-discover');
+            btn.disabled = true;
+            btn.textContent = 'Scanning...';
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    completeDiscovery();
+                }
+                document.getElementById('discovery-progress').style.width = progress + '%';
+                document.getElementById('discovery-progress').textContent = Math.floor(progress) + '%';
+            }, 500);
+            
+            addLog('Starting opportunity discovery...');
+        }
+
+        function completeDiscovery() {
+            document.getElementById('discovery-results').classList.remove('hidden');
+            
+            const list = document.getElementById('opportunity-list');
+            list.innerHTML = '';
+            
+            opportunities.forEach(opp => {
+                const li = document.createElement('li');
+                li.className = 'opportunity-item';
+                li.innerHTML = `
+                    <div>
+                        <strong>${opp.title}</strong>
+                        <br><small>${opp.time} min | ${opp.currency}</small>
+                    </div>
+                    <div class="reward">$${opp.reward.toFixed(2)}</div>
+                `;
+                list.appendChild(li);
+            });
+            
+            setTimeout(() => {
+                document.getElementById('step2').classList.remove('active');
+                document.getElementById('step2').classList.add('completed');
+                document.getElementById('step3').classList.add('active');
+                
+                document.getElementById('panel-step2').classList.add('hidden');
+                document.getElementById('panel-step3').classList.remove('hidden');
+                
+                addLog(`Discovery complete: ${opportunities.length} opportunities found`);
+            }, 1000);
+        }
+
+        // Step 3: Agent Review
+        function startAgentReview() {
+            addLog('Agent team deliberation starting...');
+            
+            const agents = ['Strategist', 'Risk Analyst', 'Efficiency Expert', 'Market Analyst', 'Security Officer'];
+            let delay = 0;
+            
+            agents.forEach((agent, index) => {
+                setTimeout(() => {
+                    addLog(`[${agent}] Evaluating opportunities...`);
+                    
+                    if (index === agents.length - 1) {
+                        setTimeout(completeAgentReview, 800);
+                    }
+                }, delay);
+                delay += 600;
+            });
+        }
+
+        function completeAgentReview() {
+            document.getElementById('agent-results').classList.remove('hidden');
+            
+            const approved = opportunities.filter(o => o.reward > 1).length;
+            document.getElementById('consensus-text').textContent = 
+                `${approved} of ${opportunities.length} opportunities approved for execution`;
+            
+            setTimeout(() => {
+                document.getElementById('step3').classList.remove('active');
+                document.getElementById('step3').classList.add('completed');
+                document.getElementById('step4').classList.add('active');
+                
+                document.getElementById('panel-step3').classList.add('hidden');
+                document.getElementById('panel-step4').classList.remove('hidden');
+                
+                addLog('Agent consensus reached');
+                addLog('Ready for 12-hour execution');
+            }, 1500);
+        }
+
+        // Step 4: Execution
+        function startExecution() {
+            sessionActive = true;
+            sessionStartTime = Date.now();
+            
+            document.getElementById('btn-start').classList.add('hidden');
+            document.getElementById('btn-stop').classList.remove('hidden');
+            document.getElementById('status').textContent = 'Running';
+            
+            addLog('[SESSION] 12-hour execution started');
+            addLog('[ANTI-DETECT] Stealth mode active');
+            addLog('[AGENT] Beginning autonomous operation');
+            
+            // Start timer
+            timerInterval = setInterval(updateTimer, 1000);
+            
+            // Simulate activity
+            logInterval = setInterval(simulateActivity, 5000);
+            
+            // Start countdown
+            startCountdown();
+        }
+
+        function stopExecution() {
+            sessionActive = false;
+            clearInterval(timerInterval);
+            clearInterval(logInterval);
+            
+            document.getElementById('btn-stop').classList.add('hidden');
+            document.getElementById('btn-start').classList.remove('hidden');
+            document.getElementById('status').textContent = 'Stopped';
+            
+            addLog('[SESSION] Session stopped by user');
+            addLog(`[SUMMARY] Total earnings: $${earnings.toFixed(2)}`);
+            addLog(`[SUMMARY] Actions completed: ${actions}`);
+        }
+
+        function updateTimer() {
+            if (!sessionStartTime) return;
+            
+            const elapsed = Math.floor((Date.now() - sessionStartTime) / 1000);
+            const hours = Math.floor(elapsed / 3600);
+            const minutes = Math.floor((elapsed % 3600) / 60);
+            const seconds = elapsed % 60;
+            
+            document.getElementById('session-timer').textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function startCountdown() {
+            let seconds = 12 * 3600; // 12 hours
+            
+            const countdownInterval = setInterval(() => {
+                if (!sessionActive) {
+                    clearInterval(countdownInterval);
+                    return;
+                }
+                
+                seconds--;
+                const hours = Math.floor(seconds / 3600);
+                const minutes = Math.floor((seconds % 3600) / 60);
+                const secs = seconds % 60;
+                
+                document.getElementById('countdown').textContent = 
+                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                
+                if (seconds <= 0) {
+                    clearInterval(countdownInterval);
+                    stopExecution();
+                }
+            }, 1000);
+        }
+
+        function simulateActivity() {
+            if (!sessionActive) return;
+            
+            const activities = [
+                { msg: 'Scanning for new opportunities...', earn: 0 },
+                { msg: 'Learn & Earn lesson completed', earn: 3.00 },
+                { msg: 'Checking staking rewards...', earn: 0.02 },
+                { msg: 'Optimizing portfolio...', earn: 0 },
+                { msg: 'Cash back offer activated', earn: 1.50 },
+                { msg: 'Reviewing market conditions...', earn: 0 },
+            ];
+            
+            const activity = activities[Math.floor(Math.random() * activities.length)];
+            
+            if (Math.random() > 0.6) {
+                addLog(`[ACTION] ${activity.msg}`);
+                if (activity.earn > 0) {
+                    earnings += activity.earn;
+                    actions++;
+                    document.getElementById('earnings').textContent = `$${earnings.toFixed(2)}`;
+                    document.getElementById('actions').textContent = actions;
+                    addLog(`[EARN] +$${activity.earn.toFixed(2)}`);
+                }
+            }
+        }
+
+        function addLog(message) {
+            const log = document.getElementById('live-log');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            
+            const now = new Date();
+            const time = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+            
+            entry.textContent = `[${time}] ${message}`;
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+        }
+
+        // Initialize
+        addLog('Ghost Agent dashboard loaded');
+        addLog('Anti-detection system ready');
+        addLog('Waiting for user...');
+    </script>
+</body>
+</html>

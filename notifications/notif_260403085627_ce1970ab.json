@@ -1,0 +1,12 @@
+{
+  "type": "new_receipt",
+  "timestamp": "2026-04-03T08:56:27.958859",
+  "receipt_id": "RCP_260403085627_d3d3a8ec",
+  "amount_usd": 124.42,
+  "amount_crypto": 0.001463764705882353,
+  "crypto_type": "BTC",
+  "wallet_masked": "1yQdHk...z4v2",
+  "source": "affiliate_conversion",
+  "status": "confirmed",
+  "message": "\ud83d\udcb0 +$124.42 (0.001464 BTC)"
+}

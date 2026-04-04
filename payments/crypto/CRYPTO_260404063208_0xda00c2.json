@@ -1,0 +1,13 @@
+{
+  "transaction_id": "CRYPTO_260404063208_0xda00c2",
+  "timestamp": "2026-04-04T06:32:08.415601",
+  "amount_usd": 151.6723476285673,
+  "crypto_type": "ETH",
+  "crypto_amount": 0.07404610912615876,
+  "usd_to_crypto_rate": 2048.35,
+  "wallet_address": "0x0D4c35BA7BcC639EfDC36e5e1102aaC3519E06b3",
+  "transaction_hash": "0xda00c2c6ba16439ebe87eefbb8369296ffa7c4df898dd448c7caed8e14a25f8e",
+  "status": "mainnet_ready",
+  "fee_usd": 1.0,
+  "mode": "mainnet"
+}

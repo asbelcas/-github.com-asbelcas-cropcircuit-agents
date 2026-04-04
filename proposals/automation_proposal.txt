@@ -1,0 +1,16 @@
+Hi {client_name},
+
+I specialize in process automation and can help with your project.
+
+My approach:
+1. Understand your current workflow
+2. Design automated solution
+3. Build and test
+4. Deliver with documentation
+
+Timeline: 24-48 hours for most projects
+Rate: $40/hour (first project discount available)
+
+Let's discuss your needs.
+
+Best regards

@@ -1,0 +1,13 @@
+{
+  "transaction_id": "CRYPTO_260404011948_0xa15af3",
+  "timestamp": "2026-04-04T01:19:48.839809",
+  "amount_usd": 17.590302994683654,
+  "crypto_type": "USDC",
+  "crypto_amount": 17.590302994683654,
+  "usd_to_crypto_rate": 1.0,
+  "wallet_address": "0xa75Fd66FFd702987c892CAF3E9D894D0CC7a02d6",
+  "transaction_hash": "0xa15af3dec25e647f01bb3e7a7cc72489badcc6849076644d5cd1ddb94a21d6bf",
+  "status": "mainnet_ready",
+  "fee_usd": 1.0,
+  "mode": "mainnet"
+}

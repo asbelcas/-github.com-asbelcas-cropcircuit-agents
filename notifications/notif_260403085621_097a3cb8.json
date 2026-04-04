@@ -1,0 +1,12 @@
+{
+  "type": "new_receipt",
+  "timestamp": "2026-04-03T08:56:21.237417",
+  "receipt_id": "RCP_260403085621_90c04549",
+  "amount_usd": 75.0,
+  "amount_crypto": 75.00210005880164,
+  "crypto_type": "USDC",
+  "wallet_masked": "0xa75F...02d6",
+  "source": "test_transaction",
+  "status": "confirmed",
+  "message": "\ud83d\udcb0 +$75.00 (75.002100 USDC)"
+}

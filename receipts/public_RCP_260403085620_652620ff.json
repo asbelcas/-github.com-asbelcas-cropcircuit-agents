@@ -1,0 +1,18 @@
+{
+  "receipt_id": "RCP_260403085620_652620ff",
+  "timestamp": "2026-04-03T08:56:20.913087",
+  "transaction_type": "deposit",
+  "amount_usd": 25.0,
+  "amount_crypto": 0.0003744813433394748,
+  "crypto_type": "BTC",
+  "usd_rate": 66759,
+  "wallet_reference": "1yQdHk...z4v2",
+  "wallet_hash": "6985f982ba859768",
+  "source": "test_transaction",
+  "method": "auto",
+  "status": "confirmed",
+  "confirmation_count": 0,
+  "network": "mainnet",
+  "fee_usd": 1.0,
+  "receipt_hash": "fcd42414646fe4c3ea1d1c22ec44aef8"
+}
