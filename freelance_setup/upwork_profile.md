@@ -1,60 +1,68 @@
-# UPWORK PROFILE - READY TO DEPLOY
+# UPWORK PROFILE
 
 ## Profile Title
-**Python Automation Expert | Web Scraping | Data Processing | Available Immediately**
+Python Developer | Automation, Data Processing & Web Scraping
 
 ## Overview
-"I build Python automation systems that save businesses time and money. 
 
-With 30+ days of intensive development experience, I specialize in:
-• Web scraping and data extraction
-• Process automation
-• API integrations
-• Data processing pipelines
+I build Python tools that eliminate repetitive work — automation scripts,
+data pipelines, web scrapers, and file processing utilities.
 
-I deliver FAST. Most projects completed in 24-48 hours.
+What I deliver:
+- Clean, documented code you can actually maintain
+- Working solution on first delivery, not a rough draft
+- Clear setup instructions so you're not dependent on me to run it
 
-Ready to start immediately."
+Recent work includes:
+- Website uptime monitor with email alerts and content-change detection
+- CSV/Excel processing toolkit (merge, split, filter, dedup, profiling)
+- Data cleaning pipeline for CSV, JSON, and Excel with full audit reports
+- Web scraper targeting job boards for market intelligence data
+
+If you have a repetitive task eating hours every week, I can probably
+automate it in a day or two. Send me a message describing what you need
+before ordering — I'll tell you honestly if I can do it and how long it'll take.
 
 ## Hourly Rate
-$40/hour (competitive for entry, can raise after first review)
+$45/hour
 
 ## Skills
-- Python
-- Web Scraping (Selenium, BeautifulSoup)
-- Data Processing (Pandas)
-- Automation
-- API Integration
-- Scripting
+- Python (pandas, requests, BeautifulSoup, Playwright, smtplib, argparse)
+- Web scraping & data extraction
+- CSV / Excel / JSON data processing
+- Process automation & scheduled tasks
+- REST API integrations
+- SQLite / basic database work
 
-## Portfolio Projects
-1. **Ghost Agent Trading System**
-   - Automated crypto trading bot
-   - 2,291 lines of Python
-   - Anti-detection systems
-   - 95% reliability
+## Portfolio
 
-2. **Web Scraping Framework**
-   - Multi-site data extraction
-   - Automated login handling
-   - Data export to CSV/JSON
+**Website Monitor Tool**
+Monitors multiple URLs for downtime and content changes.
+Sends email alerts when a site goes down or its content changes.
+Saves state between runs so it only alerts once per incident.
 
-3. **Process Automation Suite**
-   - Automated data processing
-   - Scheduled task execution
-   - Error handling and recovery
+**CSV Processor**
+Command-line toolkit: merge, split, filter, transform, dedup, and profile
+CSV files. Handles files with encoding issues and large datasets.
+
+**Data Cleaner**
+Cleans CSV, JSON, and Excel files — removes empty rows/columns,
+strips whitespace, deduplicates, normalizes headers, fills nulls.
+Outputs a detailed report of every change made.
+
+**Job Market Data Pipeline**
+Scraped WeWorkRemotely and RemoteOK on an hourly schedule for 24+ hours.
+Aggregated ~50 structured JSON files of job postings for analysis.
 
 ## Availability
-30-40 hours/week
-Can start immediately
+20-30 hours/week. Can usually start within 24 hours.
 
-## Pitch Template
-"Hi [Client Name],
+## Proposal Template
 
-I can build your [project type] in 24-48 hours. 
+Hi [Name],
 
-I specialize in Python automation and have just completed a complex trading bot system (2,291 lines). Your project is straightforward by comparison.
+I've built similar automation before — [brief relevant example from portfolio].
 
-Ready to start immediately and deliver fast.
+For your project I'd [one sentence on approach]. Delivery in [X] days.
 
-Best regards"
+Happy to answer questions before you commit to anything.

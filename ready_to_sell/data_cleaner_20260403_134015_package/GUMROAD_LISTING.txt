@@ -1,0 +1,51 @@
+TITLE:
+Data Cleaner — Clean CSV, JSON & Excel Files with Audit Report
+
+PRICE: $19
+
+DESCRIPTION:
+
+Run one command to clean a messy data file and get a detailed report
+of exactly what was changed.
+
+Works on CSV, JSON (including JSONL), and Excel files.
+
+What it cleans:
+• Removes fully empty rows and columns
+• Strips leading/trailing whitespace from every text cell
+• Replaces blank strings with proper null values
+• Removes duplicate rows
+• Optionally normalizes text (lowercase, collapse whitespace)
+• Optionally normalizes column headers to snake_case
+• Optionally fills missing values (forward-fill, backward-fill, or zero)
+
+Audit report shows:
+  Rows:    10,432  →  9,891  (541 removed)
+  Columns: 18  →  16  (2 removed)
+  Empty rows removed:    48
+  Empty cols removed:    2
+  Duplicates removed:    493
+  Null cells remaining:  1,204
+
+Example usage:
+  python data_cleaner.py data.csv
+  python data_cleaner.py data.csv --output clean.csv --report
+  python data_cleaner.py records.json --format json --normalize-headers --report
+  python data_cleaner.py report.xlsx --format excel --fill-method ffill --report
+
+What you get:
+✓ data_cleaner.py — single Python file
+✓ requirements.txt (pandas + openpyxl)
+✓ README with examples for CSV, JSON, and Excel
+
+Requirements:
+  Python 3.8+
+  pip install pandas openpyxl
+
+Who this is for:
+• Analysts who receive messy exports from databases or CRMs
+• Developers who need to pre-process data before importing
+• Operations teams combining data from different sources
+• Anyone who spends time manually cleaning spreadsheets
+
+TAGS: python, data cleaning, csv, json, excel, pandas, automation, data processing

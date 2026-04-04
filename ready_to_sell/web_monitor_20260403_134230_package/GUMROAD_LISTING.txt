@@ -1,38 +1,43 @@
 TITLE:
-Website Monitoring Tool - Python Automation Script ($29.0)
+Website Monitor — Uptime & Change Detection with Email Alerts
+
+PRICE: $29
 
 DESCRIPTION:
-Save hours of manual work with this production-ready website monitoring tool.
 
-**What You Get:**
-- ✅ 46 lines of clean Python code
-- ✅ Ready to run immediately
-- ✅ Full documentation included
-- ✅ Commercial license
-- ✅ Lifetime updates
+Monitor any number of websites for downtime and content changes.
+Get an email the moment something goes wrong — not after you notice it yourself.
 
-**Perfect For:**
-- Data analysts
-- Automation engineers
-- Web developers
-- System administrators
-- Anyone who wants to save time
+What this tool does:
+• Checks each URL on your schedule (every 5 minutes by default, configurable)
+• Detects when a site goes down and emails you immediately
+• Detects when page content changes (useful for competitor monitoring, price
+  tracking, or catching unauthorized site edits)
+• Alerts you once per incident — no spam if the site stays down
+• Emails you again when the site recovers
+• Saves state between runs so nothing slips through
 
-**Features:**
-- Automatic uptime monitoring
-- Email alerts when site goes down
-- Status code checking
-- Custom check intervals
-- Error logging and reporting
+What you get:
+✓ web_monitor.py — single-file Python script, no framework needed
+✓ requirements.txt
+✓ README with setup instructions and examples
+✓ Works with Gmail (app password) or any SMTP server
+✓ Supports monitoring multiple URLs from a text file
+✓ --once flag for quick spot-checks in CI/monitoring pipelines
 
-**Requirements:**
-- Python 3.7+
-- Basic Python knowledge
+Example commands:
+  python web_monitor.py --url https://mysite.com
+  python web_monitor.py --urls sites.txt --interval 60 --alert-email you@gmail.com --from-email alerts@gmail.com --smtp-password yourapppassword
+  python web_monitor.py --url https://mysite.com --once
 
-**Delivery:**
-Instant download after purchase.
+Requirements:
+  Python 3.8+
+  pip install requests
 
-**Support:**
-Email support included.
+Who this is for:
+• Small business owners who want to know immediately when their site is down
+• Developers monitoring staging and production environments
+• Anyone tracking competitor prices or content changes
+• System administrators managing multiple sites
 
-**Price:** $29.0
+TAGS: python, website monitor, uptime monitor, web scraping, automation, email alert, devops

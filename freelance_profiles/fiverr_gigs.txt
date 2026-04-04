@@ -1,9 +1,159 @@
+══════════════════════════════════════════════════════════════
+GIG 1 — Python Automation Script
+══════════════════════════════════════════════════════════════
 
-GIG 1: Python Automation Script - $100
-"I will create a python automation script for your business"
+TITLE:
+I will build a custom Python automation script for your workflow
 
-GIG 2: Web Scraping - $150
-"I will scrape any website and deliver structured data"
+CATEGORY: Programming & Tech → Scripting & Automation
 
-GIG 3: Code Fix/Debug - $50
-"I will fix your python code or automation issue"
+DESCRIPTION:
+Got a repetitive task eating hours every week? I'll automate it.
+
+I write clean, documented Python scripts that run reliably and are
+easy to hand off to a developer or use yourself with basic Python
+knowledge.
+
+What I commonly build:
+• File processing (CSV, Excel, JSON, PDFs)
+• Scheduled tasks and cron jobs
+• Web scrapers and data extractors
+• Form fillers and browser automation
+• Report generators and email senders
+• API integrations (Slack, Sheets, Airtable, etc.)
+
+What's included in every delivery:
+✓ Working Python script (tested)
+✓ requirements.txt with all dependencies
+✓ README with clear setup and usage instructions
+✓ One round of revisions
+
+Message me before ordering — describe what you need and I'll
+confirm I can do it and give you an honest timeline.
+
+PRICING:
+
+Basic — $49
+  Simple script, single task, < 100 lines
+  Delivery: 2 days | 1 revision
+
+Standard — $99
+  Multi-step script, file I/O, basic error handling
+  Delivery: 3 days | 2 revisions
+
+Premium — $199
+  Complex automation, scheduled runs, email alerts, logging
+  Delivery: 5 days | 3 revisions
+
+FAQ:
+Q: Do I need to know Python to use what you deliver?
+A: No. I write instructions for running the script from the terminal.
+
+Q: What if it doesn't work on my machine?
+A: I'll fix it. Compatibility is included in revisions.
+
+Q: Can you add to an existing script?
+A: Yes — share the code in your message and I'll quote you.
+
+══════════════════════════════════════════════════════════════
+GIG 2 — Web Scraping & Data Extraction
+══════════════════════════════════════════════════════════════
+
+TITLE:
+I will scrape any website and deliver clean, structured data
+
+CATEGORY: Programming & Tech → Data Science & ML
+
+DESCRIPTION:
+Need data from a website that doesn't have an API? I'll extract it.
+
+I deliver structured, clean data — not raw HTML. You get a CSV,
+JSON, or Excel file ready to import into a spreadsheet or database.
+
+Common requests:
+• Product listings and prices from e-commerce sites
+• Business directories and contact info
+• Job postings, listings, or classifieds
+• News articles or blog posts
+• Public records and government data
+• Review and rating data
+
+What's included:
+✓ Python scraper script (yours to keep and re-run)
+✓ Output file in your preferred format (CSV/JSON/Excel)
+✓ Sample of results before you pay for the full run
+✓ Instructions for running it yourself
+
+PRICING:
+
+Basic — $75
+  Up to 500 records, single page/list format
+  Delivery: 2 days
+
+Standard — $150
+  Up to 5,000 records, pagination handled
+  Delivery: 3 days | 1 revision
+
+Premium — $299
+  Up to 25,000 records, multi-page, scheduled re-runs, dedup
+  Delivery: 5 days | 2 revisions
+
+FAQ:
+Q: What sites can you scrape?
+A: Most public websites. I won't scrape sites that require login to
+   view content or that prohibit scraping in their ToS.
+
+Q: Will you provide the script so I can re-run it?
+A: Yes, always. The script is yours.
+
+Q: What if the site blocks scraping?
+A: I'll handle rate limiting and common anti-bot measures.
+   If it's not feasible I'll tell you before you pay.
+
+══════════════════════════════════════════════════════════════
+GIG 3 — Python Bug Fix & Code Review
+══════════════════════════════════════════════════════════════
+
+TITLE:
+I will fix your Python script or debug your automation issue
+
+CATEGORY: Programming & Tech → Scripting & Automation
+
+DESCRIPTION:
+Python script not working? Getting an error you can't figure out?
+I'll diagnose and fix it fast.
+
+What I handle:
+• Runtime errors and exceptions
+• Incorrect output or logic bugs
+• Broken web scrapers (selector changes, auth issues)
+• Slow scripts needing optimization
+• Scripts that work locally but fail in production
+• Dependency and environment issues
+
+What you get:
+✓ Fixed, working code
+✓ Brief explanation of what was wrong and what I changed
+✓ Tested before delivery
+
+PRICING:
+
+Basic — $30
+  Single bug, quick fix, < 50 lines affected
+  Delivery: 24 hours
+
+Standard — $60
+  Multiple bugs or logic issue requiring rewrite of a section
+  Delivery: 2 days
+
+Premium — $120
+  Full code review + fixes + refactor for reliability
+  Delivery: 3 days
+
+FAQ:
+Q: What do I need to send you?
+A: The script, the error message (full traceback), and a description
+   of what it should do vs. what it's doing.
+
+Q: What if you can't fix it?
+A: I'll tell you upfront if it's outside my scope before you order.

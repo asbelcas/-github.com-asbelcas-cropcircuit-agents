@@ -1,0 +1,43 @@
+TITLE:
+CSV Processor — Merge, Split, Filter, Transform, Dedup & Profile
+
+PRICE: $19
+
+DESCRIPTION:
+
+A command-line toolkit for every common CSV task. Instead of opening
+a massive file in Excel and fighting it, run one command and get clean output.
+
+Commands included:
+
+  merge   — Combine multiple CSV files into one
+  split   — Break a large CSV into N-row chunks
+  filter  — Keep only rows matching column conditions
+  transform — Rename columns, drop columns, snake_case headers
+  dedup   — Remove duplicate rows (by all columns or specific key columns)
+  stats   — Profile a CSV: row counts, null counts, unique values, top values
+
+Example usage:
+  python csv_processor.py merge output.csv jan.csv feb.csv mar.csv
+  python csv_processor.py split big_file.csv --rows 1000
+  python csv_processor.py filter leads.csv --where "status=active" "country=US"
+  python csv_processor.py transform data.csv --rename "First Name:first_name" --drop "junk_col" --lowercase-headers
+  python csv_processor.py dedup contacts.csv --key email --keep first
+  python csv_processor.py stats data.csv
+
+What you get:
+✓ csv_processor.py — single Python file
+✓ requirements.txt (just pandas)
+✓ README with all commands and examples
+
+Requirements:
+  Python 3.8+
+  pip install pandas
+
+Who this is for:
+• Data analysts dealing with messy exported data
+• Operations teams merging reports from multiple sources
+• Developers processing data before loading into a database
+• Anyone spending too long on CSV cleanup in Excel
+
+TAGS: python, csv, data processing, automation, pandas, data cleaning, excel

@@ -1,0 +1,43 @@
+TITLE:
+Website Monitor — Uptime & Change Detection with Email Alerts
+
+PRICE: $29
+
+DESCRIPTION:
+
+Monitor any number of websites for downtime and content changes.
+Get an email the moment something goes wrong — not after you notice it yourself.
+
+What this tool does:
+• Checks each URL on your schedule (every 5 minutes by default, configurable)
+• Detects when a site goes down and emails you immediately
+• Detects when page content changes (useful for competitor monitoring, price
+  tracking, or catching unauthorized site edits)
+• Alerts you once per incident — no spam if the site stays down
+• Emails you again when the site recovers
+• Saves state between runs so nothing slips through
+
+What you get:
+✓ web_monitor.py — single-file Python script, no framework needed
+✓ requirements.txt
+✓ README with setup instructions and examples
+✓ Works with Gmail (app password) or any SMTP server
+✓ Supports monitoring multiple URLs from a text file
+✓ --once flag for quick spot-checks in CI/monitoring pipelines
+
+Example commands:
+  python web_monitor.py --url https://mysite.com
+  python web_monitor.py --urls sites.txt --interval 60 --alert-email you@gmail.com --from-email alerts@gmail.com --smtp-password yourapppassword
+  python web_monitor.py --url https://mysite.com --once
+
+Requirements:
+  Python 3.8+
+  pip install requests
+
+Who this is for:
+• Small business owners who want to know immediately when their site is down
+• Developers monitoring staging and production environments
+• Anyone tracking competitor prices or content changes
+• System administrators managing multiple sites
+
+TAGS: python, website monitor, uptime monitor, web scraping, automation, email alert, devops
