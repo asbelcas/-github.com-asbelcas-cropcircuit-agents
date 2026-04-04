@@ -17,6 +17,8 @@ from pathlib import Path
 import requests
 
 SUBREDDIT = "forhire"
+# Reddit requires a descriptive User-Agent in this format
+# https://github.com/reddit-archive/reddit/wiki/API
 SEARCH_TERMS = [
     "python script",
     "python automation",
@@ -39,25 +41,36 @@ SKIP_WORDS = [
 ]
 
 OUT = Path(__file__).parent / "reddit_forhire_leads.csv"
-HEADERS = {"User-Agent": "lead-scraper/1.0 (open-source outreach tool)"}
+# Reddit requires: platform:app_id:version (by /u/username)
+HEADERS = {"User-Agent": "script:cropcircuit-lead-scraper:1.0 (by /u/cropcircuit_bot)"}
 
 
-def search_reddit(query: str, session: requests.Session) -> list[dict]:
+def search_reddit(query: str, session: requests.Session, retries: int = 3) -> list[dict]:
     url = f"https://www.reddit.com/r/{SUBREDDIT}/search.json"
     params = {
         "q": query,
         "restrict_sr": "1",
         "sort": "new",
-        "t": "week",
+        "t": "month",   # month > week so we don't miss posts between runs
         "limit": 25,
     }
-    try:
-        resp = session.get(url, params=params, timeout=15)
-        resp.raise_for_status()
-        return resp.json()["data"]["children"]
-    except Exception as e:
-        print(f"  search failed for {query!r}: {e}")
-        return []
+    for attempt in range(retries):
+        try:
+            resp = session.get(url, params=params, timeout=15)
+            if resp.status_code == 429:
+                wait = 10 * (attempt + 1)
+                print(f"  rate limited on {query!r}, waiting {wait}s...")
+                time.sleep(wait)
+                continue
+            if resp.status_code != 200:
+                print(f"  HTTP {resp.status_code} for {query!r}")
+                return []
+            return resp.json()["data"]["children"]
+        except Exception as e:
+            print(f"  attempt {attempt+1} failed for {query!r}: {e}")
+            if attempt < retries - 1:
+                time.sleep(5)
+    return []
 
 
 def is_hiring_post(post: dict) -> bool:
