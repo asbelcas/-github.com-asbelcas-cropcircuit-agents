@@ -27,8 +27,11 @@ python product.py data.csv --output cleaned/data.csv --report
 # CSV (auto-detected by extension)
 python product.py export.csv --report
 
-# JSON or JSONL (newline-delimited JSON)
+# JSON
 python product.py records.json --format json --report
+
+# JSONL (newline-delimited JSON)
+python product.py records.jsonl --format jsonl --report
 
 # Excel
 python product.py report.xlsx --format excel --report
@@ -91,7 +94,7 @@ python product.py data.csv --keep-dupes
 | Flag | Description |
 |------|-------------|
 | `--output FILE` | Output path (default: `<input>_clean.<ext>`) |
-| `--format csv\|json\|excel` | Force format (auto-detected by default) |
+| `--format csv\|json\|jsonl\|excel` | Force format (auto-detected by default) |
 | `--sheet NAME` | Excel sheet name (default: first sheet) |
 | `--fill-method ffill\|bfill\|zero` | How to fill missing values |
 | `--normalize-text` | Lowercase + collapse whitespace in text columns |

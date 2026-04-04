@@ -133,7 +133,7 @@ def cmd_dedup(args):
             print(f"Available: {list(df.columns)}")
             sys.exit(1)
 
-    keep = args.keep or "first"
+    keep = False if args.keep == "none" else (args.keep or "first")
     df = df.drop_duplicates(subset=subset, keep=keep)
     removed = original_len - len(df)
 

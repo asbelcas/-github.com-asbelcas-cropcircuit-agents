@@ -44,12 +44,15 @@ def load_file(path, fmt, sheet=None):
         try:
             return pd.read_json(path)
         except ValueError:
-            # Try newline-delimited JSON (JSONL)
-            try:
-                return pd.read_json(path, lines=True)
-            except Exception as e:
-                print(f"Error reading JSON: {e}")
-                sys.exit(1)
+            print("Error reading JSON. If this is newline-delimited JSON, use --format jsonl.")
+            sys.exit(1)
+
+    elif fmt == "jsonl":
+        try:
+            return pd.read_json(path, lines=True)
+        except Exception as e:
+            print(f"Error reading JSONL: {e}")
+            sys.exit(1)
 
     elif fmt == "excel":
         try:
@@ -69,6 +72,8 @@ def save_file(df, path, fmt):
         df.to_csv(path, index=False, encoding="utf-8")
     elif fmt == "json":
         df.to_json(path, orient="records", indent=2, force_ascii=False)
+    elif fmt == "jsonl":
+        df.to_json(path, orient="records", lines=True, force_ascii=False)
     elif fmt == "excel":
         df.to_excel(path, index=False)
     print(f"Saved: {path}")
@@ -177,7 +182,7 @@ def print_report(report, input_path, output_path):
 
 def detect_format(path):
     ext = Path(path).suffix.lower()
-    return {"csv": "csv", ".csv": "csv", ".json": "json", ".jsonl": "json",
+    return {"csv": "csv", ".csv": "csv", ".json": "json", ".jsonl": "jsonl",
             ".xlsx": "excel", ".xls": "excel"}.get(ext, "csv")
 
 
@@ -189,7 +194,7 @@ def main():
     )
     parser.add_argument("input", help="Input file (CSV, JSON, or Excel)")
     parser.add_argument("--output", help="Output file path (default: <input>_clean.<ext>)")
-    parser.add_argument("--format", choices=["csv", "json", "excel"],
+    parser.add_argument("--format", choices=["csv", "json", "jsonl", "excel"],
                         help="Force input format (auto-detected by default)")
     parser.add_argument("--sheet", help="Excel sheet name (default: first sheet)")
     parser.add_argument("--fill-method", choices=["ffill", "bfill", "zero"],

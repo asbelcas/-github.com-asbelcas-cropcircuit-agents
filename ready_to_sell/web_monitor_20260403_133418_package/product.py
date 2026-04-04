@@ -205,8 +205,11 @@ def main():
         if not path.exists():
             print(f"Error: file not found: {args.urls}")
             sys.exit(1)
-        urls = [line.strip() for line in path.read_text().splitlines()
-                if line.strip() and not line.startswith("#")]
+        urls = []
+        for line in path.read_text().splitlines():
+            stripped = line.strip()
+            if stripped and not stripped.startswith("#"):
+                urls.append(stripped)
 
     if not urls:
         print("Error: no URLs to monitor.")

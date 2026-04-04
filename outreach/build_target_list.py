@@ -17,10 +17,26 @@ import json
 import re
 from pathlib import Path
 
-KEYWORDS = [
+TITLE_SKILL_KEYWORDS = [
     "python", "automation", "data", "scraping", "scraper",
-    "etl", "pipeline", "analyst", "engineer", "backend",
-    "api", "integration", "script", "developer",
+    "etl", "pipeline", "backend", "api", "integration",
+    "script", "developer", "engineer", "full stack", "devops",
+]
+
+TITLE_ROLE_KEYWORDS = [
+    "engineer", "developer", "analyst", "automation",
+]
+
+EXCLUDED_TITLE_KEYWORDS = [
+    "account executive", "counsel", "representative", "marketing",
+    "designer", "support", "sales", "trader", "recruiter",
+    "product manager", "customer success", "account manager",
+]
+
+DESCRIPTION_KEYWORDS = [
+    "python", "automation", "etl", "pipeline", "api",
+    "integration", "scraping", "data platform", "data engineering",
+    "backend", "scripting",
 ]
 
 ROOT = Path(__file__).parent.parent
@@ -34,10 +50,30 @@ def extract_company_from_wwr_title(title: str) -> str:
     return ""
 
 
+def keyword_hits(text: str, keywords: list[str]) -> int:
+    lowered = text.lower()
+    return sum(1 for kw in keywords if re.search(rf"\b{re.escape(kw)}\b", lowered))
+
+
+def is_target_role(title: str, description: str = "") -> bool:
+    """Keep technical automation/data roles and reject obvious non-target roles."""
+    title_lower = title.lower()
+    if any(kw in title_lower for kw in EXCLUDED_TITLE_KEYWORDS):
+        return False
+
+    title_skill_hits = keyword_hits(title, TITLE_SKILL_KEYWORDS)
+    title_role_hits = keyword_hits(title, TITLE_ROLE_KEYWORDS)
+    desc_hits = keyword_hits(description, DESCRIPTION_KEYWORDS)
+
+    return (
+        (title_skill_hits >= 2 and title_role_hits >= 1) or
+        (title_role_hits >= 1 and desc_hits >= 2)
+    )
+
+
 def score_job(title: str, description: str = "") -> int:
-    """Return number of relevant keywords found in title + description."""
-    text = (title + " " + description).lower()
-    return sum(1 for kw in KEYWORDS if kw in text)
+    """Weight title matches more than description matches for ranking."""
+    return keyword_hits(title, TITLE_SKILL_KEYWORDS) * 2 + keyword_hits(description, DESCRIPTION_KEYWORDS)
 
 
 def load_jobs() -> list[dict]:
@@ -66,8 +102,11 @@ def load_jobs() -> list[dict]:
                 if ":" in title:
                     title = title.split(":", 1)[1].strip()
 
+            if not is_target_role(title, description):
+                continue
+
             score = score_job(title, description)
-            if score == 0:
+            if score <= 0:
                 continue
 
             jobs.append({
