@@ -1,6 +1,10 @@
 {
-  "scraped_at": "2026-04-04T19:08:39.318219",
+  "scraped_at": "2026-04-05T01:17:24.538507",
   "total_leads": 0,
+  "subreddits": [
+    "forhire",
+    "slavelabour"
+  ],
   "search_terms": [
     "python script",
     "python automation",
@@ -12,5 +16,11 @@
     "csv automation",
     "automate task",
     "need script"
-  ]
+  ],
+  "funnel": {
+    "fetched": 0,
+    "filtered_flair": 0,
+    "filtered_skip": 0,
+    "filtered_score": 0
+  }
 }
