@@ -1210,11 +1210,28 @@ def check_email_intake(config: Dict[str, Any], paths: Dict[str, Path], state: Di
     if not config.get("enable_imap_intake"):
         return []
 
+    # Back off after repeated IMAP auth failures so a dead credential cannot
+    # hammer the provider (risking account lockout) every poll cycle.
+    now = datetime.now(timezone.utc)
+    pause_until = state.get("imap_failure_pause_until_utc")
+    if pause_until:
+        try:
+            if datetime.fromisoformat(pause_until) > now:
+                events = [{
+                    "type": "intake_channel_failed",
+                    "error": "paused",
+                    "message": f"IMAP intake paused until {pause_until} after repeated auth failures",
+                }]
+                return events
+        except (TypeError, ValueError):
+            state.pop("imap_failure_pause_until_utc", None)
+
     processed = set(state.get("processed_email_message_ids", []))
     rows = read_case_tracker(Path(config["case_tracker"]))
     events: List[Dict[str, Any]] = []
     try:
         mail = _imap_login(config)
+        state["imap_consecutive_auth_failures"] = 0
         mail.select("inbox")
         # Bounded query: unread messages whose subject contains the audit name.
         typ, data = mail.search(None, '(UNSEEN SUBJECT "Small Farm Systems Audit")')
@@ -1304,6 +1321,16 @@ def check_email_intake(config: Dict[str, Any], paths: Dict[str, Path], state: Di
         mail.logout()
     except Exception as e:
         audit_log(paths, "email_intake_failed", {"error": type(e).__name__, "message": str(e)})
+        if "AUTHENTICATIONFAILED" in str(e):
+            failures = int(state.get("imap_consecutive_auth_failures", 0)) + 1
+            state["imap_consecutive_auth_failures"] = failures
+            if failures >= 10:
+                paused_until = (now + timedelta(hours=24)).isoformat()
+                state["imap_failure_pause_until_utc"] = paused_until
+                audit_log(paths, "imap_auth_pause_engaged", {
+                    "consecutive_failures": failures,
+                    "paused_until_utc": paused_until,
+                })
         # Surface channel failure to the digest (once per cycle) so a broken
         # intake path is not silently invisible in audit.log only.
         events.append({

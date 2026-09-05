@@ -185,6 +185,46 @@ class FunnelRemediationTests(unittest.TestCase):
         self.assertIn("Email intake channel failure", safe)
         self.assertNotIn("AUTHENTICATIONFAILED", safe)
 
+    def test_imap_auth_failures_pause_login_after_ten(self):
+        self.config["enable_imap_intake"] = True
+        calls = {"login": 0}
+
+        def _broken_login(_config):
+            calls["login"] += 1
+            raise RuntimeError("[AUTHENTICATIONFAILED] Invalid credentials")
+
+        original = self.om._imap_login
+        self.om._imap_login = _broken_login
+        try:
+            for _ in range(10):
+                self.om.check_email_intake(self.config, self.paths, self.state)
+            self.assertEqual(10, calls["login"])
+            self.assertIn("imap_failure_pause_until_utc", self.state)
+            events = self.om.check_email_intake(self.config, self.paths, self.state)
+        finally:
+            self.om._imap_login = original
+        self.assertEqual(10, calls["login"])
+        failures = [e for e in events if e.get("type") == "intake_channel_failed"]
+        self.assertEqual(1, len(failures))
+        self.assertEqual("paused", failures[0]["error"])
+        self.assertIn(self.state["imap_failure_pause_until_utc"], failures[0]["message"])
+
+    def test_imap_non_auth_error_does_not_count_toward_pause(self):
+        self.config["enable_imap_intake"] = True
+
+        def _broken_login(_config):
+            raise RuntimeError("temporary network unreachable")
+
+        original = self.om._imap_login
+        self.om._imap_login = _broken_login
+        try:
+            for _ in range(12):
+                self.om.check_email_intake(self.config, self.paths, self.state)
+        finally:
+            self.om._imap_login = original
+        self.assertNotIn("imap_consecutive_auth_failures", self.state)
+        self.assertNotIn("imap_failure_pause_until_utc", self.state)
+
 
 if __name__ == "__main__":
     unittest.main()
