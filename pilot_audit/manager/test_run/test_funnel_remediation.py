@@ -37,6 +37,7 @@ class FunnelRemediationTests(unittest.TestCase):
             "offer_path": "/audit", "enable_gumroad_api_verify": False,
             "enable_imap_intake": False, "enable_codex": False, "enable_kimi": False,
             "daily_budget_usd": 1, "monthly_budget_usd": 10,
+            "capacity_snapshot_path": str(manager / "audit_capacity_state.json"),
         }
         config_path = manager / "config.json"
         config_path.write_text(json.dumps(self.config), encoding="utf-8")

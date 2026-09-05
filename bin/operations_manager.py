@@ -1512,13 +1512,17 @@ def publish_capacity_snapshot(
     The snapshot contains no customer details—only the validated active count.
     If the publisher or schema is invalid, the website's audit_capacity_status
     fails closed and checkout pauses.
+
+    Never implicitly publish to the production path: only an explicitly
+    configured capacity_snapshot_path is published where the website reads it.
+    Without one, the snapshot goes to a scratch location under the manager
+    dir, so tests and ad-hoc runs cannot overwrite the live state file.
     """
-    snapshot_path = Path(
-        config.get(
-            "capacity_snapshot_path",
-            "/home/asbelcas/cropcircuit-site/data/audit_capacity_state.json",
-        )
-    )
+    configured = config.get("capacity_snapshot_path")
+    if configured:
+        snapshot_path = Path(configured)
+    else:
+        snapshot_path = Path(paths["root"]) / "state" / "audit_capacity_state.json"
     try:
         active = int(state.get("active_cases", 0))
         if active < 0:
