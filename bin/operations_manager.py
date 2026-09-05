@@ -30,6 +30,10 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 from zoneinfo import ZoneInfo
 
+# FLORAL CIPHER v2 certificate guard (Claim[X] ≰ Cert[X]).
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import cert_guard
+
 # Allow importing the existing agent bridge for Codex delegation
 sys.path.insert(0, "/home/asbelcas/agent-bridge")
 
@@ -1538,6 +1542,8 @@ def publish_capacity_snapshot(
             "capacity": capacity,
             "active_paid_audits": active,
         }
+        # FLORAL CIPHER v2: stamp Cert provenance before writing.
+        payload = cert_guard.stamp(payload, "capacity_snapshot")
         # Validate before writing.
         json.dumps(payload)
         snapshot_path.parent.mkdir(parents=True, exist_ok=True)
@@ -1550,6 +1556,14 @@ def publish_capacity_snapshot(
             "path": str(snapshot_path),
             "active_paid_audits": active,
             "capacity": capacity,
+            "generated_at_utc": payload["generated_at_utc"],
+        })
+        # v2 self-attestation: verify our own publish against the audit witness.
+        violations = cert_guard.verify(snapshot_path, paths["audit_log"], "capacity_snapshot")
+        audit_log(paths, "cert_attestation", {
+            "path": str(snapshot_path),
+            "ok": not violations,
+            "violations": violations[:3],
         })
         return True
     except Exception as e:
