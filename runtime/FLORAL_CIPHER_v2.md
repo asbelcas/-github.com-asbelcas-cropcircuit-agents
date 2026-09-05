@@ -256,7 +256,9 @@ holds.
 2. Any write to shared production state (capacity files, case trackers,
    ledgers) must carry provenance typed `Cert` (authorized measurement) — not
    `Claim` (internal reasoning). The Operations Manager publisher is currently
-   the only authorized certifier for capacity state.
+   the only authorized certifier for capacity state. Enforced in code by
+   `bin/cert_guard.py` (stamp/verify) and `bin/cert_lint.py` (linter); every
+   publish self-attests via the `cert_attestation` audit entry.
 3. The four monotones are read through authorized instruments only: A via
    operator report, P via deliverable evidence, T via counterparty-grounded
    events, C via bank/provider settlement messages.
