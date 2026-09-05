@@ -154,13 +154,32 @@ After payment: `Paid → IntakeSent → WorkScheduled → ⚘`; delivery evidenc
 
 | Hour | Deliverable |
 |---|---|
-| 1 | Annotated Audit Preview artifact |
-| 2 | 13 warm leads normalized into state-machine queue |
+| 1 | Annotated Audit Preview artifact — DONE (d182236, deploy pending release freeze) |
+| 2 | Leads normalized into TYPED state-machine queue — DONE (runtime/lead_queue.json, 2026-09-05) |
 | 3 | IMAP reply detection → classifier → Casey approval digest |
 | 4 | Approved-Seed → send/log → payment witness → seat decrement + Harvest cert |
 
 Do NOT build: a CRM, channel repair, automated persuasion. Build one narrow
-conveyor: 13 warm Gardens → ❋ → ⟡ → ✺ → ◉ → ⚘.
+conveyor: typed Gardens → ❋ → ⟡ → ✺ → ◉ → ⚘.
+
+## 6a. Correction + typed queue (ChatGPT, 2026-09-05)
+
+The "13 warm humans" figure was an overread of 10 closer-sheet artifacts + 3
+coop signals. Struck from the canonical record: artifacts ≠ verified reachable
+humans. Buyer lane is currently EMPTY pending Casey naming 3–5 real farm
+operators. Verified routes are BRIDGE relationships (see lead_queue.json):
+Ryan Reincke / Rivka Hodgkinson / Amber Butterfield (Calhoun CD / MACD —
+genuine prior relational evidence), Garrett Ziegler (UNKNOWN, Aug-8 pilot
+request unanswered). SUPPRESSED: Van Buren CD (Emilly), Colten Franzen.
+
+Two lanes:
+- buyer: farm operator → ❋ $95 audit
+- bridge: trusted institution → one-introduction ask, no direct sale
+
+Typed states: BUYER_READY, REFERRER_READY, KNOWN_NOT_INTERESTED, SUPPRESSED,
+INSTITUTIONAL_AUTHORITY, UNKNOWN, MACHINE_TRAFFIC. Only BUYER_READY gets $95
+pollen; only REFERRER_READY gets the intro ask. Reachability of an address is
+not intent — never blast a lane the database happens to contain.
 
 ---
 
