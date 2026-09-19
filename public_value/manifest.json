@@ -34,6 +34,14 @@
       "source": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/farm_math.js",
       "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/FARM_MATH.md",
       "dependencies": []
+    },
+    {
+      "id": "farm-decision-calculator",
+      "type": "standalone-html",
+      "description": "Single-file offline calculator for task cost, payback, fencing, water storage, and sales-lane break-even.",
+      "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/farm_decision_calculator.html",
+      "dependencies": [],
+      "privacy": "No network calls or analytics; works offline after download."
     }
   ]
 }
