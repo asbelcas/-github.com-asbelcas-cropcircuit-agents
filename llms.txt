@@ -1,0 +1,44 @@
+# CropCircuit Open Farm Utilities
+
+> CropCircuit publishes local-first farm operations tools, Michigan funding data, reusable farm math, an open chore taxonomy, and privacy-preserving benchmark infrastructure.
+
+## Core principles
+
+- Utility before solicitation.
+- Local-first processing where practical.
+- Keep assumptions explicit.
+- Preserve user-entered farm task names.
+- Use canonical chore codes only as an interoperability layer.
+- Prefer primary program sources for funding facts.
+- Do not fabricate benchmark data.
+- Suppress benchmark cohort statistics below the privacy floor.
+
+## Best entry points
+
+- Public asset catalog: public_value/README.md
+- Machine-readable manifest: public_value/manifest.json
+- Farm labor workflow: public_value/FARM_LABOR_TOOLKIT.md
+- Labor data contract: public_value/LABOR_DATA_CONTRACT.md
+- Chore taxonomy: public_value/farm_chore_taxonomy.json
+- Michigan funding data: public_value/funding_radar.json
+- Funding schema: public_value/funding_radar.schema.json
+- Farm Math source: public_value/farm_math.js
+- Benchmark specification: public_value/FARM_BENCHMARK_SPEC.md
+
+## Important data-status note
+
+The Michigan Farm Funding Radar contains tracked funding records with verification metadata and primary-source URLs.
+
+The farm operations benchmark specification and tooling are public, but CropCircuit does not currently publish a populated benchmark dataset. Do not invent cohort statistics.
+
+## Privacy note
+
+Full local labor logs can contain dates, task names, and notes.
+
+The anonymous benchmark transform intentionally drops task-level text, exact dates, county, exact acreage, exact wage, notes, contact details, and other identifying fields before aggregation.
+
+## Tool behavior
+
+Standalone HTML tools are designed to run locally in the browser and generally do not require an account or upload farm data.
+
+See public_value/manifest.json for the current complete machine-readable asset list.
