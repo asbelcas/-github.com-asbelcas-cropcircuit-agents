@@ -3,22 +3,22 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CropCircuit Weekly Farm Operations Brief</title>
-<meta name="description" content="Private browser-local weekly farm operations summary using CropCircuit labor and chore schedule data.">
+<meta name="description" content="Private browser-local farm operations summary combining labor, harvest, sales, maintenance, and recurring chores.">
 <style>
-:root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#627067;--line:#dbe4dc;--accent:#215f45;--soft:#edf5ef}
+:root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#627067;--line:#dbe4dc;--accent:#215f45;--soft:#edf5ef;--bad:#8c3030;--warn:#7a5a00}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}
-main{max-width:1120px;margin:auto;padding:30px 16px 60px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px}h2{margin:0 0 10px}.lead{color:var(--muted);max-width:880px}
+main{max-width:1160px;margin:auto;padding:30px 16px 60px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px}h2{margin:0 0 10px}.lead{color:var(--muted);max-width:900px}
 .notice{background:var(--soft);border:1px solid #cfe0d3;border-radius:12px;padding:12px 14px;margin:18px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}.metric{border:1px solid var(--line);border-radius:10px;padding:12px;background:#fafcf9}.metric strong{display:block;font-size:1.35rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}.metric{border:1px solid var(--line);border-radius:10px;padding:12px;background:#fafcf9}.metric strong{display:block;font-size:1.3rem}
 label{display:block;font-weight:650}input{width:100%;padding:9px 10px;margin-top:4px;border:1px solid #cbd6ce;border-radius:8px;background:white;font:inherit}
 button{border:0;background:var(--accent);color:white;font-weight:700;padding:9px 12px;border-radius:8px;cursor:pointer;margin:10px 6px 0 0}.secondary{background:#56675d}
-table{width:100%;border-collapse:collapse;font-size:.86rem}th,td{text-align:left;border-bottom:1px solid var(--line);padding:8px 6px;vertical-align:top}th{font-size:.73rem;text-transform:uppercase;color:var(--muted);letter-spacing:.03em}.scroll{overflow:auto}.small{font-size:.85rem;color:var(--muted)}.empty{text-align:center;color:var(--muted);padding:20px}code{font-size:.76rem}
+table{width:100%;border-collapse:collapse;font-size:.84rem}th,td{text-align:left;border-bottom:1px solid var(--line);padding:8px 6px;vertical-align:top}th{font-size:.72rem;text-transform:uppercase;color:var(--muted);letter-spacing:.03em}.scroll{overflow:auto}.small{font-size:.84rem;color:var(--muted)}.empty{text-align:center;color:var(--muted);padding:20px}code{font-size:.76rem}.bad{color:var(--bad);font-weight:800}.warn{color:var(--warn);font-weight:800}
 @media print{button,.controls,.notice{display:none}body{background:white}.card{break-inside:avoid}}
 </style></head>
 <body><main>
 <h1>Weekly Farm Operations Brief</h1>
-<p class="lead">Turn browser-local CropCircuit labor observations and recurring chore schedules into a private printable operations summary.</p>
-<div class="notice"><strong>No server report generation:</strong> the summary is built in your browser from your local workspace. Exact notes are not shown in the report.</div>
+<p class="lead">A private operating picture built from this browser's CropCircuit workspace: labor, harvest, direct-market sales, equipment maintenance, and upcoming recurring chores.</p>
+<div class="notice"><strong>Descriptive, not a scorecard:</strong> the brief does not infer profit from sales, revenue from harvest, or inefficiency from time spent. Free-text notes are deliberately omitted.</div>
 
 <section class="card controls"><h2>Report window</h2><div class="grid">
 <label>Start date<input id="start" type="date"></label>
@@ -26,103 +26,107 @@ table{width:100%;border-collapse:collapse;font-size:.86rem}th,td{text-align:left
 <label>Upcoming schedule days<input id="future-days" type="number" min="1" max="90" step="1" value="7"></label>
 </div>
 <button id="build">Build report</button><button id="print" class="secondary">Print / save PDF</button>
-<p id="source" class="small">Reading this browser's CropCircuit workspace.</p></section>
+<p id="source" class="small"></p></section>
 
-<section class="card"><h2>Labor summary</h2>
-<div class="metrics">
-<div class="metric"><strong id="entries">0</strong><span>labor entries</span></div>
-<div class="metric"><strong id="hours">0</strong><span>worker-hours</span></div>
-<div class="metric"><strong id="categories">0</strong><span>active categories</span></div>
-<div class="metric"><strong id="coded">0%</strong><span>entries with chore codes</span></div>
-</div>
+<section class="card"><h2>At a glance</h2><div class="metrics">
+<div class="metric"><strong id="labor-entries">0</strong><span>labor entries</span></div>
+<div class="metric"><strong id="labor-hours">0</strong><span>worker-hours</span></div>
+<div class="metric"><strong id="harvest-count">0</strong><span>harvest entries</span></div>
+<div class="metric"><strong id="sales-net">$0</strong><span>sales net receipts</span></div>
+<div class="metric"><strong id="maintenance-due">0</strong><span>maintenance due/overdue</span></div>
+<div class="metric"><strong id="upcoming">0</strong><span>upcoming chore occurrences</span></div>
+</div></section>
+
+<section class="card"><h2>Labor by category</h2>
+<p class="small" id="coded"></p>
+<div class="scroll"><table><thead><tr><th>Category</th><th>Entries</th><th>Worker-hours</th><th>% of labor</th></tr></thead><tbody id="labor-body"></tbody></table></div>
 </section>
 
-<section class="card"><h2>Labor by category</h2><div class="scroll"><table>
-<thead><tr><th>Category</th><th>Entries</th><th>Worker-hours</th><th>% of labor</th></tr></thead>
-<tbody id="category-body"><tr><td colspan="4" class="empty">Build a report.</td></tr></tbody>
-</table></div></section>
+<section class="card"><h2>Highest-time repeated work</h2>
+<div class="scroll"><table><thead><tr><th>Task</th><th>Chore code</th><th>Category</th><th>Occurrences</th><th>Worker-hours</th></tr></thead><tbody id="task-body"></tbody></table></div>
+</section>
 
-<section class="card"><h2>Highest-time repeated work</h2><div class="scroll"><table>
-<thead><tr><th>Task</th><th>Chore code</th><th>Category</th><th>Occurrences</th><th>Worker-hours</th></tr></thead>
-<tbody id="task-body"><tr><td colspan="5" class="empty">Build a report.</td></tr></tbody>
-</table></div></section>
+<section class="card"><h2>Harvest in report window</h2>
+<p class="small">Unlike units remain separate. Harvest quantity is not converted to revenue.</p>
+<div class="scroll"><table><thead><tr><th>Item</th><th>Unit</th><th>Entries</th><th>Total quantity</th></tr></thead><tbody id="harvest-body"></tbody></table></div>
+</section>
+
+<section class="card"><h2>Direct-market sales in report window</h2>
+<p class="small">"After direct costs" is the arithmetic from values entered in the Sales Log; it is not accounting profit or taxable income.</p>
+<div class="scroll"><table><thead><tr><th>Channel</th><th>Records</th><th>Gross</th><th>Fees/refunds</th><th>Net receipts</th><th>Entered direct costs</th><th>After direct costs</th></tr></thead><tbody id="sales-body"></tbody></table></div>
+</section>
+
+<section class="card"><h2>Equipment maintenance status</h2>
+<p class="small">Due status uses only the service intervals stored by the operator. CropCircuit does not supply maintenance intervals.</p>
+<div class="scroll"><table><thead><tr><th>Equipment</th><th>Service item</th><th>Status</th><th>Hours remaining</th><th>Days remaining</th></tr></thead><tbody id="equipment-body"></tbody></table></div>
+</section>
 
 <section class="card"><h2>Upcoming scheduled work</h2>
 <p id="schedule-window" class="small"></p>
-<div class="scroll"><table>
-<thead><tr><th>Date</th><th>Tasks</th><th>Estimated minutes</th><th>Work</th></tr></thead>
-<tbody id="schedule-body"><tr><td colspan="4" class="empty">Build a report.</td></tr></tbody>
-</table></div></section>
+<div class="scroll"><table><thead><tr><th>Date</th><th>Tasks</th><th>Estimated minutes</th><th>Work</th></tr></thead><tbody id="schedule-body"></tbody></table></div>
+</section>
 
-<footer class="small" style="margin-top:20px">CropCircuit Open Farm Utilities. This is a descriptive operations summary, not a productivity score or labor recommendation.</footer>
+<footer class="small" style="margin-top:20px">CropCircuit Open Farm Utilities. This report is operational decision support, not financial, tax, engineering, veterinary, employment, or agronomic advice.</footer>
 </main>
 
 <script type="module">
 import { readWorkspace } from "./workspace.js";
 import { buildDailyLoad } from "./schedule_math.js";
 import { normalizeLaborIdentity, workerHours } from "./labor_contract.js";
+import { summarizeHarvest } from "./harvest_math.js";
+import { summarizeSales } from "./sales_math.js";
+import { combinedServiceStatus } from "./equipment_math.js";
 
 const $=id=>document.getElementById(id);
 const esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
 const num=(v,d=1)=>Number(v).toLocaleString(undefined,{maximumFractionDigits:d});
-
+const money=v=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(Number(v)||0);
 function iso(d){return d.toISOString().slice(0,10)}
 function addDays(dateString,n){const d=new Date(dateString+"T00:00:00Z");d.setUTCDate(d.getUTCDate()+n);return iso(d)}
-function defaultWindow(){
-  const end=new Date();
-  const start=new Date(end);
-  start.setDate(start.getDate()-6);
-  $("start").value=iso(start);
-  $("end").value=iso(end);
-}
-function inRange(date,start,end){return date>=start&&date<=end}
+function defaultWindow(){const end=new Date(),start=new Date(end);start.setDate(start.getDate()-6);$("start").value=iso(start);$("end").value=iso(end)}
+function empty(cols,text){return `<tr><td colspan="${cols}" class="empty">${esc(text)}</td></tr>`}
 
 function build(){
-  const workspace=readWorkspace(localStorage);
-  const start=$("start").value,end=$("end").value;
+  const w=readWorkspace(localStorage),start=$("start").value,end=$("end").value;
   if(!start||!end||end<start){alert("Choose a valid report window.");return}
 
-  const rows=workspace.labor_entries.filter(r=>inRange(String(r.date||""),start,end));
-  const totalHours=rows.reduce((s,r)=>{
-    const direct=Number(r.worker_hours);
-    if(Number.isFinite(direct))return s+Math.max(direct,0);
-    return s+(workerHours(r)||0);
-  },0);
-
-  $("entries").textContent=rows.length;
-  $("hours").textContent=num(totalHours);
-  $("coded").textContent=(rows.length?100*rows.filter(r=>String(r.chore_code||"").trim()).length/rows.length:0).toFixed(0)+"%";
+  const labor=w.labor_entries.filter(r=>String(r.date||"")>=start&&String(r.date||"")<=end);
+  const totalHours=labor.reduce((s,r)=>{const direct=Number(r.worker_hours);return s+(Number.isFinite(direct)?Math.max(direct,0):(workerHours(r)||0))},0);
+  $("labor-entries").textContent=labor.length;$("labor-hours").textContent=num(totalHours);
+  $("coded").textContent=`${labor.length?Math.round(100*labor.filter(r=>String(r.chore_code||"").trim()).length/labor.length):0}% of labor entries in this window carry canonical chore codes.`;
 
   const byCategory=new Map(),byTask=new Map();
-  for(const r of rows){
-    const direct=Number(r.worker_hours),hours=Number.isFinite(direct)?Math.max(direct,0):(workerHours(r)||0);
-    const category=String(r.category||"Other").trim()||"Other";
+  for(const r of labor){
+    const direct=Number(r.worker_hours),hours=Number.isFinite(direct)?Math.max(direct,0):(workerHours(r)||0),category=String(r.category||"Other").trim()||"Other";
     const c=byCategory.get(category)||{entries:0,hours:0};c.entries++;c.hours+=hours;byCategory.set(category,c);
-
-    const id=normalizeLaborIdentity(r);
-    const key=id.key||"uncoded:"+category+":"+String(r.task||"").toLowerCase();
-    const t=byTask.get(key)||{task:r.task||"",code:r.chore_code||"",category,entries:0,hours:0};
+    const identity=normalizeLaborIdentity(r),key=identity.key||"uncoded:"+category+":"+String(r.task||"").toLowerCase(),t=byTask.get(key)||{task:r.task||"",code:r.chore_code||"",category,entries:0,hours:0};
     t.entries++;t.hours+=hours;byTask.set(key,t);
   }
-
-  $("categories").textContent=byCategory.size;
-  const categories=[...byCategory.entries()].sort((a,b)=>b[1].hours-a[1].hours);
-  $("category-body").innerHTML=categories.length?categories.map(([category,v])=>`<tr><td>${esc(category)}</td><td>${v.entries}</td><td>${num(v.hours)}</td><td>${num(totalHours?100*v.hours/totalHours:0,1)}%</td></tr>`).join(""):'<tr><td colspan="4" class="empty">No labor entries in this report window.</td></tr>';
-
+  const cats=[...byCategory.entries()].sort((a,b)=>b[1].hours-a[1].hours);
+  $("labor-body").innerHTML=cats.length?cats.map(([category,v])=>`<tr><td>${esc(category)}</td><td>${v.entries}</td><td>${num(v.hours)}</td><td>${num(totalHours?100*v.hours/totalHours:0,1)}%</td></tr>`).join(""):empty(4,"No labor entries in this window.");
   const tasks=[...byTask.values()].sort((a,b)=>b.hours-a.hours).slice(0,15);
-  $("task-body").innerHTML=tasks.length?tasks.map(v=>`<tr><td>${esc(v.task)}</td><td><code>${esc(v.code)}</code></td><td>${esc(v.category)}</td><td>${v.entries}</td><td>${num(v.hours)}</td></tr>`).join(""):'<tr><td colspan="5" class="empty">No labor entries in this report window.</td></tr>';
+  $("task-body").innerHTML=tasks.length?tasks.map(v=>`<tr><td>${esc(v.task)}</td><td><code>${esc(v.code)}</code></td><td>${esc(v.category)}</td><td>${v.entries}</td><td>${num(v.hours)}</td></tr>`).join(""):empty(5,"No repeated-work data in this window.");
 
-  const futureDays=Math.max(1,Math.min(Number($("future-days").value)||7,90));
-  const futureStart=addDays(end,1),futureEnd=addDays(end,futureDays);
-  const schedule=buildDailyLoad(workspace.chore_schedule,{startDate:futureStart,endDate:futureEnd});
-  $("schedule-window").textContent=`Upcoming window: ${futureStart} through ${futureEnd}.`;
-  $("schedule-body").innerHTML=schedule.length?schedule.map(d=>`<tr><td>${d.date}</td><td>${d.tasks.length}</td><td>${num(d.total_estimated_minutes,0)}</td><td>${d.tasks.map(t=>`${esc(t.task)}${t.chore_code?` <code>${esc(t.chore_code)}</code>`:""}`).join("<br>")}</td></tr>`).join(""):'<tr><td colspan="4" class="empty">No scheduled work falls in the upcoming window.</td></tr>';
+  const harvest=summarizeHarvest(w.harvest_entries,{startDate:start,endDate:end});
+  $("harvest-count").textContent=w.harvest_entries.filter(r=>String(r.date||"")>=start&&String(r.date||"")<=end).length;
+  $("harvest-body").innerHTML=harvest.length?harvest.map(x=>`<tr><td>${esc(x.item)}</td><td>${esc(x.unit)}</td><td>${x.entries}</td><td>${num(x.quantity,3)}</td></tr>`).join(""):empty(4,"No harvest entries in this window.");
 
-  $("source").textContent=`Built from ${workspace.labor_entries.length} local labor observation(s) and ${workspace.chore_schedule.length} local scheduled chore(s). Report window: ${start} through ${end}.`;
+  const sales=summarizeSales(w.sales_entries,{startDate:start,endDate:end});
+  const net=sales.reduce((s,x)=>s+x.netReceipts,0);$("sales-net").textContent=money(net);
+  $("sales-body").innerHTML=sales.length?sales.map(x=>`<tr><td>${esc(x.group)}</td><td>${x.transactions}</td><td>${money(x.grossAmount)}</td><td>${money(x.paymentFees+x.refundsDiscounts)}</td><td>${money(x.netReceipts)}</td><td>${money(x.directCosts)}</td><td>${money(x.contributionAfterDirectCosts)}</td></tr>`).join(""):empty(7,"No sales records in this window.");
+
+  const maintenance=w.equipment_maintenance.map(x=>({x,status:combinedServiceStatus({
+    currentHours:x.current_hours,lastServiceHours:x.last_service_hours,intervalHours:x.interval_hours,
+    lastServiceDate:x.last_service_date,intervalDays:x.interval_days,asOfDate:end
+  })})).sort((a,b)=>({overdue:0,due:1,"not-due":2,"not-configured":3}[a.status.overall]-({overdue:0,due:1,"not-due":2,"not-configured":3}[b.status.overall])));
+  const dueCount=maintenance.filter(r=>["overdue","due"].includes(r.status.overall)).length;$("maintenance-due").textContent=dueCount;
+  $("equipment-body").innerHTML=maintenance.length?maintenance.map(({x,status})=>`<tr><td>${esc(x.equipment)}</td><td>${esc(x.service)}</td><td class="${status.overall==="overdue"?"bad":status.overall==="due"?"warn":""}">${esc(status.overall)}</td><td>${status.hours.hoursRemaining===null?"—":num(status.hours.hoursRemaining)}</td><td>${status.date.daysRemaining===null?"—":status.date.daysRemaining}</td></tr>`).join(""):empty(5,"No equipment maintenance items stored.");
+
+  const futureDays=Math.max(1,Math.min(Number($("future-days").value)||7,90)),futureStart=addDays(end,1),futureEnd=addDays(end,futureDays),schedule=buildDailyLoad(w.chore_schedule,{startDate:futureStart,endDate:futureEnd});
+  $("upcoming").textContent=schedule.reduce((s,d)=>s+d.tasks.length,0);$("schedule-window").textContent=`Upcoming window: ${futureStart} through ${futureEnd}.`;
+  $("schedule-body").innerHTML=schedule.length?schedule.map(d=>`<tr><td>${d.date}</td><td>${d.tasks.length}</td><td>${num(d.total_estimated_minutes,0)}</td><td>${d.tasks.map(t=>`${esc(t.task)}${t.chore_code?` <code>${esc(t.chore_code)}</code>`:""}`).join("<br>")}</td></tr>`).join(""):empty(4,"No scheduled work falls in the upcoming window.");
+
+  $("source").textContent=`Workspace 1.1 view: ${w.labor_entries.length} labor, ${w.chore_schedule.length} chore, ${w.equipment_maintenance.length} maintenance, ${w.harvest_entries.length} harvest, and ${w.sales_entries.length} sales record(s) stored locally. Report window: ${start} through ${end}.`;
 }
-
-$("build").addEventListener("click",build);
-$("print").addEventListener("click",()=>window.print());
-defaultWindow();
-build();
+$("build").addEventListener("click",build);$("print").addEventListener("click",()=>window.print());defaultWindow();build();
 </script></body></html>
