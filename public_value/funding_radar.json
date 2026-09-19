@@ -1,0 +1,147 @@
+{
+  "name": "CropCircuit Michigan Farm Funding Radar",
+  "verified_at": "2026-09-19",
+  "scope": "Michigan-focused farm, food, conservation, and rural-business funding",
+  "disclaimer": "Program status can change. CropCircuit links to the primary program source so applicants can verify details before applying.",
+  "opportunities": [
+    {
+      "id": "mi-good-food-fund-seed-awards-2026",
+      "title": "Michigan Good Food Fund 2026 Seed Awards",
+      "provider": "Michigan Good Food Fund",
+      "status": "open",
+      "deadline": "2026-09-28T17:00:00-04:00",
+      "deadline_label": "September 28, 2026 at 5:00 PM EDT",
+      "funding": "$5,000–$20,000",
+      "audience": "Michigan food and farm businesses",
+      "tags": [
+        "food systems",
+        "farm business",
+        "healthy food access",
+        "economic development"
+      ],
+      "summary": "Seed grants for eligible businesses across Michigan's food and farm sector whose growth supports economic development and healthy food access.",
+      "source_url": "https://migoodfoodfund.org/support-for-entrepreneurs/seed-awards/",
+      "source_type": "program"
+    },
+    {
+      "id": "michigan-craft-beverage-council-2027",
+      "title": "Michigan Craft Beverage Council 2027 Research & Education Grants",
+      "provider": "Michigan Craft Beverage Council / MDARD",
+      "status": "open",
+      "deadline": "2026-10-09T15:00:00-04:00",
+      "deadline_label": "October 9, 2026 at 3:00 PM ET",
+      "funding": "Research grants up to $40,000",
+      "audience": "Research and education projects supporting Michigan craft beverage agriculture and markets",
+      "tags": [
+        "research",
+        "education",
+        "regenerative agriculture",
+        "craft beverage",
+        "Michigan-grown crops"
+      ],
+      "summary": "Current priorities include increasing use of Michigan agricultural products and regenerative practices for crops used in craft beverage production.",
+      "source_url": "https://www.michigan.gov/mdard/about/media/pressreleases/2026/09/03/michigan-craft-beverage-council-now-accepting-research-and-education-grant-proposals",
+      "source_type": "government"
+    },
+    {
+      "id": "nrcs-eqip-michigan",
+      "title": "NRCS EQIP — Michigan",
+      "provider": "USDA Natural Resources Conservation Service",
+      "status": "continuous",
+      "deadline": null,
+      "deadline_label": "Applications accepted continuously; ask NRCS about the next Michigan ranking date",
+      "funding": "Practice-specific financial assistance",
+      "audience": "Agricultural producers and non-industrial private forest managers",
+      "tags": [
+        "conservation",
+        "soil health",
+        "water",
+        "livestock",
+        "wildlife",
+        "regenerative agriculture"
+      ],
+      "summary": "Financial and technical assistance for conservation practices. Michigan's FY2026 first batching date has passed, but applications remain continuous and can be considered in future ranking periods.",
+      "source_url": "https://www.nrcs.usda.gov/programs-initiatives/eqip-environmental-quality-incentives/michigan/eqip-michigan/current-year-signup",
+      "source_type": "government"
+    },
+    {
+      "id": "nrcs-csp-michigan",
+      "title": "NRCS Conservation Stewardship Program — Michigan",
+      "provider": "USDA Natural Resources Conservation Service",
+      "status": "continuous",
+      "deadline": null,
+      "deadline_label": "Applications accepted continuously; ask NRCS about the next Michigan ranking date",
+      "funding": "Contract-based conservation payments",
+      "audience": "Agricultural producers and land managers already using conservation practices",
+      "tags": [
+        "conservation",
+        "stewardship",
+        "soil health",
+        "grazing",
+        "regenerative agriculture"
+      ],
+      "summary": "CSP supports producers who maintain existing conservation and add further conservation activities. Michigan applications are accepted continuously.",
+      "source_url": "https://www.nrcs.usda.gov/programs-initiatives/conservation-stewardship-program/michigan/conservation-stewardship-program",
+      "source_type": "government"
+    },
+    {
+      "id": "usda-reap-2026-status",
+      "title": "USDA Rural Energy for America Program (REAP)",
+      "provider": "USDA Rural Development",
+      "status": "paused",
+      "deadline": null,
+      "deadline_label": "Grant awards paused pending new regulations; guaranteed loans continue",
+      "funding": "Renewable-energy and energy-efficiency grants/guaranteed loans",
+      "audience": "Agricultural producers and rural small businesses",
+      "tags": [
+        "energy",
+        "solar",
+        "efficiency",
+        "rural business"
+      ],
+      "summary": "USDA announced that further REAP grant awards are paused until new regulations and a new funding notice are in effect. Guaranteed loans continue. This entry is kept as a status warning so applicants do not waste time on stale grant guidance.",
+      "source_url": "https://www.rd.usda.gov/alert/stakeholder-announcement-rural-business-cooperative-service-update-status-rural-energy-american",
+      "source_type": "government"
+    },
+    {
+      "id": "mdard-specialty-crop-block-2026",
+      "title": "MDARD Specialty Crop Block Grant",
+      "provider": "Michigan Department of Agriculture & Rural Development",
+      "status": "closed",
+      "deadline": "2026-02-05T17:00:00-05:00",
+      "deadline_label": "2026 cycle closed February 5, 2026",
+      "funding": "Project grants supporting Michigan specialty crops",
+      "audience": "Projects that enhance competitiveness of Michigan specialty crops",
+      "tags": [
+        "specialty crops",
+        "horticulture",
+        "vegetables",
+        "fruit",
+        "floriculture"
+      ],
+      "summary": "The 2026 application cycle is closed. CropCircuit tracks it because it is a recurring program worth planning for before the next cycle opens.",
+      "source_url": "https://www.michigan.gov/mdard/business-development/grantfund/specialty-crop-block-grants",
+      "source_type": "government"
+    },
+    {
+      "id": "mdard-value-added-regional-food-systems-2026",
+      "title": "MDARD Underserved, Value-Added, Regional Food Systems & Supply Chain Grant",
+      "provider": "Michigan Department of Agriculture & Rural Development",
+      "status": "closed",
+      "deadline": "2026-04-15T17:00:00-04:00",
+      "deadline_label": "2026 cycle closed April 15, 2026",
+      "funding": "2026 awards included grants up to $100,000",
+      "audience": "Michigan agriculture, processing, food systems, healthy food access, and supply-chain projects",
+      "tags": [
+        "value added",
+        "food systems",
+        "supply chain",
+        "farm markets",
+        "hoop houses"
+      ],
+      "summary": "The 2026 cycle is closed and awards were announced in September. The program is retained as a planning/watch item for future rounds.",
+      "source_url": "https://www.michigan.gov/mdard/business-development/grantfund/value-added-regional-food-systems-and-supply-chain-grant",
+      "source_type": "government"
+    }
+  ]
+}
