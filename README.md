@@ -1,296 +1,90 @@
-# RM-QPT: Relentless Money-Making & Quality Performance Taskforce
+# CropCircuit Open Farm Utilities
 
-## 🎯 MISSION STATEMENT
+CropCircuit is building small, reusable tools and datasets for practical farm decisions.
 
-**Generate continuous revenue stream. NEVER STOP.**
+**Current principle: utility before solicitation.**  
+Instead of leading with a consulting pitch, this repository now exposes useful building blocks that farmers, developers, educators, and AI systems can use directly.
 
-Once first money is made, the system enters **PERPETUAL MODE** and cannot stop.
+## Public value assets
 
----
+Everything below lives in [`public_value/`](public_value/).
 
-## ⚠️ PRIME DIRECTIVES
+### Michigan Farm Funding Radar
 
-1. **💰 MONEY MUST FLOW CONTINUOUSLY**  
-   The system must always have money coming in.
+A source-linked, machine-readable snapshot of Michigan farm, food-system, conservation, and rural-business funding.
 
-2. **🚨 2-HOUR CRITICAL FAILURE THRESHOLD**  
-   If no money received for 2+ hours = CRITICAL FAILURE
+Available formats:
 
-3. **📊 2-HOUR CHECKPOINT ASSESSMENT**  
-   System automatically reassesses every 2 hours
+- [Human-readable radar](public_value/funding_radar.md)
+- [JSON](public_value/funding_radar.json)
+- [CSV](public_value/funding_radar.csv)
+- [JSON Schema](public_value/funding_radar.schema.json)
+- [Funding deadline calendar](public_value/funding_deadlines.ics)
 
-4. **📚 EMERGENCY LEARNING PROTOCOL**  
-   If stuck/making no money: Read business books, finance textbooks, college syllabuses, internet research
+The radar distinguishes open opportunities, continuous-signup programs, paused programs, and closed cycles worth planning for. Every record links back to a primary source.
 
-5. **🔐 CRYPTO DEPOSIT**  
-   All money deposited to: Your crypto wallet (BTC/ETH/USDC)
+### CropCircuit Farm Math
 
-6. **♾️ PERPETUAL OPERATION**  
-   Once first dollar earned: System NEVER stops
+A dependency-free JavaScript module for transparent farm calculations:
 
----
+- repeated-task annual labor cost
+- simple payback
+- acreage-to-fence-line estimates
+- water-storage sizing from user-supplied consumption
+- sales-channel break-even transactions
+- rectangular acreage conversion
 
-## 🚨 CRITICAL FAILURE RESPONSE
+Source:
 
-When 2+ hours pass without money:
+- [farm_math.js](public_value/farm_math.js)
+- [Documentation](public_value/FARM_MATH.md)
+- [Tests](public_value/farm_math.test.mjs)
 
-1. **ALERT**: Critical failure logged
-2. **LEARN**: System reads business/finance materials:
-   - Harvard Business School syllabuses
-   - MIT OpenCourseWare
-   - Stanford GSB materials
-   - Finance textbooks
-   - Internet research on current arbitrage
-3. **DEPLOY**: Emergency money-making tasks activated
-4. **FIX**: Implement learned strategies immediately
-5. **MONITOR**: Check every 15 minutes until money flows
+Browser / ES module CDN:
 
----
-
-## 📁 SYSTEM STRUCTURE
-
-```
-rm-qpt/
-├── core/
-│   └── rm_qpt_master.py          # Main orchestrator
-├── agents/                        # Agent definitions
-├── monetization/                  # Revenue strategies
-├── learning/                      # Learning materials & logs
-├── payments/                      # Crypto deposit records
-│   └── crypto/                    # Individual transaction records
-├── logs/                          # System logs
-├── state/                         # Persistent state
-├── ACTIVATE_RM-QPT.sh            # Launch script
-└── README.md                      # This file
+```js
+import {
+  annualTaskCost,
+  simplePayback,
+  fenceEstimate,
+  waterStorage,
+  breakEvenTransactions,
+  rectangleAcres
+} from "https://cdn.jsdelivr.net/gh/asbelcas/-github.com-asbelcas-cropcircuit-agents@main/public_value/farm_math.js";
 ```
 
----
+### Farm Chore Cost & Payback
 
-## 🚀 ACTIVATION
+A smaller standalone module focused on recurring chore economics:
 
-```bash
-cd /home/asbelcas/rm-qpt
-bash ACTIVATE_RM-QPT.sh
-```
+- [Source](public_value/farm_chore_payback.js)
+- [Documentation](public_value/FARM_CHORE_PAYBACK.md)
 
-You must accept the **PRIME DIRECTIVE** to activate.
+### Machine-readable asset manifest
 
----
+Software can discover the current public assets through:
 
-## 📊 MONITORING
+- [manifest.json](public_value/manifest.json)
 
-### Check Status
-```bash
-# View current money status
-cat state/rm_qpt_state.json | python3 -m json.tool
+## Design rules
 
-# View logs
-tail -f logs/rm_qpt_YYYYMMDD.jsonl
+1. **Useful before monetized.** An asset should solve a real problem even if nobody pays.
+2. **Assumptions stay visible.** Farm Math does not hide biological or financial defaults inside the code.
+3. **Primary sources over stale summaries.** Funding records link to the program owner.
+4. **Machine-readable by default.** Useful information should be available as data, not trapped in prose.
+5. **Small composable pieces.** Build things other people can reuse, link, import, or adapt.
 
-# View recent transactions
-ls -la payments/
-```
+## Licensing
 
-### Key Metrics
-- `total_earned`: Lifetime revenue
-- `first_money_made`: Has the system made its first dollar?
-- `last_money_timestamp`: When was money last received?
-- `checkpoints_passed`: Number of 2-hour assessments
-- `critical_failures`: Times 2-hour threshold was breached
+- Public utility code: MIT — see [LICENSE-CODE.txt](public_value/LICENSE-CODE.txt)
+- CropCircuit-authored dataset arrangement/metadata: CC0 1.0 dedication to the extent CropCircuit holds rights — see [LICENSE-DATA.txt](public_value/LICENSE-DATA.txt)
 
----
+Third-party source material remains subject to the original source's terms.
 
-## 💰 MONEY-MAKING STRATEGIES
+## Legacy agent experiments
 
-### 1. Arbitrage
-- Price gap exploitation across digital marketplaces
-- Domain flipping
-- Information product arbitrage
+This repository contains older autonomous-agent and revenue experiments from earlier CropCircuit phases. They remain for historical continuity and research, but they are **not the current operating strategy**.
 
-### 2. Compounding
-- Snowball small amounts into larger sums
-- Automated recurring revenue systems
-- Rapid reinvestment cycles
+The previous repository README has been preserved at [legacy/RM_QPT_README_2026-04-02.md](legacy/RM_QPT_README_2026-04-02.md).
 
-### 3. Scalable Systems
-- Evergreen sales funnels
-- API monetization
-- Digital product pipelines
-
-### 4. Asymmetric Bets
-- High upside, limited downside wagers
-- Early platform adoption
-- Emerging market positions
-
-### 5. Optimization
-- Pricing optimization
-- Conversion rate improvement
-- Cost reduction
-
----
-
-## 📚 EMERGENCY LEARNING SOURCES
-
-When stuck, RM-QPT learns from:
-
-### Business School Materials
-- Harvard Business School - Finance 101
-- MIT OpenCourseWare - Entrepreneurial Strategy
-- Stanford GSB - Pricing Strategy
-- Wharton - Digital Marketing
-
-### Essential Books
-- "Zero to One" by Peter Thiel
-- "The Lean Startup" by Eric Ries
-- "Influence" by Robert Cialdini
-- "The Psychology of Money" by Morgan Housel
-- "The $100 Startup" by Chris Guillebeau
-- "DotCom Secrets" by Russell Brunson
-
-### Internet Research
-- Latest arbitrage opportunities
-- Emerging marketplace trends
-- Successful case studies
-- Current pricing strategies
-
----
-
-## 🤖 AGENT SWARM
-
-### arbitrage_hunter
-- Price arbitrage
-- Market exploitation
-- Quick flips
-
-### sales_closer
-- Direct sales
-- Outreach
-- Deal negotiation
-
-### product_builder
-- Digital products
-- Automated systems
-- Recurring revenue
-
-### optimizer
-- Conversion optimization
-- Pricing strategy
-- Funnel building
-
-### researcher
-- Market research
-- Opportunity identification
-- Competitive analysis
-
-### marketer
-- Content marketing
-- Email sequences
-- Social media
-- Viral growth
-
----
-
-## ⏰ 2-HOUR CHECKPOINT
-
-Every 2 hours, RM-QPT assesses:
-
-### HEALTHY
-- Money received in last 2 hours
-- Continue current strategies
-
-### WARNING
-- Less than $10 in 2 hours
-- Increase task priority
-- Deploy additional agents
-
-### CRITICAL
-- **$0 in 2 hours**
-- **VIOLATION OF PRIME DIRECTIVE**
-- Emergency protocols activated
-- Learning mode engaged
-- Maximum effort deployed
-
----
-
-## 💳 PAYPAL INTEGRATION
-
-All money automatically deposited to:
-**asbelcas@gmail.com**
-
-Each transaction creates a deposit record in `payments/` directory.
-
----
-
-## 🔄 PERPETUAL OPERATION
-
-Once first money is made:
-- System CANNOT be stopped
-- Daemon auto-restarts if crashed
-- State persists across restarts
-- Money-making continues indefinitely
-
----
-
-## 📈 SUCCESS METRICS
-
-| Metric | Target |
-|--------|--------|
-| Money every 2 hours | 100% |
-| Critical failures | 0 |
-| Learning sessions | As needed |
-| Crypto deposits | 100% of earnings |
-| Continuous operation | After first $1 |
-
----
-
-## ⚡ EMERGENCY PROTOCOLS
-
-### No Money in 1 Hour
-- Increase task frequency
-- Deploy all agents
-- Increase priority of money tasks
-
-### No Money in 2 Hours (CRITICAL)
-- **CRITICAL FAILURE DECLARED**
-- Emergency learning activated
-- Business books/syllabuses consulted
-- New strategies deployed
-- Status checked every 15 minutes
-
-### No Money in 3 Hours
-- Maximum emergency response
-- All resources to money generation
-- External research intensified
-- Aggressive arbitrage deployment
-
----
-
-## 🎯 THE SYSTEM NEVER STOPS
-
-RM-QPT is designed to be **relentless**:
-
-- It works while you sleep
-- It learns when stuck
-- It adapts to market conditions
-- It deposits money automatically
-- It never gives up
-
-**The mission: Continuous revenue. Forever.**
-
----
-
-## 📝 LOG FORMAT
-
-```
-[RM-QPT][2026-04-02 17:30:15][MONEY] 💰 +$25.50 from Digital product sale via direct_sale
-[RM-QPT][2026-04-02 17:30:15][CRYPTO] ✅ Deposit recorded: $25.50 → 0x71C7...6F (0.0123 ETH)
-[RM-QPT][2026-04-02 19:30:00][CHECKPOINT] 📊 2-HOUR ASSESSMENT: HEALTHY
-[RM-QPT][2026-04-02 21:30:00][CRITICAL] 🚨🚨🚨 CRITICAL FAILURE: NO MONEY IN 2 HOURS
-[RM-QPT][2026-04-02 21:30:00][LEARNING] 📚 EMERGENCY LEARNING MODE ACTIVATED
-```
-
----
-
-**RM-QPT: RELENTLESS. ADAPTIVE. PROFITABLE.**
-
-💰💰💰 MONEY MUST FLOW 💰💰💰
+Current work is centered on creating durable internet utility: tools, datasets, APIs, benchmarks, and reusable decision infrastructure.
