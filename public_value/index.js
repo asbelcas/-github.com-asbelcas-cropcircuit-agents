@@ -6,3 +6,4 @@ export * from "./workspace.js";
 export * from "./market_math.js";
 export * from "./csa_math.js";
 export * from "./equipment_math.js";
+export * from "./harvest_math.js";
