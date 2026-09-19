@@ -35,3 +35,5 @@ jobs:
         run: node public_value/farm_math.test.mjs
       - name: Test funding query
         run: node public_value/funding_query.test.mjs
+      - name: Test benchmark privacy and aggregation
+        run: node public_value/benchmark_aggregate.test.mjs
