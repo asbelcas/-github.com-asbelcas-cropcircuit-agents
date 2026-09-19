@@ -21,6 +21,8 @@ table{width:100%;border-collapse:collapse;font-size:.84rem}th,td{text-align:left
 <section class="card">
 <h2>Load schedule</h2>
 <input id="file" type="file" accept=".csv,text/csv">
+<button id="use-local" class="secondary">Use local scheduler</button>
+<p id="source" class="small">No schedule loaded.</p>
 <div class="grid" style="margin-top:14px">
 <label>Start date<input id="start" type="date"></label>
 <label>Days to plan<input id="days" type="number" min="1" max="366" step="1" value="30"></label>
@@ -82,16 +84,27 @@ table{width:100%;border-collapse:collapse;font-size:.84rem}th,td{text-align:left
   }
 
   $("start").value=new Date().toISOString().slice(0,10);
-  $("file").addEventListener("change",async()=>{const f=$("file").files[0];schedule=f?parseCSV(await f.text()):[]});
+  $("file").addEventListener("change",async()=>{const f=$("file").files[0];schedule=f?parseCSV(await f.text()):[];$("source").textContent=schedule.length?`${schedule.length} scheduled task(s) loaded from CSV.`:"No schedule loaded."});
+  $("use-local").addEventListener("click",()=>{
+    try{
+      const local=JSON.parse(localStorage.getItem("cropcircuit_chore_schedule_v1")||"[]");
+      schedule=Array.isArray(local)?local:[];
+      $("source").textContent=schedule.length?`${schedule.length} scheduled task(s) loaded from this browser's CropCircuit workspace.`:"No local CropCircuit schedule found in this browser.";
+    }catch{
+      schedule=[];
+      $("source").textContent="Could not read the local CropCircuit schedule.";
+    }
+  });
 
   $("plan").addEventListener("click",async()=>{
-    const f=$("file").files[0];if(!f){alert("Choose a schedule CSV first.");return}
-    if(!schedule.length)schedule=parseCSV(await f.text());
+    const f=$("file").files[0];
+    if(!schedule.length&&f)schedule=parseCSV(await f.text());
+    if(!schedule.length){alert("Load a schedule CSV or use the local scheduler first.");return}
     const start=date($("start").value),days=Math.max(1,Math.min(Number($("days").value)||30,366)),end=addDays(start,days-1),capacity=Math.max(Number($("capacity").value)||1,1);
     const map=new Map();
     for(let i=0;i<days;i++){const d=iso(addDays(start,i));map.set(d,{date:d,total:0,tasks:[]})}
     for(const item of schedule){
-      const minutes=Math.max(Number(item.estimated_minutes)||0,0);
+      const minutes=Math.max(Number(item.estimated_minutes ?? item.minutes)||0,0);
       for(const d of occurrences(item,start,end)){
         const bucket=map.get(d);if(!bucket)continue;
         bucket.total+=minutes;bucket.tasks.push({task:item.task||"",code:item.chore_code||"",minutes});
