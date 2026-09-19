@@ -60,6 +60,15 @@ The Labor Opportunity Analyzer, Chore Load Planner, and Schedule Estimate Calibr
 
 Most standalone HTML tools do all processing in the browser and do not upload farm data.
 
+## Farm business economics
+
+- [Farmers Market Break-Even Calculator](market_day_break_even.html)
+- [CSA Share Price & Break-Even Calculator](csa_break_even.html)
+- [Market-day reusable math](market_math.js)
+- [CSA reusable math](csa_math.js)
+
+These tools embed no default wage, mileage rate, card fee, target margin, or "correct" farm price.
+
 ## Michigan Farm Funding Radar
 
 The Funding Radar is a source-linked dataset of Michigan farm, food-system, conservation, disaster, and rural-business funding.
