@@ -215,7 +215,7 @@
       "dependencies": []
     }
   ],
-  "updated_at": "2026-09-19T18:56:00-04:00",
+  "updated_at": "2026-09-19",
   "validation": {
     "funding_validator": "public_value/validate_funding_radar.mjs",
     "farm_math_tests": "public_value/farm_math.test.mjs",
@@ -228,5 +228,10 @@
     "chore_taxonomy_validator": "public_value/validate_chore_taxonomy.mjs",
     "labor_contract_validator": "public_value/validate_labor_contract.mjs",
     "offline_asset_validator": "public_value/validate_offline_assets.mjs"
+  },
+  "stable_snapshot": {
+    "version": "0.4.0",
+    "branch": "release/public-value-0.4.0",
+    "commit": "00bb29d3a26d308992c7d1f16a6075f86bea7db6"
   }
 }
