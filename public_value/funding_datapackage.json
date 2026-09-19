@@ -1,0 +1,86 @@
+{
+  "profile": "tabular-data-package",
+  "name": "cropcircuit-michigan-farm-funding-radar",
+  "title": "CropCircuit Michigan Farm Funding Radar",
+  "description": "Source-linked Michigan farm, food-system, conservation, disaster, and rural-business funding records with status and verification metadata.",
+  "version": "2026-09-19",
+  "homepage": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/tree/main/public_value",
+  "licenses": [
+    {
+      "name": "CC0-1.0",
+      "path": "LICENSE-DATA.txt",
+      "title": "CC0 applies only to CropCircuit-authored selection, normalization, arrangement, and metadata to the extent CropCircuit holds rights. Third-party source material remains subject to original source terms."
+    }
+  ],
+  "resources": [
+    {
+      "name": "funding-radar",
+      "path": "funding_radar.csv",
+      "profile": "tabular-data-resource",
+      "encoding": "utf-8",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "schema": {
+        "fields": [
+          {
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "provider",
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "type": "string"
+          },
+          {
+            "name": "deadline",
+            "type": "datetime"
+          },
+          {
+            "name": "deadline_label",
+            "type": "string"
+          },
+          {
+            "name": "funding",
+            "type": "string"
+          },
+          {
+            "name": "audience",
+            "type": "string"
+          },
+          {
+            "name": "tags",
+            "type": "string"
+          },
+          {
+            "name": "summary",
+            "type": "string"
+          },
+          {
+            "name": "source_url",
+            "type": "string"
+          },
+          {
+            "name": "source_type",
+            "type": "string"
+          },
+          {
+            "name": "verified_at",
+            "type": "date"
+          },
+          {
+            "name": "verification_note",
+            "type": "string"
+          }
+        ],
+        "primaryKey": "id"
+      }
+    }
+  ]
+}
