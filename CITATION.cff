@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use CropCircuit Open Farm Utilities in research, teaching, software, or extension work, please cite this repository."
+title: "CropCircuit Open Farm Utilities"
+type: software
+authors:
+  - family-names: Armstrong
+    given-names: Casey
+repository-code: "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents"
+url: "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents"
+version: "0.3.0"
+date-released: 2026-09-19
+abstract: "Local-first farm operations tools, Michigan funding data, reusable farm math, an open chore taxonomy, and privacy-preserving benchmark infrastructure."
+keywords:
+  - agriculture
+  - farm management
+  - farm labor
+  - regenerative agriculture
+  - open data
+  - local-first software
+  - farm benchmarking
