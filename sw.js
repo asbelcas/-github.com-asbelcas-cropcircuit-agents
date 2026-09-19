@@ -13,6 +13,7 @@ const STATIC_ASSETS = [
   "./public_value/farm_chore_scheduler.html",
   "./public_value/benchmark_builder.html",
   "./public_value/benchmark_explorer.html",
+  "./public_value/funding_explorer.html",
   "./public_value/farm_math.js",
   "./public_value/workflow_experiment.js",
   "./public_value/farm_chore_taxonomy.json",
