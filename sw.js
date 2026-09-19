@@ -26,6 +26,8 @@ const STATIC_ASSETS = [
   "./public_value/equipment_maintenance.html",
   "./public_value/harvest_math.js",
   "./public_value/harvest_log.html",
+  "./public_value/sales_math.js",
+  "./public_value/sales_log.html",
   "./public_value/csa_math.js",
   "./public_value/csa_break_even.html",
   "./public_value/market_math.js",
