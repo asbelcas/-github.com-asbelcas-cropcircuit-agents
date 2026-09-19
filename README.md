@@ -84,6 +84,16 @@ Other Michigan agriculture, food-system, nonprofit, or community websites can re
 
 A website can filter by county, status, tags, count, and theme. The widget contains no analytics or cookies.
 
+### Shared Farm Labor Data Contract
+
+The labor tools now share one explicit interoperable row format. It keeps the farmer's free-text task name and optionally adds a canonical chore code:
+
+- [Data contract](public_value/LABOR_DATA_CONTRACT.md)
+- [Logical row schema](public_value/farm_labor_record.schema.json)
+- [CSV validator](public_value/validate_labor_contract.mjs)
+- [Synthetic baseline demo](public_value/examples/synthetic_labor_log_before.csv)
+- [Synthetic after-change demo](public_value/examples/synthetic_labor_log_after.csv)
+
 ### Offline Farm Labor Log
 
 A private local-first time-study tool for discovering where farm labor actually goes:
