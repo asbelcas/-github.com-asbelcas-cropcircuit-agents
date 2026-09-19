@@ -56,6 +56,7 @@ The Labor Opportunity Analyzer, Chore Load Planner, and Schedule Estimate Calibr
 - [Offline Farm Labor Log](farm_labor_log.html)
 - [Labor Opportunity Analyzer](labor_opportunity_analyzer.html)
 - [Equipment Cost Threshold Analyzer](equipment_cost_threshold.html)
+- [Equipment Maintenance Log](equipment_maintenance.html)
 - [Farm Chore Load Planner](chore_load_planner.html)
 - [Schedule Estimate Calibrator](schedule_estimate_calibrator.html)
 - [Workflow Experiment Analyzer](workflow_experiment_analyzer.html)
