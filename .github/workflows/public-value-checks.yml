@@ -26,5 +26,12 @@ jobs:
           node-version: "22"
       - name: Validate funding radar freshness and structure
         run: node public_value/validate_funding_radar.mjs
+      - name: Check JavaScript syntax
+        run: |
+          node --check public_value/funding_widget.js
+          node --check public_value/farm_math.js
+          node --check public_value/farm_chore_payback.js
       - name: Test farm math
         run: node public_value/farm_math.test.mjs
+      - name: Test funding query
+        run: node public_value/funding_query.test.mjs
