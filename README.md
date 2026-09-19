@@ -68,6 +68,16 @@ A single HTML file that runs entirely in the browser with no account, analytics,
 
 It combines task cost, simple payback, fence-line estimation, water-storage sizing, and sales-channel break-even in one portable file.
 
+### Embeddable funding radar
+
+Other Michigan agriculture, food-system, nonprofit, or community websites can reuse the radar without copying the data:
+
+- [Widget documentation](public_value/FUNDING_WIDGET.md)
+- [Widget source](public_value/funding_widget.js)
+- [Demo source](public_value/funding_widget_demo.html)
+
+A website can filter by county, status, tags, count, and theme. The widget contains no analytics or cookies.
+
 ### Machine-readable asset manifest
 
 Software can discover the current public assets through:
@@ -96,3 +106,8 @@ This repository contains older autonomous-agent and revenue experiments from ear
 The previous repository README has been preserved at [legacy/RM_QPT_README_2026-04-02.md](legacy/RM_QPT_README_2026-04-02.md).
 
 Current work is centered on creating durable internet utility: tools, datasets, APIs, benchmarks, and reusable decision infrastructure.
+
+
+## Automated quality checks
+
+The repository now validates public-value assets in GitHub Actions. The workflow checks funding data structure/freshness and runs the Farm Math test suite on changes and on a daily schedule. This is meant to make stale "open" deadlines fail visibly instead of quietly lingering.
