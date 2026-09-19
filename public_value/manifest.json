@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-19.22",
+  "version": "2026-09-19.23",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -338,6 +338,16 @@
       "privacy": "No external libraries, account, analytics, server sync, or network requests are required by the file.",
       "compatibility": "Uses the shared CropCircuit local workspace keys when opened from the same origin.",
       "dependencies": []
+    },
+    {
+      "id": "equipment-maintenance-log",
+      "type": "standalone-html",
+      "description": "Browser-local equipment service record with operator-supplied meter-hour/calendar intervals, due status, service updates, and CSV/JSON export.",
+      "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/equipment_maintenance.html",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/EQUIPMENT_MAINTENANCE.md",
+      "math": "public_value/equipment_math.js",
+      "storage_key": "cropcircuit_equipment_maintenance_v1",
+      "dependencies": []
     }
   ],
   "updated_at": "2026-09-19",
@@ -358,7 +368,8 @@
     "schedule_math_tests": "public_value/schedule_math.test.mjs",
     "workspace_tests": "public_value/workspace.test.mjs",
     "market_math_tests": "public_value/market_math.test.mjs",
-    "csa_math_tests": "public_value/csa_math.test.mjs"
+    "csa_math_tests": "public_value/csa_math.test.mjs",
+    "equipment_math_tests": "public_value/equipment_math.test.mjs"
   },
   "stable_snapshot": {
     "version": "0.8.0",
