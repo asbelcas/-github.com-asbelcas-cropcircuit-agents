@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-19.21",
+  "version": "2026-09-19.22",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -327,6 +327,16 @@
       "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/csa_break_even.html",
       "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/CSA_BREAK_EVEN.md",
       "math": "public_value/csa_math.js",
+      "dependencies": []
+    },
+    {
+      "id": "farm-ops-pocket-console",
+      "type": "standalone-html",
+      "description": "Single-file local-first farm labor log, recurring chore scheduler, seven-day dashboard, and workspace backup.",
+      "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/farm_ops_console.html",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/FARM_OPS_CONSOLE.md",
+      "privacy": "No external libraries, account, analytics, server sync, or network requests are required by the file.",
+      "compatibility": "Uses the shared CropCircuit local workspace keys when opened from the same origin.",
       "dependencies": []
     }
   ],
