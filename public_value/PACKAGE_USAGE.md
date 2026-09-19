@@ -79,6 +79,18 @@ import { marketDayEconomics } from "cropcircuit-open-farm-utils/market-math";
 import { csaEconomics } from "cropcircuit-open-farm-utils/csa-math";
 ```
 
+## Equipment maintenance math
+
+```js
+import {
+  hourServiceStatus,
+  dateServiceStatus,
+  combinedServiceStatus
+} from "cropcircuit-open-farm-utils/equipment-math";
+```
+
+No maintenance interval is embedded in the library; the caller supplies all hour/day intervals.
+
 ## Registry status
 
 No npm registry publication is claimed.
