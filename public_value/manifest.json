@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-19.19",
+  "version": "2026-09-19.20",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -304,6 +304,12 @@
       "type": "developer-metadata",
       "description": "TypeScript declarations for the zero-dependency public JavaScript package surface.",
       "source": "public_value/index.d.ts"
+    },
+    {
+      "id": "privacy-model",
+      "type": "policy-documentation",
+      "description": "Explicit privacy boundaries and limitations for local browser storage, static hosting, benchmark suppression, and future institutional deployments.",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/PRIVACY_MODEL.md"
     }
   ],
   "updated_at": "2026-09-19",
