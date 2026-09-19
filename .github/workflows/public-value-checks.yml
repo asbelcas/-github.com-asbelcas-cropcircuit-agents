@@ -62,3 +62,5 @@ jobs:
           node public_value/csa_math.test.mjs
       - name: Test equipment maintenance math
         run: node public_value/equipment_math.test.mjs
+      - name: Test harvest summary math
+        run: node public_value/harvest_math.test.mjs
