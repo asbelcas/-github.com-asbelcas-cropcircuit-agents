@@ -93,6 +93,17 @@ A private local-first time-study tool for discovering where farm labor actually 
 
 It stores entries only in browser storage, calculates worker-hours and labor cost by category/task, and exports CSV for backup or further analysis.
 
+### Open Farm Chore Taxonomy
+
+CropCircuit now publishes a CC0 controlled vocabulary for repeated farm work so logs from different operators can become interoperable instead of remaining trapped in inconsistent free text:
+
+- [Taxonomy JSON](public_value/farm_chore_taxonomy.json)
+- [Schema](public_value/farm_chore_taxonomy.schema.json)
+- [Documentation](public_value/CHORE_TAXONOMY.md)
+- [Private browser mapper](public_value/chore_taxonomy_mapper.html)
+
+The first version contains stable human-readable codes across livestock, crops, wash-pack, fencing, water, maintenance, sales, admin, and general farm work.
+
 ### Workflow Experiment Analyzer
 
 Farm improvements can now be checked against a second observation period instead of being assumed successful:
