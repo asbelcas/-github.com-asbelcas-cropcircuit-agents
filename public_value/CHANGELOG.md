@@ -18,6 +18,8 @@
 - Funding dataset validator that catches duplicate IDs, invalid URLs, expired open deadlines, and stale verification warnings.
 - GitHub Actions checks on public-value changes plus a daily scheduled validation run.
 - Farm Math tests are now part of automated repository checks.
+- Dependency-free funding query CLI with county, tag, status, and deadline filters.
+- Structured GitHub contribution form for funding additions and corrections.
 
 ### Funding radar expansion
 - Michigan Good Food Fund 2026 Seed Awards.
