@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-19.13",
+  "version": "2026-09-19.14",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -222,6 +222,15 @@
       "taxonomy_package": "public_value/taxonomy_datapackage.json",
       "catalog_jsonld": "public_value/data_catalog.jsonld",
       "taxonomy_csv": "public_value/farm_chore_taxonomy.csv"
+    },
+    {
+      "id": "javascript-package-surface",
+      "type": "package-metadata",
+      "description": "Zero-dependency package metadata and module entry point for direct GitHub installation and reusable Farm Math / Workflow Experiment imports.",
+      "package_json": "package.json",
+      "entry_point": "public_value/index.js",
+      "docs": "public_value/PACKAGE_USAGE.md",
+      "registry_status": "not_published"
     }
   ],
   "updated_at": "2026-09-19",
