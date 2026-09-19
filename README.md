@@ -94,6 +94,13 @@ The repository root now includes a Pages-ready web manifest and service worker. 
 
 GitHub Pages is not enabled yet, so this capability is staged rather than claimed live.
 
+### Weekly Farm Operations Brief
+
+The local workspace can now generate a private printable report covering recent labor, repeated work, taxonomy coverage, and upcoming recurring chores:
+
+- [Weekly Operations Brief](public_value/weekly_ops_brief.html)
+- [Documentation](public_value/WEEKLY_OPS_BRIEF.md)
+
 ### Local-first workspace
 
 The logger and scheduler now form a shared browser-local workspace. A dedicated backup tool exports or restores labor entries, labor settings, and chore schedules without a server:
