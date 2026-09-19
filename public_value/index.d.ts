@@ -184,20 +184,27 @@ export function buildDailyLoad(
   }>;
 }>;
 
-export const WORKSPACE_VERSION: "1.0";
+export const WORKSPACE_VERSION: "1.1";
+export const SUPPORTED_WORKSPACE_VERSIONS: readonly ["1.0","1.1"];
 
 export const WORKSPACE_KEYS: Readonly<{
   laborEntries: string;
   laborSettings: string;
   choreSchedule: string;
+  equipmentMaintenance: string;
+  harvestEntries: string;
+  salesEntries: string;
 }>;
 
 export interface CropCircuitWorkspace {
-  schema_version: "1.0";
+  schema_version: "1.0" | "1.1";
   exported_at?: string;
   labor_entries: Array<Record<string, unknown>>;
   labor_settings: Record<string, unknown>;
   chore_schedule: Array<Record<string, unknown>>;
+  equipment_maintenance?: Array<Record<string, unknown>>;
+  harvest_entries?: Array<Record<string, unknown>>;
+  sales_entries?: Array<Record<string, unknown>>;
 }
 
 export function readWorkspace(storage: Storage): CropCircuitWorkspace;
@@ -211,6 +218,9 @@ export function writeWorkspace(
   errors: string[];
   labor_entries?: number;
   chore_schedule?: number;
+  equipment_maintenance?: number;
+  harvest_entries?: number;
+  sales_entries?: number;
 };
 
 export function marketDayEconomics(args: {
