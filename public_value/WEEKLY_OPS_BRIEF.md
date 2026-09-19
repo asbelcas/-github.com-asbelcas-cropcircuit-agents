@@ -1,45 +1,70 @@
 # Weekly Farm Operations Brief
 
-A browser-local report that combines CropCircuit's Labor Log and recurring Chore Scheduler.
+The Weekly Farm Operations Brief is a browser-local report built from the CropCircuit workspace.
 
-## Purpose
+It combines five operational views without sending the raw workspace to a server.
 
-The tool provides a simple weekly operating picture without sending farm data to a server.
+## Report window
 
-It shows:
+The user chooses:
+
+- start date
+- end date
+- number of future days to inspect for recurring scheduled work
+
+## Labor
+
+The brief shows:
 
 - labor entry count
 - total worker-hours
-- share of labor entries carrying canonical chore codes
+- canonical chore-code coverage
 - worker-hours by category
 - highest-time repeated work
-- upcoming scheduled chores after the report window
 
-## Data source
+"Highest-time" is descriptive, not an efficiency score.
 
-The brief reads the shared [Local Workspace](LOCAL_WORKSPACE.md):
+## Harvest
 
-- local labor entries
-- local recurring chore schedule
+Harvest entries inside the report window are summarized by:
 
-Because all compatible tools use the same browser-local keys, the brief can be generated without exporting and re-importing CSV files.
+- crop / item
+- unit
+- entry count
+- total quantity
+
+Unlike units remain separate.
+
+Harvest quantity is **not** converted into revenue.
+
+## Direct-market sales
+
+Sales records inside the report window are summarized by channel:
+
+- gross amount
+- fees and refunds / discounts
+- net receipts
+- entered direct costs
+- contribution after entered direct costs
+
+That last value is operational arithmetic, not accounting profit or taxable income.
+
+## Equipment maintenance
+
+The brief checks the current maintenance records as of the report end date.
+
+Due / overdue status uses only the meter-hour and calendar intervals stored by the operator.
+
+CropCircuit does not supply maintenance intervals.
+
+## Upcoming recurring work
+
+The brief expands the local chore schedule after the report end date using the same recurrence logic as `schedule_math.js`.
 
 ## Privacy
 
-The brief is built in the browser.
+The report is generated entirely in the browser from Workspace 1.1 data.
 
-Free-text notes from the labor log and schedule are deliberately not displayed in the report.
+Free-text notes are deliberately not shown.
 
-Printing or saving the brief can still create a file outside the browser, so users should treat exported reports according to their own recordkeeping/privacy needs.
-
-## Interpretation
-
-The report is descriptive.
-
-"Highest-time repeated work" means only that the observed entries consumed the most worker-hours inside the selected window.
-
-It is not an efficiency score and does not imply the work should take less time.
-
-## Upcoming work
-
-The upcoming schedule is expanded with the same recurrence semantics as [schedule_math.js](schedule_math.js).
+Printing or saving the brief creates a file outside the browser, so exported reports should be handled according to the farm's own privacy/recordkeeping practices.
