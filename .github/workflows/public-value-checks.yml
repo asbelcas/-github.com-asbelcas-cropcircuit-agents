@@ -43,3 +43,6 @@ jobs:
         run: node public_value/workflow_experiment.test.mjs
       - name: Validate farm chore taxonomy
         run: node public_value/validate_chore_taxonomy.mjs
+      - name: Validate synthetic labor data contract
+        run: |
+          node public_value/validate_labor_contract.mjs public_value/examples/synthetic_labor_log_before.csv public_value/examples/synthetic_labor_log_after.csv
