@@ -19,7 +19,7 @@ table{width:100%;border-collapse:collapse;font-size:.86rem}th,td{text-align:left
 <p class="lead">Import a time-study CSV, annualize observed work, and see which repeated jobs consume the most labor dollars.</p>
 <div class="notice"><strong>Taxonomy-aware:</strong> when a row contains <code>chore_code</code>, repeated work groups by that stable code. Older uncoded CSVs still work by falling back to category + task name.</div>
 <section class="card">
-<h2>Load labor log</h2><input id="file" type="file" accept=".csv,text/csv">
+<h2>Load labor log</h2><input id="file" type="file" accept=".csv,text/csv"><button id="use-local" class="secondary">Use local CropCircuit labor log</button><p id="source" class="small">No labor source loaded.</p>
 <div class="controls" style="margin-top:14px">
 <label>Observation period (days)<input id="days" type="number" min="1" step="1" value="14"></label>
 <label>Labor cost per hour ($)<input id="hourly" type="number" min="0" step="0.01" value="20"></label>
@@ -41,8 +41,25 @@ table{width:100%;border-collapse:collapse;font-size:.86rem}th,td{text-align:left
   function parseCSV(text){const rows=[];let row=[],field="",quoted=false;for(let i=0;i<text.length;i++){const ch=text[i];if(quoted){if(ch==='"'&&text[i+1]==='"'){field+='"';i++}else if(ch==='"')quoted=false;else field+=ch}else{if(ch==='"')quoted=true;else if(ch===','){row.push(field);field=""}else if(ch==='\n'){row.push(field);rows.push(row);row=[];field=""}else if(ch!=='\r')field+=ch}}if(field.length||row.length){row.push(field);rows.push(row)}if(!rows.length)return[];const headers=rows[0].map(h=>h.trim().toLowerCase());return rows.slice(1).filter(r=>r.some(v=>String(v).trim())).map(r=>{const o={};headers.forEach((h,i)=>o[h]=r[i]??"");return o})}
   function aggregate(rows,days,hourly,reduction){const factor=365/days,map=new Map();for(const row of rows){const task=String(row.task||"").trim(),category=String(row.category||"Other").trim()||"Other",code=String(row.chore_code||"").trim();if(!task&&!code)continue;let hours=Number(row.worker_hours);if(!Number.isFinite(hours)){const minutes=Number(row.minutes),workers=Number(row.workers);hours=Number.isFinite(minutes)&&Number.isFinite(workers)?Math.max(minutes,0)/60*Math.max(workers,0):0}hours=Math.max(hours||0,0);const key=code?"code:"+code:"text:"+category+"\u0000"+task.toLowerCase();const item=map.get(key)||{task:task||code,choreCode:code,category,entries:0,observedHours:0};item.entries++;item.observedHours+=hours;map.set(key,item)}return[...map.values()].map(item=>{const annualHours=item.observedHours*factor,annualCost=annualHours*hourly;return{...item,annualHours,annualCost,hypotheticalSavings:annualCost*reduction}}).sort((a,b)=>b.annualCost-a.annualCost)}
   function render(){const totalObserved=analysis.reduce((s,x)=>s+x.observedHours,0),totalAnnualHours=analysis.reduce((s,x)=>s+x.annualHours,0),totalAnnualCost=analysis.reduce((s,x)=>s+x.annualCost,0),totalSavings=analysis.reduce((s,x)=>s+x.hypotheticalSavings,0);$("tasks").textContent=analysis.length;$("observed").textContent=num(totalObserved);$("annual-hours").textContent=num(totalAnnualHours);$("annual-cost").textContent=money(totalAnnualCost);$("savings").textContent=money(totalSavings);$("body").innerHTML=analysis.length?analysis.map((x,i)=>`<tr><td>${i+1}</td><td>${esc(x.task)}</td><td><code>${esc(x.choreCode)}</code></td><td>${esc(x.category)}</td><td>${x.entries}</td><td>${num(x.observedHours)}</td><td>${num(x.annualHours)}</td><td>${money(x.annualCost)}</td><td>${money(x.hypotheticalSavings)}</td></tr>`).join(""):'<tr><td colspan="9" class="empty">No usable task rows found.</td></tr>'; $("export").disabled=!analysis.length}
-  $("file").addEventListener("change",async()=>{const f=$("file").files[0];parsedRows=f?parseCSV(await f.text()):[]});
-  $("analyze").addEventListener("click",async()=>{const f=$("file").files[0];if(!f){alert("Choose a CSV file first.");return}if(!parsedRows.length)parsedRows=parseCSV(await f.text());analysis=aggregate(parsedRows,Math.max(Number($("days").value)||0,1),Math.max(Number($("hourly").value)||0,0),Math.min(Math.max(Number($("reduction").value)||0,0),100)/100);render()});
+  $("file").addEventListener("change",async()=>{const f=$("file").files[0];parsedRows=f?parseCSV(await f.text()):[];$("source").textContent=parsedRows.length?`${parsedRows.length} labor row(s) loaded from CSV.`:"No labor source loaded."});
+  $("use-local").addEventListener("click",()=>{
+    try{
+      const local=JSON.parse(localStorage.getItem("cropcircuit_farm_labor_log_v1")||"[]");
+      parsedRows=Array.isArray(local)?local:[];
+      const dates=parsedRows.map(r=>Date.parse(String(r.date||"")+"T00:00:00Z")).filter(Number.isFinite);
+      if(dates.length){
+        const span=Math.max(1,Math.round((Math.max(...dates)-Math.min(...dates))/86400000)+1);
+        $("days").value=span;
+      }
+      const settings=JSON.parse(localStorage.getItem("cropcircuit_farm_labor_settings_v1")||"{}");
+      if(Number.isFinite(Number(settings.hourly)))$("hourly").value=settings.hourly;
+      $("source").textContent=parsedRows.length?`${parsedRows.length} labor observation(s) loaded from this browser's CropCircuit workspace.`:"No local CropCircuit labor observations found.";
+    }catch(error){
+      parsedRows=[];
+      $("source").textContent="Could not read local CropCircuit labor data: "+error.message;
+    }
+  });
+  $("analyze").addEventListener("click",async()=>{const f=$("file").files[0];if(!parsedRows.length&&f)parsedRows=parseCSV(await f.text());if(!parsedRows.length){alert("Load a CSV or use the local CropCircuit labor log first.");return}analysis=aggregate(parsedRows,Math.max(Number($("days").value)||0,1),Math.max(Number($("hourly").value)||0,0),Math.min(Math.max(Number($("reduction").value)||0,0),100)/100);render()});
   $("export").addEventListener("click",()=>{const rows=[["rank","task","chore_code","category","entries","observed_worker_hours","annualized_worker_hours","annualized_labor_cost","hypothetical_savings"]];analysis.forEach((x,i)=>rows.push([i+1,x.task,x.choreCode,x.category,x.entries,x.observedHours.toFixed(2),x.annualHours.toFixed(2),x.annualCost.toFixed(2),x.hypotheticalSavings.toFixed(2)]));const cell=v=>'"'+String(v??"").replaceAll('"','""')+'"',csv=rows.map(r=>r.map(cell).join(",")).join("\r\n")+"\r\n",blob=new Blob([csv],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="cropcircuit-labor-opportunity-analysis.csv";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)});
   render();
 })();
