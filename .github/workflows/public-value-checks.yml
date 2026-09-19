@@ -56,3 +56,7 @@ jobs:
         run: node public_value/schedule_math.test.mjs
       - name: Test local-first workspace helpers
         run: node public_value/workspace.test.mjs
+      - name: Test farm sales economics
+        run: |
+          node public_value/market_math.test.mjs
+          node public_value/csa_math.test.mjs
