@@ -1,0 +1,54 @@
+{
+  "@context": "https://schema.org",
+  "@type": "DataCatalog",
+  "name": "CropCircuit Open Farm Data Catalog",
+  "description": "Machine-readable farm funding and farm operations vocabularies published by CropCircuit.",
+  "url": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/tree/main/public_value",
+  "dataset": [
+    {
+      "@type": "Dataset",
+      "name": "CropCircuit Michigan Farm Funding Radar",
+      "description": "Source-linked Michigan farm, food-system, conservation, disaster, and rural-business funding records.",
+      "dateModified": "2026-09-19",
+      "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "distribution": [
+        {
+          "@type": "DataDownload",
+          "encodingFormat": "application/json",
+          "contentUrl": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/funding_radar.json"
+        },
+        {
+          "@type": "DataDownload",
+          "encodingFormat": "text/csv",
+          "contentUrl": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/funding_radar.csv"
+        },
+        {
+          "@type": "DataDownload",
+          "encodingFormat": "text/calendar",
+          "contentUrl": "https://raw.githubusercontent.com/asbelcas/-github.com/asbelcas-cropcircuit-agents/main/public_value/funding_deadlines.ics"
+        }
+      ],
+      "isBasedOn": "Primary program and government sources linked in each record."
+    },
+    {
+      "@type": "Dataset",
+      "name": "CropCircuit Open Farm Chore Taxonomy",
+      "description": "Controlled vocabulary for normalizing repeated small-farm labor tasks.",
+      "version": "0.1.0",
+      "dateModified": "2026-09-19",
+      "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "distribution": [
+        {
+          "@type": "DataDownload",
+          "encodingFormat": "application/json",
+          "contentUrl": "https://raw.githubusercontent.com/asbelcas/-github.com/asbelcas-cropcircuit-agents/main/public_value/farm_chore_taxonomy.json"
+        },
+        {
+          "@type": "DataDownload",
+          "encodingFormat": "text/csv",
+          "contentUrl": "https://raw.githubusercontent.com/asbelcas/-github.com/asbelcas-cropcircuit-agents/main/public_value/farm_chore_taxonomy.csv"
+        }
+      ]
+    }
+  ]
+}
