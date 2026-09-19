@@ -7,6 +7,9 @@
 - Offline-capable Michigan Farm Funding Explorer with status/county/tag/search/deadline filters and filtered CSV/JSON export.
 - Tabular Data Package metadata for the funding radar and chore taxonomy, taxonomy CSV export, schema.org DataCatalog JSON-LD, and a zero-dependency package validator.
 - Zero-dependency JavaScript package surface with GitHub-installable metadata, module exports, CLI mapping, and one-command public validation.
+- Universal Labor CSV Import Mapper for converting existing spreadsheets into the CropCircuit labor contract without retyping.
+- Schedule Estimate Calibrator for comparing planned task minutes with observed median elapsed minutes.
+- Farm Chore Load Planner plus reusable recurrence math for expanding recurring schedules and exposing daily workload bunching against a user-defined capacity.
 - JSON Schema for the funding dataset.
 - JSON Feed 1.1 representation for feed readers and software consumers.
 - Farm Chore Cost & Payback JavaScript module.
