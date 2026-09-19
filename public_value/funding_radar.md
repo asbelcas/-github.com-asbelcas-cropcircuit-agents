@@ -10,11 +10,27 @@ Verified **2026-09-19** against primary sources. This is a public CropCircuit da
 **Timing:** September 28, 2026 at 5:00 PM EDT  
 **Audience:** Michigan food and farm businesses
 
+
 Seed grants for eligible businesses across Michigan's food and farm sector whose growth supports economic development and healthy food access.
 
 **Verification:** Primary program page currently says applications are open, with $5,000–$20,000 awards and a September 28, 2026 5:00 PM EDT deadline.
 
 Primary source: https://migoodfoodfund.org/support-for-entrepreneurs/seed-awards/
+
+## USDA FSA Supplemental Disaster Relief Program (SDRP)
+
+**Status:** open  
+**Provider:** USDA Farm Service Agency  
+**Funding:** Disaster relief payments; amount depends on eligible losses and program calculation  
+**Timing:** September 30, 2026 (Stages 1 and 2)  
+**Audience:** Agricultural producers with eligible 2023 or 2024 revenue, quality, or production losses to crops, trees, bushes, or vines
+
+
+SDRP provides assistance for qualifying 2023 and 2024 disaster losses. Stage 1 covers indemnified losses using crop insurance or NAP data; Stage 2 can cover non-indemnified, uncovered, and quality losses.
+
+**Verification:** FSA's current SDRP page and August 10, 2026 announcement state that the deadline for both Stage 1 and Stage 2 is September 30, 2026.
+
+Primary source: https://www.fsa.usda.gov/resources/disaster-recovery/supplemental-disaster-relief-program-sdrp
 
 ## Michigan Craft Beverage Council 2027 Research & Education Grants
 
@@ -24,25 +40,28 @@ Primary source: https://migoodfoodfund.org/support-for-entrepreneurs/seed-awards
 **Timing:** October 9, 2026 at 3:00 PM ET  
 **Audience:** Research and education projects supporting Michigan craft beverage agriculture and markets
 
+
 Current priorities include increasing use of Michigan agricultural products and regenerative practices for crops used in craft beverage production.
 
 **Verification:** MDARD's current FY27 page and September 3 release list the program as open and proposals due October 9, 2026 at 3:00 PM ET.
 
 Primary source: https://www.michigan.gov/mdard/about/media/pressreleases/2026/09/03/michigan-craft-beverage-council-now-accepting-research-and-education-grant-proposals
 
-## NRCS EQIP — Michigan
+## Michigan FSA Emergency Farm Loans — 2025 Drought, Heat, Frost/Freeze Designations
 
-**Status:** continuous  
-**Provider:** USDA Natural Resources Conservation Service  
-**Funding:** Practice-specific financial assistance  
-**Timing:** Applications accepted continuously; ask NRCS about the next Michigan ranking date  
-**Audience:** Agricultural producers and non-industrial private forest managers
+**Status:** open  
+**Provider:** USDA Farm Service Agency — Michigan  
+**Funding:** Emergency farm credit; loan amount and terms depend on losses, security, eligibility, and repayment ability  
+**Timing:** October 13, 2026  
+**Audience:** Eligible producers in designated primary or contiguous Michigan counties affected by specified 2025 drought/excessive heat and frost/freeze disasters
+  
+**County scope:** Allegan, Barry, Bay, Clare, Gladwin, Gratiot, Ionia, Isabella, Kalamazoo, Kent, Midland, Montcalm, Muskegon, Newaygo, Ottawa, Saginaw, Van Buren
 
-Financial and technical assistance for conservation practices. Michigan's FY2026 first batching date has passed, but applications remain continuous and can be considered in future ranking periods.
+Secretarial disaster designations make FSA emergency credit available for eligible recovery needs. Three Michigan designations listed by FSA share an October 13, 2026 application deadline.
 
-**Verification:** USDA NRCS Michigan currently states EQIP applications are accepted continuously and ranked at state-specific dates.
+**Verification:** Michigan FSA's April 8, 2026 designation notice lists October 13, 2026 as the application deadline for the cited drought/excessive heat and frost/freeze designations and enumerates primary and contiguous eligible counties.
 
-Primary source: https://www.nrcs.usda.gov/programs-initiatives/eqip-environmental-quality-incentives/michigan/eqip-michigan/current-year-signup
+Primary source: https://www.fsa.usda.gov/news-events/news/04-08-2026/usda-designates-four-michigan-counties-natural-disaster-areas-due-2025
 
 ## NRCS Conservation Stewardship Program — Michigan
 
@@ -52,11 +71,42 @@ Primary source: https://www.nrcs.usda.gov/programs-initiatives/eqip-environmenta
 **Timing:** Applications accepted continuously; ask NRCS about the next Michigan ranking date  
 **Audience:** Agricultural producers and land managers already using conservation practices
 
+
 CSP supports producers who maintain existing conservation and add further conservation activities. Michigan applications are accepted continuously.
 
 **Verification:** USDA NRCS Michigan currently states CSP applications are accepted continuously and ranked at key times during the year.
 
 Primary source: https://www.nrcs.usda.gov/programs-initiatives/conservation-stewardship-program/michigan/conservation-stewardship-program
+
+## NRCS EQIP — Michigan
+
+**Status:** continuous  
+**Provider:** USDA Natural Resources Conservation Service  
+**Funding:** Practice-specific financial assistance  
+**Timing:** Applications accepted continuously; ask NRCS about the next Michigan ranking date  
+**Audience:** Agricultural producers and non-industrial private forest managers
+
+
+Financial and technical assistance for conservation practices. Michigan's FY2026 first batching date has passed, but applications remain continuous and can be considered in future ranking periods.
+
+**Verification:** USDA NRCS Michigan currently states EQIP applications are accepted continuously and ranked at state-specific dates.
+
+Primary source: https://www.nrcs.usda.gov/programs-initiatives/eqip-environmental-quality-incentives/michigan/eqip-michigan/current-year-signup
+
+## North Central SARE Farmer Rancher Grant
+
+**Status:** watch  
+**Provider:** North Central Region SARE  
+**Funding:** Program page lists up to $15,000 for individuals or $30,000 for teams; verify the next call when released  
+**Timing:** No open call shown as of September 19, 2026; wait for the current call before applying  
+**Audience:** Farmers and ranchers in the North Central region, including Michigan, testing sustainable agriculture ideas through research, demonstration, or education
+
+
+A recurring producer-focused grant for sustainable agriculture experiments and demonstrations. The current program page says there is no open call, so this is a planning/watch item rather than an active application.
+
+**Verification:** The current NCR-SARE Farmer Rancher page says there is no open call and lists the standard individual/team maximums and annual program structure.
+
+Primary source: https://northcentral.sare.org/grants/apply-for-a-grant/farmer-rancher-grant/
 
 ## USDA Rural Energy for America Program (REAP)
 
@@ -65,6 +115,7 @@ Primary source: https://www.nrcs.usda.gov/programs-initiatives/conservation-stew
 **Funding:** Renewable-energy and energy-efficiency grants/guaranteed loans  
 **Timing:** Grant awards paused pending new regulations; guaranteed loans continue  
 **Audience:** Agricultural producers and rural small businesses
+
 
 USDA announced that further REAP grant awards are paused until new regulations and a new funding notice are in effect. Guaranteed loans continue. This entry is kept as a status warning so applicants do not waste time on stale grant guidance.
 
@@ -80,6 +131,7 @@ Primary source: https://www.rd.usda.gov/media/file/download/usda-rd-reap-faq-033
 **Timing:** 2026 cycle closed February 5, 2026  
 **Audience:** Projects that enhance competitiveness of Michigan specialty crops
 
+
 The 2026 application cycle is closed. CropCircuit tracks it because it is a recurring program worth planning for before the next cycle opens.
 
 **Verification:** Tracked as a recently closed or recurring Michigan program; verify the next cycle at the linked primary source.
@@ -93,6 +145,7 @@ Primary source: https://www.michigan.gov/mdard/business-development/grantfund/sp
 **Funding:** 2026 awards included grants up to $100,000  
 **Timing:** 2026 cycle closed April 15, 2026  
 **Audience:** Michigan agriculture, processing, food systems, healthy food access, and supply-chain projects
+
 
 The 2026 cycle is closed and awards were announced in September. The program is retained as a planning/watch item for future rounds.
 
