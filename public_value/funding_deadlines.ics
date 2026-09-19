@@ -1,0 +1,23 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//CropCircuit//Michigan Farm Funding Radar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:CropCircuit Michigan Farm Funding Deadlines
+BEGIN:VEVENT
+UID:mi-good-food-fund-seed-awards-2026@cropcircuit.org
+DTSTAMP:20260919T220500Z
+DTSTART:20260928T210000Z
+SUMMARY:Michigan Good Food Fund 2026 Seed Awards
+DESCRIPTION:September 28\, 2026 at 5:00 PM EDT
+URL:https://migoodfoodfund.org/support-for-entrepreneurs/seed-awards/
+END:VEVENT
+BEGIN:VEVENT
+UID:michigan-craft-beverage-council-2027@cropcircuit.org
+DTSTAMP:20260919T220500Z
+DTSTART:20261009T190000Z
+SUMMARY:Michigan Craft Beverage Council 2027 Research & Education Grants
+DESCRIPTION:October 9\, 2026 at 3:00 PM ET
+URL:https://www.michigan.gov/mdard/about/media/pressreleases/2026/09/03/michigan-craft-beverage-council-now-accepting-research-and-education-grant-proposals
+END:VEVENT
+END:VCALENDAR
