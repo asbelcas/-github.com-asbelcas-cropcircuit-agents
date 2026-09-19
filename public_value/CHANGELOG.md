@@ -20,6 +20,8 @@
 - Offline Equipment Maintenance Log plus reusable meter-hour/calendar due-status math with no embedded service intervals.
 - Offline Harvest Log plus reusable crop/unit summary and period-comparison math; harvest quantity is kept separate from revenue.
 - Offline Farm Sales Log plus reusable channel-summary math, explicitly separated from accounting/tax treatment.
+- Workspace 1.1 now unifies labor, recurring chores, equipment maintenance, harvest, and sales; 1.0 backups remain import-compatible and newer collections are preserved when importing old backups.
+- Weekly Operations Brief expanded across all Workspace 1.1 operational domains.
 - JSON Schema for the funding dataset.
 - JSON Feed 1.1 representation for feed readers and software consumers.
 - Farm Chore Cost & Payback JavaScript module.
