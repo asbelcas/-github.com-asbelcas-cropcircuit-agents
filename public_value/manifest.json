@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-19.7",
+  "version": "2026-09-19.8",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -105,15 +105,25 @@
         "exact_dates",
         "free_text_notes"
       ]
+    },
+    {
+      "id": "labor-log-to-benchmark",
+      "type": "node-cli",
+      "description": "Transforms CropCircuit labor-log CSV into the coarse anonymous benchmark schema while dropping dates, task names, notes, county, exact acreage, and contact information.",
+      "source": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/labor_log_to_benchmark.mjs",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/LABOR_TO_BENCHMARK.md",
+      "privacy": "Destructive privacy transform: only broad bands and labor-category shares are retained.",
+      "dependencies": []
     }
   ],
-  "updated_at": "2026-09-19T23:35:00-04:00",
+  "updated_at": "2026-09-19T23:45:00-04:00",
   "validation": {
     "funding_validator": "public_value/validate_funding_radar.mjs",
     "farm_math_tests": "public_value/farm_math.test.mjs",
     "github_workflow": ".github/workflows/public-value-checks.yml",
     "scheduled_daily": true,
     "funding_query_tests": "public_value/funding_query.test.mjs",
-    "benchmark_tests": "public_value/benchmark_aggregate.test.mjs"
+    "benchmark_tests": "public_value/benchmark_aggregate.test.mjs",
+    "labor_to_benchmark_tests": "public_value/labor_log_to_benchmark.test.mjs"
   }
 }
