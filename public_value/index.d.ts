@@ -300,3 +300,42 @@ export function combinedServiceStatus(args: {
   hours: ReturnType<typeof hourServiceStatus>;
   date: ReturnType<typeof dateServiceStatus>;
 };
+
+export function summarizeHarvest(
+  records: Array<{
+    date?: string;
+    item?: string;
+    crop?: string;
+    quantity?: number | string;
+    unit?: string;
+    [key: string]: unknown;
+  }>,
+  options?: { startDate?: string; endDate?: string }
+): Array<{
+  item: string;
+  unit: string;
+  entries: number;
+  quantity: number;
+}>;
+
+export function compareHarvest(
+  records: Array<{
+    date?: string;
+    item?: string;
+    crop?: string;
+    quantity?: number | string;
+    unit?: string;
+    [key: string]: unknown;
+  }>,
+  options: {
+    periodA: { startDate: string; endDate: string };
+    periodB: { startDate: string; endDate: string };
+  }
+): Array<{
+  item: string;
+  unit: string;
+  quantityA: number;
+  quantityB: number;
+  change: number;
+  changePercent: number | null;
+}>;
