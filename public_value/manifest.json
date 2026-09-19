@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-19",
+  "version": "2026-09-19.2",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -17,7 +17,9 @@
       "raw_csv": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/funding_radar.csv",
       "calendar": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/funding_deadlines.ics",
       "verified_at": "2026-09-19",
-      "schema": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/funding_radar.schema.json"
+      "schema": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/funding_radar.schema.json",
+      "json_feed": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/funding_feed.json",
+      "item_count": 10
     },
     {
       "id": "farm-chore-payback",
@@ -43,5 +45,6 @@
       "dependencies": [],
       "privacy": "No network calls or analytics; works offline after download."
     }
-  ]
+  ],
+  "updated_at": "2026-09-19T22:30:00-04:00"
 }
