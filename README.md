@@ -93,6 +93,17 @@ A private local-first time-study tool for discovering where farm labor actually 
 
 It stores entries only in browser storage, calculates worker-hours and labor cost by category/task, and exports CSV for backup or further analysis.
 
+### Workflow Experiment Analyzer
+
+Farm improvements can now be checked against a second observation period instead of being assumed successful:
+
+- [Browser analyzer](public_value/workflow_experiment_analyzer.html)
+- [Reusable math](public_value/workflow_experiment.js)
+- [Tests](public_value/workflow_experiment.test.mjs)
+- [Documentation](public_value/WORKFLOW_EXPERIMENT.md)
+
+It compares baseline and after-change labor by task, shows sample sizes and median worker-time changes, and can model annual labor value/payback without claiming causation or statistical significance.
+
 ### Equipment Cost Threshold Analyzer
 
 Once a task's annualized labor cost is known, a local-first screening tool calculates the maximum upfront capital cost consistent with a chosen time-reduction assumption and simple-payback horizon:
