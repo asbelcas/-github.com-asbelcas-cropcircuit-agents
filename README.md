@@ -60,6 +60,14 @@ A smaller standalone module focused on recurring chore economics:
 - [Source](public_value/farm_chore_payback.js)
 - [Documentation](public_value/FARM_CHORE_PAYBACK.md)
 
+### Offline Farm Decision Calculator
+
+A single HTML file that runs entirely in the browser with no account, analytics, or network dependency after download:
+
+- [farm_decision_calculator.html](public_value/farm_decision_calculator.html)
+
+It combines task cost, simple payback, fence-line estimation, water-storage sizing, and sales-channel break-even in one portable file.
+
 ### Machine-readable asset manifest
 
 Software can discover the current public assets through:
