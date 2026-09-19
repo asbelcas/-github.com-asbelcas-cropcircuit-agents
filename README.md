@@ -87,6 +87,15 @@ A private local-first time-study tool for discovering where farm labor actually 
 
 It stores entries only in browser storage, calculates worker-hours and labor cost by category/task, and exports CSV for backup or further analysis.
 
+### Labor Opportunity Analyzer
+
+Pair the Offline Farm Labor Log with a browser-only analyzer that annualizes a real time-study sample and ranks repeated work by estimated labor cost:
+
+- [Analyzer source](public_value/labor_opportunity_analyzer.html)
+- [Documentation](public_value/LABOR_OPPORTUNITY_ANALYZER.md)
+
+The analysis remains local to the browser and can export its ranked opportunity table as CSV.
+
 ### Funding query CLI
 
 Developers, analysts, and agents can query the radar locally with no API key or dependencies:
