@@ -127,6 +127,10 @@ Reusable descriptive before/after labor comparison:
 ## Machine discovery
 
 - [Public asset manifest](manifest.json)
+- [schema.org DataCatalog JSON-LD](data_catalog.jsonld)
+- [Funding Tabular Data Package](funding_datapackage.json)
+- [Chore Taxonomy Tabular Data Package](taxonomy_datapackage.json)
+- [Chore Taxonomy CSV](farm_chore_taxonomy.csv)
 - root `llms.txt`
 - [Public Value Changelog](CHANGELOG.md)
 
