@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CropCircuit Schedule Estimate Calibrator</title>
+<meta name="description" content="Private browser-only tool that compares planned farm chore duration with observed labor-log duration.">
+<style>
+:root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#627067;--line:#dbe4dc;--accent:#215f45;--soft:#edf5ef;--good:#1f6c42;--bad:#8c3030}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}
+main{max-width:1140px;margin:auto;padding:30px 16px 60px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px}h2{margin:0 0 10px}.lead{color:var(--muted);max-width:880px}
+.notice{background:var(--soft);border:1px solid #cfe0d3;border-radius:12px;padding:12px 14px;margin:18px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}label{display:block;font-weight:650}input{width:100%;padding:9px 10px;margin-top:4px;border:1px solid #cbd6ce;border-radius:8px;background:white;font:inherit}
+button{border:0;background:var(--accent);color:white;font-weight:700;padding:9px 12px;border-radius:8px;cursor:pointer;margin:10px 6px 0 0}.secondary{background:#56675d}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}.metric{border:1px solid var(--line);border-radius:10px;padding:12px;background:#fafcf9}.metric strong{display:block;font-size:1.3rem}
+table{width:100%;border-collapse:collapse;font-size:.84rem}th,td{text-align:left;border-bottom:1px solid var(--line);padding:8px 6px;vertical-align:top}th{font-size:.72rem;text-transform:uppercase;color:var(--muted);letter-spacing:.03em}.scroll{overflow:auto}.small{font-size:.85rem;color:var(--muted)}.empty{text-align:center;color:var(--muted);padding:20px}.good{color:var(--good);font-weight:700}.bad{color:var(--bad);font-weight:700}code{font-size:.75rem}
+</style></head>
+<body><main>
+<h1>Schedule Estimate Calibrator</h1>
+<p class="lead">Compare the minutes you planned for a recurring chore with the median elapsed minutes you actually observed. This helps turn rough schedule estimates into farm-specific estimates over time.</p>
+<div class="notice"><strong>Descriptive only:</strong> a long task is not automatically inefficient. Weather, volume, distance, animal needs, crop stage, staffing, and setup conditions can legitimately change duration.</div>
+
+<section class="card">
+<h2>Load files</h2>
+<div class="grid">
+<label>Chore schedule CSV<input id="schedule-file" type="file" accept=".csv,text/csv"></label>
+<label>Labor log CSV<input id="labor-file" type="file" accept=".csv,text/csv"></label>
+</div>
+<p class="small">Matching prefers canonical <code>chore_code</code>. If no code exists, the tool falls back to a normalized task name.</p>
+<button id="analyze">Calibrate estimates</button><button id="export" class="secondary" disabled>Export calibrated estimates</button>
+</section>
+
+<section class="card"><h2>Summary</h2>
+<div class="metrics"><div class="metric"><strong id="matched">0</strong><span>matched scheduled tasks</span></div><div class="metric"><strong id="over">0</strong><span>actual above estimate</span></div><div class="metric"><strong id="under">0</strong><span>actual below estimate</span></div><div class="metric"><strong id="uncoded">0</strong><span>matched by task text</span></div></div>
+</section>
+
+<section class="card"><h2>Estimate calibration</h2><div class="scroll"><table>
+<thead><tr><th>Task</th><th>Chore code</th><th>Planned minutes</th><th>Observed n</th><th>Median actual minutes</th><th>Difference</th><th>Ratio</th><th>Suggested planning value</th></tr></thead>
+<tbody id="body"><tr><td colspan="8" class="empty">Load a schedule and labor log to begin.</td></tr></tbody>
+</table></div></section>
+
+<footer class="small" style="margin-top:20px">CropCircuit Open Farm Utilities. Suggested planning value is the observed median rounded to the nearest whole minute; it is not a productivity target.</footer>
+</main>
+
+<script>
+(() => {
+  const $=id=>document.getElementById(id),esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;"),num=(v,d=1)=>Number(v).toLocaleString(undefined,{maximumFractionDigits:d});
+  let results=[];
+
+  function parseCSV(text){
+    const parsed=[];let row=[],field="",quoted=false;
+    for(let i=0;i<text.length;i++){
+      const ch=text[i];
+      if(quoted){
+        if(ch==='"'&&text[i+1]==='"'){field+='"';i++}
+        else if(ch==='"')quoted=false;
+        else field+=ch;
+      }else{
+        if(ch==='"')quoted=true;
+        else if(ch===','){row.push(field);field=""}
+        else if(ch==='\n'){row.push(field);parsed.push(row);row=[];field=""}
+        else if(ch!=='\r')field+=ch;
+      }
+    }
+    if(field.length||row.length){row.push(field);parsed.push(row)}
+    if(!parsed.length)return[];
+    const headers=parsed[0].map(x=>x.trim().toLowerCase());
+    return parsed.slice(1).filter(r=>r.some(v=>String(v).trim())).map(r=>{const o={};headers.forEach((h,i)=>o[h]=r[i]??"");return o});
+  }
+
+  function keyOf(r){
+    const code=String(r.chore_code||"").trim();
+    if(code)return {key:"code:"+code,code,matchedByCode:true};
+    const task=String(r.task||"").trim().toLowerCase();
+    return {key:task?"task:"+task:"",code:"",matchedByCode:false};
+  }
+
+  function median(values){
+    const a=values.filter(Number.isFinite).sort((x,y)=>x-y);
+    if(!a.length)return null;
+    const m=Math.floor(a.length/2);
+    return a.length%2?a[m]:(a[m-1]+a[m])/2;
+  }
+
+  $("analyze").addEventListener("click",async()=>{
+    const sf=$("schedule-file").files[0],lf=$("labor-file").files[0];
+    if(!sf||!lf){alert("Choose both CSV files.");return}
+    const schedule=parseCSV(await sf.text()),labor=parseCSV(await lf.text());
+    const observed=new Map();
+    for(const r of labor){
+      const ident=keyOf(r);if(!ident.key)continue;
+      const minutes=Number(r.minutes);if(!Number.isFinite(minutes)||minutes<0)continue;
+      const item=observed.get(ident.key)||{minutes:[],task:r.task||"",code:ident.code,matchedByCode:ident.matchedByCode};
+      item.minutes.push(minutes);observed.set(ident.key,item);
+    }
+
+    results=[];
+    for(const s of schedule){
+      const ident=keyOf(s);if(!ident.key)continue;
+      const o=observed.get(ident.key);if(!o||!o.minutes.length)continue;
+      const planned=Number(s.estimated_minutes);
+      if(!Number.isFinite(planned)||planned<0)continue;
+      const med=median(o.minutes),diff=med-planned,ratio=planned>0?med/planned:null;
+      results.push({
+        task:s.task||o.task||"",
+        choreCode:ident.code||o.code||"",
+        matchedByCode:ident.matchedByCode,
+        planned,observedN:o.minutes.length,medianActual:med,diff,ratio,
+        suggested:Math.max(Math.round(med),1)
+      });
+    }
+    results.sort((a,b)=>Math.abs(b.diff)-Math.abs(a.diff));
+    $("matched").textContent=results.length;$("over").textContent=results.filter(x=>x.diff>0).length;$("under").textContent=results.filter(x=>x.diff<0).length;$("uncoded").textContent=results.filter(x=>!x.matchedByCode).length;
+    $("body").innerHTML=results.length?results.map(x=>{
+      const cls=x.diff>0?"bad":x.diff<0?"good":"";
+      return `<tr><td>${esc(x.task)}</td><td><code>${esc(x.choreCode)}</code></td><td>${num(x.planned,1)}</td><td>${x.observedN}</td><td>${num(x.medianActual,1)}</td><td class="${cls}">${x.diff>0?"+":""}${num(x.diff,1)} min</td><td>${x.ratio===null?"—":num(x.ratio,2)+"×"}</td><td>${x.suggested} min</td></tr>`;
+    }).join(""):'<tr><td colspan="8" class="empty">No matching scheduled tasks with observed labor were found.</td></tr>';
+    $("export").disabled=!results.length;
+  });
+
+  $("export").addEventListener("click",()=>{
+    const rows=[["task","chore_code","match_method","planned_minutes","observed_n","median_actual_minutes","difference_minutes","actual_to_plan_ratio","suggested_planning_minutes"]];
+    results.forEach(x=>rows.push([x.task,x.choreCode,x.matchedByCode?"chore_code":"task_text",x.planned,x.observedN,x.medianActual.toFixed(2),x.diff.toFixed(2),x.ratio===null?"":x.ratio.toFixed(3),x.suggested]));
+    const cell=v=>'"'+String(v??"").replaceAll('"','""')+'"',csv=rows.map(r=>r.map(cell).join(",")).join("\r\n")+"\r\n";
+    const blob=new Blob([csv],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+    a.href=url;a.download="cropcircuit-schedule-calibration.csv";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  });
+})();
+</script></body></html>
