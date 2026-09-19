@@ -48,3 +48,5 @@ jobs:
           node public_value/validate_labor_contract.mjs public_value/examples/synthetic_labor_log_before.csv public_value/examples/synthetic_labor_log_after.csv
       - name: Validate offline asset cache
         run: node public_value/validate_offline_assets.mjs
+      - name: Validate tabular data packages
+        run: node public_value/validate_data_packages.mjs
