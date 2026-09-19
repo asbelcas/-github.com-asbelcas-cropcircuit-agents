@@ -6,7 +6,7 @@ CropCircuit's labor tools now form one coherent workflow rather than isolated ca
 
 If the farm already has a spreadsheet, use the [Labor CSV Import Mapper](LABOR_CSV_IMPORT.md) to convert it into the shared data contract without retyping it.
 
-If the farm is planning recurring work, use the [Offline Farm Chore Scheduler](farm_chore_scheduler.html).
+If the farm is planning recurring work, use the [Offline Farm Chore Scheduler](farm_chore_scheduler.html), then inspect bunching with the [Farm Chore Load Planner](CHORE_LOAD_PLANNER.md).
 
 ## Step 1 — Observe
 
