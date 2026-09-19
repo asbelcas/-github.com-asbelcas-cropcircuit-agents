@@ -1,0 +1,271 @@
+{
+  "name": "CropCircuit Open Farm Chore Taxonomy",
+  "version": "0.1.0",
+  "updated_at": "2026-09-20",
+  "description": "A small, practical controlled vocabulary for normalizing repeated farm work across local labor logs and benchmark tooling. It is intentionally extensible rather than exhaustive.",
+  "license": "CC0-1.0",
+  "categories": [
+    {
+      "id": "livestock",
+      "label": "Livestock",
+      "tasks": [
+        {
+          "code": "livestock.feed",
+          "label": "Feed animals"
+        },
+        {
+          "code": "livestock.water",
+          "label": "Water animals"
+        },
+        {
+          "code": "livestock.bedding",
+          "label": "Bedding / litter"
+        },
+        {
+          "code": "livestock.health_check",
+          "label": "Health / welfare check"
+        },
+        {
+          "code": "livestock.move_rotate",
+          "label": "Move / rotate animals"
+        },
+        {
+          "code": "livestock.milking",
+          "label": "Milking"
+        },
+        {
+          "code": "livestock.egg_collect",
+          "label": "Collect eggs"
+        },
+        {
+          "code": "livestock.birth_repro",
+          "label": "Birth / reproduction care"
+        },
+        {
+          "code": "livestock.handling",
+          "label": "Handling / restraint"
+        },
+        {
+          "code": "livestock.cleaning",
+          "label": "Livestock-area cleaning"
+        }
+      ]
+    },
+    {
+      "id": "crops",
+      "label": "Field / Crop",
+      "tasks": [
+        {
+          "code": "crops.seed_starting",
+          "label": "Seed starting"
+        },
+        {
+          "code": "crops.bed_prep",
+          "label": "Bed / field preparation"
+        },
+        {
+          "code": "crops.plant_transplant",
+          "label": "Transplanting"
+        },
+        {
+          "code": "crops.seed_direct",
+          "label": "Direct seeding"
+        },
+        {
+          "code": "crops.irrigation",
+          "label": "Irrigation"
+        },
+        {
+          "code": "crops.weeding",
+          "label": "Weeding / cultivation"
+        },
+        {
+          "code": "crops.fertility_compost",
+          "label": "Fertility / compost application"
+        },
+        {
+          "code": "crops.scouting",
+          "label": "Crop scouting / monitoring"
+        },
+        {
+          "code": "crops.harvest",
+          "label": "Harvest"
+        },
+        {
+          "code": "crops.postharvest_field",
+          "label": "Field cleanup after harvest"
+        }
+      ]
+    },
+    {
+      "id": "washpack",
+      "label": "Wash / Pack",
+      "tasks": [
+        {
+          "code": "washpack.wash",
+          "label": "Wash produce / product"
+        },
+        {
+          "code": "washpack.sort_grade",
+          "label": "Sort / grade"
+        },
+        {
+          "code": "washpack.pack",
+          "label": "Pack / label"
+        },
+        {
+          "code": "washpack.clean_sanitize",
+          "label": "Clean / sanitize wash-pack area"
+        },
+        {
+          "code": "washpack.inventory",
+          "label": "Inventory / cooler handling"
+        }
+      ]
+    },
+    {
+      "id": "fencing",
+      "label": "Fencing",
+      "tasks": [
+        {
+          "code": "fencing.install",
+          "label": "Install fence"
+        },
+        {
+          "code": "fencing.move",
+          "label": "Move temporary fence"
+        },
+        {
+          "code": "fencing.repair",
+          "label": "Repair / inspect fence"
+        }
+      ]
+    },
+    {
+      "id": "water",
+      "label": "Water systems",
+      "tasks": [
+        {
+          "code": "water.fill",
+          "label": "Fill / move water"
+        },
+        {
+          "code": "water.system_check",
+          "label": "Check water system"
+        },
+        {
+          "code": "water.repair",
+          "label": "Repair water system"
+        }
+      ]
+    },
+    {
+      "id": "maintenance",
+      "label": "Maintenance",
+      "tasks": [
+        {
+          "code": "maintenance.equipment",
+          "label": "Equipment maintenance / repair"
+        },
+        {
+          "code": "maintenance.building",
+          "label": "Building / infrastructure maintenance"
+        },
+        {
+          "code": "maintenance.cleaning",
+          "label": "General cleaning"
+        },
+        {
+          "code": "maintenance.materials",
+          "label": "Materials / supply handling"
+        }
+      ]
+    },
+    {
+      "id": "sales",
+      "label": "Market / Sales",
+      "tasks": [
+        {
+          "code": "sales.market_setup",
+          "label": "Market setup"
+        },
+        {
+          "code": "sales.market_selling",
+          "label": "Market selling"
+        },
+        {
+          "code": "sales.market_teardown",
+          "label": "Market teardown"
+        },
+        {
+          "code": "sales.farmstand",
+          "label": "Farm stand"
+        },
+        {
+          "code": "sales.csa_pack",
+          "label": "CSA packing"
+        },
+        {
+          "code": "sales.csa_distribution",
+          "label": "CSA distribution"
+        },
+        {
+          "code": "sales.delivery",
+          "label": "Delivery / route"
+        }
+      ]
+    },
+    {
+      "id": "admin",
+      "label": "Admin",
+      "tasks": [
+        {
+          "code": "admin.recordkeeping",
+          "label": "Farm recordkeeping"
+        },
+        {
+          "code": "admin.bookkeeping",
+          "label": "Bookkeeping"
+        },
+        {
+          "code": "admin.ordering",
+          "label": "Ordering / purchasing"
+        },
+        {
+          "code": "admin.customer_comms",
+          "label": "Customer communication"
+        },
+        {
+          "code": "admin.grants_compliance",
+          "label": "Grant / compliance paperwork"
+        },
+        {
+          "code": "admin.planning",
+          "label": "Planning / scheduling"
+        }
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General",
+      "tasks": [
+        {
+          "code": "general.travel_internal",
+          "label": "Internal travel / walking"
+        },
+        {
+          "code": "general.setup_cleanup",
+          "label": "Setup / cleanup"
+        },
+        {
+          "code": "general.material_handling",
+          "label": "General material handling"
+        },
+        {
+          "code": "general.other",
+          "label": "Other farm work"
+        }
+      ]
+    }
+  ]
+}
