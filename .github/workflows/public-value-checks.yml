@@ -1,0 +1,30 @@
+name: Public value checks
+
+on:
+  push:
+    paths:
+      - "public_value/**"
+      - ".github/workflows/public-value-checks.yml"
+  pull_request:
+    paths:
+      - "public_value/**"
+      - ".github/workflows/public-value-checks.yml"
+  schedule:
+    - cron: "17 11 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-public-value:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate funding radar freshness and structure
+        run: node public_value/validate_funding_radar.mjs
+      - name: Test farm math
+        run: node public_value/farm_math.test.mjs
