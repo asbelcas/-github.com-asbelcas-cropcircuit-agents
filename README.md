@@ -15,6 +15,16 @@ The fastest way into the system is now [Farm Ops Pocket Console](public_value/fa
 
 Everything below lives in [`public_value/`](public_value/).
 
+### Offline Farm Sales Log
+
+A local-first sales record separates operational sales arithmetic from accounting claims:
+
+- [Sales Log](public_value/sales_log.html)
+- [Documentation](public_value/SALES_LOG.md)
+- [Reusable summary math](public_value/sales_math.js)
+
+It summarizes gross amount, payment fees, refunds/discounts, net receipts, and entered direct costs by channel.
+
 ### Farm business economics
 
 CropCircuit now includes open unit-economics tools for two common direct-market channels:
