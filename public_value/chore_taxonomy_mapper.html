@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CropCircuit Farm Chore Taxonomy Mapper</title>
+<meta name="description" content="Private browser-only tool for mapping free-text farm labor tasks to CropCircuit canonical chore codes.">
+<style>
+:root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#627067;--line:#dbe4dc;--accent:#215f45;--soft:#edf5ef}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}
+main{max-width:1150px;margin:auto;padding:30px 16px 60px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px}h2{margin:0 0 10px}.lead{color:var(--muted);max-width:860px}
+.notice{background:var(--soft);border:1px solid #cfe0d3;border-radius:12px;padding:12px 14px;margin:18px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
+input,select{width:100%;padding:9px 10px;border:1px solid #cbd6ce;border-radius:8px;font:inherit;background:white}button{border:0;background:var(--accent);color:white;font-weight:700;padding:9px 12px;border-radius:8px;cursor:pointer;margin:10px 6px 0 0}.secondary{background:#56675d}
+table{width:100%;border-collapse:collapse;font-size:.88rem}th,td{text-align:left;border-bottom:1px solid var(--line);padding:8px 6px;vertical-align:top}th{font-size:.75rem;text-transform:uppercase;color:var(--muted);letter-spacing:.03em}.scroll{overflow:auto}.small{font-size:.85rem;color:var(--muted)}.empty{text-align:center;color:var(--muted);padding:20px}
+</style>
+</head>
+<body>
+<main>
+<h1>Farm Chore Taxonomy Mapper</h1>
+<p class="lead">Turn inconsistent task names into stable chore codes without changing the original task text. This makes local analysis and future benchmarks more interoperable.</p>
+<div class="notice"><strong>Private by default:</strong> your CSV is parsed in the browser only. No upload, account, analytics, or network request is required.</div>
+
+<section class="card">
+<h2>1. Load labor log</h2>
+<input id="file" type="file" accept=".csv,text/csv">
+<button id="load">Load distinct tasks</button>
+<p class="small">Expected columns include <code>task</code> and optionally <code>category</code>. The original rows are preserved in the export.</p>
+</section>
+
+<section class="card">
+<h2>2. Map task names</h2>
+<div class="scroll"><table>
+<thead><tr><th>Original task</th><th>Original category</th><th>Occurrences</th><th>Canonical chore code</th></tr></thead>
+<tbody id="body"><tr><td colspan="4" class="empty">Load a CSV to begin.</td></tr></tbody>
+</table></div>
+<button id="export" class="secondary" disabled>Export enriched CSV</button>
+</section>
+</main>
+
+<script>
+(() => {
+  const TAXONOMY = [{"id":"livestock","label":"Livestock","tasks":[{"code":"livestock.feed","label":"Feed animals"},{"code":"livestock.water","label":"Water animals"},{"code":"livestock.bedding","label":"Bedding / litter"},{"code":"livestock.health_check","label":"Health / welfare check"},{"code":"livestock.move_rotate","label":"Move / rotate animals"},{"code":"livestock.milking","label":"Milking"},{"code":"livestock.egg_collect","label":"Collect eggs"},{"code":"livestock.birth_repro","label":"Birth / reproduction care"},{"code":"livestock.handling","label":"Handling / restraint"},{"code":"livestock.cleaning","label":"Livestock-area cleaning"}]},{"id":"crops","label":"Field / Crop","tasks":[{"code":"crops.seed_starting","label":"Seed starting"},{"code":"crops.bed_prep","label":"Bed / field preparation"},{"code":"crops.plant_transplant","label":"Transplanting"},{"code":"crops.seed_direct","label":"Direct seeding"},{"code":"crops.irrigation","label":"Irrigation"},{"code":"crops.weeding","label":"Weeding / cultivation"},{"code":"crops.fertility_compost","label":"Fertility / compost application"},{"code":"crops.scouting","label":"Crop scouting / monitoring"},{"code":"crops.harvest","label":"Harvest"},{"code":"crops.postharvest_field","label":"Field cleanup after harvest"}]},{"id":"washpack","label":"Wash / Pack","tasks":[{"code":"washpack.wash","label":"Wash produce / product"},{"code":"washpack.sort_grade","label":"Sort / grade"},{"code":"washpack.pack","label":"Pack / label"},{"code":"washpack.clean_sanitize","label":"Clean / sanitize wash-pack area"},{"code":"washpack.inventory","label":"Inventory / cooler handling"}]},{"id":"fencing","label":"Fencing","tasks":[{"code":"fencing.install","label":"Install fence"},{"code":"fencing.move","label":"Move temporary fence"},{"code":"fencing.repair","label":"Repair / inspect fence"}]},{"id":"water","label":"Water systems","tasks":[{"code":"water.fill","label":"Fill / move water"},{"code":"water.system_check","label":"Check water system"},{"code":"water.repair","label":"Repair water system"}]},{"id":"maintenance","label":"Maintenance","tasks":[{"code":"maintenance.equipment","label":"Equipment maintenance / repair"},{"code":"maintenance.building","label":"Building / infrastructure maintenance"},{"code":"maintenance.cleaning","label":"General cleaning"},{"code":"maintenance.materials","label":"Materials / supply handling"}]},{"id":"sales","label":"Market / Sales","tasks":[{"code":"sales.market_setup","label":"Market setup"},{"code":"sales.market_selling","label":"Market selling"},{"code":"sales.market_teardown","label":"Market teardown"},{"code":"sales.farmstand","label":"Farm stand"},{"code":"sales.csa_pack","label":"CSA packing"},{"code":"sales.csa_distribution","label":"CSA distribution"},{"code":"sales.delivery","label":"Delivery / route"}]},{"id":"admin","label":"Admin","tasks":[{"code":"admin.recordkeeping","label":"Farm recordkeeping"},{"code":"admin.bookkeeping","label":"Bookkeeping"},{"code":"admin.ordering","label":"Ordering / purchasing"},{"code":"admin.customer_comms","label":"Customer communication"},{"code":"admin.grants_compliance","label":"Grant / compliance paperwork"},{"code":"admin.planning","label":"Planning / scheduling"}]},{"id":"general","label":"General","tasks":[{"code":"general.travel_internal","label":"Internal travel / walking"},{"code":"general.setup_cleanup","label":"Setup / cleanup"},{"code":"general.material_handling","label":"General material handling"},{"code":"general.other","label":"Other farm work"}]}];
+  const $=id=>document.getElementById(id);
+  const esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
+  let rows=[], taskGroups=[];
+
+  function parseCSV(text){
+    const parsed=[];let row=[],field="",quoted=false;
+    for(let i=0;i<text.length;i++){
+      const ch=text[i];
+      if(quoted){
+        if(ch==='"'&&text[i+1]==='"'){field+='"';i++}
+        else if(ch==='"')quoted=false;
+        else field+=ch;
+      }else{
+        if(ch==='"')quoted=true;
+        else if(ch===','){row.push(field);field=""}
+        else if(ch==='\n'){row.push(field);parsed.push(row);row=[];field=""}
+        else if(ch!=='\r')field+=ch;
+      }
+    }
+    if(field.length||row.length){row.push(field);parsed.push(row)}
+    if(!parsed.length)return [];
+    const headers=parsed[0].map(x=>x.trim().toLowerCase());
+    return parsed.slice(1).filter(r=>r.some(v=>String(v).trim())).map(r=>{
+      const obj={};headers.forEach((h,i)=>obj[h]=r[i]??"");return obj;
+    });
+  }
+
+  function optionsHtml(selected=""){
+    let out='<option value="">— unmapped —</option>';
+    for(const cat of TAXONOMY){
+      out+=`<optgroup label="${esc(cat.label)}">`;
+      for(const task of cat.tasks){
+        out+=`<option value="${esc(task.code)}" ${task.code===selected?"selected":""}>${esc(task.code)} — ${esc(task.label)}</option>`;
+      }
+      out+='</optgroup>';
+    }
+    return out;
+  }
+
+  $("load").addEventListener("click",async()=>{
+    const file=$("file").files[0];if(!file){alert("Choose a CSV file first.");return}
+    rows=parseCSV(await file.text());
+    const map=new Map();
+    for(const r of rows){
+      const task=String(r.task||"").trim();if(!task)continue;
+      const key=task.toLowerCase();
+      const group=map.get(key)||{task,category:r.category||"",count:0,code:""};
+      group.count+=1;map.set(key,group);
+    }
+    taskGroups=[...map.values()].sort((a,b)=>b.count-a.count||a.task.localeCompare(b.task));
+    $("body").innerHTML=taskGroups.length?taskGroups.map((g,i)=>`<tr><td>${esc(g.task)}</td><td>${esc(g.category)}</td><td>${g.count}</td><td><select data-map-index="${i}">${optionsHtml(g.code)}</select></td></tr>`).join(""):'<tr><td colspan="4" class="empty">No task rows found.</td></tr>';
+    document.querySelectorAll("[data-map-index]").forEach(sel=>sel.addEventListener("change",()=>{taskGroups[Number(sel.dataset.mapIndex)].code=sel.value}));
+    $("export").disabled=!taskGroups.length;
+  });
+
+  $("export").addEventListener("click",()=>{
+    const lookup=new Map(taskGroups.map(g=>[g.task.toLowerCase(),g.code]));
+    const baseHeaders=[];
+    for(const r of rows)for(const key of Object.keys(r))if(!baseHeaders.includes(key))baseHeaders.push(key);
+    const headers=[...baseHeaders.filter(x=>x!=="chore_code"),"chore_code"];
+    const cell=v=>'"'+String(v??"").replaceAll('"','""')+'"';
+    const output=[headers];
+    for(const r of rows){
+      const enriched={...r,chore_code:lookup.get(String(r.task||"").trim().toLowerCase())||""};
+      output.push(headers.map(h=>enriched[h]??""));
+    }
+    const csv=output.map(row=>row.map(cell).join(",")).join("\r\n")+"\r\n";
+    const blob=new Blob([csv],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob);
+    const a=document.createElement("a");a.href=url;a.download="cropcircuit-labor-log-taxonomy.csv";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  });
+})();
+</script>
+</body>
+</html>
