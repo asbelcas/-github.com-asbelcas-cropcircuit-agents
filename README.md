@@ -112,6 +112,18 @@ Developers, analysts, and agents can query the radar locally with no API key or 
 
 Examples include county-specific eligibility, open-only results, upcoming deadlines, and machine-readable JSON/TSV output.
 
+### Privacy-first Farm Operations Benchmark
+
+CropCircuit now has the public specification and tooling for a small-farm operations benchmark without publishing identifiable farm records:
+
+- [Benchmark specification](public_value/FARM_BENCHMARK_SPEC.md)
+- [JSON Schema](public_value/farm_benchmark.schema.json)
+- [Browser-only record builder](public_value/benchmark_builder.html)
+- [k-anonymous aggregator](public_value/benchmark_aggregate.mjs)
+- [Privacy/statistics tests](public_value/benchmark_aggregate.test.mjs)
+
+The public benchmark dataset is **not populated yet**. CropCircuit will not manufacture baseline numbers. Cohort statistics are suppressed until at least 5 records are present.
+
 ### Machine-readable asset manifest
 
 Software can discover the current public assets through:
