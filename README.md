@@ -149,6 +149,16 @@ A private local-first time-study tool for discovering where farm labor actually 
 
 It stores entries only in browser storage, calculates worker-hours and labor cost by category/task, and exports CSV for backup or further analysis.
 
+### Offline Harvest Log
+
+A local-first harvest record tracks quantities without pretending harvest quantity is revenue:
+
+- [Harvest Log](public_value/harvest_log.html)
+- [Documentation](public_value/HARVEST_LOG.md)
+- [Reusable summary/comparison math](public_value/harvest_math.js)
+
+It keeps unlike units separate and can compare two date ranges by crop/item + unit.
+
 ### Equipment Maintenance Log
 
 A local-first equipment service register tracks the intervals the operator chooses, by meter-hours, calendar time, or both:
