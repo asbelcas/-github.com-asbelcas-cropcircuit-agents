@@ -37,3 +37,5 @@ jobs:
         run: node public_value/funding_query.test.mjs
       - name: Test benchmark privacy and aggregation
         run: node public_value/benchmark_aggregate.test.mjs
+      - name: Test labor-log benchmark transform
+        run: node public_value/labor_log_to_benchmark.test.mjs
