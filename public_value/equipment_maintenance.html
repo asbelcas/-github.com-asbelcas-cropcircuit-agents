@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CropCircuit Offline Equipment Maintenance Log</title>
+<meta name="description" content="Private offline farm equipment maintenance log with user-defined hour/date intervals, service history, due status, and CSV export.">
+<style>
+:root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#627067;--line:#dbe4dc;--accent:#215f45;--soft:#edf5ef;--bad:#8c3030;--warn:#7a5a00}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}
+main{max-width:1180px;margin:auto;padding:30px 16px 60px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px}h2{margin:0 0 10px}.lead{color:var(--muted);max-width:920px}
+.notice{background:var(--soft);border:1px solid #cfe0d3;border-radius:12px;padding:12px 14px;margin:18px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:11px}label{display:block;font-weight:650}input{width:100%;padding:9px 10px;margin-top:4px;border:1px solid #cbd6ce;border-radius:8px;background:white;font:inherit}
+button{border:0;background:var(--accent);color:white;font-weight:700;padding:8px 11px;border-radius:8px;cursor:pointer;margin:9px 5px 0 0}.secondary{background:#56675d}.danger{background:#8c3030}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:9px}.metric{border:1px solid var(--line);border-radius:10px;padding:11px;background:#fafcf9}.metric strong{display:block;font-size:1.3rem}
+table{width:100%;border-collapse:collapse;font-size:.82rem}th,td{text-align:left;border-bottom:1px solid var(--line);padding:7px 5px;vertical-align:top}th{font-size:.69rem;text-transform:uppercase;color:var(--muted);letter-spacing:.03em}.scroll{overflow:auto}.small{font-size:.83rem;color:var(--muted)}.empty{text-align:center;color:var(--muted);padding:20px}.overdue{color:var(--bad);font-weight:800}.due{color:var(--warn);font-weight:800}.ok{color:#1f6c42;font-weight:700}
+</style></head>
+<body><main>
+<h1>Offline Equipment Maintenance Log</h1>
+<p class="lead">Track equipment service by meter hours, calendar time, or both. You choose every interval; CropCircuit does not invent maintenance schedules.</p>
+<div class="notice"><strong>Use manufacturer and qualified service guidance.</strong> This tool only calculates due dates/hours from the intervals you enter. It does not determine safe maintenance requirements.</div>
+
+<section class="card"><h2>Add maintenance item</h2><div class="grid">
+<label>Equipment<input id="equipment" type="text" placeholder="Tractor 1"></label>
+<label>Service item<input id="service" type="text" placeholder="Engine oil & filter"></label>
+<label>Current meter hours<input id="current-hours" type="number" min="0" step="0.1" placeholder="1425"></label>
+<label>Last service meter hours<input id="last-hours" type="number" min="0" step="0.1" placeholder="1255"></label>
+<label>Hour interval<input id="interval-hours" type="number" min="0" step="0.1" placeholder="200"></label>
+<label>Last service date<input id="last-date" type="date"></label>
+<label>Calendar interval days<input id="interval-days" type="number" min="0" step="1" placeholder="365"></label>
+</div><button id="add">Add item</button></section>
+
+<section class="card"><h2>Status</h2><div class="metrics">
+<div class="metric"><strong id="count">0</strong><span>maintenance items</span></div>
+<div class="metric"><strong id="overdue">0</strong><span>overdue</span></div>
+<div class="metric"><strong id="due">0</strong><span>due today / at meter</span></div>
+</div></section>
+
+<section class="card"><h2>Maintenance plan</h2>
+<p class="small">"Set meter" updates current equipment hours. "Mark serviced" records today's date and the current meter as the new service baseline.</p>
+<div class="scroll"><table>
+<thead><tr><th>Equipment</th><th>Service</th><th>Current h</th><th>Next due h</th><th>Hours remaining</th><th>Next due date</th><th>Days remaining</th><th>Status</th><th>Actions</th></tr></thead>
+<tbody id="body"><tr><td colspan="9" class="empty">No maintenance items yet.</td></tr></tbody>
+</table></div>
+<button id="csv" class="secondary" disabled>Export CSV</button>
+<button id="json" class="secondary" disabled>Export JSON backup</button>
+<label style="display:block;margin-top:14px;font-weight:650">Restore JSON backup<input id="restore-file" type="file" accept=".json,application/json"></label>
+<button id="restore" class="secondary">Replace from backup</button>
+</section>
+
+<footer class="small" style="margin-top:20px">CropCircuit Open Farm Utilities. This recordkeeper does not replace manufacturer instructions, inspection requirements, or qualified maintenance judgment.</footer>
+</main>
+<script>
+(() => {
+  const KEY="cropcircuit_equipment_maintenance_v1",$=id=>document.getElementById(id),esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;"),num=(v,d=1)=>Number(v).toLocaleString(undefined,{maximumFractionDigits:d});
+  function load(){try{const x=JSON.parse(localStorage.getItem(KEY)||"[]");return Array.isArray(x)?x:[]}catch{return[]}}
+  function save(){localStorage.setItem(KEY,JSON.stringify(items))}
+  function today(){return new Date().toISOString().slice(0,10)}
+  function hourStatus(x){const current=Number(x.current_hours),last=Number(x.last_service_hours),interval=Number(x.interval_hours);if(!Number.isFinite(current)||!Number.isFinite(last)||!Number.isFinite(interval)||interval<=0)return{next:null,remaining:null,status:"not-configured"};const next=last+interval,remaining=next-current;return{next,remaining,status:remaining<0?"overdue":remaining===0?"due":"not-due"}}
+  function dateStatus(x){if(!/^\d{4}-\d{2}-\d{2}$/.test(String(x.last_service_date||""))||!(Number(x.interval_days)>0))return{next:null,remaining:null,status:"not-configured"};const last=new Date(x.last_service_date+"T00:00:00Z"),due=new Date(last);due.setUTCDate(due.getUTCDate()+Math.floor(Number(x.interval_days)));const asOf=new Date(today()+"T00:00:00Z"),remaining=Math.round((due-asOf)/86400000);return{next:due.toISOString().slice(0,10),remaining,status:remaining<0?"overdue":remaining===0?"due":"not-due"}}
+  function status(x){const h=hourStatus(x),d=dateStatus(x),all=[h.status,d.status],overall=all.includes("overdue")?"overdue":all.includes("due")?"due":all.every(v=>v==="not-configured")?"not-configured":"not-due";return{h,d,overall}}
+  function download(name,content,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+  let items=load();$("last-date").value=today();
+
+  function render(){
+    const rows=items.map(x=>({x,s:status(x)})).sort((a,b)=>({overdue:0,due:1,"not-due":2,"not-configured":3}[a.s.overall]-({overdue:0,due:1,"not-due":2,"not-configured":3}[b.s.overall])));
+    $("count").textContent=items.length;$("overdue").textContent=rows.filter(r=>r.s.overall==="overdue").length;$("due").textContent=rows.filter(r=>r.s.overall==="due").length;
+    $("body").innerHTML=rows.length?rows.map(({x,s})=>`<tr><td>${esc(x.equipment)}</td><td>${esc(x.service)}</td><td>${Number.isFinite(Number(x.current_hours))?num(x.current_hours):"—"}</td><td>${s.h.next===null?"—":num(s.h.next)}</td><td>${s.h.remaining===null?"—":num(s.h.remaining)}</td><td>${s.d.next||"—"}</td><td>${s.d.remaining===null?"—":s.d.remaining}</td><td class="${s.overall==="overdue"?"overdue":s.overall==="due"?"due":"ok"}">${esc(s.overall)}</td><td><button data-meter="${esc(x.id)}" class="secondary">Set meter</button><button data-service="${esc(x.id)}">Mark serviced</button><button data-delete="${esc(x.id)}" class="danger">Delete</button></td></tr>`).join(""):'<tr><td colspan="9" class="empty">No maintenance items yet.</td></tr>';
+    document.querySelectorAll("[data-meter]").forEach(b=>b.addEventListener("click",()=>{const x=items.find(i=>i.id===b.dataset.meter);if(!x)return;const v=prompt("Current meter hours:",x.current_hours??"");if(v===null)return;const n=Number(v);if(!Number.isFinite(n)||n<0){alert("Enter a non-negative number.");return}x.current_hours=n;save();render()}));
+    document.querySelectorAll("[data-service]").forEach(b=>b.addEventListener("click",()=>{const x=items.find(i=>i.id===b.dataset.service);if(!x)return;if(!confirm("Record this maintenance item as serviced today at the current meter reading?"))return;x.last_service_date=today();if(Number.isFinite(Number(x.current_hours)))x.last_service_hours=Number(x.current_hours);save();render()}));
+    document.querySelectorAll("[data-delete]").forEach(b=>b.addEventListener("click",()=>{items=items.filter(i=>i.id!==b.dataset.delete);save();render()}));
+    $("csv").disabled=!items.length;$("json").disabled=!items.length;
+  }
+
+  $("add").addEventListener("click",()=>{const equipment=$("equipment").value.trim(),service=$("service").value.trim();if(!equipment||!service){alert("Enter equipment and a service item.");return}items.push({id:crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random(),equipment,service,current_hours:$("current-hours").value===""?null:Number($("current-hours").value),last_service_hours:$("last-hours").value===""?null:Number($("last-hours").value),interval_hours:$("interval-hours").value===""?null:Number($("interval-hours").value),last_service_date:$("last-date").value||"",interval_days:$("interval-days").value===""?null:Number($("interval-days").value)});save();$("service").value="";render()});
+  $("csv").addEventListener("click",()=>{const cell=v=>'"'+String(v??"").replaceAll('"','""')+'"',rows=[["equipment","service","current_hours","last_service_hours","interval_hours","last_service_date","interval_days","hour_status","date_status","overall_status"]];items.forEach(x=>{const s=status(x);rows.push([x.equipment,x.service,x.current_hours,x.last_service_hours,x.interval_hours,x.last_service_date,x.interval_days,s.h.status,s.d.status,s.overall])});download("cropcircuit-equipment-maintenance.csv",rows.map(r=>r.map(cell).join(",")).join("\r\n")+"\r\n","text/csv;charset=utf-8")});
+  $("json").addEventListener("click",()=>download("cropcircuit-equipment-maintenance.json",JSON.stringify({schema_version:"1.0",exported_at:new Date().toISOString(),items},null,2)+"\n","application/json"));
+  $("restore").addEventListener("click",async()=>{const f=$("restore-file").files[0];if(!f){alert("Choose a JSON backup.");return}try{const x=JSON.parse(await f.text());if(x.schema_version!=="1.0"||!Array.isArray(x.items))throw new Error("Unsupported backup");if(!confirm("Replace the local equipment maintenance log with this backup?"))return;items=x.items;save();render()}catch(e){alert("Restore failed: "+e.message)}});
+  render();
+})();
+</script></body></html>
