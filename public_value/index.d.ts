@@ -265,3 +265,38 @@ export function csaEconomics(args: {
   modeledSeasonSurplus: number;
   requiredPricePerShare: number | null;
 };
+
+export function hourServiceStatus(args: {
+  currentHours: number | string;
+  lastServiceHours: number | string;
+  intervalHours: number | string;
+}): {
+  configured: boolean;
+  nextDueHours: number | null;
+  hoursRemaining: number | null;
+  status: "overdue" | "due" | "not-due" | "not-configured";
+};
+
+export function dateServiceStatus(args: {
+  lastServiceDate: string;
+  intervalDays: number | string;
+  asOfDate: string;
+}): {
+  configured: boolean;
+  nextDueDate: string | null;
+  daysRemaining: number | null;
+  status: "overdue" | "due" | "not-due" | "not-configured";
+};
+
+export function combinedServiceStatus(args: {
+  currentHours?: number | string;
+  lastServiceHours?: number | string;
+  intervalHours?: number | string;
+  lastServiceDate?: string;
+  intervalDays?: number | string;
+  asOfDate?: string;
+}): {
+  overall: "overdue" | "due" | "not-due" | "not-configured";
+  hours: ReturnType<typeof hourServiceStatus>;
+  date: ReturnType<typeof dateServiceStatus>;
+};
