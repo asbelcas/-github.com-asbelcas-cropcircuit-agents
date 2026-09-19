@@ -1,0 +1,4 @@
+task,chore_code,category,first_date,frequency,interval,estimated_minutes,notes
+Move portable fence,fencing.move,Fencing,2026-07-01,WEEKLY,1,25,Synthetic demo
+Fill water trough,livestock.water,Livestock,2026-07-01,WEEKLY,1,18,Synthetic demo
+Record farm notes,admin.recordkeeping,Admin,2026-07-01,WEEKLY,1,15,Synthetic demo
