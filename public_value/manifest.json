@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-20.4",
+  "version": "2026-09-19.11",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -205,7 +205,7 @@
       "hosting_status": "staged_until_https_static_hosting_enabled"
     }
   ],
-  "updated_at": "2026-09-20T01:05:00-04:00",
+  "updated_at": "2026-09-19T18:51:00-04:00",
   "validation": {
     "funding_validator": "public_value/validate_funding_radar.mjs",
     "farm_math_tests": "public_value/farm_math.test.mjs",
