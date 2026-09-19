@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-19.5",
+  "version": "2026-09-19.6",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -71,9 +71,18 @@
       "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/FARM_LABOR_LOG.md",
       "dependencies": [],
       "privacy": "No network calls, analytics, cookies, or account; entries remain in browser storage unless exported."
+    },
+    {
+      "id": "labor-opportunity-analyzer",
+      "type": "standalone-html",
+      "description": "Browser-only CSV analyzer that annualizes farm labor observations and ranks repeated tasks by labor cost and hypothetical time-saving opportunity.",
+      "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/labor_opportunity_analyzer.html",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/LABOR_OPPORTUNITY_ANALYZER.md",
+      "dependencies": [],
+      "privacy": "No uploads, analytics, cookies, account, or network requests; CSV analysis stays in the browser."
     }
   ],
-  "updated_at": "2026-09-19T23:10:00-04:00",
+  "updated_at": "2026-09-19T23:20:00-04:00",
   "validation": {
     "funding_validator": "public_value/validate_funding_radar.mjs",
     "farm_math_tests": "public_value/farm_math.test.mjs",
