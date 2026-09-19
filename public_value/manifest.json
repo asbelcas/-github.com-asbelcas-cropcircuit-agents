@@ -372,8 +372,8 @@
     "equipment_math_tests": "public_value/equipment_math.test.mjs"
   },
   "stable_snapshot": {
-    "version": "0.8.0",
-    "branch": "release/public-value-0.8.0",
-    "commit": "f3129795c1f7a44ef0f1f77fc275394f95c34e71"
+    "version": "0.10.0",
+    "branch": "release/public-value-0.10.0",
+    "commit": "31b9c0af8a9c9a5c8c82ca2306878a7873aadbfc"
   }
 }
