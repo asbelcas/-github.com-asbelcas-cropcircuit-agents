@@ -1,0 +1,46 @@
+{
+  "profile": "tabular-data-package",
+  "name": "cropcircuit-open-farm-chore-taxonomy",
+  "title": "CropCircuit Open Farm Chore Taxonomy",
+  "description": "CC0 controlled vocabulary for normalizing repeated small-farm work across labor logs, analysis, scheduling, and benchmarking.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/tree/main/public_value",
+  "licenses": [
+    {
+      "name": "CC0-1.0",
+      "path": "LICENSE-DATA.txt",
+      "title": "CC0 1.0 Universal dedication for CropCircuit-authored taxonomy structure and labels."
+    }
+  ],
+  "resources": [
+    {
+      "name": "farm-chore-taxonomy",
+      "path": "farm_chore_taxonomy.csv",
+      "profile": "tabular-data-resource",
+      "encoding": "utf-8",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "schema": {
+        "fields": [
+          {
+            "name": "category_id",
+            "type": "string"
+          },
+          {
+            "name": "category_label",
+            "type": "string"
+          },
+          {
+            "name": "code",
+            "type": "string"
+          },
+          {
+            "name": "task_label",
+            "type": "string"
+          }
+        ],
+        "primaryKey": "code"
+      }
+    }
+  ]
+}
