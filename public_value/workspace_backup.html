@@ -3,45 +3,53 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CropCircuit Local Workspace Backup</title>
-<meta name="description" content="Private browser-only backup and restore tool for CropCircuit local farm labor and chore-schedule data.">
+<meta name="description" content="Private browser-only backup and restore for CropCircuit labor, chores, equipment, harvest, and sales data.">
 <style>
-:root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#627067;--line:#dbe4dc;--accent:#215f45;--soft:#fff5df;--danger:#8c3030}
+:root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#627067;--line:#dbe4dc;--accent:#215f45;--soft:#fff5df}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}
-main{max-width:980px;margin:auto;padding:30px 16px 60px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px}h2{margin:0 0 10px}.lead{color:var(--muted);max-width:850px}
+main{max-width:1050px;margin:auto;padding:30px 16px 60px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px}h2{margin:0 0 10px}.lead{color:var(--muted);max-width:880px}
 .notice{background:var(--soft);border:1px solid #ead4a7;border-radius:12px;padding:12px 14px;margin:18px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
-.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}.metric{border:1px solid var(--line);border-radius:10px;padding:12px;background:#fafcf9}.metric strong{display:block;font-size:1.35rem}
-input,select{width:100%;padding:9px 10px;border:1px solid #cbd6ce;border-radius:8px;background:white;font:inherit}button{border:0;background:var(--accent);color:white;font-weight:700;padding:9px 12px;border-radius:8px;cursor:pointer;margin:10px 6px 0 0}.danger{background:var(--danger)}.secondary{background:#56675d}.small{font-size:.85rem;color:var(--muted)}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}.metric{border:1px solid var(--line);border-radius:10px;padding:12px;background:#fafcf9}.metric strong{display:block;font-size:1.3rem}
+input,select{width:100%;padding:9px 10px;border:1px solid #cbd6ce;border-radius:8px;background:white;font:inherit}button{border:0;background:var(--accent);color:white;font-weight:700;padding:9px 12px;border-radius:8px;cursor:pointer;margin:10px 6px 0 0}.secondary{background:#56675d}.small{font-size:.85rem;color:var(--muted)}
 </style></head>
 <body><main>
 <h1>Local Workspace Backup</h1>
-<p class="lead">Export or restore the CropCircuit data stored in this browser: labor entries, labor settings, and recurring chore schedule.</p>
-<div class="notice"><strong>This backup can contain private farm operational information and free-text notes.</strong> Treat the JSON file like a private farm record. This tool does not upload it anywhere.</div>
+<p class="lead">Export, merge, or restore the CropCircuit data stored in this browser: labor, schedules, equipment maintenance, harvest, and direct-market sales.</p>
+<div class="notice"><strong>This backup can contain private farm operational information.</strong> Treat the JSON file like a private farm record. CropCircuit does not upload it.</div>
 
 <section class="card"><h2>Current local workspace</h2>
-<div class="metrics"><div class="metric"><strong id="labor">0</strong><span>labor entries</span></div><div class="metric"><strong id="schedule">0</strong><span>scheduled chores</span></div><div class="metric"><strong id="rate">—</strong><span>stored labor rate</span></div></div>
-<button id="backup">Export workspace JSON</button><button id="refresh" class="secondary">Refresh counts</button>
+<div class="metrics">
+<div class="metric"><strong id="labor">0</strong><span>labor entries</span></div>
+<div class="metric"><strong id="schedule">0</strong><span>scheduled chores</span></div>
+<div class="metric"><strong id="equipment">0</strong><span>maintenance items</span></div>
+<div class="metric"><strong id="harvest">0</strong><span>harvest entries</span></div>
+<div class="metric"><strong id="sales">0</strong><span>sales records</span></div>
+<div class="metric"><strong id="rate">—</strong><span>stored labor rate</span></div>
+</div>
+<button id="backup">Export workspace 1.1 JSON</button><button id="refresh" class="secondary">Refresh counts</button>
 </section>
 
 <section class="card"><h2>Restore or merge a backup</h2>
 <input id="file" type="file" accept=".json,application/json">
 <label style="display:block;margin-top:12px;font-weight:650">Import mode
-<select id="mode"><option value="merge">Merge — keep existing IDs and add new records</option><option value="replace">Replace — overwrite current CropCircuit workspace</option></select></label>
+<select id="mode"><option value="merge">Merge — keep existing IDs and add new records</option><option value="replace">Replace — overwrite fields present in the backup</option></select></label>
 <button id="import">Import backup</button>
-<p id="status" class="small">No import attempted.</p>
+<p id="status" class="small">Workspace 1.0 and 1.1 backups are supported. A 1.0 replace preserves newer equipment, harvest, and sales collections.</p>
 </section>
 
 <footer class="small" style="margin-top:20px">CropCircuit Open Farm Utilities. Export backups periodically if browser-local data matters to your operation.</footer>
 </main>
 <script type="module">
 import { readWorkspace, writeWorkspace, validateWorkspace } from "./workspace.js";
-
 const $=id=>document.getElementById(id);
 const money=v=>Number.isFinite(Number(v))?new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(Number(v)):"—";
-
 function refresh(){
   const w=readWorkspace(localStorage);
   $("labor").textContent=w.labor_entries.length;
   $("schedule").textContent=w.chore_schedule.length;
+  $("equipment").textContent=w.equipment_maintenance.length;
+  $("harvest").textContent=w.harvest_entries.length;
+  $("sales").textContent=w.sales_entries.length;
   $("rate").textContent=money(w.labor_settings?.hourly);
 }
 function download(name,content){
@@ -50,7 +58,7 @@ function download(name,content){
 }
 $("backup").addEventListener("click",()=>{
   const w=readWorkspace(localStorage);
-  download("cropcircuit-local-workspace.json",JSON.stringify(w,null,2)+"\n");
+  download("cropcircuit-local-workspace-v1.1.json",JSON.stringify(w,null,2)+"\n");
 });
 $("refresh").addEventListener("click",refresh);
 $("import").addEventListener("click",async()=>{
@@ -58,9 +66,11 @@ $("import").addEventListener("click",async()=>{
   try{
     const data=JSON.parse(await file.text()),errors=validateWorkspace(data);
     if(errors.length){$("status").textContent="Backup rejected: "+errors.join("; ");return}
-    if($("mode").value==="replace"&&!confirm("Replace the current CropCircuit local workspace with this backup?"))return;
+    if($("mode").value==="replace"&&!confirm("Import this backup in replace mode? Fields represented by this backup will be replaced."))return;
     const result=writeWorkspace(localStorage,data,{mode:$("mode").value});
-    $("status").textContent=result.ok?`Imported successfully: ${result.labor_entries} labor entries, ${result.chore_schedule} scheduled chores.`:"Import failed: "+result.errors.join("; ");
+    $("status").textContent=result.ok
+      ? `Imported workspace ${data.schema_version}: ${result.labor_entries} labor, ${result.chore_schedule} chores, ${result.equipment_maintenance} maintenance, ${result.harvest_entries} harvest, ${result.sales_entries} sales.`
+      : "Import failed: "+result.errors.join("; ");
     refresh();
   }catch(error){$("status").textContent="Could not import backup: "+error.message}
 });
