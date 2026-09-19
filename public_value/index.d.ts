@@ -212,3 +212,56 @@ export function writeWorkspace(
   labor_entries?: number;
   chore_schedule?: number;
 };
+
+export function marketDayEconomics(args: {
+  boothFee?: number;
+  roundTripMiles?: number;
+  vehicleCostPerMile?: number;
+  travelHours?: number;
+  setupHours?: number;
+  sellingHours?: number;
+  teardownHours?: number;
+  workers?: number;
+  hourlyLaborCost?: number;
+  otherFixedCosts?: number;
+  averageSale: number;
+  variableCostPerSale?: number;
+  cardFeePercent?: number;
+  expectedTransactions?: number | null;
+}): {
+  totalWorkerHours: number;
+  vehicleCost: number;
+  laborCost: number;
+  fixedDayCost: number;
+  cardFeePerSale: number;
+  contributionPerSale: number;
+  breakEvenTransactions: number | null;
+  breakEvenGrossRevenue: number | null;
+  forecast: {
+    transactions: number;
+    grossRevenue: number;
+    estimatedDayMargin: number;
+  } | null;
+};
+
+export function csaEconomics(args: {
+  plannedShares: number;
+  pricePerShare: number;
+  fixedSeasonCosts?: number;
+  seasonLaborHours?: number;
+  hourlyLaborCost?: number;
+  variableCostPerShare?: number;
+  paymentFeePercent?: number;
+  targetSeasonSurplus?: number;
+}): {
+  laborCost: number;
+  seasonFixedCost: number;
+  contributionPerShare: number;
+  breakEvenShares: number | null;
+  targetShares: number | null;
+  grossRevenue: number;
+  paymentFees: number;
+  variableCosts: number;
+  modeledSeasonSurplus: number;
+  requiredPricePerShare: number | null;
+};
