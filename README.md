@@ -78,6 +78,15 @@ Other Michigan agriculture, food-system, nonprofit, or community websites can re
 
 A website can filter by county, status, tags, count, and theme. The widget contains no analytics or cookies.
 
+### Offline Farm Labor Log
+
+A private local-first time-study tool for discovering where farm labor actually goes:
+
+- [Tool source](public_value/farm_labor_log.html)
+- [Documentation](public_value/FARM_LABOR_LOG.md)
+
+It stores entries only in browser storage, calculates worker-hours and labor cost by category/task, and exports CSV for backup or further analysis.
+
 ### Funding query CLI
 
 Developers, analysts, and agents can query the radar locally with no API key or dependencies:
