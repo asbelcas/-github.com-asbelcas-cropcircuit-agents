@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-19.23",
+  "version": "2026-09-19.24",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -348,6 +348,17 @@
       "math": "public_value/equipment_math.js",
       "storage_key": "cropcircuit_equipment_maintenance_v1",
       "dependencies": []
+    },
+    {
+      "id": "offline-harvest-log",
+      "type": "standalone-html",
+      "description": "Browser-local harvest quantity log with crop/unit summaries, period comparison, CSV export, and JSON backup.",
+      "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/harvest_log.html",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/HARVEST_LOG.md",
+      "math": "public_value/harvest_math.js",
+      "storage_key": "cropcircuit_harvest_log_v1",
+      "privacy": "No server sync or analytics are required.",
+      "dependencies": []
     }
   ],
   "updated_at": "2026-09-19",
@@ -369,7 +380,8 @@
     "workspace_tests": "public_value/workspace.test.mjs",
     "market_math_tests": "public_value/market_math.test.mjs",
     "csa_math_tests": "public_value/csa_math.test.mjs",
-    "equipment_math_tests": "public_value/equipment_math.test.mjs"
+    "equipment_math_tests": "public_value/equipment_math.test.mjs",
+    "harvest_math_tests": "public_value/harvest_math.test.mjs"
   },
   "stable_snapshot": {
     "version": "0.10.0",
