@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 export function median(values) {
   const sorted=[...values].sort((a,b)=>a-b);
@@ -129,6 +131,7 @@ async function main(){
   },null,2)+"\n");
 }
 
-if(import.meta.url===`file://${process.argv[1]}`){
+const invokedDirectly = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+if(invokedDirectly){
   main().catch(e=>{console.error("ERROR:",e.message);process.exit(1)});
 }
