@@ -26,7 +26,8 @@ table{width:100%;border-collapse:collapse;font-size:.84rem}th,td{text-align:left
 <label>Labor log CSV<input id="labor-file" type="file" accept=".csv,text/csv"></label>
 </div>
 <p class="small">Matching prefers canonical <code>chore_code</code>. If no code exists, the tool falls back to a normalized task name.</p>
-<button id="analyze">Calibrate estimates</button><button id="export" class="secondary" disabled>Export calibrated estimates</button>
+<button id="analyze">Calibrate estimates</button><button id="use-local" class="secondary">Use local CropCircuit workspace</button><button id="export" class="secondary" disabled>Export calibrated estimates</button>
+<p id="source" class="small">No analysis source selected.</p>
 </section>
 
 <section class="card"><h2>Summary</h2>
@@ -81,10 +82,7 @@ table{width:100%;border-collapse:collapse;font-size:.84rem}th,td{text-align:left
     return a.length%2?a[m]:(a[m-1]+a[m])/2;
   }
 
-  $("analyze").addEventListener("click",async()=>{
-    const sf=$("schedule-file").files[0],lf=$("labor-file").files[0];
-    if(!sf||!lf){alert("Choose both CSV files.");return}
-    const schedule=parseCSV(await sf.text()),labor=parseCSV(await lf.text());
+  function analyzeData(schedule,labor,label){
     const observed=new Map();
     for(const r of labor){
       const ident=keyOf(r);if(!ident.key)continue;
@@ -94,27 +92,52 @@ table{width:100%;border-collapse:collapse;font-size:.84rem}th,td{text-align:left
     }
 
     results=[];
-    for(const s of schedule){
-      const ident=keyOf(s);if(!ident.key)continue;
+    for(const row of schedule){
+      const ident=keyOf(row);if(!ident.key)continue;
       const o=observed.get(ident.key);if(!o||!o.minutes.length)continue;
-      const planned=Number(s.estimated_minutes);
+      const planned=Number(row.estimated_minutes ?? row.minutes);
       if(!Number.isFinite(planned)||planned<0)continue;
       const med=median(o.minutes),diff=med-planned,ratio=planned>0?med/planned:null;
       results.push({
-        task:s.task||o.task||"",
+        task:row.task||o.task||"",
         choreCode:ident.code||o.code||"",
         matchedByCode:ident.matchedByCode,
         planned,observedN:o.minutes.length,medianActual:med,diff,ratio,
         suggested:Math.max(Math.round(med),1)
       });
     }
+
     results.sort((a,b)=>Math.abs(b.diff)-Math.abs(a.diff));
-    $("matched").textContent=results.length;$("over").textContent=results.filter(x=>x.diff>0).length;$("under").textContent=results.filter(x=>x.diff<0).length;$("uncoded").textContent=results.filter(x=>!x.matchedByCode).length;
+    $("matched").textContent=results.length;
+    $("over").textContent=results.filter(x=>x.diff>0).length;
+    $("under").textContent=results.filter(x=>x.diff<0).length;
+    $("uncoded").textContent=results.filter(x=>!x.matchedByCode).length;
+    $("source").textContent=label;
     $("body").innerHTML=results.length?results.map(x=>{
       const cls=x.diff>0?"bad":x.diff<0?"good":"";
       return `<tr><td>${esc(x.task)}</td><td><code>${esc(x.choreCode)}</code></td><td>${num(x.planned,1)}</td><td>${x.observedN}</td><td>${num(x.medianActual,1)}</td><td class="${cls}">${x.diff>0?"+":""}${num(x.diff,1)} min</td><td>${x.ratio===null?"—":num(x.ratio,2)+"×"}</td><td>${x.suggested} min</td></tr>`;
     }).join(""):'<tr><td colspan="8" class="empty">No matching scheduled tasks with observed labor were found.</td></tr>';
     $("export").disabled=!results.length;
+  }
+
+  $("analyze").addEventListener("click",async()=>{
+    const sf=$("schedule-file").files[0],lf=$("labor-file").files[0];
+    if(!sf||!lf){alert("Choose both CSV files, or use the local CropCircuit workspace.");return}
+    analyzeData(parseCSV(await sf.text()),parseCSV(await lf.text()),"Comparing the selected schedule CSV with the selected labor CSV.");
+  });
+
+  $("use-local").addEventListener("click",()=>{
+    try{
+      const schedule=JSON.parse(localStorage.getItem("cropcircuit_chore_schedule_v1")||"[]");
+      const labor=JSON.parse(localStorage.getItem("cropcircuit_farm_labor_log_v1")||"[]");
+      if(!Array.isArray(schedule)||!Array.isArray(labor)||!schedule.length||!labor.length){
+        $("source").textContent="Local workspace needs both scheduled chores and labor observations.";
+        return;
+      }
+      analyzeData(schedule,labor,`Comparing ${schedule.length} local scheduled chore(s) with ${labor.length} local labor observation(s).`);
+    }catch(error){
+      $("source").textContent="Could not read the local CropCircuit workspace: "+error.message;
+    }
   });
 
   $("export").addEventListener("click",()=>{
