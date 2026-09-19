@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-19.25",
+  "version": "2026-09-19.26",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -279,24 +279,33 @@
     {
       "id": "local-workspace",
       "type": "local-first-data-layer",
-      "description": "Stable browser-storage contract plus zero-dependency helpers for backing up, merging, and restoring CropCircuit local labor and chore-schedule data.",
+      "description": "Workspace 1.1 browser-local contract and backup/merge helpers spanning labor, recurring chores, equipment maintenance, harvest, and direct-market sales, with v1.0 import compatibility.",
       "source": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/workspace.js",
       "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/LOCAL_WORKSPACE.md",
       "backup_tool": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/workspace_backup.html",
       "privacy": "Contains private operational data and is not anonymous benchmark data.",
-      "dependencies": []
+      "dependencies": [],
+      "schema": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/workspace.schema.json",
+      "version": "1.1",
+      "backward_compatible_imports": [
+        "1.0",
+        "1.1"
+      ]
     },
     {
       "id": "weekly-farm-operations-brief",
       "type": "standalone-html",
-      "description": "Browser-local printable summary of labor activity, repeated work, taxonomy coverage, and upcoming recurring chores.",
+      "description": "Browser-local printable operations summary spanning labor, harvest, direct-market sales, equipment maintenance, and upcoming recurring chores.",
       "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/weekly_ops_brief.html",
       "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/WEEKLY_OPS_BRIEF.md",
       "privacy": "Reads only the browser-local CropCircuit workspace; free-text notes are not displayed in the report.",
       "dependencies": [
         "public_value/workspace.js",
         "public_value/schedule_math.js",
-        "public_value/labor_contract.js"
+        "public_value/labor_contract.js",
+        "public_value/harvest_math.js",
+        "public_value/sales_math.js",
+        "public_value/equipment_math.js"
       ]
     },
     {
@@ -371,6 +380,12 @@
       "privacy": "No server sync or analytics are required.",
       "accounting_boundary": "Operational sales summary; not accounting or tax treatment.",
       "dependencies": []
+    },
+    {
+      "id": "workspace-json-schema",
+      "type": "data-standard",
+      "description": "JSON Schema for portable CropCircuit Workspace 1.0 and 1.1 backups.",
+      "source": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/workspace.schema.json"
     }
   ],
   "updated_at": "2026-09-19",
