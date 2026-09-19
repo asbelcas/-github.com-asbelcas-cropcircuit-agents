@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CropCircuit Labor CSV Import Mapper</title>
+<meta name="description" content="Private browser-only mapper that converts an arbitrary farm labor CSV into the CropCircuit Farm Labor Data Contract.">
+<style>
+:root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#627067;--line:#dbe4dc;--accent:#215f45;--soft:#edf5ef;--warn:#7a5a00}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}
+main{max-width:1160px;margin:auto;padding:30px 16px 60px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px}h2{margin:0 0 10px}.lead{color:var(--muted);max-width:900px}
+.notice{background:var(--soft);border:1px solid #cfe0d3;border-radius:12px;padding:12px 14px;margin:18px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}label{display:block;font-weight:650}select,input{width:100%;padding:9px 10px;margin-top:4px;border:1px solid #cbd6ce;border-radius:8px;background:white;font:inherit}
+button{border:0;background:var(--accent);color:white;font-weight:700;padding:9px 12px;border-radius:8px;cursor:pointer;margin:10px 6px 0 0}.secondary{background:#56675d}
+table{width:100%;border-collapse:collapse;font-size:.84rem}th,td{text-align:left;border-bottom:1px solid var(--line);padding:8px 6px;vertical-align:top}th{font-size:.72rem;text-transform:uppercase;color:var(--muted);letter-spacing:.03em}.scroll{overflow:auto}.small{font-size:.85rem;color:var(--muted)}.empty{text-align:center;color:var(--muted);padding:20px}.warn{color:var(--warn);font-weight:700}
+</style></head>
+<body><main>
+<h1>Labor CSV Import Mapper</h1>
+<p class="lead">Bring an existing labor spreadsheet into CropCircuit without retyping it. Map your columns to the open Farm Labor Data Contract, preview the result, then export a canonical CSV.</p>
+<div class="notice"><strong>Private conversion:</strong> your source CSV stays in the browser. CropCircuit does not upload it. The original task text is preserved.</div>
+
+<section class="card">
+<h2>1. Load source CSV</h2>
+<input id="file" type="file" accept=".csv,text/csv">
+<p id="source-meta" class="small">Choose a CSV file.</p>
+</section>
+
+<section class="card">
+<h2>2. Map columns</h2>
+<p class="small">Required CropCircuit fields are date, category, task, minutes, workers, and worker-hours. Worker-hours can be calculated when minutes and workers are mapped.</p>
+<div id="mapping" class="grid"></div>
+<button id="transform" disabled>Transform & validate</button>
+</section>
+
+<section class="card">
+<h2>3. Preview</h2>
+<p id="status" class="small">No transformed data yet.</p>
+<div class="scroll"><table>
+<thead><tr><th>Date</th><th>Category</th><th>Task</th><th>Chore code</th><th>Minutes</th><th>Workers</th><th>Worker-hours</th><th>Notes</th></tr></thead>
+<tbody id="body"><tr><td colspan="8" class="empty">Load and map a CSV to begin.</td></tr></tbody>
+</table></div>
+<button id="export" class="secondary" disabled>Export canonical CSV</button>
+</section>
+
+<footer class="small" style="margin-top:20px">CropCircuit Open Farm Utilities. Column mapping changes file structure only; it does not infer agricultural meaning from ambiguous fields.</footer>
+</main>
+
+<script>
+(() => {
+  const $=id=>document.getElementById(id);
+  const TARGETS=[
+    ["date","Date",true],["category","Category",true],["task","Task",true],
+    ["chore_code","Canonical chore code",false],["minutes","Elapsed minutes",true],
+    ["workers","Workers involved",true],["worker_hours","Worker-hours",false],["notes","Notes",false]
+  ];
+  let sourceRows=[],headers=[],canonical=[];
+
+  function parseCSV(text){
+    const parsed=[];let row=[],field="",quoted=false;
+    for(let i=0;i<text.length;i++){
+      const ch=text[i];
+      if(quoted){
+        if(ch==='"'&&text[i+1]==='"'){field+='"';i++}
+        else if(ch==='"')quoted=false;
+        else field+=ch;
+      }else{
+        if(ch==='"')quoted=true;
+        else if(ch===','){row.push(field);field=""}
+        else if(ch==='\n'){row.push(field);parsed.push(row);row=[];field=""}
+        else if(ch!=='\r')field+=ch;
+      }
+    }
+    if(field.length||row.length){row.push(field);parsed.push(row)}
+    if(!parsed.length)return {headers:[],rows:[]};
+    const headers=parsed[0].map((x,i)=>String(x||`column_${i+1}`).trim());
+    const rows=parsed.slice(1).filter(r=>r.some(v=>String(v).trim())).map(r=>{
+      const o={};headers.forEach((h,i)=>o[h]=r[i]??"");return o;
+    });
+    return {headers,rows};
+  }
+
+  function guess(target){
+    const candidates={
+      date:["date","day","work date","entry date"],
+      category:["category","type","work category"],
+      task:["task","chore","activity","job","description"],
+      chore_code:["chore_code","chore code","task code","code"],
+      minutes:["minutes","mins","duration","elapsed minutes","time minutes"],
+      workers:["workers","worker count","people","crew","crew size"],
+      worker_hours:["worker_hours","worker hours","labor hours","labour hours"],
+      notes:["notes","note","comments","comment"]
+    }[target]||[];
+    const lower=headers.map(h=>h.toLowerCase().trim());
+    for(const c of candidates){const i=lower.indexOf(c);if(i>=0)return headers[i]}
+    return "";
+  }
+
+  function buildMapping(){
+    const root=$("mapping");root.innerHTML="";
+    for(const [key,label,required] of TARGETS){
+      const wrap=document.createElement("label");wrap.textContent=label+(required?" *":"");
+      const s=document.createElement("select");s.id="map-"+key;
+      s.innerHTML='<option value="">— not mapped —</option>'+headers.map(h=>`<option value="${escapeAttr(h)}">${escapeHtml(h)}</option>`).join("");
+      s.value=guess(key);wrap.appendChild(s);root.appendChild(wrap);
+    }
+  }
+
+  function escapeHtml(v){return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
+  function escapeAttr(v){return escapeHtml(v)}
+  function num(v){const n=Number(String(v??"").trim());return Number.isFinite(n)?n:null}
+
+  function normalizeDate(v){
+    const s=String(v??"").trim();
+    if(/^\d{4}-\d{2}-\d{2}$/.test(s))return s;
+    const d=new Date(s);
+    if(!Number.isFinite(d.getTime()))return "";
+    return d.toISOString().slice(0,10);
+  }
+
+  function transform(){
+    const map=Object.fromEntries(TARGETS.map(([key])=>[key,$("map-"+key).value]));
+    const errors=[];
+    for(const key of ["date","category","task","minutes","workers"]){
+      if(!map[key])errors.push(`Map a source column to ${key}.`);
+    }
+    if(!map.worker_hours && (!map.minutes||!map.workers))errors.push("Map worker_hours or both minutes and workers.");
+    if(errors.length){$("status").innerHTML='<span class="warn">'+escapeHtml(errors.join(" "))+'</span>';return}
+
+    canonical=[];
+    const rowErrors=[];
+    sourceRows.forEach((r,index)=>{
+      const minutes=Math.max(num(r[map.minutes])??0,0);
+      const workers=Math.max(num(r[map.workers])??0,0);
+      let workerHours=map.worker_hours?num(r[map.worker_hours]):null;
+      if(workerHours===null)workerHours=minutes/60*workers;
+      const out={
+        date:normalizeDate(r[map.date]),
+        category:String(r[map.category]??"").trim(),
+        task:String(r[map.task]??"").trim(),
+        chore_code:map.chore_code?String(r[map.chore_code]??"").trim():"",
+        minutes,
+        workers,
+        worker_hours:Math.max(workerHours||0,0),
+        notes:map.notes?String(r[map.notes]??"").trim():""
+      };
+      if(!out.date)rowErrors.push(`row ${index+2}: invalid date`);
+      if(!out.category)rowErrors.push(`row ${index+2}: missing category`);
+      if(!out.task)rowErrors.push(`row ${index+2}: missing task`);
+      if(out.minutes<=0)rowErrors.push(`row ${index+2}: minutes must be > 0`);
+      if(out.workers<=0)rowErrors.push(`row ${index+2}: workers must be > 0`);
+      canonical.push(out);
+    });
+
+    $("status").innerHTML=rowErrors.length
+      ? '<span class="warn">'+rowErrors.length+' validation warning(s). Review before export.</span>'
+      : canonical.length+' rows transformed with no basic validation warnings.';
+    $("body").innerHTML=canonical.slice(0,50).map(r=>`<tr><td>${escapeHtml(r.date)}</td><td>${escapeHtml(r.category)}</td><td>${escapeHtml(r.task)}</td><td>${escapeHtml(r.chore_code)}</td><td>${r.minutes}</td><td>${r.workers}</td><td>${r.worker_hours.toFixed(2)}</td><td>${escapeHtml(r.notes)}</td></tr>`).join("")||'<tr><td colspan="8" class="empty">No rows.</td></tr>';
+    $("export").disabled=!canonical.length;
+  }
+
+  function csvCell(v){return '"'+String(v??"").replaceAll('"','""')+'"'}
+
+  $("file").addEventListener("change",async()=>{
+    const f=$("file").files[0];
+    if(!f){sourceRows=[];headers=[];$("transform").disabled=true;return}
+    const parsed=parseCSV(await f.text());sourceRows=parsed.rows;headers=parsed.headers;
+    $("source-meta").textContent=`${sourceRows.length} data rows · ${headers.length} columns: ${headers.join(", ")}`;
+    buildMapping();$("transform").disabled=!sourceRows.length;
+  });
+  $("transform").addEventListener("click",transform);
+  $("export").addEventListener("click",()=>{
+    const rows=[["date","category","task","chore_code","minutes","workers","worker_hours","notes"]];
+    canonical.forEach(r=>rows.push([r.date,r.category,r.task,r.chore_code,r.minutes,r.workers,r.worker_hours.toFixed(2),r.notes]));
+    const csv=rows.map(r=>r.map(csvCell).join(",")).join("\r\n")+"\r\n";
+    const blob=new Blob([csv],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+    a.href=url;a.download="cropcircuit-canonical-labor-log.csv";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  });
+})();
+</script></body></html>
