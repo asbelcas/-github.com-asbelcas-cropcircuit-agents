@@ -152,7 +152,7 @@
       "type": "standalone-html",
       "description": "Browser-only before/after analyzer that compares baseline and post-change farm labor logs by matching task names.",
       "source": "https://github.com/asbelcas/-github.com/asbelcas-cropcircuit-agents/blob/main/public_value/workflow_experiment_analyzer.html",
-      "docs": "https://github.com/asbelcas/-github.com/asbelcas/cropcircuit-agents/blob/main/public_value/WORKFLOW_EXPERIMENT.md",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/WORKFLOW_EXPERIMENT.md",
       "privacy": "All CSV parsing and comparison happens in the browser; no upload, analytics, account, or network request.",
       "dependencies": []
     },
@@ -160,9 +160,9 @@
       "id": "open-farm-chore-taxonomy",
       "type": "data-standard",
       "description": "CC0 controlled vocabulary for normalizing repeated small-farm labor tasks across logs, analysis, and benchmarking.",
-      "source": "https://raw.githubusercontent.com/asbelcas/-github.com/asbelcas/cropcircuit-agents/main/public_value/farm_chore_taxonomy.json",
-      "schema": "https://raw.githubusercontent.com/asbelcas/-github.com/asbelcas/cropcircuit-agents/main/public_value/farm_chore_taxonomy.schema.json",
-      "docs": "https://github.com/asbelcas/-github.com/asbelcas/cropcircuit-agents/blob/main/public_value/CHORE_TAXONOMY.md",
+      "source": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/farm_chore_taxonomy.json",
+      "schema": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/farm_chore_taxonomy.schema.json",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/CHORE_TAXONOMY.md",
       "version": "0.1.0",
       "license": "CC0-1.0"
     },
@@ -170,7 +170,7 @@
       "id": "chore-taxonomy-mapper",
       "type": "standalone-html",
       "description": "Browser-only mapper that adds canonical chore codes to free-text farm labor CSV while preserving original task text.",
-      "source": "https://github.com/asbelcas/-github.com/asbelcas/cropcircuit-agents/blob/main/public_value/chore_taxonomy_mapper.html",
+      "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/chore_taxonomy_mapper.html",
       "privacy": "No uploads, account, analytics, or network request.",
       "dependencies": []
     },
@@ -178,8 +178,8 @@
       "id": "offline-farm-chore-scheduler",
       "type": "standalone-html",
       "description": "Private recurring farm chore and maintenance scheduler with user-defined intervals plus iCalendar and CSV export.",
-      "source": "https://github.com/asbelcas/-github.com/asbelcas/cropcircuit-agents/blob/main/public_value/farm_chore_scheduler.html",
-      "docs": "https://github.com/asbelcas/-github.com/asbelcas/cropcircuit-agents/blob/main/public_value/FARM_CHORE_SCHEDULER.md",
+      "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/farm_chore_scheduler.html",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/FARM_CHORE_SCHEDULER.md",
       "privacy": "No server sync, analytics, account, or network requests; schedule stays in browser local storage unless exported.",
       "dependencies": []
     }
