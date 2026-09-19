@@ -206,6 +206,15 @@ The tools now form an end-to-end local-first workflow:
 
 The explorer respects cohort suppression and will not expose statistics from a group that is below the privacy floor.
 
+### Data packages and catalog metadata
+
+The funding radar and chore taxonomy now include Tabular Data Package metadata, and the repository publishes a schema.org `DataCatalog` JSON-LD description for catalog/search reuse:
+
+- [Funding data package](public_value/funding_datapackage.json)
+- [Taxonomy data package](public_value/taxonomy_datapackage.json)
+- [DataCatalog JSON-LD](public_value/data_catalog.jsonld)
+- [Taxonomy CSV](public_value/farm_chore_taxonomy.csv)
+
 ### Machine-readable asset manifest
 
 Software can discover the current public assets through:
