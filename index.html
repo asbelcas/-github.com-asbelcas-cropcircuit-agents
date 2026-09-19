@@ -6,6 +6,7 @@
 <title>CropCircuit Open Farm Utilities</title>
 <meta name="description" content="Free, local-first farm operations tools, calculators, datasets, and benchmark infrastructure from CropCircuit.">
 <meta name="theme-color" content="#215f45">
+<link rel="manifest" href="site.webmanifest">
 <style>
 :root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#627067;--line:#dbe4dc;--accent:#215f45;--soft:#edf5ef}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.5}
@@ -143,10 +144,23 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding-top:18px;color:v
 </div>
 </section>
 
+<section>
+<h2>Offline-first by design</h2>
+<p class="sub">Once served from a secure static host, the landing page can cache core tools for repeat offline use while keeping time-sensitive funding data network-first.</p>
+<div class="grid"><article class="card"><h2>Offline web-app policy</h2><p>Static calculators and local tools cache for resilience; funding data prefers the network so deadlines do not silently freeze.</p><div class="links"><a href="public_value/OFFLINE_WEB_APP.md">Read policy</a></div></article></div>
+</section>
+
 <footer>
 <p>CropCircuit Open Farm Utilities · utility before solicitation · code and data licensing documented in <a href="public_value/README.md">public_value/README.md</a>.</p>
 <p>These tools provide general planning arithmetic and data organization, not financial, engineering, veterinary, legal, or agronomic advice.</p>
 </footer>
 </main>
+<script>
+if ("serviceWorker" in navigator && location.protocol === "https:") {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+  });
+}
+</script>
 </body>
 </html>
