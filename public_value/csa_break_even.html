@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CropCircuit CSA Share Price & Break-Even Calculator</title>
+<meta name="description" content="Plan CSA share price, break-even share count, labor cost, payment fees, and target season surplus using explicit assumptions.">
+<style>
+:root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#627067;--line:#dbe4dc;--accent:#215f45;--soft:#edf5ef}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}
+main{max-width:1000px;margin:auto;padding:30px 16px 60px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px}h2{margin:0 0 10px}.lead{color:var(--muted);max-width:880px}
+.notice{background:var(--soft);border:1px solid #cfe0d3;border-radius:12px;padding:12px 14px;margin:18px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:12px}label{display:block;font-weight:650}input{width:100%;padding:9px 10px;margin-top:4px;border:1px solid #cbd6ce;border-radius:8px;background:white;font:inherit}
+button{border:0;background:var(--accent);color:white;font-weight:700;padding:9px 12px;border-radius:8px;cursor:pointer;margin-top:12px}.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}.metric{border:1px solid var(--line);border-radius:10px;padding:12px;background:#fafcf9}.metric strong{display:block;font-size:1.28rem}.small{font-size:.85rem;color:var(--muted)}
+</style></head>
+<body><main>
+<h1>CSA Share Price & Break-Even Calculator</h1>
+<p class="lead">Model a CSA or subscription-share season using the costs, labor value, share price, payment fees, and surplus target you choose to count.</p>
+<div class="notice"><strong>No embedded "right price."</strong> CropCircuit does not assume a wage, share size, product cost, payment fee, or acceptable profit. The calculator exposes your assumptions.</div>
+
+<section class="card"><h2>Season plan</h2><div class="grid">
+<label>Planned shares<input id="shares" type="number" min="0" step="1" value="40"></label>
+<label>Current / proposed price per share ($)<input id="price" type="number" min="0" step="0.01" value="600"></label>
+<label>Fixed season costs ($)<input id="fixed" type="number" min="0" step="0.01" value="4000"></label>
+<label>Total season labor hours<input id="labor-hours" type="number" min="0" step="0.1" value="500"></label>
+<label>Labor cost per hour ($)<input id="hourly" type="number" min="0" step="0.01" value="20"></label>
+<label>Variable cost per share ($)<input id="variable" type="number" min="0" step="0.01" value="180"></label>
+<label>Payment fee (%)<input id="fee" type="number" min="0" max="100" step="0.01" value="3"></label>
+<label>Target season surplus ($)<input id="target" type="number" min="0" step="0.01" value="3000"></label>
+</div><button id="calculate">Calculate season</button></section>
+
+<section class="card"><h2>Results</h2><div class="metrics">
+<div class="metric"><strong id="fixed-total">$0</strong><span>fixed + labor cost</span></div>
+<div class="metric"><strong id="contribution">$0</strong><span>contribution per share</span></div>
+<div class="metric"><strong id="break-even">—</strong><span>break-even shares</span></div>
+<div class="metric"><strong id="target-shares">—</strong><span>shares for target surplus</span></div>
+<div class="metric"><strong id="required-price">—</strong><span>price needed at planned shares</span></div>
+<div class="metric"><strong id="surplus">—</strong><span>modeled season surplus</span></div>
+</div>
+<p id="note" class="small"></p></section>
+
+<footer class="small" style="margin-top:20px">CropCircuit Open Farm Utilities. First-pass unit economics only. Production risk, unsold output, taxes, debt service, land cost, owner goals, and costs not entered are not automatically represented.</footer>
+</main>
+<script>
+(() => {
+  const $=id=>document.getElementById(id),n=id=>Math.max(Number($(id).value)||0,0),money=v=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(v);
+  $("calculate").addEventListener("click",()=>{
+    const shares=n("shares"),price=n("price"),labor=n("labor-hours")*n("hourly"),fixed=n("fixed")+labor,variable=n("variable"),fee=Math.min(n("fee"),100)/100,target=n("target"),contribution=price*(1-fee)-variable;
+    const breakEven=contribution>0?Math.ceil(fixed/contribution):null,targetShares=contribution>0?Math.ceil((fixed+target)/contribution):null,gross=shares*price,fees=gross*fee,varTotal=shares*variable,surplus=gross-fees-varTotal-fixed,denom=shares*(1-fee),required=denom>0?(fixed+target+shares*variable)/denom:null;
+    $("fixed-total").textContent=money(fixed);$("contribution").textContent=money(contribution);$("break-even").textContent=breakEven===null?"No break-even":breakEven;$("target-shares").textContent=targetShares===null?"—":targetShares;$("required-price").textContent=required===null?"—":money(required);$("surplus").textContent=money(surplus);
+    $("note").textContent=contribution<=0?"The entered price does not exceed variable cost plus payment fees, so selling additional shares does not recover fixed season cost.":`At ${shares} planned shares, modeled gross revenue is ${money(gross)}, payment fees are ${money(fees)}, variable share costs are ${money(varTotal)}, and modeled season surplus after entered fixed/labor costs is ${money(surplus)}.`;
+  });
+  $("calculate").click();
+})();
+</script></body></html>
