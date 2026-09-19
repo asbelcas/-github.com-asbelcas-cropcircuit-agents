@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-19.9",
+  "version": "2026-09-19.10",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -129,9 +129,18 @@
       "type": "workflow-documentation",
       "description": "End-to-end open workflow connecting observation, labor analysis, decision modeling, anonymization, privacy-preserving aggregation, and private comparison.",
       "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/FARM_LABOR_TOOLKIT.md"
+    },
+    {
+      "id": "equipment-cost-threshold",
+      "type": "standalone-html",
+      "description": "Browser-only screening tool that converts measured annual labor cost into a maximum upfront cost consistent with a user-chosen simple-payback target.",
+      "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/equipment_cost_threshold.html",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/EQUIPMENT_COST_THRESHOLD.md",
+      "dependencies": [],
+      "privacy": "Reads local CSV in the browser only; no uploads, account, analytics, or network calls."
     }
   ],
-  "updated_at": "2026-09-19T23:55:00-04:00",
+  "updated_at": "2026-09-19T23:59:00-04:00",
   "validation": {
     "funding_validator": "public_value/validate_funding_radar.mjs",
     "farm_math_tests": "public_value/farm_math.test.mjs",
