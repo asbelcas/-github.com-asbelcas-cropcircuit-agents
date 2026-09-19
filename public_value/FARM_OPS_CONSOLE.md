@@ -34,16 +34,21 @@ It exists for a practical reason: a farmer should be able to save one file and b
 
 ### Workspace backup
 
-- export the local labor/schedule workspace as JSON
-- replace the workspace from a compatible backup
+- export a Workspace 1.1 backup
+- preserve labor, labor settings, chore schedule, equipment maintenance, harvest, and sales collections
+- restore Workspace 1.0 or 1.1 backups
+- when restoring an older 1.0 backup, preserve newer equipment, harvest, and sales collections
 
 ## Compatibility
 
-When the Pocket Console is opened from the same web origin as the rest of CropCircuit's hosted tools, it uses the same local-storage keys:
+When the Pocket Console is opened from the same web origin as the rest of CropCircuit's hosted tools, it uses the same labor/schedule keys and preserves the additional Workspace 1.1 collections:
 
 - `cropcircuit_farm_labor_log_v1`
 - `cropcircuit_farm_labor_settings_v1`
 - `cropcircuit_chore_schedule_v1`
+- `cropcircuit_equipment_maintenance_v1`
+- `cropcircuit_harvest_log_v1`
+- `cropcircuit_sales_log_v1`
 
 That means observations created in the Pocket Console can feed the larger local-first toolkit.
 
