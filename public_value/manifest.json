@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-19.2",
+  "version": "2026-09-19.3",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -44,7 +44,23 @@
       "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/farm_decision_calculator.html",
       "dependencies": [],
       "privacy": "No network calls or analytics; works offline after download."
+    },
+    {
+      "id": "funding-radar-widget",
+      "type": "embeddable-javascript",
+      "description": "Zero-dependency embed for showing filtered Michigan farm funding opportunities on another website.",
+      "cdn": "https://cdn.jsdelivr.net/gh/asbelcas/-github.com-asbelcas-cropcircuit-agents@main/public_value/funding_widget.js",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/FUNDING_WIDGET.md",
+      "demo_source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/funding_widget_demo.html",
+      "privacy": "No analytics, cookies, or account; fetches the public funding dataset only.",
+      "dependencies": []
     }
   ],
-  "updated_at": "2026-09-19T22:30:00-04:00"
+  "updated_at": "2026-09-19T22:45:00-04:00",
+  "validation": {
+    "funding_validator": "public_value/validate_funding_radar.mjs",
+    "farm_math_tests": "public_value/farm_math.test.mjs",
+    "github_workflow": ".github/workflows/public-value-checks.yml",
+    "scheduled_daily": true
+  }
 }
