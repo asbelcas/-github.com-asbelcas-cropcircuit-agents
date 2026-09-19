@@ -84,6 +84,16 @@ Other Michigan agriculture, food-system, nonprofit, or community websites can re
 
 A website can filter by county, status, tags, count, and theme. The widget contains no analytics or cookies.
 
+### Offline-first static app shell
+
+The repository root now includes a Pages-ready web manifest and service worker. Once served over HTTPS, core calculators/tools can be revisited offline while time-sensitive funding data stays network-first:
+
+- [Offline web-app policy](public_value/OFFLINE_WEB_APP.md)
+- `site.webmanifest`
+- `sw.js`
+
+GitHub Pages is not enabled yet, so this capability is staged rather than claimed live.
+
 ### Shared Farm Labor Data Contract
 
 The labor tools now share one explicit interoperable row format. It keeps the farmer's free-text task name and optionally adds a canonical chore code:
