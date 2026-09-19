@@ -2,6 +2,12 @@
 
 CropCircuit's labor tools now form one coherent workflow rather than isolated calculators.
 
+## Step 0 — Import or schedule
+
+If the farm already has a spreadsheet, use the [Labor CSV Import Mapper](LABOR_CSV_IMPORT.md) to convert it into the shared data contract without retyping it.
+
+If the farm is planning recurring work, use the [Offline Farm Chore Scheduler](farm_chore_scheduler.html).
+
 ## Step 1 — Observe
 
 Use the [Offline Farm Labor Log](farm_labor_log.html) for a real observation period.
@@ -15,6 +21,10 @@ Record:
 - workers involved
 
 The log stores data locally and exports CSV.
+
+## Step 1.5 — Calibrate planning estimates
+
+If scheduled work includes estimated minutes, use the [Schedule Estimate Calibrator](SCHEDULE_CALIBRATION.md) to compare those estimates with the median actual elapsed time from the labor log.
 
 ## Step 2 — Find the expensive repetition
 
