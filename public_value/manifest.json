@@ -1,0 +1,29 @@
+{
+  "name": "CropCircuit Public Value Assets",
+  "version": "2026-09-19",
+  "publisher": "CropCircuit",
+  "principle": "utility before solicitation",
+  "assets": [
+    {
+      "id": "michigan-farm-funding-radar",
+      "type": "dataset",
+      "format": [
+        "json",
+        "csv",
+        "markdown",
+        "ics"
+      ],
+      "raw_json": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/funding_radar.json",
+      "raw_csv": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/funding_radar.csv",
+      "calendar": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/funding_deadlines.ics",
+      "verified_at": "2026-09-19"
+    },
+    {
+      "id": "farm-chore-payback",
+      "type": "javascript-module",
+      "cdn": "https://cdn.jsdelivr.net/gh/asbelcas/-github.com-asbelcas-cropcircuit-agents@main/public_value/farm_chore_payback.js",
+      "source": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/farm_chore_payback.js",
+      "dependencies": []
+    }
+  ]
+}
