@@ -9,6 +9,15 @@ Instead of leading with a consulting pitch, this repository now exposes useful b
 
 Everything below lives in [`public_value/`](public_value/).
 
+### Farm business economics
+
+CropCircuit now includes open unit-economics tools for two common direct-market channels:
+
+- [Farmers Market Break-Even](public_value/market_day_break_even.html)
+- [CSA Share Price & Break-Even](public_value/csa_break_even.html)
+
+Both expose the farm's own labor, fee, price, travel, variable-cost, and surplus assumptions rather than hiding them.
+
 ### Michigan Farm Funding Radar
 
 A source-linked, machine-readable snapshot of Michigan farm, food-system, conservation, and rural-business funding.
