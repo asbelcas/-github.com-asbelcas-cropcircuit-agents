@@ -12,6 +12,13 @@
 - Single-file offline Farm Decision Calculator.
 - Machine-readable public asset manifest.
 
+### Distribution and durability
+- Embeddable zero-dependency Funding Radar widget with county/status/tag filters.
+- Standalone widget demo and integration documentation.
+- Funding dataset validator that catches duplicate IDs, invalid URLs, expired open deadlines, and stale verification warnings.
+- GitHub Actions checks on public-value changes plus a daily scheduled validation run.
+- Farm Math tests are now part of automated repository checks.
+
 ### Funding radar expansion
 - Michigan Good Food Fund 2026 Seed Awards.
 - Michigan Craft Beverage Council FY27 Research & Education Grants.
