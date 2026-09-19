@@ -128,10 +128,11 @@ The local workspace can now generate a private printable report covering recent 
 
 ### Local-first workspace
 
-The logger and scheduler now form a shared browser-local workspace. A dedicated backup tool exports or restores labor entries, labor settings, and chore schedules without a server:
+The local tools now share Workspace 1.1. A dedicated backup tool exports or restores labor, labor settings, chore schedules, equipment maintenance, harvest, and direct-market sales without a server:
 
 - [Workspace backup](public_value/workspace_backup.html)
 - [Workspace contract](public_value/LOCAL_WORKSPACE.md)
+- [Workspace JSON Schema](public_value/workspace.schema.json)
 - [Reusable helpers](public_value/workspace.js)
 
 The Labor Opportunity Analyzer, Chore Load Planner, and Schedule Estimate Calibrator can use that local workspace directly instead of requiring CSV handoffs every time.
