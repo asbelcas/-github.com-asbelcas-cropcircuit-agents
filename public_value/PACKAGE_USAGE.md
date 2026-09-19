@@ -9,6 +9,12 @@ The repository is **not being claimed as published to the npm registry**. The pa
 - run the public validation suite with one command
 - prepare for registry publication later if real demand appears
 
+## TypeScript
+
+The package now includes `public_value/index.d.ts`, and root `package.json` exposes it through the `types` field.
+
+No TypeScript runtime dependency is required.
+
 ## Exports
 
 ```js
