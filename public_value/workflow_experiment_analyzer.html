@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CropCircuit Workflow Experiment Analyzer</title>
+<meta name="description" content="Private browser-only before/after analyzer for repeated farm tasks. Compare observed labor before and after a workflow change.">
+<style>
+:root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#627067;--line:#dbe4dc;--accent:#215f45;--soft:#edf5ef;--good:#1f6c42;--bad:#8c3030}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}
+main{max-width:1120px;margin:auto;padding:30px 16px 60px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px}h2{margin:0 0 10px}.lead{color:var(--muted);max-width:860px}
+.notice{background:var(--soft);border:1px solid #cfe0d3;border-radius:12px;padding:12px 14px;margin:18px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}label{display:block;font-weight:650}input,select{width:100%;padding:9px 10px;margin-top:4px;border:1px solid #cbd6ce;border-radius:8px;font:inherit;background:white}
+button{border:0;background:var(--accent);color:white;font-weight:700;padding:9px 12px;border-radius:8px;cursor:pointer;margin:10px 6px 0 0}.secondary{background:#56675d}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}.metric{border:1px solid var(--line);border-radius:10px;padding:12px;background:#fafcf9}.metric strong{display:block;font-size:1.3rem}
+table{width:100%;border-collapse:collapse;font-size:.88rem}th,td{text-align:left;border-bottom:1px solid var(--line);padding:8px 6px;vertical-align:top}th{font-size:.75rem;text-transform:uppercase;color:var(--muted);letter-spacing:.03em}.scroll{overflow:auto}.small{font-size:.85rem;color:var(--muted)}.empty{text-align:center;color:var(--muted);padding:20px}.good{color:var(--good);font-weight:700}.bad{color:var(--bad);font-weight:700}
+</style>
+</head>
+<body>
+<main>
+<h1>Workflow Experiment Analyzer</h1>
+<p class="lead">Measure whether a workflow change actually changed labor. Load one baseline labor-log CSV and one after-change CSV, then compare matching task names using descriptive before/after statistics.</p>
+<div class="notice"><strong>Evidence, not hype:</strong> this tool does not claim statistical significance or causation. It shows observed medians, sample sizes, and a simple annualized labor-value estimate under your assumptions.</div>
+
+<section class="card">
+<h2>Load experiment data</h2>
+<div class="grid">
+<label>Baseline CSV<input id="baseline-file" type="file" accept=".csv,text/csv"></label>
+<label>After-change CSV<input id="after-file" type="file" accept=".csv,text/csv"></label>
+<label>Labor value per hour ($)<input id="hourly" type="number" min="0" step="0.01" value="20"></label>
+<label>Weeks per year this task occurs<input id="weeks" type="number" min="0" max="52" step="1" value="52"></label>
+<label>Intervention cost ($)<input id="cost" type="number" min="0" step="0.01" value="0"></label>
+</div>
+<p class="small">Task names are matched case-insensitively. Use consistent names in both observation periods. Occurrence frequency is estimated from the baseline sample dates when possible.</p>
+<button id="analyze">Compare periods</button>
+<button id="export" class="secondary" disabled>Export comparison CSV</button>
+</section>
+
+<section class="card">
+<h2>Experiment summary</h2>
+<div class="metrics">
+<div class="metric"><strong id="matched">0</strong><span>matched tasks</span></div>
+<div class="metric"><strong id="improved">0</strong><span>less-labor tasks</span></div>
+<div class="metric"><strong id="worse">0</strong><span>more-labor tasks</span></div>
+<div class="metric"><strong id="modeled-value">$0</strong><span>modeled annual labor change</span></div>
+</div>
+<p id="period-note" class="small">Load both files to begin.</p>
+</section>
+
+<section class="card">
+<h2>Task-by-task comparison</h2>
+<div class="scroll"><table>
+<thead><tr><th>Task</th><th>Category</th><th>Baseline n</th><th>After n</th><th>Baseline median worker-min</th><th>After median worker-min</th><th>Change</th><th>Estimated baseline frequency</th><th>Modeled annual labor value</th><th>Simple payback</th></tr></thead>
+<tbody id="body"><tr><td colspan="10" class="empty">No comparison yet.</td></tr></tbody>
+</table></div>
+</section>
+
+<footer class="small" style="margin-top:20px">CropCircuit Open Farm Utilities. Before/after comparisons can be distorted by weather, season, herd/crop stage, staffing, learning effects, task definition, and other changes. Repeat measurements when decisions matter.</footer>
+</main>
+
+<script>
+(() => {
+  const $=id=>document.getElementById(id);
+  const money=v=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(v);
+  const num=(v,d=1)=>Number(v).toLocaleString(undefined,{maximumFractionDigits:d});
+  const esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
+  let results=[];
+
+  function parseCSV(text){
+    const parsed=[];let row=[],field="",quoted=false;
+    for(let i=0;i<text.length;i++){
+      const ch=text[i];
+      if(quoted){
+        if(ch==='"'&&text[i+1]==='"'){field+='"';i++}
+        else if(ch==='"')quoted=false;
+        else field+=ch;
+      }else{
+        if(ch==='"')quoted=true;
+        else if(ch===','){row.push(field);field=""}
+        else if(ch==='\n'){row.push(field);parsed.push(row);row=[];field=""}
+        else if(ch!=='\r')field+=ch;
+      }
+    }
+    if(field.length||row.length){row.push(field);parsed.push(row)}
+    if(!parsed.length)return [];
+    const headers=parsed[0].map(x=>x.trim().toLowerCase());
+    return parsed.slice(1).filter(r=>r.some(v=>String(v).trim())).map(r=>{
+      const obj={};headers.forEach((h,i)=>obj[h]=r[i]??"");return obj;
+    });
+  }
+
+  function median(values){
+    const a=values.filter(Number.isFinite).sort((x,y)=>x-y);
+    if(!a.length)return null;
+    const m=Math.floor(a.length/2);
+    return a.length%2?a[m]:(a[m-1]+a[m])/2;
+  }
+
+  function rowWorkerHours(r){
+    const direct=Number(r.worker_hours);
+    if(Number.isFinite(direct))return Math.max(direct,0);
+    const minutes=Number(r.minutes),workers=Number(r.workers);
+    return Number.isFinite(minutes)&&Number.isFinite(workers)?Math.max(minutes,0)/60*Math.max(workers,0):0;
+  }
+
+  function normalizeTask(v){return String(v||"").trim().toLowerCase()}
+
+  function group(rows){
+    const map=new Map();
+    for(const r of rows){
+      const key=normalizeTask(r.task);if(!key)continue;
+      const item=map.get(key)||{task:String(r.task).trim(),category:r.category||"Other",hours:[],dates:[]};
+      item.hours.push(rowWorkerHours(r));
+      if(/^\d{4}-\d{2}-\d{2}$/.test(String(r.date||"")))item.dates.push(String(r.date));
+      map.set(key,item);
+    }
+    return map;
+  }
+
+  function spanDays(dates){
+    if(!dates.length)return null;
+    const ms=dates.map(d=>Date.parse(d+"T00:00:00Z")).filter(Number.isFinite);
+    if(!ms.length)return null;
+    return Math.max(1,Math.round((Math.max(...ms)-Math.min(...ms))/86400000)+1);
+  }
+
+  $("analyze").addEventListener("click",async()=>{
+    const bf=$("baseline-file").files[0],af=$("after-file").files[0];
+    if(!bf||!af){alert("Choose both baseline and after-change CSV files.");return}
+    const baseline=group(parseCSV(await bf.text()));
+    const after=group(parseCSV(await af.text()));
+    const hourly=Math.max(Number($("hourly").value)||0,0);
+    const weeks=Math.min(Math.max(Number($("weeks").value)||0,0),52);
+    const interventionCost=Math.max(Number($("cost").value)||0,0);
+
+    results=[];
+    let periodSpans=[];
+    for(const [key,b] of baseline){
+      const a=after.get(key);if(!a)continue;
+      const bm=median(b.hours),am=median(a.hours);
+      if(bm===null||am===null)continue;
+      const days=spanDays(b.dates);
+      const frequency=days?b.hours.length/days*7:null;
+      if(days)periodSpans.push(days);
+      const change=am-bm;
+      const pct=bm>0?change/bm*100:null;
+      const annualHours=frequency===null?null:(bm-am)*frequency*weeks;
+      const annualValue=annualHours===null?null:annualHours*hourly;
+      const payback=annualValue>0&&interventionCost>0?interventionCost/annualValue*12:null;
+      results.push({
+        task:b.task,category:b.category,baselineN:b.hours.length,afterN:a.hours.length,
+        baselineMedian:bm,afterMedian:am,change,pct,frequency,annualValue,payback
+      });
+    }
+    results.sort((x,y)=>(y.annualValue??-Infinity)-(x.annualValue??-Infinity));
+
+    const improved=results.filter(x=>x.change<0).length;
+    const worse=results.filter(x=>x.change>0).length;
+    const totalValue=results.reduce((s,x)=>s+(x.annualValue||0),0);
+    $("matched").textContent=results.length;$("improved").textContent=improved;$("worse").textContent=worse;$("modeled-value").textContent=money(totalValue);
+    $("period-note").textContent=periodSpans.length
+      ? "Baseline task frequencies were estimated from dated observations; repeat experiments across seasons before generalizing."
+      : "Baseline CSV lacks usable dates, so annualization is unavailable; the observed medians are still shown.";
+
+    $("body").innerHTML=results.length?results.map(x=>{
+      const cls=x.change<0?"good":x.change>0?"bad":"";
+      const changeText=x.pct===null?num(x.change*60,1)+" worker-min":num(x.pct,1)+"%";
+      return `<tr><td>${esc(x.task)}</td><td>${esc(x.category)}</td><td>${x.baselineN}</td><td>${x.afterN}</td><td>${num(x.baselineMedian*60,1)}</td><td>${num(x.afterMedian*60,1)}</td><td class="${cls}">${esc(changeText)}</td><td>${x.frequency===null?"—":num(x.frequency,1)+"/week"}</td><td>${x.annualValue===null?"—":money(x.annualValue)}</td><td>${x.payback===null?"—":num(x.payback,1)+" months"}</td></tr>`;
+    }).join(""):'<tr><td colspan="10" class="empty">No matching task names found in both files.</td></tr>';
+    $("export").disabled=!results.length;
+  });
+
+  $("export").addEventListener("click",()=>{
+    const rows=[["task","category","baseline_n","after_n","baseline_median_worker_minutes","after_median_worker_minutes","change_percent","estimated_occurrences_per_week","modeled_annual_labor_value","simple_payback_months"]];
+    results.forEach(x=>rows.push([x.task,x.category,x.baselineN,x.afterN,(x.baselineMedian*60).toFixed(2),(x.afterMedian*60).toFixed(2),x.pct===null?"":x.pct.toFixed(1),x.frequency===null?"":x.frequency.toFixed(2),x.annualValue===null?"":x.annualValue.toFixed(2),x.payback===null?"":x.payback.toFixed(1)]));
+    const cell=v=>'"'+String(v??"").replaceAll('"','""')+'"';
+    const csv=rows.map(r=>r.map(cell).join(",")).join("\r\n")+"\r\n";
+    const blob=new Blob([csv],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob);
+    const a=document.createElement("a");a.href=url;a.download="cropcircuit-workflow-experiment.csv";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  });
+})();
+</script>
+</body>
+</html>
