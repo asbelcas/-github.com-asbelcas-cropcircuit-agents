@@ -37,6 +37,7 @@ Key files:
 - [Offline Farm Labor Log](farm_labor_log.html)
 - [Labor Opportunity Analyzer](labor_opportunity_analyzer.html)
 - [Equipment Cost Threshold Analyzer](equipment_cost_threshold.html)
+- [Farm Chore Load Planner](chore_load_planner.html)
 - [Schedule Estimate Calibrator](schedule_estimate_calibrator.html)
 - [Workflow Experiment Analyzer](workflow_experiment_analyzer.html)
 - [Offline Farm Chore Scheduler](farm_chore_scheduler.html)
@@ -127,6 +128,13 @@ The package is prepared for direct GitHub installation but is not claimed as pub
 - rectangular acreage conversion
 
 Source: [farm_math.js](farm_math.js)
+
+### Recurring schedule math
+
+Reusable schedule recurrence and daily-load expansion:
+
+- [schedule_math.js](schedule_math.js)
+- [tests](schedule_math.test.mjs)
 
 ### Workflow experiment math
 
