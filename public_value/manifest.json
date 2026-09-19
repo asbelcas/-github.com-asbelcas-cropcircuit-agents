@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-20.3",
+  "version": "2026-09-20.4",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -194,9 +194,18 @@
         "public_value/examples/synthetic_labor_log_before.csv",
         "public_value/examples/synthetic_labor_log_after.csv"
       ]
+    },
+    {
+      "id": "offline-web-app-shell",
+      "type": "web-app-infrastructure",
+      "description": "Pages-ready web manifest and service worker that cache core static tools while treating funding data as network-first.",
+      "manifest": "site.webmanifest",
+      "service_worker": "sw.js",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/OFFLINE_WEB_APP.md",
+      "hosting_status": "staged_until_https_static_hosting_enabled"
     }
   ],
-  "updated_at": "2026-09-20T00:50:00-04:00",
+  "updated_at": "2026-09-20T01:05:00-04:00",
   "validation": {
     "funding_validator": "public_value/validate_funding_radar.mjs",
     "farm_math_tests": "public_value/farm_math.test.mjs",
@@ -207,6 +216,7 @@
     "labor_to_benchmark_tests": "public_value/labor_log_to_benchmark.test.mjs",
     "workflow_experiment_tests": "public_value/workflow_experiment.test.mjs",
     "chore_taxonomy_validator": "public_value/validate_chore_taxonomy.mjs",
-    "labor_contract_validator": "public_value/validate_labor_contract.mjs"
+    "labor_contract_validator": "public_value/validate_labor_contract.mjs",
+    "offline_asset_validator": "public_value/validate_offline_assets.mjs"
   }
 }
