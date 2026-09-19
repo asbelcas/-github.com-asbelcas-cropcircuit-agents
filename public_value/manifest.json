@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-19.10",
+  "version": "2026-09-20.0",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -138,9 +138,26 @@
       "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/EQUIPMENT_COST_THRESHOLD.md",
       "dependencies": [],
       "privacy": "Reads local CSV in the browser only; no uploads, account, analytics, or network calls."
+    },
+    {
+      "id": "workflow-experiment-math",
+      "type": "javascript-module",
+      "description": "Dependency-free descriptive before/after labor comparison math for repeated farm tasks.",
+      "source": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas/cropcircuit-agents/main/public_value/workflow_experiment.js",
+      "tests": "https://github.com/asbelcas/-github.com/asbelcas-cropcircuit-agents/blob/main/public_value/workflow_experiment.test.mjs",
+      "dependencies": []
+    },
+    {
+      "id": "workflow-experiment-analyzer",
+      "type": "standalone-html",
+      "description": "Browser-only before/after analyzer that compares baseline and post-change farm labor logs by matching task names.",
+      "source": "https://github.com/asbelcas/-github.com/asbelcas-cropcircuit-agents/blob/main/public_value/workflow_experiment_analyzer.html",
+      "docs": "https://github.com/asbelcas/-github.com/asbelcas/cropcircuit-agents/blob/main/public_value/WORKFLOW_EXPERIMENT.md",
+      "privacy": "All CSV parsing and comparison happens in the browser; no upload, analytics, account, or network request.",
+      "dependencies": []
     }
   ],
-  "updated_at": "2026-09-19T23:59:00-04:00",
+  "updated_at": "2026-09-20T00:10:00-04:00",
   "validation": {
     "funding_validator": "public_value/validate_funding_radar.mjs",
     "farm_math_tests": "public_value/farm_math.test.mjs",
@@ -148,6 +165,7 @@
     "scheduled_daily": true,
     "funding_query_tests": "public_value/funding_query.test.mjs",
     "benchmark_tests": "public_value/benchmark_aggregate.test.mjs",
-    "labor_to_benchmark_tests": "public_value/labor_log_to_benchmark.test.mjs"
+    "labor_to_benchmark_tests": "public_value/labor_log_to_benchmark.test.mjs",
+    "workflow_experiment_tests": "public_value/workflow_experiment.test.mjs"
   }
 }
