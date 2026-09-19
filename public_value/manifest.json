@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-19.4",
+  "version": "2026-09-19.5",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -62,9 +62,18 @@
       "source": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/funding_query.mjs",
       "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/FUNDING_QUERY.md",
       "dependencies": []
+    },
+    {
+      "id": "farm-labor-log",
+      "type": "standalone-html",
+      "description": "Private offline farm time-study and labor-cost analyzer with local browser storage and CSV export.",
+      "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/farm_labor_log.html",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/FARM_LABOR_LOG.md",
+      "dependencies": [],
+      "privacy": "No network calls, analytics, cookies, or account; entries remain in browser storage unless exported."
     }
   ],
-  "updated_at": "2026-09-19T23:00:00-04:00",
+  "updated_at": "2026-09-19T23:10:00-04:00",
   "validation": {
     "funding_validator": "public_value/validate_funding_radar.mjs",
     "farm_math_tests": "public_value/farm_math.test.mjs",
