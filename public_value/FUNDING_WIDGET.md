@@ -13,7 +13,7 @@ It is intentionally read-only and contains no tracking code.
   data-count="6">
 </div>
 
-<script src="https://cdn.jsdelivr.net/gh/asbelcas/-github.com-asbelcas-cropcircuit-agents@main/public_value/funding_widget.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/asbelcas/-github.com-asbelcas-cropcircuit-agents@26a6c450742faa56be7b11821c106e1617a7c63b/public_value/funding_widget.js"></script>
 ```
 
 ## Filter to a Michigan county
@@ -27,7 +27,7 @@ County-scoped opportunities are shown only when the county matches. Statewide pr
   data-status="open,continuous"
   data-count="8">
 </div>
-<script src="https://cdn.jsdelivr.net/gh/asbelcas/-github.com-asbelcas-cropcircuit-agents@main/public_value/funding_widget.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/asbelcas/-github.com-asbelcas-cropcircuit-agents@26a6c450742faa56be7b11821c106e1617a7c63b/public_value/funding_widget.js"></script>
 ```
 
 ## Filter by tags
@@ -38,7 +38,7 @@ County-scoped opportunities are shown only when the county matches. Statewide pr
   data-tags="regenerative agriculture,soil health"
   data-status="open,continuous,watch">
 </div>
-<script src="https://cdn.jsdelivr.net/gh/asbelcas/-github.com-asbelcas-cropcircuit-agents@main/public_value/funding_widget.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/asbelcas/-github.com-asbelcas-cropcircuit-agents@26a6c450742faa56be7b11821c106e1617a7c63b/public_value/funding_widget.js"></script>
 ```
 
 ## Options
@@ -62,3 +62,10 @@ County-scoped opportunities are shown only when the county matches. Statewide pr
 - The widget fetches only the public funding JSON unless you provide another source.
 
 Program details can change after publication, so each card links directly to the primary program source.
+
+
+## Versioning
+
+The embed examples pin widget code to the public-value 0.1.0 snapshot by commit SHA. The widget itself still reads the current funding dataset from `main`, so program status can be updated without changing the integration code.
+
+This separates **stable software** from **fresh data**.
