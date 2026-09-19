@@ -71,6 +71,7 @@ Most standalone HTML tools do all processing in the browser and do not upload fa
 
 ## Farm business economics
 
+- [Offline Farm Sales Log](sales_log.html)
 - [Farmers Market Break-Even Calculator](market_day_break_even.html)
 - [CSA Share Price & Break-Even Calculator](csa_break_even.html)
 - [Market-day reusable math](market_math.js)
