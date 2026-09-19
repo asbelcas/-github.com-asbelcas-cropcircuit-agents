@@ -14,6 +14,7 @@
 - Private offline Farm Labor Log with local storage, labor-cost summaries, task ranking, CSV export, and printable reports.
 - Browser-only Labor Opportunity Analyzer that imports time-study CSV, annualizes observations, ranks repeated tasks by labor cost, and exports the analysis.
 - Equipment Cost Threshold Analyzer that converts measured labor economics into a maximum upfront-cost threshold under explicit simple-payback assumptions.
+- Workflow Experiment Analyzer for descriptive before/after task-time comparisons, modeled annual labor value, and observed payback checks.
 - Privacy-first small-farm benchmark schema, browser record builder, k-anonymous aggregator, and suppression tests. No public benchmark numbers are fabricated before real sample size exists.
 - Reproducible labor-log-to-benchmark transformer that strips task-level details and emits only coarse benchmark fields.
 - Private Benchmark Explorer that compares a coarse farm record with privacy-suppressed aggregate cohorts and refuses to expose statistics below the k threshold.
