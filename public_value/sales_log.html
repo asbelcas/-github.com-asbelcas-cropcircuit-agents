@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CropCircuit Offline Farm Sales Log</title>
+<meta name="description" content="Private offline direct-market farm sales log with channel summaries, net receipts, direct-cost contribution, CSV export, and JSON backup.">
+<style>
+:root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#627067;--line:#dbe4dc;--accent:#215f45;--soft:#edf5ef;--danger:#8c3030}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}
+main{max-width:1160px;margin:auto;padding:30px 16px 60px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px}h2{margin:0 0 10px}.lead{color:var(--muted);max-width:900px}
+.notice{background:var(--soft);border:1px solid #cfe0d3;border-radius:12px;padding:12px 14px;margin:18px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:11px}label{display:block;font-weight:650}input,select{width:100%;padding:9px 10px;margin-top:4px;border:1px solid #cbd6ce;border-radius:8px;background:white;font:inherit}
+button{border:0;background:var(--accent);color:white;font-weight:700;padding:8px 11px;border-radius:8px;cursor:pointer;margin:9px 5px 0 0}.secondary{background:#56675d}.danger{background:var(--danger)}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:9px}.metric{border:1px solid var(--line);border-radius:10px;padding:11px;background:#fafcf9}.metric strong{display:block;font-size:1.28rem}
+table{width:100%;border-collapse:collapse;font-size:.83rem}th,td{text-align:left;border-bottom:1px solid var(--line);padding:7px 5px;vertical-align:top}th{font-size:.7rem;text-transform:uppercase;color:var(--muted);letter-spacing:.03em}.scroll{overflow:auto}.small{font-size:.83rem;color:var(--muted)}.empty{text-align:center;color:var(--muted);padding:20px}
+</style></head>
+<body><main>
+<h1>Offline Farm Sales Log</h1>
+<p class="lead">Record direct-market sales and summarize gross sales, payment fees, refunds/discounts, net receipts, and direct costs by sales channel.</p>
+<div class="notice"><strong>Operational record, not accounting software:</strong> this tool does not determine tax treatment, revenue recognition, inventory accounting, or business income. It summarizes the values you enter.</div>
+
+<section class="card"><h2>Add sales record</h2><div class="grid">
+<label>Date<input id="date" type="date"></label>
+<label>Channel<select id="channel"><option>Farmers Market</option><option>CSA</option><option>Farm Stand</option><option>Wholesale</option><option>Restaurant</option><option>Online</option><option>Other</option></select></label>
+<label>Item / note (optional)<input id="item" type="text" placeholder="Mixed produce"></label>
+<label>Gross amount ($)<input id="gross" type="number" min="0" step="0.01" value="0"></label>
+<label>Payment fees ($)<input id="fees" type="number" min="0" step="0.01" value="0"></label>
+<label>Refunds / discounts ($)<input id="refunds" type="number" min="0" step="0.01" value="0"></label>
+<label>Direct costs counted ($)<input id="direct" type="number" min="0" step="0.01" value="0"></label>
+</div><button id="add">Add record</button></section>
+
+<section class="card"><h2>Summary period</h2><div class="grid">
+<label>Start<input id="start" type="date"></label><label>End<input id="end" type="date"></label>
+</div><button id="summarize">Summarize</button>
+<div class="metrics" style="margin-top:12px">
+<div class="metric"><strong id="total-gross">$0</strong><span>gross amount</span></div>
+<div class="metric"><strong id="total-net">$0</strong><span>net receipts</span></div>
+<div class="metric"><strong id="total-contribution">$0</strong><span>after entered direct costs</span></div>
+</div>
+<div class="scroll" style="margin-top:12px"><table><thead><tr><th>Channel</th><th>Records</th><th>Gross</th><th>Fees</th><th>Refunds/discounts</th><th>Net receipts</th><th>Direct costs</th><th>After direct costs</th></tr></thead><tbody id="summary-body"></tbody></table></div></section>
+
+<section class="card"><h2>Raw records</h2><div class="scroll"><table><thead><tr><th>Date</th><th>Channel</th><th>Item</th><th>Gross</th><th>Fees</th><th>Refunds</th><th>Direct costs</th><th>Net receipts</th><th></th></tr></thead><tbody id="body"></tbody></table></div>
+<button id="csv" class="secondary">Export CSV</button><button id="json" class="secondary">Export JSON backup</button>
+<label style="display:block;margin-top:14px;font-weight:650">Restore JSON backup<input id="restore-file" type="file" accept=".json,application/json"></label><button id="restore" class="secondary">Replace from backup</button></section>
+
+<footer class="small" style="margin-top:20px">CropCircuit Open Farm Utilities. Net receipts and direct-cost contribution are descriptive arithmetic, not taxable income or net profit.</footer>
+</main>
+<script>
+(() => {
+  const KEY="cropcircuit_sales_log_v1",$=id=>document.getElementById(id),esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;"),money=v=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(v);
+  function load(){try{const x=JSON.parse(localStorage.getItem(KEY)||"[]");return Array.isArray(x)?x:[]}catch{return[]}}
+  function save(){localStorage.setItem(KEY,JSON.stringify(rows))}
+  function today(){return new Date().toISOString().slice(0,10)}
+  function econ(r){const gross=Math.max(Number(r.gross_amount)||0,0),fees=Math.max(Number(r.payment_fees)||0,0),refunds=Math.max(Number(r.refunds_discounts)||0,0),direct=Math.max(Number(r.direct_costs)||0,0),net=gross-fees-refunds;return{gross,fees,refunds,direct,net,contribution:net-direct}}
+  function download(name,content,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+  let rows=load();$("date").value=today();$("start").value=today().slice(0,8)+"01";$("end").value=today();
+
+  function render(){const sorted=[...rows].sort((a,b)=>b.date.localeCompare(a.date));$("body").innerHTML=sorted.length?sorted.map(r=>{const e=econ(r);return`<tr><td>${esc(r.date)}</td><td>${esc(r.channel)}</td><td>${esc(r.item||"")}</td><td>${money(e.gross)}</td><td>${money(e.fees)}</td><td>${money(e.refunds)}</td><td>${money(e.direct)}</td><td>${money(e.net)}</td><td><button class="danger" data-del="${esc(r.id)}">Delete</button></td></tr>`}).join(""):'<tr><td colspan="9" class="empty">No sales records yet.</td></tr>';document.querySelectorAll("[data-del]").forEach(b=>b.addEventListener("click",()=>{rows=rows.filter(r=>r.id!==b.dataset.del);save();render()}))}
+  function summarize(){const start=$("start").value,end=$("end").value,map=new Map();let totals={gross:0,net:0,contribution:0};for(const r of rows){if(r.date<start||r.date>end)continue;const e=econ(r),key=r.channel||"Unspecified",v=map.get(key)||{records:0,gross:0,fees:0,refunds:0,direct:0,net:0,contribution:0};v.records++;v.gross+=e.gross;v.fees+=e.fees;v.refunds+=e.refunds;v.direct+=e.direct;v.net+=e.net;v.contribution+=e.contribution;map.set(key,v);totals.gross+=e.gross;totals.net+=e.net;totals.contribution+=e.contribution}$("total-gross").textContent=money(totals.gross);$("total-net").textContent=money(totals.net);$("total-contribution").textContent=money(totals.contribution);const data=[...map.entries()].sort((a,b)=>b[1].net-a[1].net);$("summary-body").innerHTML=data.length?data.map(([k,v])=>`<tr><td>${esc(k)}</td><td>${v.records}</td><td>${money(v.gross)}</td><td>${money(v.fees)}</td><td>${money(v.refunds)}</td><td>${money(v.net)}</td><td>${money(v.direct)}</td><td>${money(v.contribution)}</td></tr>`).join(""):'<tr><td colspan="8" class="empty">No sales records in this period.</td></tr>'}
+  $("add").addEventListener("click",()=>{const gross=Number($("gross").value);if(!Number.isFinite(gross)||gross<0){alert("Enter a non-negative gross amount.");return}rows.push({id:crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random(),date:$("date").value||today(),channel:$("channel").value,item:$("item").value.trim(),gross_amount:gross,payment_fees:Math.max(Number($("fees").value)||0,0),refunds_discounts:Math.max(Number($("refunds").value)||0,0),direct_costs:Math.max(Number($("direct").value)||0,0)});save();$("item").value="";$("gross").value="0";$("fees").value="0";$("refunds").value="0";$("direct").value="0";render();summarize()});
+  $("summarize").addEventListener("click",summarize);
+  $("csv").addEventListener("click",()=>{const cell=v=>'"'+String(v??"").replaceAll('"','""')+'"',data=[["date","channel","item","gross_amount","payment_fees","refunds_discounts","direct_costs","net_receipts","contribution_after_direct_costs"]];[...rows].sort((a,b)=>a.date.localeCompare(b.date)).forEach(r=>{const e=econ(r);data.push([r.date,r.channel,r.item||"",e.gross,e.fees,e.refunds,e.direct,e.net,e.contribution])});download("cropcircuit-sales-log.csv",data.map(r=>r.map(cell).join(",")).join("\r\n")+"\r\n","text/csv;charset=utf-8")});
+  $("json").addEventListener("click",()=>download("cropcircuit-sales-log.json",JSON.stringify({schema_version:"1.0",exported_at:new Date().toISOString(),entries:rows},null,2)+"\n","application/json"));
+  $("restore").addEventListener("click",async()=>{const f=$("restore-file").files[0];if(!f){alert("Choose a JSON backup.");return}try{const x=JSON.parse(await f.text());if(x.schema_version!=="1.0"||!Array.isArray(x.entries))throw new Error("Unsupported backup");if(!confirm("Replace the local sales log with this backup?"))return;rows=x.entries;save();render();summarize()}catch(e){alert("Restore failed: "+e.message)}});
+  render();summarize();
+})();
+</script></body></html>
