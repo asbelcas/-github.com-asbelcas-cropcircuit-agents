@@ -249,8 +249,8 @@
     "data_package_validator": "public_value/validate_data_packages.mjs"
   },
   "stable_snapshot": {
-    "version": "0.4.0",
-    "branch": "release/public-value-0.4.0",
-    "commit": "00bb29d3a26d308992c7d1f16a6075f86bea7db6"
+    "version": "0.5.0",
+    "branch": "release/public-value-0.5.0",
+    "commit": "a2c0b1fe972da0d325ee2c7a98d210ef48ec6845"
   }
 }
