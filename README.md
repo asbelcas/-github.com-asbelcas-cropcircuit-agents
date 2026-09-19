@@ -78,6 +78,16 @@ Other Michigan agriculture, food-system, nonprofit, or community websites can re
 
 A website can filter by county, status, tags, count, and theme. The widget contains no analytics or cookies.
 
+### Funding query CLI
+
+Developers, analysts, and agents can query the radar locally with no API key or dependencies:
+
+- [CLI source](public_value/funding_query.mjs)
+- [Documentation](public_value/FUNDING_QUERY.md)
+- [Tests](public_value/funding_query.test.mjs)
+
+Examples include county-specific eligibility, open-only results, upcoming deadlines, and machine-readable JSON/TSV output.
+
 ### Machine-readable asset manifest
 
 Software can discover the current public assets through:
@@ -110,4 +120,4 @@ Current work is centered on creating durable internet utility: tools, datasets, 
 
 ## Automated quality checks
 
-The repository now validates public-value assets in GitHub Actions. The workflow checks funding data structure/freshness and runs the Farm Math test suite on changes and on a daily schedule. This is meant to make stale "open" deadlines fail visibly instead of quietly lingering.
+The repository includes GitHub Actions checks for funding data structure/freshness, JavaScript syntax, Farm Math, and the funding-query CLI on changes and on a daily schedule. This is meant to make stale "open" deadlines fail visibly instead of quietly lingering.
