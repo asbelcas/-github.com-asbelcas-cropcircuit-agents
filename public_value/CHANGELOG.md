@@ -15,6 +15,8 @@
 - Browser-only Labor Opportunity Analyzer that imports time-study CSV, annualizes observations, ranks repeated tasks by labor cost, and exports the analysis.
 - Privacy-first small-farm benchmark schema, browser record builder, k-anonymous aggregator, and suppression tests. No public benchmark numbers are fabricated before real sample size exists.
 - Reproducible labor-log-to-benchmark transformer that strips task-level details and emits only coarse benchmark fields.
+- Private Benchmark Explorer that compares a coarse farm record with privacy-suppressed aggregate cohorts and refuses to expose statistics below the k threshold.
+- End-to-end Farm Labor → Decision → Benchmark workflow guide.
 
 ### Distribution and durability
 - Embeddable zero-dependency Funding Radar widget with county/status/tag filters.
