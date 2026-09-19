@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/farm_benchmark.schema.json",
+  "title": "CropCircuit Anonymous Small-Farm Operations Benchmark Record",
+  "description": "Coarse, non-identifying operational benchmark record. Exact location, farm name, dates, notes, contact information, financial account data, and free-text fields are intentionally excluded.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "period",
+    "region",
+    "acreage_band",
+    "enterprise_types",
+    "operator_count_band",
+    "weekly_worker_hours",
+    "labor_cost_band",
+    "category_share_percent",
+    "source"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "period": {
+      "enum": [
+        "winter",
+        "spring",
+        "summer",
+        "fall",
+        "year-round"
+      ]
+    },
+    "region": {
+      "enum": [
+        "Michigan",
+        "Great Lakes",
+        "Midwest",
+        "United States",
+        "Other"
+      ]
+    },
+    "acreage_band": {
+      "enum": [
+        "under-1",
+        "1-4.9",
+        "5-19.9",
+        "20-49.9",
+        "50-199.9",
+        "200-plus"
+      ]
+    },
+    "enterprise_types": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "vegetables",
+          "fruit",
+          "orchard",
+          "flowers",
+          "poultry",
+          "small-ruminants",
+          "cattle",
+          "pigs",
+          "dairy",
+          "hay-forage",
+          "grain",
+          "agroforestry",
+          "farm-stand",
+          "CSA",
+          "farmers-market",
+          "education",
+          "mixed",
+          "other"
+        ]
+      }
+    },
+    "operator_count_band": {
+      "enum": [
+        "1",
+        "2",
+        "3-5",
+        "6-plus"
+      ]
+    },
+    "weekly_worker_hours": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1000
+    },
+    "labor_cost_band": {
+      "enum": [
+        "under-15",
+        "15-19.99",
+        "20-24.99",
+        "25-34.99",
+        "35-plus",
+        "not-provided"
+      ]
+    },
+    "category_share_percent": {
+      "type": "object",
+      "required": [
+        "livestock",
+        "field_crop",
+        "harvest",
+        "wash_pack",
+        "market_sales",
+        "maintenance",
+        "fencing",
+        "water",
+        "admin",
+        "other"
+      ],
+      "properties": {
+        "livestock": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "field_crop": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "harvest": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "wash_pack": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "market_sales": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "maintenance": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "fencing": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "water": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "admin": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "other": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "additionalProperties": false
+    },
+    "source": {
+      "enum": [
+        "manual",
+        "cropcircuit-labor-log",
+        "other-structured-log"
+      ]
+    },
+    "created_with": {
+      "type": "string",
+      "maxLength": 80
+    }
+  },
+  "additionalProperties": false
+}
