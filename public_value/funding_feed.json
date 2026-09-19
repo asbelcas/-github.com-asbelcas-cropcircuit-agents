@@ -1,0 +1,251 @@
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "CropCircuit Michigan Farm Funding Radar",
+  "home_page_url": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/funding_radar.md",
+  "feed_url": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/funding_feed.json",
+  "description": "Source-linked status updates for Michigan farm, food-system, conservation, disaster, and rural-business funding.",
+  "items": [
+    {
+      "id": "mi-good-food-fund-seed-awards-2026",
+      "url": "https://migoodfoodfund.org/support-for-entrepreneurs/seed-awards/",
+      "title": "Michigan Good Food Fund 2026 Seed Awards",
+      "content_text": "Status: open. Funding: $5,000–$20,000. Timing: September 28, 2026 at 5:00 PM EDT. Seed grants for eligible businesses across Michigan's food and farm sector whose growth supports economic development and healthy food access.",
+      "date_modified": "2026-09-19T12:00:00Z",
+      "tags": [
+        "food systems",
+        "farm business",
+        "healthy food access",
+        "economic development"
+      ],
+      "_cropcircuit": {
+        "status": "open",
+        "deadline": "2026-09-28T17:00:00-04:00",
+        "funding_type": null,
+        "provider": "Michigan Good Food Fund",
+        "audience": "Michigan food and farm businesses",
+        "county_scope": []
+      }
+    },
+    {
+      "id": "usda-fsa-sdrp-2026",
+      "url": "https://www.fsa.usda.gov/resources/disaster-recovery/supplemental-disaster-relief-program-sdrp",
+      "title": "USDA FSA Supplemental Disaster Relief Program (SDRP)",
+      "content_text": "Status: open. Funding: Disaster relief payments; amount depends on eligible losses and program calculation. Timing: September 30, 2026 (Stages 1 and 2). SDRP provides assistance for qualifying 2023 and 2024 disaster losses. Stage 1 covers indemnified losses using crop insurance or NAP data; Stage 2 can cover non-indemnified, uncovered, and quality losses.",
+      "date_modified": "2026-09-19T12:00:00Z",
+      "tags": [
+        "disaster assistance",
+        "crop losses",
+        "FSA",
+        "weather",
+        "2023",
+        "2024"
+      ],
+      "_cropcircuit": {
+        "status": "open",
+        "deadline": "2026-09-30T23:59:59-04:00",
+        "funding_type": "disaster assistance",
+        "provider": "USDA Farm Service Agency",
+        "audience": "Agricultural producers with eligible 2023 or 2024 revenue, quality, or production losses to crops, trees, bushes, or vines",
+        "county_scope": []
+      }
+    },
+    {
+      "id": "michigan-craft-beverage-council-2027",
+      "url": "https://www.michigan.gov/mdard/about/media/pressreleases/2026/09/03/michigan-craft-beverage-council-now-accepting-research-and-education-grant-proposals",
+      "title": "Michigan Craft Beverage Council 2027 Research & Education Grants",
+      "content_text": "Status: open. Funding: Education grants up to $5,000; research grants up to $40,000. Timing: October 9, 2026 at 3:00 PM ET. Current priorities include increasing use of Michigan agricultural products and regenerative practices for crops used in craft beverage production.",
+      "date_modified": "2026-09-19T12:00:00Z",
+      "tags": [
+        "research",
+        "education",
+        "regenerative agriculture",
+        "craft beverage",
+        "Michigan-grown crops"
+      ],
+      "_cropcircuit": {
+        "status": "open",
+        "deadline": "2026-10-09T15:00:00-04:00",
+        "funding_type": null,
+        "provider": "Michigan Craft Beverage Council / MDARD",
+        "audience": "Research and education projects supporting Michigan craft beverage agriculture and markets",
+        "county_scope": []
+      }
+    },
+    {
+      "id": "michigan-fsa-emergency-loans-s6137-s6139",
+      "url": "https://www.fsa.usda.gov/news-events/news/04-08-2026/usda-designates-four-michigan-counties-natural-disaster-areas-due-2025",
+      "title": "Michigan FSA Emergency Farm Loans — 2025 Drought, Heat, Frost/Freeze Designations",
+      "content_text": "Status: open. Funding: Emergency farm credit; loan amount and terms depend on losses, security, eligibility, and repayment ability. Timing: October 13, 2026. Secretarial disaster designations make FSA emergency credit available for eligible recovery needs. Three Michigan designations listed by FSA share an October 13, 2026 application deadline.",
+      "date_modified": "2026-09-19T12:00:00Z",
+      "tags": [
+        "emergency loan",
+        "FSA",
+        "Michigan",
+        "drought",
+        "heat",
+        "frost",
+        "freeze",
+        "disaster recovery"
+      ],
+      "_cropcircuit": {
+        "status": "open",
+        "deadline": "2026-10-13T23:59:59-04:00",
+        "funding_type": "emergency loan",
+        "provider": "USDA Farm Service Agency — Michigan",
+        "audience": "Eligible producers in designated primary or contiguous Michigan counties affected by specified 2025 drought/excessive heat and frost/freeze disasters",
+        "county_scope": [
+          "Allegan",
+          "Barry",
+          "Bay",
+          "Clare",
+          "Gladwin",
+          "Gratiot",
+          "Ionia",
+          "Isabella",
+          "Kalamazoo",
+          "Kent",
+          "Midland",
+          "Montcalm",
+          "Muskegon",
+          "Newaygo",
+          "Ottawa",
+          "Saginaw",
+          "Van Buren"
+        ]
+      }
+    },
+    {
+      "id": "nrcs-csp-michigan",
+      "url": "https://www.nrcs.usda.gov/programs-initiatives/conservation-stewardship-program/michigan/conservation-stewardship-program",
+      "title": "NRCS Conservation Stewardship Program — Michigan",
+      "content_text": "Status: continuous. Funding: Contract-based conservation payments. Timing: Applications accepted continuously; ask NRCS about the next Michigan ranking date. CSP supports producers who maintain existing conservation and add further conservation activities. Michigan applications are accepted continuously.",
+      "date_modified": "2026-09-19T12:00:00Z",
+      "tags": [
+        "conservation",
+        "stewardship",
+        "soil health",
+        "grazing",
+        "regenerative agriculture"
+      ],
+      "_cropcircuit": {
+        "status": "continuous",
+        "deadline": null,
+        "funding_type": null,
+        "provider": "USDA Natural Resources Conservation Service",
+        "audience": "Agricultural producers and land managers already using conservation practices",
+        "county_scope": []
+      }
+    },
+    {
+      "id": "nrcs-eqip-michigan",
+      "url": "https://www.nrcs.usda.gov/programs-initiatives/eqip-environmental-quality-incentives/michigan/eqip-michigan/current-year-signup",
+      "title": "NRCS EQIP — Michigan",
+      "content_text": "Status: continuous. Funding: Practice-specific financial assistance. Timing: Applications accepted continuously; ask NRCS about the next Michigan ranking date. Financial and technical assistance for conservation practices. Michigan's FY2026 first batching date has passed, but applications remain continuous and can be considered in future ranking periods.",
+      "date_modified": "2026-09-19T12:00:00Z",
+      "tags": [
+        "conservation",
+        "soil health",
+        "water",
+        "livestock",
+        "wildlife",
+        "regenerative agriculture"
+      ],
+      "_cropcircuit": {
+        "status": "continuous",
+        "deadline": null,
+        "funding_type": null,
+        "provider": "USDA Natural Resources Conservation Service",
+        "audience": "Agricultural producers and non-industrial private forest managers",
+        "county_scope": []
+      }
+    },
+    {
+      "id": "ncr-sare-farmer-rancher-watch",
+      "url": "https://northcentral.sare.org/grants/apply-for-a-grant/farmer-rancher-grant/",
+      "title": "North Central SARE Farmer Rancher Grant",
+      "content_text": "Status: watch. Funding: Program page lists up to $15,000 for individuals or $30,000 for teams; verify the next call when released. Timing: No open call shown as of September 19, 2026; wait for the current call before applying. A recurring producer-focused grant for sustainable agriculture experiments and demonstrations. The current program page says there is no open call, so this is a planning/watch item rather than an active application.",
+      "date_modified": "2026-09-19T12:00:00Z",
+      "tags": [
+        "SARE",
+        "on-farm research",
+        "regenerative agriculture",
+        "demonstration",
+        "education",
+        "Michigan"
+      ],
+      "_cropcircuit": {
+        "status": "watch",
+        "deadline": null,
+        "funding_type": "research / demonstration grant",
+        "provider": "North Central Region SARE",
+        "audience": "Farmers and ranchers in the North Central region, including Michigan, testing sustainable agriculture ideas through research, demonstration, or education",
+        "county_scope": []
+      }
+    },
+    {
+      "id": "usda-reap-2026-status",
+      "url": "https://www.rd.usda.gov/media/file/download/usda-rd-reap-faq-03312026.pdf",
+      "title": "USDA Rural Energy for America Program (REAP)",
+      "content_text": "Status: paused. Funding: Renewable-energy and energy-efficiency grants/guaranteed loans. Timing: Grant awards paused pending new regulations; guaranteed loans continue. USDA announced that further REAP grant awards are paused until new regulations and a new funding notice are in effect. Guaranteed loans continue. This entry is kept as a status warning so applicants do not waste time on stale grant guidance.",
+      "date_modified": "2026-09-19T12:00:00Z",
+      "tags": [
+        "energy",
+        "solar",
+        "efficiency",
+        "rural business"
+      ],
+      "_cropcircuit": {
+        "status": "paused",
+        "deadline": null,
+        "funding_type": null,
+        "provider": "USDA Rural Development",
+        "audience": "Agricultural producers and rural small businesses",
+        "county_scope": []
+      }
+    },
+    {
+      "id": "mdard-specialty-crop-block-2026",
+      "url": "https://www.michigan.gov/mdard/business-development/grantfund/specialty-crop-block-grants",
+      "title": "MDARD Specialty Crop Block Grant",
+      "content_text": "Status: closed. Funding: Project grants supporting Michigan specialty crops. Timing: 2026 cycle closed February 5, 2026. The 2026 application cycle is closed. CropCircuit tracks it because it is a recurring program worth planning for before the next cycle opens.",
+      "date_modified": "2026-09-19T12:00:00Z",
+      "tags": [
+        "specialty crops",
+        "horticulture",
+        "vegetables",
+        "fruit",
+        "floriculture"
+      ],
+      "_cropcircuit": {
+        "status": "closed",
+        "deadline": "2026-02-05T17:00:00-05:00",
+        "funding_type": null,
+        "provider": "Michigan Department of Agriculture & Rural Development",
+        "audience": "Projects that enhance competitiveness of Michigan specialty crops",
+        "county_scope": []
+      }
+    },
+    {
+      "id": "mdard-value-added-regional-food-systems-2026",
+      "url": "https://www.michigan.gov/mdard/business-development/grantfund/value-added-regional-food-systems-and-supply-chain-grant",
+      "title": "MDARD Underserved, Value-Added, Regional Food Systems & Supply Chain Grant",
+      "content_text": "Status: closed. Funding: 2026 awards included grants up to $100,000. Timing: 2026 cycle closed April 15, 2026. The 2026 cycle is closed and awards were announced in September. The program is retained as a planning/watch item for future rounds.",
+      "date_modified": "2026-09-19T12:00:00Z",
+      "tags": [
+        "value added",
+        "food systems",
+        "supply chain",
+        "farm markets",
+        "hoop houses"
+      ],
+      "_cropcircuit": {
+        "status": "closed",
+        "deadline": "2026-04-15T17:00:00-04:00",
+        "funding_type": null,
+        "provider": "Michigan Department of Agriculture & Rural Development",
+        "audience": "Michigan agriculture, processing, food systems, healthy food access, and supply-chain projects",
+        "county_scope": []
+      }
+    }
+  ]
+}
