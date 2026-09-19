@@ -16,6 +16,9 @@
 ## Best entry points
 
 - Public asset catalog: public_value/README.md
+- Data catalog JSON-LD: public_value/data_catalog.jsonld
+- Funding data package: public_value/funding_datapackage.json
+- Chore taxonomy data package: public_value/taxonomy_datapackage.json
 - Machine-readable manifest: public_value/manifest.json
 - Farm labor workflow: public_value/FARM_LABOR_TOOLKIT.md
 - Labor data contract: public_value/LABOR_DATA_CONTRACT.md
