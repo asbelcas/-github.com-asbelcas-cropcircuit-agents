@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CropCircuit Funding Radar Widget Demo</title>
+<style>
+body{max-width:1050px;margin:40px auto;padding:0 18px;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#18221c}
+h1{font-size:2.2rem;margin-bottom:8px}p{line-height:1.5;color:#58655d}.demo{margin:28px 0}
+code{background:#eef2ee;padding:2px 5px;border-radius:5px}
+</style>
+</head>
+<body>
+<h1>Michigan Farm Funding Radar — Embeddable Widget</h1>
+<p>This demo loads CropCircuit's public funding dataset and filters it for Kalamazoo County. Statewide opportunities remain visible. The widget has no analytics or cookies.</p>
+<div class="demo">
+  <div
+    data-cropcircuit-funding-radar
+    data-county="Kalamazoo"
+    data-status="open,continuous,watch"
+    data-count="8">
+  </div>
+</div>
+<p>Embed documentation: <code>public_value/FUNDING_WIDGET.md</code></p>
+<script src="./funding_widget.js"></script>
+</body>
+</html>
