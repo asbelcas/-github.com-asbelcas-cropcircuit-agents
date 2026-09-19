@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CropCircuit Private Benchmark Explorer</title>
+<meta name="description" content="Compare a local farm benchmark record with privacy-suppressed aggregate cohort data entirely in the browser.">
+<style>
+:root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#637168;--line:#dbe4dc;--accent:#215f45;--soft:#edf5ef}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}
+main{max-width:1050px;margin:auto;padding:30px 16px 60px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px}h2{margin:0 0 10px}.lead{color:var(--muted);max-width:850px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}.notice{background:var(--soft);border:1px solid #cfe0d3;border-radius:12px;padding:12px 14px;margin:18px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}label{display:block;font-weight:650}input[type=file]{width:100%;padding:10px;border:1px solid #cbd6ce;border-radius:8px;background:white}
+button{border:0;background:var(--accent);color:white;font-weight:700;padding:9px 12px;border-radius:8px;cursor:pointer;margin-top:10px}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}.metric{border:1px solid var(--line);border-radius:10px;padding:12px;background:#fafcf9}.metric strong{display:block;font-size:1.3rem}
+table{width:100%;border-collapse:collapse;font-size:.88rem}th,td{text-align:left;border-bottom:1px solid var(--line);padding:8px 6px;vertical-align:top}th{font-size:.75rem;text-transform:uppercase;color:var(--muted);letter-spacing:.03em}.scroll{overflow:auto}.small{font-size:.85rem;color:var(--muted)}.empty{text-align:center;color:var(--muted);padding:20px}
+.good{color:#1e6a3e}.mid{color:#7a5a00}.high{color:#8a2f2f}
+</style>
+</head>
+<body>
+<main>
+<h1>Private Farm Benchmark Explorer</h1>
+<p class="lead">Compare one coarse farm benchmark record against an aggregate cohort file. Both files stay in your browser. The explorer refuses to compare against suppressed cohorts.</p>
+<div class="notice"><strong>No public benchmark is populated yet.</strong> This is infrastructure for the moment real cohorts exist. It is also useful for institutions that generate their own aggregate files with CropCircuit's open schema.</div>
+
+<section class="card">
+<h2>Load files</h2>
+<div class="grid">
+<label>Your benchmark record
+<input id="record-file" type="file" accept=".json,application/json">
+</label>
+<label>Aggregate cohort file
+<input id="aggregate-file" type="file" accept=".json,application/json">
+</label>
+</div>
+<button id="compare">Compare</button>
+<p class="small">Expected cohort grouping: region + acreage band. If the aggregate file uses a different grouping, the tool will explain the mismatch.</p>
+</section>
+
+<section class="card">
+<h2>Comparison</h2>
+<div class="metrics">
+<div class="metric"><strong id="cohort">—</strong><span>cohort</span></div>
+<div class="metric"><strong id="sample">—</strong><span>sample size</span></div>
+<div class="metric"><strong id="farm-hours">—</strong><span>your weekly hours</span></div>
+<div class="metric"><strong id="median-hours">—</strong><span>cohort median</span></div>
+<div class="metric"><strong id="position">—</strong><span>rough position</span></div>
+</div>
+<p id="message" class="small">Load both files to compare.</p>
+</section>
+
+<section class="card">
+<h2>Labor-share comparison</h2>
+<div class="scroll">
+<table>
+<thead><tr><th>Category</th><th>Your share</th><th>Cohort p25</th><th>Cohort median</th><th>Cohort p75</th><th>Signal</th></tr></thead>
+<tbody id="body"><tr><td colspan="6" class="empty">No comparison yet.</td></tr></tbody>
+</table>
+</div>
+</section>
+</main>
+
+<script>
+(() => {
+  const $=id=>document.getElementById(id);
+  const num=(v,d=1)=>Number(v).toLocaleString(undefined,{maximumFractionDigits:d});
+  const esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
+  const labels={
+    livestock:"Livestock",field_crop:"Field / crop",harvest:"Harvest",wash_pack:"Wash / pack",
+    market_sales:"Market / sales",maintenance:"Maintenance",fencing:"Fencing",water:"Water",admin:"Admin",other:"Other"
+  };
+
+  async function readJson(input){
+    const file=input.files[0];
+    if(!file) throw new Error("Choose both JSON files.");
+    return JSON.parse(await file.text());
+  }
+
+  function position(value,stats){
+    if(value<stats.p25)return "below cohort p25";
+    if(value>stats.p75)return "above cohort p75";
+    if(value<stats.median)return "between p25 and median";
+    if(value>stats.median)return "between median and p75";
+    return "at cohort median";
+  }
+
+  function signal(value,stats){
+    if(value>stats.p75)return ["higher than p75","high"];
+    if(value<stats.p25)return ["lower than p25","good"];
+    return ["within middle 50%","mid"];
+  }
+
+  $("compare").addEventListener("click",async()=>{
+    try{
+      const record=await readJson($("record-file"));
+      const aggregate=await readJson($("aggregate-file"));
+      const groupBy=aggregate.group_by||[];
+      if(groupBy.length!==2||groupBy[0]!=="region"||groupBy[1]!=="acreage_band"){
+        throw new Error("This explorer currently expects aggregate grouping by region,acreage_band.");
+      }
+      const key=String(record.region)+"|"+String(record.acreage_band);
+      const cohort=(aggregate.cohorts||[]).find(x=>x.cohort===key);
+      if(!cohort)throw new Error("No matching cohort exists in the aggregate file.");
+      if(cohort.suppressed){
+        $("cohort").textContent=key;$("sample").textContent=cohort.sample_size;$("farm-hours").textContent=num(record.weekly_worker_hours);
+        $("median-hours").textContent="suppressed";$("position").textContent="not compared";
+        $("message").textContent="This cohort is below the privacy floor. No benchmark statistics are available.";
+        $("body").innerHTML='<tr><td colspan="6" class="empty">Statistics are privacy-suppressed for this cohort.</td></tr>';
+        return;
+      }
+
+      const stats=cohort.weekly_worker_hours;
+      $("cohort").textContent=key;
+      $("sample").textContent=cohort.sample_size;
+      $("farm-hours").textContent=num(record.weekly_worker_hours);
+      $("median-hours").textContent=num(stats.median);
+      $("position").textContent=position(Number(record.weekly_worker_hours),stats);
+      $("message").textContent="Comparison uses a coarse cohort. It describes relative labor allocation, not farm quality or operator performance.";
+
+      const rows=[];
+      for(const [key,cohortStats] of Object.entries(cohort.category_share_percent||{})){
+        const own=Number(record.category_share_percent?.[key]||0);
+        const [text,cls]=signal(own,cohortStats);
+        rows.push(`<tr><td>${esc(labels[key]||key)}</td><td>${num(own)}%</td><td>${num(cohortStats.p25)}%</td><td>${num(cohortStats.median)}%</td><td>${num(cohortStats.p75)}%</td><td class="${cls}">${esc(text)}</td></tr>`);
+      }
+      $("body").innerHTML=rows.join("")||'<tr><td colspan="6" class="empty">No category statistics available.</td></tr>';
+    }catch(error){
+      $("message").textContent="Could not compare: "+error.message;
+      $("body").innerHTML='<tr><td colspan="6" class="empty">No valid comparison.</td></tr>';
+    }
+  });
+})();
+</script>
+</body>
+</html>
