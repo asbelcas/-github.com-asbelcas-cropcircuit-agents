@@ -124,6 +124,16 @@ CropCircuit now has the public specification and tooling for a small-farm operat
 
 The public benchmark dataset is **not populated yet**. CropCircuit will not manufacture baseline numbers. Cohort statistics are suppressed until at least 5 records are present.
 
+### Labor Log → Anonymous Benchmark
+
+A dependency-free transformer converts real labor-log CSV into the coarse benchmark schema while deliberately discarding exact dates, task names, notes, county, exact acreage, and contact information:
+
+- [Transformer](public_value/labor_log_to_benchmark.mjs)
+- [Documentation](public_value/LABOR_TO_BENCHMARK.md)
+- [Privacy tests](public_value/labor_log_to_benchmark.test.mjs)
+
+This makes the path from real observation to a privacy-preserving benchmark record reproducible.
+
 ### Machine-readable asset manifest
 
 Software can discover the current public assets through:
