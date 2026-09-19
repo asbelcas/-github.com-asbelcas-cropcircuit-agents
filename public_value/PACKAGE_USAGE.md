@@ -102,6 +102,17 @@ import {
 
 CropCircuit does not automatically convert unlike harvest units or infer sales revenue from harvest quantity.
 
+## Sales summary math
+
+```js
+import {
+  salesRecordEconomics,
+  summarizeSales
+} from "cropcircuit-open-farm-utils/sales-math";
+```
+
+These helpers describe entered sales records; they do not determine accounting or tax treatment.
+
 ## Registry status
 
 No npm registry publication is claimed.
