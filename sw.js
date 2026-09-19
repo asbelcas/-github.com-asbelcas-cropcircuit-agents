@@ -21,6 +21,7 @@ const STATIC_ASSETS = [
   "./public_value/workspace.js",
   "./public_value/workspace_backup.html",
   "./public_value/weekly_ops_brief.html",
+  "./public_value/farm_ops_console.html",
   "./public_value/csa_math.js",
   "./public_value/csa_break_even.html",
   "./public_value/market_math.js",
