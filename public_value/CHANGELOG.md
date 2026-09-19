@@ -12,6 +12,7 @@
 - Single-file offline Farm Decision Calculator.
 - Machine-readable public asset manifest.
 - Private offline Farm Labor Log with local storage, labor-cost summaries, task ranking, CSV export, and printable reports.
+- Browser-only Labor Opportunity Analyzer that imports time-study CSV, annualizes observations, ranks repeated tasks by labor cost, and exports the analysis.
 
 ### Distribution and durability
 - Embeddable zero-dependency Funding Radar widget with county/status/tag filters.
