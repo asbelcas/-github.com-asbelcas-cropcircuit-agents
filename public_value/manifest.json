@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-19.3",
+  "version": "2026-09-19.4",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -54,13 +54,22 @@
       "demo_source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/funding_widget_demo.html",
       "privacy": "No analytics, cookies, or account; fetches the public funding dataset only.",
       "dependencies": []
+    },
+    {
+      "id": "funding-query-cli",
+      "type": "node-cli",
+      "description": "Dependency-free command-line filtering of CropCircuit funding data by status, county, tag, and upcoming deadline.",
+      "source": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/funding_query.mjs",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/FUNDING_QUERY.md",
+      "dependencies": []
     }
   ],
-  "updated_at": "2026-09-19T22:45:00-04:00",
+  "updated_at": "2026-09-19T23:00:00-04:00",
   "validation": {
     "funding_validator": "public_value/validate_funding_radar.mjs",
     "farm_math_tests": "public_value/farm_math.test.mjs",
     "github_workflow": ".github/workflows/public-value-checks.yml",
-    "scheduled_daily": true
+    "scheduled_daily": true,
+    "funding_query_tests": "public_value/funding_query.test.mjs"
   }
 }
