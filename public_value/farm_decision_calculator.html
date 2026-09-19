@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CropCircuit Farm Decision Calculator</title>
+<meta name="description" content="Offline farm decision calculator for labor cost, fencing, water storage, simple payback, and market break-even.">
+<style>
+:root{--bg:#f5f7f2;--card:#fff;--ink:#19231d;--muted:#617067;--line:#dbe4dc;--accent:#216044;--accent2:#edf6f0}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+main{max-width:980px;margin:auto;padding:32px 18px 64px}h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.05;margin:0 0 10px}h2{margin-top:0}
+.lead{color:var(--muted);max-width:760px}.notice{background:var(--accent2);border:1px solid #c9dfd0;padding:14px 16px;border-radius:12px;margin:22px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:0 8px 22px rgba(0,0,0,.04)}
+label{display:block;font-weight:650;margin:10px 0 4px}input{width:100%;padding:10px;border:1px solid #c9d5cd;border-radius:9px;font-size:1rem}
+button{margin-top:14px;border:0;background:var(--accent);color:white;font-weight:700;padding:10px 14px;border-radius:9px;cursor:pointer}
+.result{margin-top:14px;padding:12px;background:#f8fbf9;border:1px solid var(--line);border-radius:9px;min-height:48px}
+.small{font-size:.9rem;color:var(--muted)}code{background:#eef1ee;padding:2px 5px;border-radius:5px}
+footer{margin-top:28px;color:var(--muted);font-size:.9rem}
+@media print{button{display:none}body{background:white}.card{box-shadow:none;break-inside:avoid}}
+</style>
+</head>
+<body>
+<main>
+<h1>Farm Decision Calculator</h1>
+<p class="lead">Five transparent calculations for common farm decisions. Nothing is sent anywhere: this is a single offline HTML file with no analytics, accounts, or external dependencies.</p>
+<div class="notice"><strong>Use your own assumptions.</strong> The calculator intentionally does not embed species consumption rates, contractor prices, wage rates, or biological defaults. Those vary by farm, weather, system, and region.</div>
+
+<div class="grid">
+<section class="card">
+<h2>1. Repeated task cost</h2>
+<label>Minutes each time<input id="task-minutes" type="number" min="0" value="15"></label>
+<label>Times per week<input id="task-occurrences" type="number" min="0" value="14"></label>
+<label>Weeks per year<input id="task-weeks" type="number" min="0" max="52" value="52"></label>
+<label>Workers involved<input id="task-workers" type="number" min="0" value="1"></label>
+<label>Labor cost per hour ($)<input id="task-hourly" type="number" min="0" step="0.01" value="20"></label>
+<button onclick="taskCost()">Calculate</button>
+<div class="result" id="task-result">Enter your numbers and calculate.</div>
+</section>
+
+<section class="card">
+<h2>2. Simple payback</h2>
+<label>Upfront cost ($)<input id="pay-upfront" type="number" min="0" step="0.01" value="750"></label>
+<label>Annual savings ($)<input id="pay-savings" type="number" min="0" step="0.01" value="2200"></label>
+<label>Added annual cost ($)<input id="pay-added" type="number" min="0" step="0.01" value="0"></label>
+<label>Expected salvage value ($)<input id="pay-salvage" type="number" min="0" step="0.01" value="0"></label>
+<button onclick="payback()">Calculate</button>
+<div class="result" id="pay-result">Compare a one-time investment with annual savings.</div>
+</section>
+
+<section class="card">
+<h2>3. Fence-line estimate</h2>
+<p class="small">Starts from the perimeter of a square parcel, then lets you increase it for irregular shape and add internal fence.</p>
+<label>Acres<input id="fence-acres" type="number" min="0" step="0.01" value="10"></label>
+<label>Installed cost per foot ($)<input id="fence-cost" type="number" min="0" step="0.01" value="4"></label>
+<label>Shape factor (1 = square baseline)<input id="fence-shape" type="number" min="1" step="0.05" value="1.10"></label>
+<label>Internal fence feet<input id="fence-internal" type="number" min="0" value="0"></label>
+<label>Total gate cost ($)<input id="fence-gates" type="number" min="0" step="0.01" value="0"></label>
+<button onclick="fence()">Calculate</button>
+<div class="result" id="fence-result">Useful for early budgeting, not surveying.</div>
+</section>
+
+<section class="card">
+<h2>4. Water storage</h2>
+<label>Animals<input id="water-animals" type="number" min="0" value="10"></label>
+<label>Gallons per animal per day<input id="water-rate" type="number" min="0" step="0.1" value="4"></label>
+<label>Days of autonomy<input id="water-days" type="number" min="0" step="0.1" value="3"></label>
+<label>Reserve (%)<input id="water-reserve" type="number" min="0" value="25"></label>
+<button onclick="water()">Calculate</button>
+<div class="result" id="water-result">Supply your own appropriate consumption rate.</div>
+</section>
+
+<section class="card">
+<h2>5. Sales-lane break-even</h2>
+<label>Fixed costs ($)<input id="be-fixed" type="number" min="0" step="0.01" value="500"></label>
+<label>Average sale ($)<input id="be-sale" type="number" min="0" step="0.01" value="30"></label>
+<label>Variable cost per transaction ($)<input id="be-variable" type="number" min="0" step="0.01" value="10"></label>
+<button onclick="breakEven()">Calculate</button>
+<div class="result" id="be-result">For stands, markets, pop-ups, or other sales channels.</div>
+</section>
+</div>
+
+<footer>
+<p><strong>CropCircuit Open Farm Utilities.</strong> General planning math only; not financial, engineering, veterinary, or agronomic advice. Print this page or save the file locally for offline use.</p>
+</footer>
+</main>
+
+<script>
+const n=id=>Math.max(Number(document.getElementById(id).value)||0,0);
+const money=x=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(x);
+const num=(x,d=1)=>Number(x).toLocaleString(undefined,{maximumFractionDigits:d});
+
+function taskCost(){
+  const hours=(n('task-minutes')/60)*n('task-occurrences')*Math.min(n('task-weeks'),52)*n('task-workers');
+  const cost=hours*n('task-hourly');
+  document.getElementById('task-result').innerHTML='<strong>'+num(hours)+' hours/year</strong><br>'+money(cost)+' annual labor cost';
+}
+function payback(){
+  const net=Math.max(n('pay-savings')-n('pay-added'),0);
+  const capital=Math.max(n('pay-upfront')-n('pay-salvage'),0);
+  const months=net>0?(capital/net)*12:null;
+  document.getElementById('pay-result').innerHTML='<strong>'+money(net)+'/year net savings</strong><br>'+(months===null?'No positive simple payback':num(months)+' month simple payback');
+}
+function fence(){
+  const acres=n('fence-acres'), base=4*Math.sqrt(acres*43560), shape=Math.max(n('fence-shape'),1);
+  const outer=base*shape, total=outer+n('fence-internal'), cost=total*n('fence-cost')+n('fence-gates');
+  document.getElementById('fence-result').innerHTML='<strong>'+num(total)+' total fence feet</strong><br>'+money(cost)+' estimated installed cost<br><span class="small">Square baseline perimeter: '+num(base)+' ft</span>';
+}
+function water(){
+  const daily=n('water-animals')*n('water-rate'), base=daily*n('water-days'), total=base*(1+n('water-reserve')/100);
+  document.getElementById('water-result').innerHTML='<strong>'+num(daily)+' gal/day</strong><br>'+num(total)+' gallons with reserve';
+}
+function breakEven(){
+  const sale=n('be-sale'), contribution=sale-n('be-variable');
+  if(contribution<=0){document.getElementById('be-result').innerHTML='<strong>No break-even:</strong> variable cost is equal to or greater than average sale.';return}
+  const tx=Math.ceil(n('be-fixed')/contribution);
+  document.getElementById('be-result').innerHTML='<strong>'+tx+' transactions to break even</strong><br>'+money(tx*sale)+' gross revenue at that point<br><span class="small">Contribution per transaction: '+money(contribution)+'</span>';
+}
+</script>
+</body>
+</html>
