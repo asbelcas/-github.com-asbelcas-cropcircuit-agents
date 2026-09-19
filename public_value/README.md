@@ -40,9 +40,10 @@ Key files:
 
 ### Local workspace
 
-The browser-local Labor Log and Chore Scheduler now share a stable workspace contract:
+The browser-local tools now share **Workspace 1.1**, spanning labor, recurring chores, equipment maintenance, harvest, and direct-market sales:
 
 - [Workspace documentation](LOCAL_WORKSPACE.md)
+- [Workspace JSON Schema](workspace.schema.json)
 - [Backup / restore tool](workspace_backup.html)
 - [Reusable workspace helpers](workspace.js)
 
