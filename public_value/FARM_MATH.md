@@ -14,7 +14,7 @@ import {
   waterStorage,
   breakEvenTransactions,
   rectangleAcres
-} from "https://cdn.jsdelivr.net/gh/asbelcas/-github.com-asbelcas-cropcircuit-agents@main/public_value/farm_math.js";
+} from "https://cdn.jsdelivr.net/gh/asbelcas/-github.com-asbelcas-cropcircuit-agents@26a6c450742faa56be7b11821c106e1617a7c63b/public_value/farm_math.js";
 ```
 
 ## Examples
@@ -81,3 +81,10 @@ node public_value/farm_math.test.mjs
 ```
 
 These are general planning calculations, not financial, engineering, veterinary, or agronomic advice.
+
+
+## Reproducible version
+
+The example above pins the public-value 0.1.0 snapshot by commit SHA so the code cannot silently change underneath an integration.
+
+For people who intentionally want the newest development version, replace the SHA with `main`.
