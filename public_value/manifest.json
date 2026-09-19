@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-19.6",
+  "version": "2026-09-19.7",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -80,14 +80,40 @@
       "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/LABOR_OPPORTUNITY_ANALYZER.md",
       "dependencies": [],
       "privacy": "No uploads, analytics, cookies, account, or network requests; CSV analysis stays in the browser."
+    },
+    {
+      "id": "farm-operations-benchmark-spec",
+      "type": "privacy-preserving-benchmark-toolkit",
+      "description": "Schema, browser builder, and k-anonymous aggregator for coarse small-farm operational labor benchmarks.",
+      "schema": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/farm_benchmark.schema.json",
+      "builder": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/benchmark_builder.html",
+      "aggregator": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/benchmark_aggregate.mjs",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/FARM_BENCHMARK_SPEC.md",
+      "public_dataset_status": "not_yet_populated",
+      "privacy_floor_k": 5,
+      "identifying_fields_excluded": [
+        "farm_name",
+        "person_name",
+        "email",
+        "phone",
+        "street_address",
+        "county",
+        "zip",
+        "gps",
+        "exact_acreage",
+        "exact_revenue",
+        "exact_dates",
+        "free_text_notes"
+      ]
     }
   ],
-  "updated_at": "2026-09-19T23:20:00-04:00",
+  "updated_at": "2026-09-19T23:35:00-04:00",
   "validation": {
     "funding_validator": "public_value/validate_funding_radar.mjs",
     "farm_math_tests": "public_value/farm_math.test.mjs",
     "github_workflow": ".github/workflows/public-value-checks.yml",
     "scheduled_daily": true,
-    "funding_query_tests": "public_value/funding_query.test.mjs"
+    "funding_query_tests": "public_value/funding_query.test.mjs",
+    "benchmark_tests": "public_value/benchmark_aggregate.test.mjs"
   }
 }
