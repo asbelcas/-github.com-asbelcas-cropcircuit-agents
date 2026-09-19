@@ -32,3 +32,27 @@ A repeated chore can be valued before buying equipment or building automation:
 `payback_months = (one_time_fix_cost / annual_savings) × 12`
 
 This is decision support, not financial or agronomic advice. Use conservative assumptions and verify program details at the linked primary sources.
+
+
+## CropCircuit Farm Math
+
+`farm_math.js` is a dependency-free ES module with reusable calculations for:
+
+- annual task/labor cost
+- simple equipment or workflow payback
+- acreage-to-fence-line estimation
+- user-supplied livestock water storage sizing
+- sales-channel break-even transactions
+- rectangular acreage conversion
+
+CDN import:
+
+`https://cdn.jsdelivr.net/gh/asbelcas/-github.com-asbelcas-cropcircuit-agents@main/public_value/farm_math.js`
+
+The library deliberately avoids hidden biological or financial assumptions. Rates and costs are supplied by the caller.
+
+## Licensing
+
+Code in `public_value/` is available under the MIT license in `LICENSE-CODE.txt`.
+
+The CropCircuit-authored arrangement, normalization, and metadata in the funding dataset are dedicated under CC0 1.0 to the extent CropCircuit has rights in them. Primary-source content remains subject to its original source terms.
