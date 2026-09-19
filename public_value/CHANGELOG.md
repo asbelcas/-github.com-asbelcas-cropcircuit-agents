@@ -13,6 +13,7 @@
 - Shared local-first workspace contract with browser backup/restore/merge tooling. Labor Opportunity Analyzer, Chore Load Planner, and Schedule Estimate Calibrator can now use local workspace data directly.
 - Weekly Farm Operations Brief that summarizes local labor activity and upcoming chores without exposing free-text notes.
 - TypeScript declarations for the public JavaScript package surface.
+- Explicit Privacy Model documenting what local-first storage and k-anonymity do and do not protect.
 - JSON Schema for the funding dataset.
 - JSON Feed 1.1 representation for feed readers and software consumers.
 - Farm Chore Cost & Payback JavaScript module.
