@@ -93,6 +93,15 @@ A private local-first time-study tool for discovering where farm labor actually 
 
 It stores entries only in browser storage, calculates worker-hours and labor cost by category/task, and exports CSV for backup or further analysis.
 
+### Offline Farm Chore Scheduler
+
+A local-first recurring task planner lets farms define their own maintenance/chore intervals and export them as standard iCalendar or CSV:
+
+- [Scheduler](public_value/farm_chore_scheduler.html)
+- [Documentation](public_value/FARM_CHORE_SCHEDULER.md)
+
+It deliberately contains no default maintenance intervals; the operator supplies timing appropriate to the farm and equipment guidance.
+
 ### Open Farm Chore Taxonomy
 
 CropCircuit now publishes a CC0 controlled vocabulary for repeated farm work so logs from different operators can become interoperable instead of remaining trapped in inconsistent free text:
