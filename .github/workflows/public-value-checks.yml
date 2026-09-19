@@ -50,3 +50,5 @@ jobs:
         run: node public_value/validate_offline_assets.mjs
       - name: Validate tabular data packages
         run: node public_value/validate_data_packages.mjs
+      - name: Test farm labor data contract helpers
+        run: node public_value/labor_contract.test.mjs
