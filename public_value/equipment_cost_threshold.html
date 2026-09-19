@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CropCircuit Equipment Cost Threshold Analyzer</title>
+<meta name="description" content="Private browser-only tool that turns annual farm labor cost into a maximum capital-cost threshold for a chosen payback target.">
+<style>
+:root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#627067;--line:#dbe4dc;--accent:#215f45;--soft:#edf5ef}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}
+main{max-width:1100px;margin:auto;padding:30px 16px 60px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px}h2{margin:0 0 10px}.lead{color:var(--muted);max-width:840px}
+.notice{background:var(--soft);border:1px solid #cfe0d3;border-radius:12px;padding:12px 14px;margin:18px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}label{display:block;font-weight:650}input{width:100%;padding:9px 10px;margin-top:4px;border:1px solid #cbd6ce;border-radius:8px;font:inherit;background:white}
+button{border:0;background:var(--accent);color:white;font-weight:700;padding:9px 12px;border-radius:8px;cursor:pointer;margin:10px 6px 0 0}.secondary{background:#56675d}
+table{width:100%;border-collapse:collapse;font-size:.88rem}th,td{text-align:left;border-bottom:1px solid var(--line);padding:8px 6px;vertical-align:top}th{font-size:.75rem;text-transform:uppercase;color:var(--muted);letter-spacing:.03em}.scroll{overflow:auto}.small{font-size:.85rem;color:var(--muted)}.empty{text-align:center;color:var(--muted);padding:20px}
+strong.money{font-size:1.05rem}
+</style>
+</head>
+<body>
+<main>
+<h1>Equipment Cost Threshold Analyzer</h1>
+<p class="lead">Start with measured annual labor cost, choose a realistic time reduction and payback horizon, and calculate the maximum upfront cost that would fit that target.</p>
+<div class="notice"><strong>This is a threshold, not a recommendation.</strong> It answers “what purchase price would fit my assumptions?” It does not claim that a particular machine, layout change, or automation will actually save the assumed time.</div>
+
+<section class="card">
+<h2>Load labor-opportunity analysis</h2>
+<p class="small">Use the CSV exported by CropCircuit's Labor Opportunity Analyzer. Required columns: <code>task</code>, <code>category</code>, and <code>annualized_labor_cost</code>.</p>
+<input id="file" type="file" accept=".csv,text/csv">
+<div class="grid" style="margin-top:14px">
+<label>Expected time reduction (%)<input id="reduction" type="number" min="0" max="100" step="1" value="20"></label>
+<label>Target simple payback (years)<input id="years" type="number" min="0.1" max="20" step="0.1" value="2"></label>
+<label>Added annual operating cost ($)<input id="annual-added" type="number" min="0" step="0.01" value="0"></label>
+<label>Expected salvage value ($)<input id="salvage" type="number" min="0" step="0.01" value="0"></label>
+</div>
+<button id="analyze">Calculate thresholds</button>
+<button id="export" class="secondary" disabled>Export thresholds CSV</button>
+</section>
+
+<section class="card">
+<h2>Capital thresholds by task</h2>
+<p class="small">Formula: max upfront cost = (annual labor cost × time-reduction fraction − added annual operating cost) × target payback years + salvage value.</p>
+<div class="scroll">
+<table>
+<thead><tr><th>Rank</th><th>Task</th><th>Category</th><th>Annual labor cost</th><th>Modeled annual savings</th><th>Max upfront cost at target</th><th>Interpretation</th></tr></thead>
+<tbody id="body"><tr><td colspan="7" class="empty">Load an analysis CSV to begin.</td></tr></tbody>
+</table>
+</div>
+</section>
+
+<footer class="small" style="margin-top:20px">CropCircuit Open Farm Utilities. Simple-payback arithmetic only. It excludes financing costs, taxes, depreciation, downtime risk, repair variability, safety, biological effects, and opportunity cost unless you explicitly include them in your own assumptions.</footer>
+</main>
+
+<script>
+(() => {
+  const $=id=>document.getElementById(id);
+  const money=v=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(v);
+  const esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
+  let rows=[],analysis=[];
+
+  function parseCSV(text){
+    const parsed=[];let row=[],field="",quoted=false;
+    for(let i=0;i<text.length;i++){
+      const ch=text[i];
+      if(quoted){
+        if(ch==='"'&&text[i+1]==='"'){field+='"';i++}
+        else if(ch==='"')quoted=false;
+        else field+=ch;
+      }else{
+        if(ch==='"')quoted=true;
+        else if(ch===','){row.push(field);field=""}
+        else if(ch==='\n'){row.push(field);parsed.push(row);row=[];field=""}
+        else if(ch!=='\r')field+=ch;
+      }
+    }
+    if(field.length||row.length){row.push(field);parsed.push(row)}
+    if(!parsed.length)return [];
+    const headers=parsed[0].map(x=>x.trim().toLowerCase());
+    return parsed.slice(1).filter(r=>r.some(v=>String(v).trim())).map(r=>{
+      const obj={};headers.forEach((h,i)=>obj[h]=r[i]??"");return obj;
+    });
+  }
+
+  function threshold(row,reduction,years,annualAdded,salvage){
+    const annualLaborCost=Math.max(Number(row.annualized_labor_cost)||0,0);
+    const grossSavings=annualLaborCost*reduction;
+    const netAnnualSavings=grossSavings-annualAdded;
+    const maxUpfront=netAnnualSavings>0 ? netAnnualSavings*years+salvage : salvage;
+    return {
+      task:row.task||"(unnamed)",
+      category:row.category||"Other",
+      annualLaborCost,
+      grossSavings,
+      netAnnualSavings,
+      maxUpfront:Math.max(maxUpfront,0)
+    };
+  }
+
+  $("file").addEventListener("change",async()=>{
+    const f=$("file").files[0];rows=f?parseCSV(await f.text()):[];
+  });
+
+  $("analyze").addEventListener("click",async()=>{
+    const f=$("file").files[0];if(!f){alert("Choose a labor-opportunity CSV first.");return}
+    if(!rows.length)rows=parseCSV(await f.text());
+    const reduction=Math.min(Math.max(Number($("reduction").value)||0,0),100)/100;
+    const years=Math.max(Number($("years").value)||0,0.1);
+    const annualAdded=Math.max(Number($("annual-added").value)||0,0);
+    const salvage=Math.max(Number($("salvage").value)||0,0);
+
+    analysis=rows.map(r=>threshold(r,reduction,years,annualAdded,salvage)).sort((a,b)=>b.maxUpfront-a.maxUpfront);
+    $("body").innerHTML=analysis.length?analysis.map((x,i)=>{
+      const interpretation=x.netAnnualSavings<=0
+        ? "Added annual cost consumes modeled savings."
+        : "Any real option below this threshold would meet the chosen simple-payback assumptions if the modeled savings occur.";
+      return `<tr><td>${i+1}</td><td>${esc(x.task)}</td><td>${esc(x.category)}</td><td>${money(x.annualLaborCost)}</td><td>${money(x.netAnnualSavings)}</td><td><strong class="money">${money(x.maxUpfront)}</strong></td><td>${esc(interpretation)}</td></tr>`;
+    }).join(""):'<tr><td colspan="7" class="empty">No usable rows found.</td></tr>';
+    $("export").disabled=!analysis.length;
+  });
+
+  $("export").addEventListener("click",()=>{
+    const data=[["rank","task","category","annual_labor_cost","net_modeled_annual_savings","max_upfront_cost_at_target"]];
+    analysis.forEach((x,i)=>data.push([i+1,x.task,x.category,x.annualLaborCost.toFixed(2),x.netAnnualSavings.toFixed(2),x.maxUpfront.toFixed(2)]));
+    const cell=v=>'"'+String(v??"").replaceAll('"','""')+'"';
+    const csv=data.map(r=>r.map(cell).join(",")).join("\r\n")+"\r\n";
+    const blob=new Blob([csv],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob);
+    const a=document.createElement("a");a.href=url;a.download="cropcircuit-equipment-cost-thresholds.csv";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  });
+})();
+</script>
+</body>
+</html>
