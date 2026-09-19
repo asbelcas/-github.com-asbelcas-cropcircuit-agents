@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-19.11",
+  "version": "2026-09-19.12",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -203,9 +203,19 @@
       "service_worker": "sw.js",
       "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/OFFLINE_WEB_APP.md",
       "hosting_status": "staged_until_https_static_hosting_enabled"
+    },
+    {
+      "id": "michigan-farm-funding-explorer",
+      "type": "standalone-html",
+      "description": "Offline-capable human interface for filtering source-linked Michigan farm funding by status, county, tag, text, and upcoming deadline.",
+      "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/funding_explorer.html",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/FUNDING_EXPLORER.md",
+      "embedded_snapshot_date": "2026-09-19",
+      "refresh_source": "./funding_radar.json",
+      "dependencies": []
     }
   ],
-  "updated_at": "2026-09-19T18:51:00-04:00",
+  "updated_at": "2026-09-19T18:56:00-04:00",
   "validation": {
     "funding_validator": "public_value/validate_funding_radar.mjs",
     "farm_math_tests": "public_value/farm_math.test.mjs",
