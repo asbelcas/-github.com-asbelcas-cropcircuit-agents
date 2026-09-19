@@ -149,6 +149,16 @@ A private local-first time-study tool for discovering where farm labor actually 
 
 It stores entries only in browser storage, calculates worker-hours and labor cost by category/task, and exports CSV for backup or further analysis.
 
+### Equipment Maintenance Log
+
+A local-first equipment service register tracks the intervals the operator chooses, by meter-hours, calendar time, or both:
+
+- [Equipment Maintenance Log](public_value/equipment_maintenance.html)
+- [Documentation](public_value/EQUIPMENT_MAINTENANCE.md)
+- [Reusable due-status math](public_value/equipment_math.js)
+
+CropCircuit deliberately supplies no default maintenance intervals.
+
 ### Farm Chore Load Planner
 
 Recurring schedules can now be expanded into a daily workload view using the operator's own task-duration estimates and daily chore-time capacity:
