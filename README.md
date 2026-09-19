@@ -94,6 +94,10 @@ The repository root now includes a Pages-ready web manifest and service worker. 
 
 GitHub Pages is not enabled yet, so this capability is staged rather than claimed live.
 
+### Bring existing spreadsheets with you
+
+The [Labor CSV Import Mapper](public_value/labor_csv_import_mapper.html) converts arbitrary labor spreadsheets into the shared CropCircuit contract without uploading them. A separate [Schedule Estimate Calibrator](public_value/schedule_estimate_calibrator.html) compares planned chore minutes with observed median elapsed time.
+
 ### Shared Farm Labor Data Contract
 
 The labor tools now share one explicit interoperable row format. It keeps the farmer's free-text task name and optionally adds a canonical chore code:
@@ -112,6 +116,14 @@ A private local-first time-study tool for discovering where farm labor actually 
 - [Documentation](public_value/FARM_LABOR_LOG.md)
 
 It stores entries only in browser storage, calculates worker-hours and labor cost by category/task, and exports CSV for backup or further analysis.
+
+### Farm Chore Load Planner
+
+Recurring schedules can now be expanded into a daily workload view using the operator's own task-duration estimates and daily chore-time capacity:
+
+- [Planner](public_value/chore_load_planner.html)
+- [Documentation](public_value/CHORE_LOAD_PLANNER.md)
+- [Reusable recurrence math](public_value/schedule_math.js)
 
 ### Offline Farm Chore Scheduler
 
