@@ -1,0 +1,10 @@
+CC0 1.0 Universal dedication notice
+
+To the extent CropCircuit / Casey Armstrong has copyright or database rights
+in the original selection, normalization, arrangement, and metadata published
+under public_value/funding_radar.*, those rights are dedicated to the public
+domain under Creative Commons CC0 1.0 Universal.
+
+This dedication does not grant rights in third-party source material. Facts,
+program names, and links come from the identified primary sources. Users
+should verify current program details at those sources.
