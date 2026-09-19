@@ -18,6 +18,7 @@
 - CC0 Open Farm Chore Taxonomy with canonical task codes, JSON Schema, validator, and a browser-only CSV mapper.
 - Offline Farm Chore Scheduler with local browser storage and iCalendar/CSV export using user-supplied recurrence intervals.
 - Shared Farm Labor Data Contract with logical JSON Schema, CSV validator, and synthetic baseline/after-change example logs.
+- Pages-ready offline web-app shell with service worker, web manifest, cache integrity validator, and network-first handling for time-sensitive funding data.
 - Labor Log, Opportunity Analyzer, Workflow Experiment Analyzer, Scheduler, and Equipment Threshold tools now preserve/use canonical chore codes when available while remaining backward-compatible with uncoded CSVs.
 - Privacy-first small-farm benchmark schema, browser record builder, k-anonymous aggregator, and suppression tests. No public benchmark numbers are fabricated before real sample size exists.
 - Reproducible labor-log-to-benchmark transformer that strips task-level details and emits only coarse benchmark fields.
