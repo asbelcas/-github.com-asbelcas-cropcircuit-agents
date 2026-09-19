@@ -36,5 +36,6 @@
     "regenerative-agriculture",
     "open-data",
     "local-first"
-  ]
+  ],
+  "types": "./public_value/index.d.ts"
 }
