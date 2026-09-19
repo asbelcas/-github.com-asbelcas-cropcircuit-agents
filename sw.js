@@ -20,6 +20,7 @@ const STATIC_ASSETS = [
   "./public_value/chore_load_planner.html",
   "./public_value/workspace.js",
   "./public_value/workspace_backup.html",
+  "./public_value/weekly_ops_brief.html",
   "./public_value/farm_math.js",
   "./public_value/workflow_experiment.js",
   "./public_value/farm_chore_taxonomy.json",
