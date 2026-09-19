@@ -94,6 +94,16 @@ The repository root now includes a Pages-ready web manifest and service worker. 
 
 GitHub Pages is not enabled yet, so this capability is staged rather than claimed live.
 
+### Local-first workspace
+
+The logger and scheduler now form a shared browser-local workspace. A dedicated backup tool exports or restores labor entries, labor settings, and chore schedules without a server:
+
+- [Workspace backup](public_value/workspace_backup.html)
+- [Workspace contract](public_value/LOCAL_WORKSPACE.md)
+- [Reusable helpers](public_value/workspace.js)
+
+The Labor Opportunity Analyzer, Chore Load Planner, and Schedule Estimate Calibrator can use that local workspace directly instead of requiring CSV handoffs every time.
+
 ### Bring existing spreadsheets with you
 
 The [Labor CSV Import Mapper](public_value/labor_csv_import_mapper.html) converts arbitrary labor spreadsheets into the shared CropCircuit contract without uploading them. A separate [Schedule Estimate Calibrator](public_value/schedule_estimate_calibrator.html) compares planned chore minutes with observed median elapsed time.
