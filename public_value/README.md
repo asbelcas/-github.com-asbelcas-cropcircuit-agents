@@ -4,6 +4,13 @@ This directory is the public, reusable core of CropCircuit.
 
 The operating principle is **utility before solicitation**: publish things that are genuinely useful without requiring a sales call, account, subscription, or surrender of raw farm data.
 
+## One-file starting point
+
+- [Farm Ops Pocket Console](farm_ops_console.html)
+- [Pocket Console documentation](FARM_OPS_CONSOLE.md)
+
+The Pocket Console combines a small labor log, recurring chore scheduler, seven-day dashboard, and workspace backup in one dependency-free HTML file.
+
 ## Start here
 
 ### Farm labor operating loop
