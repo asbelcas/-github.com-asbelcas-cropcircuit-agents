@@ -91,6 +91,17 @@ import {
 
 No maintenance interval is embedded in the library; the caller supplies all hour/day intervals.
 
+## Harvest summary math
+
+```js
+import {
+  summarizeHarvest,
+  compareHarvest
+} from "cropcircuit-open-farm-utils/harvest-math";
+```
+
+CropCircuit does not automatically convert unlike harvest units or infer sales revenue from harvest quantity.
+
 ## Registry status
 
 No npm registry publication is claimed.
