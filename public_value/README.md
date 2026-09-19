@@ -31,8 +31,19 @@ Key files:
 - [Farm Labor Data Contract](LABOR_DATA_CONTRACT.md)
 - [Open Farm Chore Taxonomy](CHORE_TAXONOMY.md)
 
+### Local workspace
+
+The browser-local Labor Log and Chore Scheduler now share a stable workspace contract:
+
+- [Workspace documentation](LOCAL_WORKSPACE.md)
+- [Backup / restore tool](workspace_backup.html)
+- [Reusable workspace helpers](workspace.js)
+
+The Labor Opportunity Analyzer, Chore Load Planner, and Schedule Estimate Calibrator can read compatible local workspace data directly when served from the same origin.
+
 ### Local-first farm tools
 
+- [Local Workspace Backup](workspace_backup.html)
 - [Labor CSV Import Mapper](labor_csv_import_mapper.html)
 - [Offline Farm Labor Log](farm_labor_log.html)
 - [Labor Opportunity Analyzer](labor_opportunity_analyzer.html)
