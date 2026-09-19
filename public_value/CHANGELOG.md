@@ -16,6 +16,7 @@
 - Explicit Privacy Model documenting what local-first storage and k-anonymity do and do not protect.
 - Farmers Market Break-Even Calculator plus reusable market-day economics math.
 - CSA Share Price & Break-Even Calculator plus reusable CSA/subscription-share economics math.
+- Farm Ops Pocket Console: a single dependency-free HTML file combining a local labor log, recurring chore scheduler, seven-day dashboard, and workspace backup.
 - JSON Schema for the funding dataset.
 - JSON Feed 1.1 representation for feed readers and software consumers.
 - Farm Chore Cost & Payback JavaScript module.
