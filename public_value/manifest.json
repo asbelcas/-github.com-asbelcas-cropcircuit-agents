@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-19.14",
+  "version": "2026-09-19.15",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -231,6 +231,33 @@
       "entry_point": "public_value/index.js",
       "docs": "public_value/PACKAGE_USAGE.md",
       "registry_status": "not_published"
+    },
+    {
+      "id": "farm-labor-js-helpers",
+      "type": "javascript-module",
+      "description": "Zero-dependency helpers for normalizing, grouping, calculating, and validating CropCircuit-compatible farm labor records.",
+      "source": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/labor_contract.js",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/LABOR_CONTRACT_JS.md",
+      "tests": "public_value/labor_contract.test.mjs",
+      "dependencies": []
+    },
+    {
+      "id": "labor-csv-import-mapper",
+      "type": "standalone-html",
+      "description": "Browser-only mapper that converts arbitrary labor CSV columns into the CropCircuit Farm Labor Data Contract.",
+      "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/labor_csv_import_mapper.html",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/LABOR_CSV_IMPORT.md",
+      "privacy": "No uploads, account, analytics, or network requests.",
+      "dependencies": []
+    },
+    {
+      "id": "schedule-estimate-calibrator",
+      "type": "standalone-html",
+      "description": "Browser-only comparison of planned chore minutes with observed median elapsed minutes from a labor log.",
+      "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/schedule_estimate_calibrator.html",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/SCHEDULE_CALIBRATION.md",
+      "privacy": "No uploads, account, analytics, or network requests.",
+      "dependencies": []
     }
   ],
   "updated_at": "2026-09-19",
@@ -246,7 +273,8 @@
     "chore_taxonomy_validator": "public_value/validate_chore_taxonomy.mjs",
     "labor_contract_validator": "public_value/validate_labor_contract.mjs",
     "offline_asset_validator": "public_value/validate_offline_assets.mjs",
-    "data_package_validator": "public_value/validate_data_packages.mjs"
+    "data_package_validator": "public_value/validate_data_packages.mjs",
+    "labor_contract_helpers_tests": "public_value/labor_contract.test.mjs"
   },
   "stable_snapshot": {
     "version": "0.5.0",
