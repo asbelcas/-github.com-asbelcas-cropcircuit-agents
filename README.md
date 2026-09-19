@@ -134,6 +134,18 @@ A dependency-free transformer converts real labor-log CSV into the coarse benchm
 
 This makes the path from real observation to a privacy-preserving benchmark record reproducible.
 
+### Farm Labor → Decision → Benchmark workflow
+
+The tools now form an end-to-end local-first workflow:
+
+**observe → quantify → prioritize → model → anonymize → aggregate → compare → improve**
+
+- [Workflow guide](public_value/FARM_LABOR_TOOLKIT.md)
+- [Private Benchmark Explorer](public_value/benchmark_explorer.html)
+- [Benchmark Explorer documentation](public_value/BENCHMARK_EXPLORER.md)
+
+The explorer respects cohort suppression and will not expose statistics from a group that is below the privacy floor.
+
 ### Machine-readable asset manifest
 
 Software can discover the current public assets through:
