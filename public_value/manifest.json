@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-19.18",
+  "version": "2026-09-19.19",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -298,6 +298,12 @@
         "public_value/schedule_math.js",
         "public_value/labor_contract.js"
       ]
+    },
+    {
+      "id": "typescript-declarations",
+      "type": "developer-metadata",
+      "description": "TypeScript declarations for the zero-dependency public JavaScript package surface.",
+      "source": "public_value/index.d.ts"
     }
   ],
   "updated_at": "2026-09-19",
