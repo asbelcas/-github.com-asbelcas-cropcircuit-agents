@@ -1,0 +1,68 @@
+# JavaScript / npm-style package usage
+
+CropCircuit's reusable JavaScript utilities now have a root `package.json` and module exports.
+
+The repository is **not being claimed as published to the npm registry**. The package metadata exists so developers can:
+
+- install directly from the GitHub repository
+- import stable modules through package exports
+- run the public validation suite with one command
+- prepare for registry publication later if real demand appears
+
+## Exports
+
+```js
+import {
+  annualTaskCost,
+  simplePayback,
+  fenceEstimate,
+  waterStorage,
+  breakEvenTransactions,
+  rectangleAcres,
+  compareSamples,
+  annualizeObservedChange
+} from "cropcircuit-open-farm-utils";
+```
+
+Direct export paths:
+
+```js
+import { annualTaskCost } from "cropcircuit-open-farm-utils/farm-math";
+import { compareSamples } from "cropcircuit-open-farm-utils/workflow-experiment";
+```
+
+## Repository install
+
+Because the current GitHub repository slug is awkward, this is mostly a developer convenience until repository identity cleanup is complete.
+
+A consumer can install directly from GitHub using the normal npm GitHub dependency syntax and pin a stable release branch or commit.
+
+## CLI
+
+The package metadata exposes:
+
+```text
+cropcircuit-funding
+```
+
+which maps to `public_value/funding_query.mjs`.
+
+## Validation
+
+From a repository checkout:
+
+```bash
+npm test
+```
+
+runs the zero-dependency public-value validators and tests.
+
+## Registry status
+
+No npm registry publication is claimed.
+
+Publishing should happen only after:
+
+1. repository identity is cleaned up;
+2. package behavior is verified in a clean install;
+3. there is evidence someone wants the package form.
