@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CropCircuit Farm Ops Pocket Console</title>
+<meta name="description" content="Single-file offline farm labor log, chore scheduler, weekly summary, and workspace backup.">
+<style>
+:root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#627067;--line:#dbe4dc;--accent:#215f45;--soft:#edf5ef;--danger:#8c3030}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}
+main{max-width:1120px;margin:auto;padding:24px 14px 60px}h1{font-size:clamp(2rem,6vw,3.2rem);line-height:1.02;margin:0 0 8px}h2{margin:0 0 10px}.lead{color:var(--muted);max-width:880px}
+.notice{background:var(--soft);border:1px solid #cfe0d3;border-radius:12px;padding:12px 14px;margin:16px 0}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.tab{background:#5c6c62}.tab.active{background:var(--accent)}
+.panel{display:none}.panel.active{display:block}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:17px;margin-top:14px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:11px}
+label{display:block;font-weight:650}input,select{width:100%;padding:9px 10px;margin-top:4px;border:1px solid #cbd6ce;border-radius:8px;background:white;font:inherit}
+button{border:0;background:var(--accent);color:white;font-weight:700;padding:9px 12px;border-radius:8px;cursor:pointer;margin:9px 6px 0 0}.secondary{background:#56675d}.danger{background:var(--danger)}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:9px}.metric{border:1px solid var(--line);border-radius:10px;padding:11px;background:#fafcf9}.metric strong{display:block;font-size:1.3rem}
+table{width:100%;border-collapse:collapse;font-size:.83rem}th,td{text-align:left;border-bottom:1px solid var(--line);padding:7px 5px;vertical-align:top}th{font-size:.7rem;text-transform:uppercase;color:var(--muted);letter-spacing:.03em}.scroll{overflow:auto}.small{font-size:.83rem;color:var(--muted)}.empty{text-align:center;color:var(--muted);padding:18px}code{font-size:.75rem}
+@media print{.tabs,.notice,button,.entry-controls{display:none}.panel{display:none!important}#dashboard.panel{display:block!important}body{background:white}}
+</style></head>
+<body><main>
+<h1>Farm Ops Pocket Console</h1>
+<p class="lead">One offline HTML file for labor observations, recurring chores, a seven-day operating summary, and workspace backup.</p>
+<div class="notice"><strong>Single-file / local-first:</strong> no account, analytics, server sync, or external library. It uses the same CropCircuit browser-storage keys as the larger toolkit when opened from the same origin.</div>
+
+<div class="tabs">
+<button class="tab active" data-tab="dashboard">Dashboard</button>
+<button class="tab" data-tab="labor">Log labor</button>
+<button class="tab" data-tab="schedule">Schedule chores</button>
+<button class="tab" data-tab="backup">Backup</button>
+</div>
+
+<section id="dashboard" class="panel active">
+<div class="card"><h2>Last 7 days</h2><div class="metrics">
+<div class="metric"><strong id="d-entries">0</strong><span>labor entries</span></div>
+<div class="metric"><strong id="d-hours">0</strong><span>worker-hours</span></div>
+<div class="metric"><strong id="d-categories">0</strong><span>active categories</span></div>
+<div class="metric"><strong id="d-upcoming">0</strong><span>upcoming chore occurrences</span></div>
+</div></div>
+<div class="card"><h2>Labor by category</h2><div class="scroll"><table><thead><tr><th>Category</th><th>Entries</th><th>Worker-hours</th><th>%</th></tr></thead><tbody id="d-cats"></tbody></table></div></div>
+<div class="card"><h2>Next 7 days</h2><div class="scroll"><table><thead><tr><th>Date</th><th>Work</th><th>Estimated minutes</th></tr></thead><tbody id="d-schedule"></tbody></table></div></div>
+<button id="print-dashboard" class="secondary">Print dashboard</button>
+</section>
+
+<section id="labor" class="panel">
+<div class="card entry-controls"><h2>Add labor observation</h2><div class="grid">
+<label>Date<input id="l-date" type="date"></label>
+<label>Category<select id="l-category"><option>Livestock</option><option>Field / Crop</option><option>Harvest</option><option>Wash / Pack</option><option>Market / Sales</option><option>Maintenance</option><option>Fencing</option><option>Water</option><option>Admin</option><option>Other</option></select></label>
+<label>Task<input id="l-task" type="text" placeholder="Move portable fence"></label>
+<label>Chore code (optional)<select id="l-code"></select></label>
+<label>Minutes<input id="l-minutes" type="number" min="1" step="1" value="30"></label>
+<label>Workers<input id="l-workers" type="number" min="1" step="1" value="1"></label>
+</div><button id="l-add">Add observation</button></div>
+<div class="card"><h2>Recent labor entries</h2><div class="scroll"><table><thead><tr><th>Date</th><th>Task</th><th>Code</th><th>Minutes</th><th>Workers</th><th>Worker-hours</th><th></th></tr></thead><tbody id="l-body"></tbody></table></div></div>
+</section>
+
+<section id="schedule" class="panel">
+<div class="card entry-controls"><h2>Add recurring chore</h2><div class="grid">
+<label>Task<input id="s-task" type="text" placeholder="Inspect water system"></label>
+<label>Category<select id="s-category"><option>Livestock</option><option>Field / Crop</option><option>Wash / Pack</option><option>Fencing</option><option>Water</option><option selected>Maintenance</option><option>Market / Sales</option><option>Admin</option><option>General</option></select></label>
+<label>Chore code (optional)<select id="s-code"></select></label>
+<label>First date<input id="s-date" type="date"></label>
+<label>Recurrence<select id="s-freq"><option value="ONCE">One time</option><option value="DAILY">Every N days</option><option value="WEEKLY" selected>Every N weeks</option><option value="MONTHLY">Every N months</option><option value="YEARLY">Every N years</option></select></label>
+<label>Interval N<input id="s-interval" type="number" min="1" step="1" value="1"></label>
+<label>Estimated minutes<input id="s-minutes" type="number" min="0" step="1" value="15"></label>
+</div><button id="s-add">Add scheduled chore</button></div>
+<div class="card"><h2>Scheduled chores</h2><div class="scroll"><table><thead><tr><th>Task</th><th>Code</th><th>First date</th><th>Recurrence</th><th>Minutes</th><th></th></tr></thead><tbody id="s-body"></tbody></table></div></div>
+</section>
+
+<section id="backup" class="panel">
+<div class="card"><h2>Workspace backup</h2><p class="small">Backups can contain exact dates and farm task information. Treat the file as a private farm record.</p>
+<button id="b-export">Export workspace JSON</button>
+<label style="display:block;margin-top:14px">Restore workspace<input id="b-file" type="file" accept=".json,application/json"></label>
+<button id="b-import" class="secondary">Replace from backup</button>
+<p id="b-status" class="small"></p></div>
+</section>
+
+<footer class="small" style="margin-top:24px">CropCircuit Open Farm Utilities. Descriptive recordkeeping and planning only; not financial, engineering, veterinary, employment, or agronomic advice.</footer>
+</main>
+<script>
+(() => {
+  const TAXONOMY=[{"id":"livestock","label":"Livestock","tasks":[{"code":"livestock.feed","label":"Feed animals"},{"code":"livestock.water","label":"Water animals"},{"code":"livestock.bedding","label":"Bedding / litter"},{"code":"livestock.health_check","label":"Health / welfare check"},{"code":"livestock.move_rotate","label":"Move / rotate animals"},{"code":"livestock.milking","label":"Milking"},{"code":"livestock.egg_collect","label":"Collect eggs"},{"code":"livestock.birth_repro","label":"Birth / reproduction care"},{"code":"livestock.handling","label":"Handling / restraint"},{"code":"livestock.cleaning","label":"Livestock-area cleaning"}]},{"id":"crops","label":"Field / Crop","tasks":[{"code":"crops.seed_starting","label":"Seed starting"},{"code":"crops.bed_prep","label":"Bed / field preparation"},{"code":"crops.plant_transplant","label":"Transplanting"},{"code":"crops.seed_direct","label":"Direct seeding"},{"code":"crops.irrigation","label":"Irrigation"},{"code":"crops.weeding","label":"Weeding / cultivation"},{"code":"crops.fertility_compost","label":"Fertility / compost application"},{"code":"crops.scouting","label":"Crop scouting / monitoring"},{"code":"crops.harvest","label":"Harvest"},{"code":"crops.postharvest_field","label":"Field cleanup after harvest"}]},{"id":"washpack","label":"Wash / Pack","tasks":[{"code":"washpack.wash","label":"Wash produce / product"},{"code":"washpack.sort_grade","label":"Sort / grade"},{"code":"washpack.pack","label":"Pack / label"},{"code":"washpack.clean_sanitize","label":"Clean / sanitize wash-pack area"},{"code":"washpack.inventory","label":"Inventory / cooler handling"}]},{"id":"fencing","label":"Fencing","tasks":[{"code":"fencing.install","label":"Install fence"},{"code":"fencing.move","label":"Move temporary fence"},{"code":"fencing.repair","label":"Repair / inspect fence"}]},{"id":"water","label":"Water systems","tasks":[{"code":"water.fill","label":"Fill / move water"},{"code":"water.system_check","label":"Check water system"},{"code":"water.repair","label":"Repair water system"}]},{"id":"maintenance","label":"Maintenance","tasks":[{"code":"maintenance.equipment","label":"Equipment maintenance / repair"},{"code":"maintenance.building","label":"Building / infrastructure maintenance"},{"code":"maintenance.cleaning","label":"General cleaning"},{"code":"maintenance.materials","label":"Materials / supply handling"}]},{"id":"sales","label":"Market / Sales","tasks":[{"code":"sales.market_setup","label":"Market setup"},{"code":"sales.market_selling","label":"Market selling"},{"code":"sales.market_teardown","label":"Market teardown"},{"code":"sales.farmstand","label":"Farm stand"},{"code":"sales.csa_pack","label":"CSA packing"},{"code":"sales.csa_distribution","label":"CSA distribution"},{"code":"sales.delivery","label":"Delivery / route"}]},{"id":"admin","label":"Admin","tasks":[{"code":"admin.recordkeeping","label":"Farm recordkeeping"},{"code":"admin.bookkeeping","label":"Bookkeeping"},{"code":"admin.ordering","label":"Ordering / purchasing"},{"code":"admin.customer_comms","label":"Customer communication"},{"code":"admin.grants_compliance","label":"Grant / compliance paperwork"},{"code":"admin.planning","label":"Planning / scheduling"}]},{"id":"general","label":"General","tasks":[{"code":"general.travel_internal","label":"Internal travel / walking"},{"code":"general.setup_cleanup","label":"Setup / cleanup"},{"code":"general.material_handling","label":"General material handling"},{"code":"general.other","label":"Other farm work"}]}];
+  const LABOR_KEY="cropcircuit_farm_labor_log_v1", SCHEDULE_KEY="cropcircuit_chore_schedule_v1", SETTINGS_KEY="cropcircuit_farm_labor_settings_v1";
+  const $=id=>document.getElementById(id),esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;"),num=(v,d=1)=>Number(v).toLocaleString(undefined,{maximumFractionDigits:d});
+  function load(key,fallback){try{const x=JSON.parse(localStorage.getItem(key)||"null");return x??fallback}catch{return fallback}}
+  function save(key,value){localStorage.setItem(key,JSON.stringify(value))}
+  let labor=load(LABOR_KEY,[]), schedule=load(SCHEDULE_KEY,[]);
+  if(!Array.isArray(labor))labor=[];if(!Array.isArray(schedule))schedule=[];
+
+  function today(){return new Date().toISOString().slice(0,10)}
+  function addDays(s,n){const d=new Date(s+"T00:00:00Z");d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)}
+  function workerHours(r){return Math.max(Number(r.minutes)||0,0)/60*Math.max(Number(r.workers)||0,0)}
+  function fillCodes(id){const s=$(id);s.innerHTML='<option value="">— optional / unmapped —</option>';TAXONOMY.forEach(c=>{const g=document.createElement("optgroup");g.label=c.label;c.tasks.forEach(t=>{const o=document.createElement("option");o.value=t.code;o.textContent=t.code+" — "+t.label;g.appendChild(o)});s.appendChild(g)})}
+  fillCodes("l-code");fillCodes("s-code");$("l-date").value=today();$("s-date").value=today();
+
+  function recurrenceText(t){if(t.freq==="ONCE")return"One time";const unit={DAILY:"day",WEEKLY:"week",MONTHLY:"month",YEARLY:"year"}[t.freq]||"period";return Number(t.interval)===1?`Every ${unit}`:`Every ${t.interval} ${unit}s`}
+  function dateObj(v){return new Date(String(v)+"T00:00:00Z")}
+  function iso(d){return d.toISOString().slice(0,10)}
+  function dim(y,m){return new Date(Date.UTC(y,m+1,0)).getUTCDate()}
+  function monthly(first,step){const total=first.getUTCFullYear()*12+first.getUTCMonth()+step,y=Math.floor(total/12),m=total%12,day=first.getUTCDate();return day<=dim(y,m)?new Date(Date.UTC(y,m,day)):null}
+  function yearly(first,step){const y=first.getUTCFullYear()+step,m=first.getUTCMonth(),day=first.getUTCDate();return day<=dim(y,m)?new Date(Date.UTC(y,m,day)):null}
+  function occurrences(t,start,end){
+    const first=dateObj(t.date||t.first_date),freq=String(t.freq||t.frequency||"ONCE").toUpperCase(),interval=Math.max(1,Math.floor(Number(t.interval)||1)),out=[],push=d=>{if(d&&d>=start&&d<=end)out.push(iso(d))};
+    if(freq==="ONCE"){push(first);return out}
+    if(freq==="DAILY"||freq==="WEEKLY"){let d=first,step=freq==="DAILY"?interval:7*interval,g=0;while(d<=end&&g++<10000){push(d);d=new Date(d.getTime()+step*86400000)}return out}
+    if(freq==="MONTHLY"){let step=0,g=0;while(g++<10000){const c=monthly(first,step),marker=monthly(new Date(Date.UTC(first.getUTCFullYear(),first.getUTCMonth(),1)),step);if(marker&&marker>end)break;push(c);step+=interval}return out}
+    if(freq==="YEARLY"){let step=0,g=0;while(g++<10000){const c=yearly(first,step),y=first.getUTCFullYear()+step;if(Date.UTC(y,0,1)>end.getTime())break;push(c);step+=interval}return out}
+    return out;
+  }
+
+  function renderLabor(){
+    const rows=[...labor].sort((a,b)=>String(b.date).localeCompare(String(a.date))||(b.createdAt||0)-(a.createdAt||0)).slice(0,50);
+    $("l-body").innerHTML=rows.length?rows.map(r=>`<tr><td>${esc(r.date)}</td><td>${esc(r.task)}</td><td><code>${esc(r.chore_code||"")}</code></td><td>${num(r.minutes,0)}</td><td>${num(r.workers,0)}</td><td>${num(workerHours(r),2)}</td><td><button class="danger" data-l-del="${esc(r.id)}">Delete</button></td></tr>`).join(""):'<tr><td colspan="7" class="empty">No labor entries yet.</td></tr>';
+    document.querySelectorAll("[data-l-del]").forEach(b=>b.addEventListener("click",()=>{labor=labor.filter(x=>x.id!==b.dataset.lDel);save(LABOR_KEY,labor);renderAll()}));
+  }
+  function renderSchedule(){
+    const rows=[...schedule].sort((a,b)=>String(a.date||a.first_date).localeCompare(String(b.date||b.first_date)));
+    $("s-body").innerHTML=rows.length?rows.map(r=>`<tr><td>${esc(r.task)}</td><td><code>${esc(r.chore_code||"")}</code></td><td>${esc(r.date||r.first_date)}</td><td>${esc(recurrenceText(r))}</td><td>${num(r.minutes??r.estimated_minutes,0)}</td><td><button class="danger" data-s-del="${esc(r.id)}">Delete</button></td></tr>`).join(""):'<tr><td colspan="6" class="empty">No scheduled chores yet.</td></tr>';
+    document.querySelectorAll("[data-s-del]").forEach(b=>b.addEventListener("click",()=>{schedule=schedule.filter(x=>x.id!==b.dataset.sDel);save(SCHEDULE_KEY,schedule);renderAll()}));
+  }
+  function renderDashboard(){
+    const end=today(),start=addDays(end,-6),recent=labor.filter(r=>String(r.date)>=start&&String(r.date)<=end),hours=recent.reduce((s,r)=>s+workerHours(r),0),byCat=new Map();
+    recent.forEach(r=>{const cat=r.category||"Other",v=byCat.get(cat)||{entries:0,hours:0};v.entries++;v.hours+=workerHours(r);byCat.set(cat,v)});
+    $("d-entries").textContent=recent.length;$("d-hours").textContent=num(hours);$("d-categories").textContent=byCat.size;
+    const cats=[...byCat.entries()].sort((a,b)=>b[1].hours-a[1].hours);$("d-cats").innerHTML=cats.length?cats.map(([cat,v])=>`<tr><td>${esc(cat)}</td><td>${v.entries}</td><td>${num(v.hours)}</td><td>${num(hours?100*v.hours/hours:0,1)}%</td></tr>`).join(""):'<tr><td colspan="4" class="empty">No labor observations in the last 7 days.</td></tr>';
+    const futureStart=addDays(end,1),futureEnd=addDays(end,7),map=new Map();
+    schedule.forEach(t=>{for(const d of occurrences(t,dateObj(futureStart),dateObj(futureEnd))){const v=map.get(d)||{minutes:0,tasks:[]},m=Math.max(Number(t.minutes??t.estimated_minutes)||0,0);v.minutes+=m;v.tasks.push(t);map.set(d,v)}});
+    const days=[...map.entries()].sort((a,b)=>a[0].localeCompare(b[0]));$("d-upcoming").textContent=days.reduce((s,[,v])=>s+v.tasks.length,0);$("d-schedule").innerHTML=days.length?days.map(([d,v])=>`<tr><td>${d}</td><td>${v.tasks.map(t=>esc(t.task)+(t.chore_code?` <code>${esc(t.chore_code)}</code>`:"")).join("<br>")}</td><td>${num(v.minutes,0)}</td></tr>`).join(""):'<tr><td colspan="3" class="empty">No scheduled chores in the next 7 days.</td></tr>';
+  }
+  function renderAll(){renderLabor();renderSchedule();renderDashboard()}
+
+  $("l-add").addEventListener("click",()=>{const task=$("l-task").value.trim(),minutes=Math.max(Number($("l-minutes").value)||0,0),workers=Math.max(Number($("l-workers").value)||0,0);if(!task||minutes<=0||workers<=0){alert("Enter a task, minutes, and workers.");return}labor.push({id:crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random(),createdAt:Date.now(),date:$("l-date").value||today(),category:$("l-category").value,task,chore_code:$("l-code").value,minutes,workers,notes:""});save(LABOR_KEY,labor);$("l-task").value="";$("l-code").value="";renderAll()});
+  $("s-add").addEventListener("click",()=>{const task=$("s-task").value.trim();if(!task){alert("Enter a task.");return}schedule.push({id:crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random(),task,chore_code:$("s-code").value,category:$("s-category").value,date:$("s-date").value||today(),freq:$("s-freq").value,interval:Math.max(Number($("s-interval").value)||1,1),minutes:Math.max(Number($("s-minutes").value)||0,0),notes:""});save(SCHEDULE_KEY,schedule);$("s-task").value="";$("s-code").value="";renderAll()});
+
+  document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));b.classList.add("active");$(b.dataset.tab).classList.add("active")}));
+  $("print-dashboard").addEventListener("click",()=>window.print());
+  $("b-export").addEventListener("click",()=>{const workspace={schema_version:"1.0",exported_at:new Date().toISOString(),labor_entries:labor,labor_settings:load(SETTINGS_KEY,{}),chore_schedule:schedule},blob=new Blob([JSON.stringify(workspace,null,2)+"\n"],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="cropcircuit-local-workspace.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)});
+  $("b-import").addEventListener("click",async()=>{const f=$("b-file").files[0];if(!f){$("b-status").textContent="Choose a backup JSON file.";return}try{const w=JSON.parse(await f.text());if(w.schema_version!=="1.0"||!Array.isArray(w.labor_entries)||!Array.isArray(w.chore_schedule)){throw new Error("Unsupported or invalid workspace file")}if(!confirm("Replace this browser's CropCircuit labor and schedule data with the selected backup?"))return;labor=w.labor_entries;schedule=w.chore_schedule;save(LABOR_KEY,labor);save(SCHEDULE_KEY,schedule);save(SETTINGS_KEY,w.labor_settings||{});$("b-status").textContent="Workspace restored.";renderAll()}catch(e){$("b-status").textContent="Restore failed: "+e.message}});
+  renderAll();
+})();
+</script></body></html>
