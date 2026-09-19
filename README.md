@@ -50,7 +50,7 @@ import {
   waterStorage,
   breakEvenTransactions,
   rectangleAcres
-} from "https://cdn.jsdelivr.net/gh/asbelcas/-github.com-asbelcas-cropcircuit-agents@main/public_value/farm_math.js";
+} from "https://cdn.jsdelivr.net/gh/asbelcas/-github.com-asbelcas-cropcircuit-agents@26a6c450742faa56be7b11821c106e1617a7c63b/public_value/farm_math.js";
 ```
 
 ### Farm Chore Cost & Payback
@@ -139,3 +139,8 @@ Current work is centered on creating durable internet utility: tools, datasets, 
 ## Automated quality checks
 
 The repository includes GitHub Actions checks for funding data structure/freshness, JavaScript syntax, Farm Math, and the funding-query CLI on changes and on a daily schedule. This is meant to make stale "open" deadlines fail visibly instead of quietly lingering.
+
+
+## Stable public-value snapshot
+
+A read-only reference branch, `release/public-value-0.1.0`, points to commit `26a6c450742faa56be7b11821c106e1617a7c63b`. Integration examples pin code by commit SHA for reproducibility, while mutable funding data remains on `main`.
