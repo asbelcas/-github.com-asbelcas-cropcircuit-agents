@@ -33,9 +33,11 @@ Key files:
 
 ### Local-first farm tools
 
+- [Labor CSV Import Mapper](labor_csv_import_mapper.html)
 - [Offline Farm Labor Log](farm_labor_log.html)
 - [Labor Opportunity Analyzer](labor_opportunity_analyzer.html)
 - [Equipment Cost Threshold Analyzer](equipment_cost_threshold.html)
+- [Schedule Estimate Calibrator](schedule_estimate_calibrator.html)
 - [Workflow Experiment Analyzer](workflow_experiment_analyzer.html)
 - [Offline Farm Chore Scheduler](farm_chore_scheduler.html)
 - [Offline Farm Decision Calculator](farm_decision_calculator.html)
@@ -80,6 +82,7 @@ Synthetic demonstration data:
 
 - [baseline example](examples/synthetic_labor_log_before.csv)
 - [after-change example](examples/synthetic_labor_log_after.csv)
+- [synthetic chore schedule](examples/synthetic_chore_schedule.csv)
 
 These examples are fabricated demonstration data, not observations from a real farm.
 
