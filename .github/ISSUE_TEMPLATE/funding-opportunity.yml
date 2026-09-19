@@ -1,0 +1,63 @@
+name: Funding opportunity or correction
+description: Suggest a Michigan farm/food/conservation funding record or correct an existing one.
+title: "[Funding] "
+labels:
+  - public-value
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping keep the CropCircuit funding data useful. Primary sources are strongly preferred.
+  - type: input
+    id: title
+    attributes:
+      label: Program title
+      placeholder: Example program name
+    validations:
+      required: true
+  - type: input
+    id: provider
+    attributes:
+      label: Provider / administrator
+      placeholder: USDA FSA, MDARD, foundation, etc.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Primary-source URL
+      placeholder: https://...
+    validations:
+      required: true
+  - type: dropdown
+    id: change
+    attributes:
+      label: What kind of update is this?
+      options:
+        - New opportunity
+        - Deadline or status correction
+        - Funding amount correction
+        - Eligibility / county correction
+        - Broken link
+        - Duplicate / remove
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: deadline
+    attributes:
+      label: Deadline, if applicable
+      description: Include timezone if the source gives one.
+      placeholder: October 13, 2026 at 11:59 PM ET
+  - type: textarea
+    id: eligibility
+    attributes:
+      label: Audience / eligibility
+      description: Include county restrictions if they exist.
+  - type: textarea
+    id: evidence
+    attributes:
+      label: What does the primary source say?
+      description: Summarize the relevant facts in your own words; do not paste long copyrighted passages.
+    validations:
+      required: true
