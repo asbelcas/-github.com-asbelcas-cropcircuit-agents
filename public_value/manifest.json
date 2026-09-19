@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-19.12",
+  "version": "2026-09-19.13",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -213,6 +213,15 @@
       "embedded_snapshot_date": "2026-09-19",
       "refresh_source": "./funding_radar.json",
       "dependencies": []
+    },
+    {
+      "id": "farm-data-packages",
+      "type": "data-packaging-metadata",
+      "description": "Tabular Data Package metadata for the Michigan Funding Radar and Open Farm Chore Taxonomy, plus schema.org DataCatalog JSON-LD.",
+      "funding_package": "public_value/funding_datapackage.json",
+      "taxonomy_package": "public_value/taxonomy_datapackage.json",
+      "catalog_jsonld": "public_value/data_catalog.jsonld",
+      "taxonomy_csv": "public_value/farm_chore_taxonomy.csv"
     }
   ],
   "updated_at": "2026-09-19",
@@ -227,7 +236,8 @@
     "workflow_experiment_tests": "public_value/workflow_experiment.test.mjs",
     "chore_taxonomy_validator": "public_value/validate_chore_taxonomy.mjs",
     "labor_contract_validator": "public_value/validate_labor_contract.mjs",
-    "offline_asset_validator": "public_value/validate_offline_assets.mjs"
+    "offline_asset_validator": "public_value/validate_offline_assets.mjs",
+    "data_package_validator": "public_value/validate_data_packages.mjs"
   },
   "stable_snapshot": {
     "version": "0.4.0",
