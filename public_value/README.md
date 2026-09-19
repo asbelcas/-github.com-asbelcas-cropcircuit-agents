@@ -102,6 +102,14 @@ CropCircuit publishes the benchmark specification and tooling, but **does not ye
 
 Cohort statistics are suppressed below the default privacy floor of 5 records.
 
+## JavaScript package surface
+
+- [Package usage](PACKAGE_USAGE.md)
+- [Module entry point](index.js)
+- root `package.json`
+
+The package is prepared for direct GitHub installation but is not claimed as published to npm.
+
 ## Reusable code
 
 ### CropCircuit Farm Math
