@@ -1,6 +1,6 @@
 {
   "name": "cropcircuit-open-farm-utils",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Local-first farm operations utilities, reusable farm math, funding-data tools, and privacy-preserving benchmark infrastructure.",
   "type": "module",
   "license": "MIT",
@@ -11,7 +11,8 @@
   "exports": {
     ".": "./public_value/index.js",
     "./farm-math": "./public_value/farm_math.js",
-    "./workflow-experiment": "./public_value/workflow_experiment.js"
+    "./workflow-experiment": "./public_value/workflow_experiment.js",
+    "./labor-contract": "./public_value/labor_contract.js"
   },
   "bin": {
     "cropcircuit-funding": "./public_value/funding_query.mjs"
@@ -23,7 +24,7 @@
   ],
   "scripts": {
     "test": "npm run test:public",
-    "test:public": "node public_value/validate_funding_radar.mjs && node public_value/farm_math.test.mjs && node public_value/funding_query.test.mjs && node public_value/benchmark_aggregate.test.mjs && node public_value/labor_log_to_benchmark.test.mjs && node public_value/workflow_experiment.test.mjs && node public_value/validate_chore_taxonomy.mjs && node public_value/validate_labor_contract.mjs public_value/examples/synthetic_labor_log_before.csv public_value/examples/synthetic_labor_log_after.csv && node public_value/validate_offline_assets.mjs && node public_value/validate_data_packages.mjs"
+    "test:public": "node public_value/validate_funding_radar.mjs && node public_value/farm_math.test.mjs && node public_value/funding_query.test.mjs && node public_value/benchmark_aggregate.test.mjs && node public_value/labor_log_to_benchmark.test.mjs && node public_value/workflow_experiment.test.mjs && node public_value/validate_chore_taxonomy.mjs && node public_value/validate_labor_contract.mjs public_value/examples/synthetic_labor_log_before.csv public_value/examples/synthetic_labor_log_after.csv && node public_value/validate_offline_assets.mjs && node public_value/validate_data_packages.mjs && node public_value/labor_contract.test.mjs"
   },
   "keywords": [
     "agriculture",
