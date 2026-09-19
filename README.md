@@ -7,6 +7,12 @@ Instead of leading with a consulting pitch, this repository now exposes useful b
 
 ## Public value assets
 
+### One-file Pocket Console
+
+The fastest way into the system is now [Farm Ops Pocket Console](public_value/farm_ops_console.html): one dependency-free HTML file containing a local labor log, recurring chore scheduler, seven-day dashboard, and workspace backup.
+
+
+
 Everything below lives in [`public_value/`](public_value/).
 
 ### Farm business economics
