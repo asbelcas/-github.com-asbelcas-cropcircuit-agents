@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CropCircuit Offline Harvest Log</title>
+<meta name="description" content="Private offline harvest log with crop/unit totals, date-range summaries, period comparison, CSV export, and JSON backup.">
+<style>
+:root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#627067;--line:#dbe4dc;--accent:#215f45;--soft:#edf5ef;--danger:#8c3030}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}
+main{max-width:1160px;margin:auto;padding:30px 16px 60px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px}h2{margin:0 0 10px}.lead{color:var(--muted);max-width:900px}
+.notice{background:var(--soft);border:1px solid #cfe0d3;border-radius:12px;padding:12px 14px;margin:18px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:11px}label{display:block;font-weight:650}input,select{width:100%;padding:9px 10px;margin-top:4px;border:1px solid #cbd6ce;border-radius:8px;background:white;font:inherit}
+button{border:0;background:var(--accent);color:white;font-weight:700;padding:8px 11px;border-radius:8px;cursor:pointer;margin:9px 5px 0 0}.secondary{background:#56675d}.danger{background:var(--danger)}
+table{width:100%;border-collapse:collapse;font-size:.84rem}th,td{text-align:left;border-bottom:1px solid var(--line);padding:7px 5px;vertical-align:top}th{font-size:.71rem;text-transform:uppercase;color:var(--muted);letter-spacing:.03em}.scroll{overflow:auto}.small{font-size:.83rem;color:var(--muted)}.empty{text-align:center;color:var(--muted);padding:20px}.positive{color:#1f6c42;font-weight:700}.negative{color:#8c3030;font-weight:700}
+</style></head>
+<body><main>
+<h1>Offline Harvest Log</h1>
+<p class="lead">Record harvest quantities, summarize them by item and unit, and compare two date ranges without sending the farm's records to a server.</p>
+<div class="notice"><strong>No automatic unit conversion:</strong> 10 pounds and 10 bunches remain separate measurements. CropCircuit does not pretend unlike units are directly comparable.</div>
+
+<section class="card"><h2>Add harvest</h2><div class="grid">
+<label>Date<input id="date" type="date"></label>
+<label>Crop / item<input id="item" type="text" placeholder="Tomato"></label>
+<label>Quantity<input id="quantity" type="number" min="0" step="0.001" value="1"></label>
+<label>Unit<select id="unit"><option>lb</option><option>kg</option><option>oz</option><option>count</option><option>bunch</option><option>dozen</option><option>box</option><option>case</option><option>other</option></select></label>
+<label>Destination<select id="destination"><option value="">— optional —</option><option>CSA</option><option>Farmers Market</option><option>Farm Stand</option><option>Wholesale</option><option>Restaurant</option><option>Home</option><option>Donation</option><option>Other</option></select></label>
+</div><button id="add">Add harvest</button></section>
+
+<section class="card"><h2>Summary period</h2><div class="grid">
+<label>Start<input id="sum-start" type="date"></label>
+<label>End<input id="sum-end" type="date"></label>
+</div><button id="summarize">Summarize</button>
+<div class="scroll" style="margin-top:12px"><table><thead><tr><th>Item</th><th>Unit</th><th>Entries</th><th>Total quantity</th></tr></thead><tbody id="summary-body"></tbody></table></div></section>
+
+<section class="card"><h2>Compare two periods</h2><div class="grid">
+<label>Period A start<input id="a-start" type="date"></label><label>Period A end<input id="a-end" type="date"></label>
+<label>Period B start<input id="b-start" type="date"></label><label>Period B end<input id="b-end" type="date"></label>
+</div><button id="compare">Compare</button>
+<div class="scroll" style="margin-top:12px"><table><thead><tr><th>Item</th><th>Unit</th><th>Period A</th><th>Period B</th><th>Change</th><th>Change %</th></tr></thead><tbody id="compare-body"></tbody></table></div></section>
+
+<section class="card"><h2>Raw entries</h2><div class="scroll"><table><thead><tr><th>Date</th><th>Item</th><th>Quantity</th><th>Unit</th><th>Destination</th><th></th></tr></thead><tbody id="body"></tbody></table></div>
+<button id="csv" class="secondary">Export CSV</button><button id="json" class="secondary">Export JSON backup</button>
+<label style="display:block;margin-top:14px;font-weight:650">Restore JSON backup<input id="restore-file" type="file" accept=".json,application/json"></label><button id="restore" class="secondary">Replace from backup</button></section>
+
+<footer class="small" style="margin-top:20px">CropCircuit Open Farm Utilities. Harvest quantity is an operational record, not revenue. Sales value is deliberately not inferred.</footer>
+</main>
+<script>
+(() => {
+  const KEY="cropcircuit_harvest_log_v1",$=id=>document.getElementById(id),esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;"),num=(v,d=3)=>Number(v).toLocaleString(undefined,{maximumFractionDigits:d});
+  function load(){try{const x=JSON.parse(localStorage.getItem(KEY)||"[]");return Array.isArray(x)?x:[]}catch{return[]}}
+  function save(){localStorage.setItem(KEY,JSON.stringify(rows))}
+  function today(){return new Date().toISOString().slice(0,10)}
+  function group(start,end){const map=new Map();for(const r of rows){if(r.date<start||r.date>end)continue;const q=Number(r.quantity);if(!Number.isFinite(q)||q<0)continue;const key=String(r.item).toLowerCase()+"\u0000"+String(r.unit).toLowerCase(),v=map.get(key)||{item:r.item,unit:r.unit,entries:0,quantity:0};v.entries++;v.quantity+=q;map.set(key,v)}return[...map.values()].sort((a,b)=>a.item.localeCompare(b.item)||a.unit.localeCompare(b.unit))}
+  function compare(aStart,aEnd,bStart,bEnd){const a=group(aStart,aEnd),b=group(bStart,bEnd),map=new Map();a.forEach(x=>map.set(x.item.toLowerCase()+"\u0000"+x.unit.toLowerCase(),{item:x.item,unit:x.unit,a:x.quantity,b:0}));b.forEach(x=>{const k=x.item.toLowerCase()+"\u0000"+x.unit.toLowerCase(),v=map.get(k)||{item:x.item,unit:x.unit,a:0,b:0};v.b=x.quantity;map.set(k,v)});return[...map.values()].map(x=>({...x,change:x.b-x.a,pct:x.a>0?(x.b-x.a)/x.a*100:null})).sort((x,y)=>Math.abs(y.change)-Math.abs(x.change))}
+  function download(name,content,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+  let rows=load();$("date").value=today();$("sum-start").value=today().slice(0,8)+"01";$("sum-end").value=today();
+
+  function render(){const sorted=[...rows].sort((a,b)=>String(b.date).localeCompare(String(a.date)));$("body").innerHTML=sorted.length?sorted.map(r=>`<tr><td>${esc(r.date)}</td><td>${esc(r.item)}</td><td>${num(r.quantity)}</td><td>${esc(r.unit)}</td><td>${esc(r.destination||"")}</td><td><button class="danger" data-del="${esc(r.id)}">Delete</button></td></tr>`).join(""):'<tr><td colspan="6" class="empty">No harvest entries yet.</td></tr>';document.querySelectorAll("[data-del]").forEach(b=>b.addEventListener("click",()=>{rows=rows.filter(r=>r.id!==b.dataset.del);save();render()}))}
+  $("add").addEventListener("click",()=>{const item=$("item").value.trim(),quantity=Number($("quantity").value);if(!item||!Number.isFinite(quantity)||quantity<0){alert("Enter an item and a non-negative quantity.");return}rows.push({id:crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random(),date:$("date").value||today(),item,quantity,unit:$("unit").value,destination:$("destination").value});save();$("item").value="";render()});
+  $("summarize").addEventListener("click",()=>{const result=group($("sum-start").value,$("sum-end").value);$("summary-body").innerHTML=result.length?result.map(x=>`<tr><td>${esc(x.item)}</td><td>${esc(x.unit)}</td><td>${x.entries}</td><td>${num(x.quantity)}</td></tr>`).join(""):'<tr><td colspan="4" class="empty">No harvest entries in this period.</td></tr>'});
+  $("compare").addEventListener("click",()=>{const result=compare($("a-start").value,$("a-end").value,$("b-start").value,$("b-end").value);$("compare-body").innerHTML=result.length?result.map(x=>`<tr><td>${esc(x.item)}</td><td>${esc(x.unit)}</td><td>${num(x.a)}</td><td>${num(x.b)}</td><td class="${x.change>0?"positive":x.change<0?"negative":""}">${x.change>0?"+":""}${num(x.change)}</td><td>${x.pct===null?"—":(x.pct>0?"+":"")+num(x.pct,1)+"%"}</td></tr>`).join(""):'<tr><td colspan="6" class="empty">No harvest entries in either period.</td></tr>'});
+  $("csv").addEventListener("click",()=>{const cell=v=>'"'+String(v??"").replaceAll('"','""')+'"',data=[["date","item","quantity","unit","destination"]];[...rows].sort((a,b)=>a.date.localeCompare(b.date)).forEach(r=>data.push([r.date,r.item,r.quantity,r.unit,r.destination||""]));download("cropcircuit-harvest-log.csv",data.map(r=>r.map(cell).join(",")).join("\r\n")+"\r\n","text/csv;charset=utf-8")});
+  $("json").addEventListener("click",()=>download("cropcircuit-harvest-log.json",JSON.stringify({schema_version:"1.0",exported_at:new Date().toISOString(),entries:rows},null,2)+"\n","application/json"));
+  $("restore").addEventListener("click",async()=>{const f=$("restore-file").files[0];if(!f){alert("Choose a JSON backup.");return}try{const x=JSON.parse(await f.text());if(x.schema_version!=="1.0"||!Array.isArray(x.entries))throw new Error("Unsupported backup");if(!confirm("Replace the local harvest log with this backup?"))return;rows=x.entries;save();render()}catch(e){alert("Restore failed: "+e.message)}});
+  render();
+})();
+</script></body></html>
