@@ -11,6 +11,7 @@
 - Zero-dependency Farm Math tests.
 - Single-file offline Farm Decision Calculator.
 - Machine-readable public asset manifest.
+- Private offline Farm Labor Log with local storage, labor-cost summaries, task ranking, CSV export, and printable reports.
 
 ### Distribution and durability
 - Embeddable zero-dependency Funding Radar widget with county/status/tag filters.
