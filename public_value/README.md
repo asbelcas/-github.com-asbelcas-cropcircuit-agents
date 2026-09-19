@@ -51,6 +51,7 @@ The Funding Radar is a source-linked dataset of Michigan farm, food-system, cons
 
 Formats:
 
+- [Interactive standalone Funding Explorer](funding_explorer.html)
 - [Human-readable Markdown](funding_radar.md)
 - [JSON](funding_radar.json)
 - [CSV](funding_radar.csv)
