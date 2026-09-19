@@ -187,6 +187,13 @@ The repository contains zero-dependency checks for:
 
 GitHub Actions workflow files are present, but automated workflow execution has not yet been independently verified.
 
+## Privacy model
+
+- [Privacy model and limitations](PRIVACY_MODEL.md)
+- [Data provenance and truthfulness policy](PROVENANCE.md)
+
+Local-first means the public tools avoid requiring a central farm-data account. It does not mean browser storage is an encrypted vault or that coarse benchmark aggregation guarantees perfect anonymity.
+
 ## Licensing
 
 - Code under `public_value/`: MIT — [LICENSE-CODE.txt](LICENSE-CODE.txt)
