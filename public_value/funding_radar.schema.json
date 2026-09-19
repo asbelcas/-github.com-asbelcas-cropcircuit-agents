@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/funding_radar.schema.json",
+  "title": "CropCircuit Michigan Farm Funding Radar",
+  "type": "object",
+  "required": [
+    "name",
+    "verified_at",
+    "scope",
+    "opportunities"
+  ],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "verified_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "scope": {
+      "type": "string"
+    },
+    "disclaimer": {
+      "type": "string"
+    },
+    "opportunities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "provider",
+          "status",
+          "deadline_label",
+          "funding",
+          "audience",
+          "tags",
+          "summary",
+          "source_url",
+          "source_type"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "title": {
+            "type": "string"
+          },
+          "provider": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "open",
+              "continuous",
+              "paused",
+              "closed",
+              "watch"
+            ]
+          },
+          "deadline": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "deadline_label": {
+            "type": "string"
+          },
+          "funding": {
+            "type": "string"
+          },
+          "audience": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "summary": {
+            "type": "string"
+          },
+          "source_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "source_type": {
+            "enum": [
+              "government",
+              "program",
+              "foundation",
+              "university",
+              "other"
+            ]
+          },
+          "verified_at": {
+            "type": "string",
+            "format": "date"
+          },
+          "verification_note": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}
