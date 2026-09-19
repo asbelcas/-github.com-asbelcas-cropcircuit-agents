@@ -245,5 +245,6 @@ The repository includes GitHub Actions checks for funding data structure/freshne
 
 - `release/public-value-0.1.0` → commit `26a6c450742faa56be7b11821c106e1617a7c63b`
 - `release/public-value-0.2.0` → commit `2b12a25c123be3755bd1a8dde0048e655143e4a6`
+- `release/public-value-0.3.0` → commit `2ef59d315aca655a0ff4329c4b3cf26fd8f4ca86`
 
 Integration examples pin code by commit SHA for reproducibility, while mutable funding data remains on `main`.
