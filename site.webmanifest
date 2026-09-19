@@ -1,0 +1,10 @@
+{
+  "name": "CropCircuit Open Farm Utilities",
+  "short_name": "CropCircuit",
+  "description": "Local-first farm operations tools, funding data, and privacy-preserving benchmark infrastructure.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f7f2",
+  "theme_color": "#215f45"
+}
