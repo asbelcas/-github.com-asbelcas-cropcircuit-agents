@@ -268,6 +268,13 @@ Software can discover the current public assets through:
 4. **Machine-readable by default.** Useful information should be available as data, not trapped in prose.
 5. **Small composable pieces.** Build things other people can reuse, link, import, or adapt.
 
+## Privacy and provenance
+
+- [Privacy model](public_value/PRIVACY_MODEL.md)
+- [Data provenance and truthfulness policy](public_value/PROVENANCE.md)
+
+CropCircuit's local-first design reduces unnecessary central collection, but the documentation explicitly states the limits of browser storage and k-anonymity.
+
 ## Licensing
 
 - Public utility code: MIT — see [LICENSE-CODE.txt](public_value/LICENSE-CODE.txt)
