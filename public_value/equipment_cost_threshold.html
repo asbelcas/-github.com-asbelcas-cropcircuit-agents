@@ -41,8 +41,8 @@ strong.money{font-size:1.05rem}
 <p class="small">Formula: max upfront cost = (annual labor cost × time-reduction fraction − added annual operating cost) × target payback years + salvage value.</p>
 <div class="scroll">
 <table>
-<thead><tr><th>Rank</th><th>Task</th><th>Category</th><th>Annual labor cost</th><th>Modeled annual savings</th><th>Max upfront cost at target</th><th>Interpretation</th></tr></thead>
-<tbody id="body"><tr><td colspan="7" class="empty">Load an analysis CSV to begin.</td></tr></tbody>
+<thead><tr><th>Rank</th><th>Task</th><th>Chore code</th><th>Category</th><th>Annual labor cost</th><th>Modeled annual savings</th><th>Max upfront cost at target</th><th>Interpretation</th></tr></thead>
+<tbody id="body"><tr><td colspan="8" class="empty">Load an analysis CSV to begin.</td></tr></tbody>
 </table>
 </div>
 </section>
@@ -87,6 +87,7 @@ strong.money{font-size:1.05rem}
     const maxUpfront=netAnnualSavings>0 ? netAnnualSavings*years+salvage : salvage;
     return {
       task:row.task||"(unnamed)",
+      choreCode:String(row.chore_code||"").trim(),
       category:row.category||"Other",
       annualLaborCost,
       grossSavings,
@@ -112,14 +113,14 @@ strong.money{font-size:1.05rem}
       const interpretation=x.netAnnualSavings<=0
         ? "Added annual cost consumes modeled savings."
         : "Any real option below this threshold would meet the chosen simple-payback assumptions if the modeled savings occur.";
-      return `<tr><td>${i+1}</td><td>${esc(x.task)}</td><td>${esc(x.category)}</td><td>${money(x.annualLaborCost)}</td><td>${money(x.netAnnualSavings)}</td><td><strong class="money">${money(x.maxUpfront)}</strong></td><td>${esc(interpretation)}</td></tr>`;
+      return `<tr><td>${i+1}</td><td>${esc(x.task)}</td><td><code>${esc(x.choreCode)}</code></td><td>${esc(x.category)}</td><td>${money(x.annualLaborCost)}</td><td>${money(x.netAnnualSavings)}</td><td><strong class="money">${money(x.maxUpfront)}</strong></td><td>${esc(interpretation)}</td></tr>`;
     }).join(""):'<tr><td colspan="7" class="empty">No usable rows found.</td></tr>';
     $("export").disabled=!analysis.length;
   });
 
   $("export").addEventListener("click",()=>{
-    const data=[["rank","task","category","annual_labor_cost","net_modeled_annual_savings","max_upfront_cost_at_target"]];
-    analysis.forEach((x,i)=>data.push([i+1,x.task,x.category,x.annualLaborCost.toFixed(2),x.netAnnualSavings.toFixed(2),x.maxUpfront.toFixed(2)]));
+    const data=[["rank","task","chore_code","category","annual_labor_cost","net_modeled_annual_savings","max_upfront_cost_at_target"]];
+    analysis.forEach((x,i)=>data.push([i+1,x.task,x.choreCode,x.category,x.annualLaborCost.toFixed(2),x.netAnnualSavings.toFixed(2),x.maxUpfront.toFixed(2)]));
     const cell=v=>'"'+String(v??"").replaceAll('"','""')+'"';
     const csv=data.map(r=>r.map(cell).join(",")).join("\r\n")+"\r\n";
     const blob=new Blob([csv],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob);
