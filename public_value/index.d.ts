@@ -339,3 +339,35 @@ export function compareHarvest(
   change: number;
   changePercent: number | null;
 }>;
+
+export function salesRecordEconomics(record: {
+  gross_amount?: number | string;
+  payment_fees?: number | string;
+  refunds_discounts?: number | string;
+  direct_costs?: number | string;
+}): {
+  grossAmount: number;
+  paymentFees: number;
+  refundsDiscounts: number;
+  directCosts: number;
+  netReceipts: number;
+  contributionAfterDirectCosts: number;
+};
+
+export function summarizeSales(
+  records: Array<Record<string, unknown>>,
+  options?: {
+    startDate?: string | null;
+    endDate?: string | null;
+    groupBy?: string;
+  }
+): Array<{
+  group: string;
+  transactions: number;
+  grossAmount: number;
+  paymentFees: number;
+  refundsDiscounts: number;
+  directCosts: number;
+  netReceipts: number;
+  contributionAfterDirectCosts: number;
+}>;
