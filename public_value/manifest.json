@@ -16,13 +16,23 @@
       "raw_json": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/funding_radar.json",
       "raw_csv": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/funding_radar.csv",
       "calendar": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/funding_deadlines.ics",
-      "verified_at": "2026-09-19"
+      "verified_at": "2026-09-19",
+      "schema": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/funding_radar.schema.json"
     },
     {
       "id": "farm-chore-payback",
       "type": "javascript-module",
       "cdn": "https://cdn.jsdelivr.net/gh/asbelcas/-github.com-asbelcas-cropcircuit-agents@main/public_value/farm_chore_payback.js",
       "source": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/farm_chore_payback.js",
+      "dependencies": []
+    },
+    {
+      "id": "farm-math",
+      "type": "javascript-module",
+      "description": "Dependency-free arithmetic for task cost, payback, fence estimation, water storage, transaction break-even, and acreage conversion.",
+      "cdn": "https://cdn.jsdelivr.net/gh/asbelcas/-github.com-asbelcas-cropcircuit-agents@main/public_value/farm_math.js",
+      "source": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/farm_math.js",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/FARM_MATH.md",
       "dependencies": []
     }
   ]
