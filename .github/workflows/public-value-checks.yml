@@ -54,3 +54,5 @@ jobs:
         run: node public_value/labor_contract.test.mjs
       - name: Test recurring farm schedule math
         run: node public_value/schedule_math.test.mjs
+      - name: Test local-first workspace helpers
+        run: node public_value/workspace.test.mjs
