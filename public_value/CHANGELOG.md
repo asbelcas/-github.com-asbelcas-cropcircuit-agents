@@ -4,6 +4,7 @@
 
 ### Added
 - Michigan Farm Funding Radar in JSON, CSV, Markdown, and iCalendar formats.
+- Offline-capable Michigan Farm Funding Explorer with status/county/tag/search/deadline filters and filtered CSV/JSON export.
 - JSON Schema for the funding dataset.
 - JSON Feed 1.1 representation for feed readers and software consumers.
 - Farm Chore Cost & Payback JavaScript module.
