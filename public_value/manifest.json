@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-19.17",
+  "version": "2026-09-19.18",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -285,6 +285,19 @@
       "backup_tool": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/workspace_backup.html",
       "privacy": "Contains private operational data and is not anonymous benchmark data.",
       "dependencies": []
+    },
+    {
+      "id": "weekly-farm-operations-brief",
+      "type": "standalone-html",
+      "description": "Browser-local printable summary of labor activity, repeated work, taxonomy coverage, and upcoming recurring chores.",
+      "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/weekly_ops_brief.html",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/WEEKLY_OPS_BRIEF.md",
+      "privacy": "Reads only the browser-local CropCircuit workspace; free-text notes are not displayed in the report.",
+      "dependencies": [
+        "public_value/workspace.js",
+        "public_value/schedule_math.js",
+        "public_value/labor_contract.js"
+      ]
     }
   ],
   "updated_at": "2026-09-19",
