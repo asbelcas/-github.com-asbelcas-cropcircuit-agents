@@ -10,6 +10,7 @@
 - Universal Labor CSV Import Mapper for converting existing spreadsheets into the CropCircuit labor contract without retyping.
 - Schedule Estimate Calibrator for comparing planned task minutes with observed median elapsed minutes.
 - Farm Chore Load Planner plus reusable recurrence math for expanding recurring schedules and exposing daily workload bunching against a user-defined capacity.
+- Shared local-first workspace contract with browser backup/restore/merge tooling. Labor Opportunity Analyzer, Chore Load Planner, and Schedule Estimate Calibrator can now use local workspace data directly.
 - JSON Schema for the funding dataset.
 - JSON Feed 1.1 representation for feed readers and software consumers.
 - Farm Chore Cost & Payback JavaScript module.
