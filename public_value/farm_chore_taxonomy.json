@@ -1,7 +1,7 @@
 {
   "name": "CropCircuit Open Farm Chore Taxonomy",
   "version": "0.1.0",
-  "updated_at": "2026-09-20",
+  "updated_at": "2026-09-19",
   "description": "A small, practical controlled vocabulary for normalizing repeated farm work across local labor logs and benchmark tooling. It is intentionally extensible rather than exhaustive.",
   "license": "CC0-1.0",
   "categories": [
