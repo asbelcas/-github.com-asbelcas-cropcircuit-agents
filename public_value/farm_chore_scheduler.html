@@ -1,122 +1,55 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CropCircuit Offline Farm Chore Scheduler</title>
-<meta name="description" content="Private offline recurring farm chore and maintenance scheduler with iCalendar and CSV export.">
+<meta name="description" content="Private offline recurring farm chore scheduler with optional canonical chore codes, iCalendar, and CSV export.">
 <style>
 :root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#627067;--line:#dbe4dc;--accent:#215f45;--soft:#edf5ef;--danger:#8c3030}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}
-main{max-width:1100px;margin:auto;padding:30px 16px 60px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px}h2{margin:0 0 10px}.lead{color:var(--muted);max-width:850px}
+main{max-width:1120px;margin:auto;padding:30px 16px 60px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px}h2{margin:0 0 10px}.lead{color:var(--muted);max-width:850px}
 .notice{background:var(--soft);border:1px solid #cfe0d3;border-radius:12px;padding:12px 14px;margin:18px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}label{display:block;font-weight:650}input,select,textarea{width:100%;padding:9px 10px;margin-top:4px;border:1px solid #cbd6ce;border-radius:8px;font:inherit;background:white}textarea{min-height:70px;resize:vertical}
 button{border:0;background:var(--accent);color:white;font-weight:700;padding:9px 12px;border-radius:8px;cursor:pointer;margin:10px 6px 0 0}.secondary{background:#56675d}.danger{background:var(--danger)}
-table{width:100%;border-collapse:collapse;font-size:.88rem}th,td{text-align:left;border-bottom:1px solid var(--line);padding:8px 6px;vertical-align:top}th{font-size:.75rem;text-transform:uppercase;color:var(--muted);letter-spacing:.03em}.scroll{overflow:auto}.small{font-size:.85rem;color:var(--muted)}.empty{text-align:center;color:var(--muted);padding:20px}
-</style>
-</head>
-<body>
-<main>
+table{width:100%;border-collapse:collapse;font-size:.86rem}th,td{text-align:left;border-bottom:1px solid var(--line);padding:8px 6px;vertical-align:top}th{font-size:.74rem;text-transform:uppercase;color:var(--muted);letter-spacing:.03em}.scroll{overflow:auto}.small{font-size:.85rem;color:var(--muted)}.empty{text-align:center;color:var(--muted);padding:20px}code{font-size:.76rem}
+</style></head>
+<body><main>
 <h1>Offline Farm Chore Scheduler</h1>
-<p class="lead">Build a recurring farm maintenance and chore calendar using your own intervals, then export it to any calendar app that accepts iCalendar files.</p>
-<div class="notice"><strong>No hidden schedule recommendations:</strong> CropCircuit does not decide how often your fence, tractor, livestock system, wash-pack equipment, or irrigation should be checked. You supply the interval appropriate to your farm and manufacturer/local guidance.</div>
+<p class="lead">Plan recurring work with your own intervals. Optional canonical chore codes keep scheduled work interoperable with CropCircuit labor logs.</p>
+<div class="notice"><strong>No hidden schedule recommendations:</strong> you supply the timing appropriate to your farm, equipment guidance, season, and operating system.</div>
 
-<section class="card">
-<h2>Add scheduled task</h2>
-<div class="grid">
+<section class="card"><h2>Add scheduled task</h2><div class="grid">
 <label>Task name<input id="task" type="text" placeholder="Inspect portable fence energizer"></label>
-<label>Category
-<select id="category">
-<option>Livestock</option><option>Field / Crop</option><option>Wash / Pack</option><option>Fencing</option><option>Water</option><option selected>Maintenance</option><option>Market / Sales</option><option>Admin</option><option>General</option>
-</select></label>
+<label>Category<select id="category"><option>Livestock</option><option>Field / Crop</option><option>Wash / Pack</option><option>Fencing</option><option>Water</option><option selected>Maintenance</option><option>Market / Sales</option><option>Admin</option><option>General</option></select></label>
+<label>Canonical chore code (optional)<select id="chore-code"></select></label>
 <label>First date<input id="date" type="date"></label>
-<label>Recurrence
-<select id="freq"><option value="ONCE">One time</option><option value="DAILY">Every N days</option><option value="WEEKLY" selected>Every N weeks</option><option value="MONTHLY">Every N months</option><option value="YEARLY">Every N years</option></select></label>
+<label>Recurrence<select id="freq"><option value="ONCE">One time</option><option value="DAILY">Every N days</option><option value="WEEKLY" selected>Every N weeks</option><option value="MONTHLY">Every N months</option><option value="YEARLY">Every N years</option></select></label>
 <label>Interval N<input id="interval" type="number" min="1" step="1" value="1"></label>
 <label>Estimated minutes (optional)<input id="minutes" type="number" min="0" step="1" value="15"></label>
-</div>
-<label style="margin-top:12px">Notes (optional)<textarea id="notes" placeholder="Keep notes generic if you plan to share the calendar file."></textarea></label>
-<button id="add">Add task</button>
-</section>
+</div><label style="margin-top:12px">Notes (optional)<textarea id="notes" placeholder="Keep notes generic if you plan to share the exported calendar."></textarea></label><button id="add">Add task</button></section>
 
-<section class="card">
-<h2>Schedule</h2>
-<div class="scroll"><table>
-<thead><tr><th>Task</th><th>Category</th><th>First date</th><th>Recurrence</th><th>Minutes</th><th>Notes</th><th></th></tr></thead>
-<tbody id="body"><tr><td colspan="7" class="empty">No scheduled tasks yet.</td></tr></tbody>
-</table></div>
-<button id="ics" class="secondary" disabled>Export .ics calendar</button>
-<button id="csv" class="secondary" disabled>Export CSV</button>
-<button id="clear" class="danger" disabled>Clear local schedule</button>
-</section>
+<section class="card"><h2>Schedule</h2><div class="scroll"><table>
+<thead><tr><th>Task</th><th>Chore code</th><th>Category</th><th>First date</th><th>Recurrence</th><th>Minutes</th><th>Notes</th><th></th></tr></thead>
+<tbody id="body"><tr><td colspan="8" class="empty">No scheduled tasks yet.</td></tr></tbody></table></div>
+<button id="ics" class="secondary" disabled>Export .ics calendar</button><button id="csv" class="secondary" disabled>Export CSV</button><button id="clear" class="danger" disabled>Clear local schedule</button></section>
 
-<footer class="small" style="margin-top:20px">CropCircuit Open Farm Utilities. This is a scheduling tool, not maintenance, animal-care, engineering, or agronomic guidance.</footer>
+<footer class="small" style="margin-top:20px">CropCircuit Open Farm Utilities. Scheduling only; not maintenance, animal-care, engineering, or agronomic guidance.</footer>
 </main>
-
 <script>
 (() => {
-  const KEY="cropcircuit_chore_schedule_v1";
-  const $=id=>document.getElementById(id);
-  const esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
-  let tasks=load();
-  $("date").value=new Date().toISOString().slice(0,10);
-
-  function load(){
-    try{const x=JSON.parse(localStorage.getItem(KEY)||"[]");return Array.isArray(x)?x:[]}catch{return []}
-  }
+  const TAXONOMY=[{"id":"livestock","label":"Livestock","tasks":[{"code":"livestock.feed","label":"Feed animals"},{"code":"livestock.water","label":"Water animals"},{"code":"livestock.bedding","label":"Bedding / litter"},{"code":"livestock.health_check","label":"Health / welfare check"},{"code":"livestock.move_rotate","label":"Move / rotate animals"},{"code":"livestock.milking","label":"Milking"},{"code":"livestock.egg_collect","label":"Collect eggs"},{"code":"livestock.birth_repro","label":"Birth / reproduction care"},{"code":"livestock.handling","label":"Handling / restraint"},{"code":"livestock.cleaning","label":"Livestock-area cleaning"}]},{"id":"crops","label":"Field / Crop","tasks":[{"code":"crops.seed_starting","label":"Seed starting"},{"code":"crops.bed_prep","label":"Bed / field preparation"},{"code":"crops.plant_transplant","label":"Transplanting"},{"code":"crops.seed_direct","label":"Direct seeding"},{"code":"crops.irrigation","label":"Irrigation"},{"code":"crops.weeding","label":"Weeding / cultivation"},{"code":"crops.fertility_compost","label":"Fertility / compost application"},{"code":"crops.scouting","label":"Crop scouting / monitoring"},{"code":"crops.harvest","label":"Harvest"},{"code":"crops.postharvest_field","label":"Field cleanup after harvest"}]},{"id":"washpack","label":"Wash / Pack","tasks":[{"code":"washpack.wash","label":"Wash produce / product"},{"code":"washpack.sort_grade","label":"Sort / grade"},{"code":"washpack.pack","label":"Pack / label"},{"code":"washpack.clean_sanitize","label":"Clean / sanitize wash-pack area"},{"code":"washpack.inventory","label":"Inventory / cooler handling"}]},{"id":"fencing","label":"Fencing","tasks":[{"code":"fencing.install","label":"Install fence"},{"code":"fencing.move","label":"Move temporary fence"},{"code":"fencing.repair","label":"Repair / inspect fence"}]},{"id":"water","label":"Water systems","tasks":[{"code":"water.fill","label":"Fill / move water"},{"code":"water.system_check","label":"Check water system"},{"code":"water.repair","label":"Repair water system"}]},{"id":"maintenance","label":"Maintenance","tasks":[{"code":"maintenance.equipment","label":"Equipment maintenance / repair"},{"code":"maintenance.building","label":"Building / infrastructure maintenance"},{"code":"maintenance.cleaning","label":"General cleaning"},{"code":"maintenance.materials","label":"Materials / supply handling"}]},{"id":"sales","label":"Market / Sales","tasks":[{"code":"sales.market_setup","label":"Market setup"},{"code":"sales.market_selling","label":"Market selling"},{"code":"sales.market_teardown","label":"Market teardown"},{"code":"sales.farmstand","label":"Farm stand"},{"code":"sales.csa_pack","label":"CSA packing"},{"code":"sales.csa_distribution","label":"CSA distribution"},{"code":"sales.delivery","label":"Delivery / route"}]},{"id":"admin","label":"Admin","tasks":[{"code":"admin.recordkeeping","label":"Farm recordkeeping"},{"code":"admin.bookkeeping","label":"Bookkeeping"},{"code":"admin.ordering","label":"Ordering / purchasing"},{"code":"admin.customer_comms","label":"Customer communication"},{"code":"admin.grants_compliance","label":"Grant / compliance paperwork"},{"code":"admin.planning","label":"Planning / scheduling"}]},{"id":"general","label":"General","tasks":[{"code":"general.travel_internal","label":"Internal travel / walking"},{"code":"general.setup_cleanup","label":"Setup / cleanup"},{"code":"general.material_handling","label":"General material handling"},{"code":"general.other","label":"Other farm work"}]}],KEY="cropcircuit_chore_schedule_v1",$=id=>document.getElementById(id),esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
+  function populateCodes(){const s=$("chore-code");s.innerHTML='<option value="">— optional / unmapped —</option>';TAXONOMY.forEach(cat=>{const g=document.createElement("optgroup");g.label=cat.label;cat.tasks.forEach(t=>{const o=document.createElement("option");o.value=t.code;o.textContent=t.code+" — "+t.label;g.appendChild(o)});s.appendChild(g)})}
+  function load(){try{const x=JSON.parse(localStorage.getItem(KEY)||"[]");return Array.isArray(x)?x:[]}catch{return[]}}
   function save(){localStorage.setItem(KEY,JSON.stringify(tasks))}
-  function recurrence(t){
-    if(t.freq==="ONCE")return "One time";
-    const unit={DAILY:"day",WEEKLY:"week",MONTHLY:"month",YEARLY:"year"}[t.freq]||"period";
-    return t.interval===1?`Every ${unit}`:`Every ${t.interval} ${unit}s`;
-  }
-  function render(){
-    $("body").innerHTML=tasks.length?tasks.slice().sort((a,b)=>a.date.localeCompare(b.date)).map(t=>`<tr><td>${esc(t.task)}</td><td>${esc(t.category)}</td><td>${esc(t.date)}</td><td>${esc(recurrence(t))}</td><td>${t.minutes||"—"}</td><td>${esc(t.notes)}</td><td><button class="danger" data-delete="${esc(t.id)}">Delete</button></td></tr>`).join(""):'<tr><td colspan="7" class="empty">No scheduled tasks yet.</td></tr>';
-    document.querySelectorAll("[data-delete]").forEach(b=>b.addEventListener("click",()=>{tasks=tasks.filter(t=>t.id!==b.dataset.delete);save();render()}));
-    $("ics").disabled=!tasks.length;$("csv").disabled=!tasks.length;$("clear").disabled=!tasks.length;
-  }
-  function icsEscape(v){
-    return String(v??"").replaceAll("\\","\\\\").replaceAll("\n","\\n").replaceAll(",","\\,").replaceAll(";","\\;");
-  }
-  function dateStamp(date){return String(date).replaceAll("-","")}
-  function download(name,content,type){
-    const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement("a");
-    a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
-  }
-  $("add").addEventListener("click",()=>{
-    const task=$("task").value.trim(),date=$("date").value,interval=Math.max(Number($("interval").value)||1,1);
-    if(!task){alert("Enter a task name.");return}
-    if(!/^\d{4}-\d{2}-\d{2}$/.test(date)){alert("Choose a first date.");return}
-    tasks.push({
-      id:(crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random()),
-      task,category:$("category").value,date,freq:$("freq").value,interval,
-      minutes:Math.max(Number($("minutes").value)||0,0),
-      notes:$("notes").value.trim()
-    });
-    save();$("task").value="";$("notes").value="";render();
-  });
-  $("ics").addEventListener("click",()=>{
-    const now=new Date().toISOString().replace(/[-:]/g,"").replace(/\.\d{3}/,"");
-    const lines=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//CropCircuit//Offline Farm Chore Scheduler//EN","CALSCALE:GREGORIAN","METHOD:PUBLISH","X-WR-CALNAME:CropCircuit Farm Chores"];
-    for(const t of tasks){
-      lines.push("BEGIN:VEVENT",`UID:${t.id}@cropcircuit.local`,`DTSTAMP:${now}`,`DTSTART;VALUE=DATE:${dateStamp(t.date)}`,`SUMMARY:${icsEscape(t.task)}`,`CATEGORIES:${icsEscape(t.category)}`);
-      const desc=[t.minutes?`Estimated minutes: ${t.minutes}`:"",t.notes].filter(Boolean).join(" | ");
-      if(desc)lines.push(`DESCRIPTION:${icsEscape(desc)}`);
-      if(t.freq!=="ONCE")lines.push(`RRULE:FREQ=${t.freq};INTERVAL=${t.interval}`);
-      lines.push("END:VEVENT");
-    }
-    lines.push("END:VCALENDAR");
-    download("cropcircuit-farm-chores.ics",lines.join("\r\n")+"\r\n","text/calendar;charset=utf-8");
-  });
-  $("csv").addEventListener("click",()=>{
-    const cell=v=>'"'+String(v??"").replaceAll('"','""')+'"';
-    const rows=[["task","category","first_date","frequency","interval","estimated_minutes","notes"]];
-    tasks.forEach(t=>rows.push([t.task,t.category,t.date,t.freq,t.interval,t.minutes,t.notes]));
-    download("cropcircuit-farm-chores.csv",rows.map(r=>r.map(cell).join(",")).join("\r\n")+"\r\n","text/csv;charset=utf-8");
-  });
-  $("clear").addEventListener("click",()=>{if(confirm("Delete the entire locally stored schedule from this browser?")){tasks=[];save();render()}});
-  render();
+  function recurrence(t){if(t.freq==="ONCE")return"One time";const unit={DAILY:"day",WEEKLY:"week",MONTHLY:"month",YEARLY:"year"}[t.freq]||"period";return t.interval===1?`Every ${unit}`:`Every ${t.interval} ${unit}s`}
+  function icsEscape(v){return String(v??"").replaceAll("\\","\\\\").replaceAll("\n","\\n").replaceAll(",","\\,").replaceAll(";","\\;")}
+  function dateStamp(v){return String(v).replaceAll("-","")}
+  function download(name,content,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+  let tasks=load();populateCodes();$("date").value=new Date().toISOString().slice(0,10);
+  function render(){const sorted=tasks.slice().sort((a,b)=>a.date.localeCompare(b.date));$("body").innerHTML=sorted.length?sorted.map(t=>`<tr><td>${esc(t.task)}</td><td><code>${esc(t.chore_code||"")}</code></td><td>${esc(t.category)}</td><td>${esc(t.date)}</td><td>${esc(recurrence(t))}</td><td>${t.minutes||"—"}</td><td>${esc(t.notes)}</td><td><button class="danger" data-delete="${esc(t.id)}">Delete</button></td></tr>`).join(""):'<tr><td colspan="8" class="empty">No scheduled tasks yet.</td></tr>';document.querySelectorAll("[data-delete]").forEach(b=>b.addEventListener("click",()=>{tasks=tasks.filter(t=>t.id!==b.dataset.delete);save();render()}));$("ics").disabled=!tasks.length;$("csv").disabled=!tasks.length;$("clear").disabled=!tasks.length}
+  $("add").addEventListener("click",()=>{const task=$("task").value.trim(),date=$("date").value,interval=Math.max(Number($("interval").value)||1,1);if(!task){alert("Enter a task name.");return}if(!/^\d{4}-\d{2}-\d{2}$/.test(date)){alert("Choose a first date.");return}tasks.push({id:(crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random()),task,chore_code:$("chore-code").value,category:$("category").value,date,freq:$("freq").value,interval,minutes:Math.max(Number($("minutes").value)||0,0),notes:$("notes").value.trim()});save();$("task").value="";$("chore-code").value="";$("notes").value="";render()});
+  $("ics").addEventListener("click",()=>{const now=new Date().toISOString().replace(/[-:]/g,"").replace(/\.\d{3}/,""),lines=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//CropCircuit//Offline Farm Chore Scheduler//EN","CALSCALE:GREGORIAN","METHOD:PUBLISH","X-WR-CALNAME:CropCircuit Farm Chores"];for(const t of tasks){lines.push("BEGIN:VEVENT",`UID:${t.id}@cropcircuit.local`,`DTSTAMP:${now}`,`DTSTART;VALUE=DATE:${dateStamp(t.date)}`,`SUMMARY:${icsEscape(t.task)}`,`CATEGORIES:${icsEscape(t.category)}`);if(t.chore_code)lines.push(`X-CROPCIRCUIT-CHORE-CODE:${icsEscape(t.chore_code)}`);const desc=[t.minutes?`Estimated minutes: ${t.minutes}`:"",t.notes].filter(Boolean).join(" | ");if(desc)lines.push(`DESCRIPTION:${icsEscape(desc)}`);if(t.freq!=="ONCE")lines.push(`RRULE:FREQ=${t.freq};INTERVAL=${t.interval}`);lines.push("END:VEVENT")}lines.push("END:VCALENDAR");download("cropcircuit-farm-chores.ics",lines.join("\r\n")+"\r\n","text/calendar;charset=utf-8")});
+  $("csv").addEventListener("click",()=>{const cell=v=>'"'+String(v??"").replaceAll('"','""')+'"',rows=[["task","chore_code","category","first_date","frequency","interval","estimated_minutes","notes"]];tasks.forEach(t=>rows.push([t.task,t.chore_code||"",t.category,t.date,t.freq,t.interval,t.minutes,t.notes]));download("cropcircuit-farm-chores.csv",rows.map(r=>r.map(cell).join(",")).join("\r\n")+"\r\n","text/csv;charset=utf-8")});
+  $("clear").addEventListener("click",()=>{if(confirm("Delete the entire locally stored schedule from this browser?")){tasks=[];save();render()}});render();
 })();
-</script>
-</body>
-</html>
+</script></body></html>
