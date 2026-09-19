@@ -1,39 +1,38 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CropCircuit Offline Farm Labor Log</title>
-<meta name="description" content="Private offline farm labor time log and cost analyzer. Stores data only in your browser and exports CSV.">
+<meta name="description" content="Private offline farm labor time log with canonical chore codes, labor-cost analysis, and CSV export.">
 <style>
 :root{--bg:#f4f7f2;--card:#fff;--ink:#19221d;--muted:#647168;--line:#dbe4dc;--accent:#215f45;--soft:#edf5ef;--danger:#8e2f2f}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}
-main{max-width:1100px;margin:auto;padding:28px 16px 60px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px}h2{margin:0 0 12px}
-.lead{color:var(--muted);max-width:800px}.notice{background:var(--soft);border:1px solid #cfe0d3;border-radius:12px;padding:12px 14px;margin:20px 0}
+main{max-width:1120px;margin:auto;padding:28px 16px 60px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px}h2{margin:0 0 12px}
+.lead{color:var(--muted);max-width:820px}.notice{background:var(--soft);border:1px solid #cfe0d3;border-radius:12px;padding:12px 14px;margin:20px 0}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
 label{display:block;font-weight:650;margin:9px 0 4px}input,select,textarea{width:100%;padding:9px 10px;border:1px solid #cbd6ce;border-radius:8px;font:inherit;background:white}textarea{min-height:70px;resize:vertical}
 button{border:0;background:var(--accent);color:white;font-weight:700;padding:9px 12px;border-radius:8px;cursor:pointer;margin:8px 6px 0 0}.secondary{background:#53645a}.danger{background:var(--danger)}
 .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:12px 0}.metric{padding:12px;border:1px solid var(--line);border-radius:10px;background:#fafcf9}.metric strong{display:block;font-size:1.35rem}
-table{width:100%;border-collapse:collapse;font-size:.9rem}th,td{text-align:left;border-bottom:1px solid var(--line);padding:8px 6px;vertical-align:top}th{font-size:.78rem;text-transform:uppercase;letter-spacing:.03em;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:.88rem}th,td{text-align:left;border-bottom:1px solid var(--line);padding:8px 6px;vertical-align:top}th{font-size:.76rem;text-transform:uppercase;letter-spacing:.03em;color:var(--muted)}
 .scroll{overflow:auto}.small{font-size:.85rem;color:var(--muted)}.row-actions button{padding:5px 8px;margin:0;font-size:.8rem}.empty{padding:18px;color:var(--muted);text-align:center}
-footer{margin-top:24px;color:var(--muted);font-size:.85rem}@media print{button,.entry-form,.notice{display:none}.card{box-shadow:none;break-inside:avoid}body{background:white}}
+code{font-size:.78rem}@media print{button,.entry-form,.notice{display:none}.card{box-shadow:none;break-inside:avoid}body{background:white}}
 </style>
 </head>
-<body>
-<main>
+<body><main>
 <h1>Offline Farm Labor Log</h1>
-<p class="lead">Track where farm time actually goes, then convert it into labor hours and estimated cost. Entries stay in this browser unless you export them.</p>
-<div class="notice"><strong>Private by default:</strong> no login, analytics, server sync, cookies, or network calls. Browser storage can be lost if site data is cleared, so export CSV periodically.</div>
+<p class="lead">Track where farm time actually goes. Optional canonical chore codes make the CSV interoperable without replacing your own task names.</p>
+<div class="notice"><strong>Private by default:</strong> entries stay in this browser unless exported. Existing v1 entries still work; new entries can add an optional CropCircuit chore code.</div>
 
 <div class="grid">
 <section class="card entry-form">
 <h2>Add work entry</h2>
 <label>Date<input id="date" type="date"></label>
 <label>Category
-<select id="category">
-<option>Livestock</option><option>Field / Crop</option><option>Harvest</option><option>Wash / Pack</option><option>Market / Sales</option><option>Maintenance</option><option>Fencing</option><option>Water</option><option>Admin</option><option>Other</option>
-</select></label>
+<select id="category"><option>Livestock</option><option>Field / Crop</option><option>Harvest</option><option>Wash / Pack</option><option>Market / Sales</option><option>Maintenance</option><option>Fencing</option><option>Water</option><option>Admin</option><option>Other</option></select>
+</label>
 <label>Task<input id="task" type="text" placeholder="Move portable fence"></label>
+<label>Canonical chore code (optional)<select id="chore-code"></select></label>
+<p class="small">Keep the human task name. The code is an extra normalization layer such as <code>fencing.move</code>.</p>
 <label>Minutes elapsed<input id="minutes" type="number" min="0" step="1" value="30"></label>
 <label>Workers involved<input id="workers" type="number" min="0" step="1" value="1"></label>
 <label>Notes (optional)<textarea id="notes" placeholder="Context that may explain an unusually long or short task"></textarea></label>
@@ -43,158 +42,80 @@ footer{margin-top:24px;color:var(--muted);font-size:.85rem}@media print{button,.
 <section class="card">
 <h2>Labor economics</h2>
 <label>Estimated labor cost per hour ($)<input id="hourly" type="number" min="0" step="0.01" value="20"></label>
-<p class="small">This rate is stored locally and only affects cost estimates; recorded minutes are unchanged.</p>
-<div class="metrics">
-<div class="metric"><strong id="metric-entries">0</strong><span>entries</span></div>
-<div class="metric"><strong id="metric-hours">0</strong><span>worker-hours</span></div>
-<div class="metric"><strong id="metric-cost">$0</strong><span>estimated labor</span></div>
-</div>
-<button id="export">Export CSV</button>
-<button id="print" class="secondary">Print summary</button>
-<button id="clear" class="danger">Clear all local data</button>
+<p class="small">This rate is stored locally and only affects cost estimates.</p>
+<div class="metrics"><div class="metric"><strong id="metric-entries">0</strong><span>entries</span></div><div class="metric"><strong id="metric-hours">0</strong><span>worker-hours</span></div><div class="metric"><strong id="metric-cost">$0</strong><span>estimated labor</span></div></div>
+<button id="export">Export CSV</button><button id="print" class="secondary">Print summary</button><button id="clear" class="danger">Clear all local data</button>
 </section>
 </div>
 
-<section class="card" style="margin-top:16px">
-<h2>Time by category</h2>
-<div class="scroll"><table>
-<thead><tr><th>Category</th><th>Entries</th><th>Worker-hours</th><th>Estimated labor cost</th><th>% of time</th></tr></thead>
-<tbody id="category-body"></tbody>
-</table></div>
-</section>
+<section class="card" style="margin-top:16px"><h2>Time by category</h2><div class="scroll"><table>
+<thead><tr><th>Category</th><th>Entries</th><th>Worker-hours</th><th>Estimated labor cost</th><th>% of time</th></tr></thead><tbody id="category-body"></tbody>
+</table></div></section>
 
-<section class="card" style="margin-top:16px">
-<h2>Most expensive repeated tasks</h2>
-<p class="small">Grouping uses the task name you typed. Consistent names make this more useful.</p>
-<div class="scroll"><table>
-<thead><tr><th>Task</th><th>Category</th><th>Entries</th><th>Worker-hours</th><th>Estimated labor cost</th></tr></thead>
-<tbody id="task-body"></tbody>
-</table></div>
-</section>
+<section class="card" style="margin-top:16px"><h2>Most expensive repeated work</h2>
+<p class="small">Entries with a chore code group by that code; uncoded entries fall back to category + task name.</p>
+<div class="scroll"><table><thead><tr><th>Task / code</th><th>Category</th><th>Entries</th><th>Worker-hours</th><th>Estimated labor cost</th></tr></thead><tbody id="task-body"></tbody></table></div></section>
 
-<section class="card" style="margin-top:16px">
-<h2>Entries</h2>
-<div class="scroll"><table>
-<thead><tr><th>Date</th><th>Category</th><th>Task</th><th>Minutes</th><th>Workers</th><th>Worker-hours</th><th>Notes</th><th></th></tr></thead>
-<tbody id="entry-body"></tbody>
-</table></div>
-</section>
+<section class="card" style="margin-top:16px"><h2>Entries</h2><div class="scroll"><table>
+<thead><tr><th>Date</th><th>Category</th><th>Task</th><th>Chore code</th><th>Minutes</th><th>Workers</th><th>Worker-hours</th><th>Notes</th><th></th></tr></thead><tbody id="entry-body"></tbody>
+</table></div></section>
 
-<footer>CropCircuit Open Farm Utilities. This tool provides planning arithmetic, not employment, financial, veterinary, engineering, or agronomic advice.</footer>
+<footer>CropCircuit Open Farm Utilities. Planning arithmetic only; not employment, financial, veterinary, engineering, or agronomic advice.</footer>
 </main>
-
 <script>
 (() => {
-  const STORAGE_KEY="cropcircuit_farm_labor_log_v1";
-  const SETTINGS_KEY="cropcircuit_farm_labor_settings_v1";
+  const TAXONOMY=[{"id":"livestock","label":"Livestock","tasks":[{"code":"livestock.feed","label":"Feed animals"},{"code":"livestock.water","label":"Water animals"},{"code":"livestock.bedding","label":"Bedding / litter"},{"code":"livestock.health_check","label":"Health / welfare check"},{"code":"livestock.move_rotate","label":"Move / rotate animals"},{"code":"livestock.milking","label":"Milking"},{"code":"livestock.egg_collect","label":"Collect eggs"},{"code":"livestock.birth_repro","label":"Birth / reproduction care"},{"code":"livestock.handling","label":"Handling / restraint"},{"code":"livestock.cleaning","label":"Livestock-area cleaning"}]},{"id":"crops","label":"Field / Crop","tasks":[{"code":"crops.seed_starting","label":"Seed starting"},{"code":"crops.bed_prep","label":"Bed / field preparation"},{"code":"crops.plant_transplant","label":"Transplanting"},{"code":"crops.seed_direct","label":"Direct seeding"},{"code":"crops.irrigation","label":"Irrigation"},{"code":"crops.weeding","label":"Weeding / cultivation"},{"code":"crops.fertility_compost","label":"Fertility / compost application"},{"code":"crops.scouting","label":"Crop scouting / monitoring"},{"code":"crops.harvest","label":"Harvest"},{"code":"crops.postharvest_field","label":"Field cleanup after harvest"}]},{"id":"washpack","label":"Wash / Pack","tasks":[{"code":"washpack.wash","label":"Wash produce / product"},{"code":"washpack.sort_grade","label":"Sort / grade"},{"code":"washpack.pack","label":"Pack / label"},{"code":"washpack.clean_sanitize","label":"Clean / sanitize wash-pack area"},{"code":"washpack.inventory","label":"Inventory / cooler handling"}]},{"id":"fencing","label":"Fencing","tasks":[{"code":"fencing.install","label":"Install fence"},{"code":"fencing.move","label":"Move temporary fence"},{"code":"fencing.repair","label":"Repair / inspect fence"}]},{"id":"water","label":"Water systems","tasks":[{"code":"water.fill","label":"Fill / move water"},{"code":"water.system_check","label":"Check water system"},{"code":"water.repair","label":"Repair water system"}]},{"id":"maintenance","label":"Maintenance","tasks":[{"code":"maintenance.equipment","label":"Equipment maintenance / repair"},{"code":"maintenance.building","label":"Building / infrastructure maintenance"},{"code":"maintenance.cleaning","label":"General cleaning"},{"code":"maintenance.materials","label":"Materials / supply handling"}]},{"id":"sales","label":"Market / Sales","tasks":[{"code":"sales.market_setup","label":"Market setup"},{"code":"sales.market_selling","label":"Market selling"},{"code":"sales.market_teardown","label":"Market teardown"},{"code":"sales.farmstand","label":"Farm stand"},{"code":"sales.csa_pack","label":"CSA packing"},{"code":"sales.csa_distribution","label":"CSA distribution"},{"code":"sales.delivery","label":"Delivery / route"}]},{"id":"admin","label":"Admin","tasks":[{"code":"admin.recordkeeping","label":"Farm recordkeeping"},{"code":"admin.bookkeeping","label":"Bookkeeping"},{"code":"admin.ordering","label":"Ordering / purchasing"},{"code":"admin.customer_comms","label":"Customer communication"},{"code":"admin.grants_compliance","label":"Grant / compliance paperwork"},{"code":"admin.planning","label":"Planning / scheduling"}]},{"id":"general","label":"General","tasks":[{"code":"general.travel_internal","label":"Internal travel / walking"},{"code":"general.setup_cleanup","label":"Setup / cleanup"},{"code":"general.material_handling","label":"General material handling"},{"code":"general.other","label":"Other farm work"}]}];
+  const STORAGE_KEY="cropcircuit_farm_labor_log_v1", SETTINGS_KEY="cropcircuit_farm_labor_settings_v1";
   const $=id=>document.getElementById(id);
   const money=v=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(v);
   const num=(v,d=1)=>Number(v).toLocaleString(undefined,{maximumFractionDigits:d});
   const esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
-
-  function loadEntries(){
-    try{
-      const parsed=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");
-      return Array.isArray(parsed)?parsed:[];
-    }catch{return []}
+  function populateCodes(){
+    const s=$("chore-code");s.innerHTML='<option value="">— optional / unmapped —</option>';
+    TAXONOMY.forEach(cat=>{const g=document.createElement("optgroup");g.label=cat.label;cat.tasks.forEach(t=>{const o=document.createElement("option");o.value=t.code;o.textContent=t.code+" — "+t.label;g.appendChild(o)});s.appendChild(g)});
   }
-  function saveEntries(entries){localStorage.setItem(STORAGE_KEY,JSON.stringify(entries))}
-  function loadSettings(){
-    try{return JSON.parse(localStorage.getItem(SETTINGS_KEY)||"{}")}catch{return {}}
-  }
+  function loadEntries(){try{const p=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");return Array.isArray(p)?p:[]}catch{return []}}
+  function saveEntries(v){localStorage.setItem(STORAGE_KEY,JSON.stringify(v))}
+  function loadSettings(){try{return JSON.parse(localStorage.getItem(SETTINGS_KEY)||"{}")}catch{return {}}}
   function saveSettings(){localStorage.setItem(SETTINGS_KEY,JSON.stringify({hourly:Number($("hourly").value)||0}))}
   function workerHours(e){return Math.max(Number(e.minutes)||0,0)/60*Math.max(Number(e.workers)||0,0)}
-  function today(){const d=new Date();return d.toISOString().slice(0,10)}
-  function csvCell(v){const s=String(v??"");return '"'+s.replaceAll('"','""')+'"'}
-
-  let entries=loadEntries();
-  const settings=loadSettings();
-  $("date").value=today();
-  if(Number.isFinite(Number(settings.hourly))) $("hourly").value=settings.hourly;
+  function today(){return new Date().toISOString().slice(0,10)}
+  function csvCell(v){return '"'+String(v??"").replaceAll('"','""')+'"'}
+  let entries=loadEntries(); const settings=loadSettings(); populateCodes(); $("date").value=today();
+  if(Number.isFinite(Number(settings.hourly)))$("hourly").value=settings.hourly;
 
   function render(){
-    const hourly=Math.max(Number($("hourly").value)||0,0);
-    const totalHours=entries.reduce((s,e)=>s+workerHours(e),0);
-    $("metric-entries").textContent=entries.length;
-    $("metric-hours").textContent=num(totalHours,1);
-    $("metric-cost").textContent=money(totalHours*hourly);
-
-    const byCategory=new Map();
-    const byTask=new Map();
+    const hourly=Math.max(Number($("hourly").value)||0,0),totalHours=entries.reduce((s,e)=>s+workerHours(e),0);
+    $("metric-entries").textContent=entries.length;$("metric-hours").textContent=num(totalHours);$("metric-cost").textContent=money(totalHours*hourly);
+    const byCategory=new Map(),byTask=new Map();
     for(const e of entries){
-      const hours=workerHours(e);
-      const cat=e.category||"Other";
-      const c=byCategory.get(cat)||{entries:0,hours:0};
-      c.entries+=1;c.hours+=hours;byCategory.set(cat,c);
-
-      const task=(e.task||"(unnamed)").trim()||"(unnamed)";
-      const key=cat+"\u0000"+task.toLowerCase();
-      const t=byTask.get(key)||{task,category:cat,entries:0,hours:0};
-      t.entries+=1;t.hours+=hours;byTask.set(key,t);
+      const hours=workerHours(e),cat=e.category||"Other",chore=String(e.chore_code||"").trim(),task=(e.task||"(unnamed)").trim()||"(unnamed)";
+      const c=byCategory.get(cat)||{entries:0,hours:0};c.entries++;c.hours+=hours;byCategory.set(cat,c);
+      const key=chore?"code:"+chore:"text:"+cat+"\u0000"+task.toLowerCase();
+      const t=byTask.get(key)||{task,chore,category:cat,entries:0,hours:0};t.entries++;t.hours+=hours;byTask.set(key,t);
     }
-
     const categories=[...byCategory.entries()].sort((a,b)=>b[1].hours-a[1].hours);
-    $("category-body").innerHTML=categories.length?categories.map(([cat,v])=>{
-      const pct=totalHours>0?(v.hours/totalHours*100):0;
-      return `<tr><td>${esc(cat)}</td><td>${v.entries}</td><td>${num(v.hours)}</td><td>${money(v.hours*hourly)}</td><td>${num(pct,1)}%</td></tr>`;
-    }).join(""):'<tr><td colspan="5" class="empty">No entries yet.</td></tr>';
-
-    const tasks=[...byTask.values()].sort((a,b)=>b.hours-a.hours).slice(0,20);
-    $("task-body").innerHTML=tasks.length?tasks.map(v=>
-      `<tr><td>${esc(v.task)}</td><td>${esc(v.category)}</td><td>${v.entries}</td><td>${num(v.hours)}</td><td>${money(v.hours*hourly)}</td></tr>`
-    ).join(""):'<tr><td colspan="5" class="empty">No entries yet.</td></tr>';
-
-    const sorted=[...entries].sort((a,b)=>String(b.date).localeCompare(String(a.date))||b.createdAt-a.createdAt);
-    $("entry-body").innerHTML=sorted.length?sorted.map(e=>
-      `<tr><td>${esc(e.date)}</td><td>${esc(e.category)}</td><td>${esc(e.task)}</td><td>${num(e.minutes,0)}</td><td>${num(e.workers,0)}</td><td>${num(workerHours(e))}</td><td>${esc(e.notes)}</td><td class="row-actions"><button class="danger" data-delete="${esc(e.id)}">Delete</button></td></tr>`
-    ).join(""):'<tr><td colspan="8" class="empty">No entries yet.</td></tr>';
-
-    document.querySelectorAll("[data-delete]").forEach(btn=>btn.addEventListener("click",()=>{
-      entries=entries.filter(e=>e.id!==btn.dataset.delete);saveEntries(entries);render();
-    }));
+    $("category-body").innerHTML=categories.length?categories.map(([cat,v])=>`<tr><td>${esc(cat)}</td><td>${v.entries}</td><td>${num(v.hours)}</td><td>${money(v.hours*hourly)}</td><td>${num(totalHours?100*v.hours/totalHours:0,1)}%</td></tr>`).join(""):'<tr><td colspan="5" class="empty">No entries yet.</td></tr>';
+    const tasks=[...byTask.values()].sort((a,b)=>b.hours-a.hours).slice(0,25);
+    $("task-body").innerHTML=tasks.length?tasks.map(v=>`<tr><td>${esc(v.task)}${v.chore?`<br><code>${esc(v.chore)}</code>`:""}</td><td>${esc(v.category)}</td><td>${v.entries}</td><td>${num(v.hours)}</td><td>${money(v.hours*hourly)}</td></tr>`).join(""):'<tr><td colspan="5" class="empty">No entries yet.</td></tr>';
+    const sorted=[...entries].sort((a,b)=>String(b.date).localeCompare(String(a.date))||(b.createdAt||0)-(a.createdAt||0));
+    $("entry-body").innerHTML=sorted.length?sorted.map(e=>`<tr><td>${esc(e.date)}</td><td>${esc(e.category)}</td><td>${esc(e.task)}</td><td><code>${esc(e.chore_code||"")}</code></td><td>${num(e.minutes,0)}</td><td>${num(e.workers,0)}</td><td>${num(workerHours(e))}</td><td>${esc(e.notes)}</td><td class="row-actions"><button class="danger" data-delete="${esc(e.id)}">Delete</button></td></tr>`).join(""):'<tr><td colspan="9" class="empty">No entries yet.</td></tr>';
+    document.querySelectorAll("[data-delete]").forEach(btn=>btn.addEventListener("click",()=>{entries=entries.filter(e=>e.id!==btn.dataset.delete);saveEntries(entries);render()}));
   }
-
   $("add").addEventListener("click",()=>{
-    const task=$("task").value.trim();
-    const minutes=Math.max(Number($("minutes").value)||0,0);
-    const workers=Math.max(Number($("workers").value)||0,0);
-    if(!task){alert("Enter a task name.");return}
-    if(minutes<=0||workers<=0){alert("Minutes and workers must be greater than zero.");return}
-    entries.push({
-      id:(crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random()),
-      createdAt:Date.now(),
-      date:$("date").value||today(),
-      category:$("category").value,
-      task,
-      minutes,
-      workers,
-      notes:$("notes").value.trim()
-    });
-    saveEntries(entries);
-    $("task").value="";$("notes").value="";
-    render();
+    const task=$("task").value.trim(),minutes=Math.max(Number($("minutes").value)||0,0),workers=Math.max(Number($("workers").value)||0,0);
+    if(!task){alert("Enter a task name.");return} if(minutes<=0||workers<=0){alert("Minutes and workers must be greater than zero.");return}
+    entries.push({id:(crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random()),createdAt:Date.now(),date:$("date").value||today(),category:$("category").value,task,chore_code:$("chore-code").value,minutes,workers,notes:$("notes").value.trim()});
+    saveEntries(entries);$("task").value="";$("notes").value="";$("chore-code").value="";render();
   });
-
-  $("hourly").addEventListener("input",()=>{saveSettings();render()});
-  $("print").addEventListener("click",()=>window.print());
-  $("clear").addEventListener("click",()=>{
-    if(!confirm("Delete every locally stored labor entry from this browser? Export first if you need a backup."))return;
-    entries=[];saveEntries(entries);render();
-  });
+  $("hourly").addEventListener("input",()=>{saveSettings();render()});$("print").addEventListener("click",()=>window.print());
+  $("clear").addEventListener("click",()=>{if(confirm("Delete every locally stored labor entry from this browser? Export first if needed.")){entries=[];saveEntries(entries);render()}});
   $("export").addEventListener("click",()=>{
-    const rows=[["date","category","task","minutes","workers","worker_hours","notes"]];
-    for(const e of [...entries].sort((a,b)=>String(a.date).localeCompare(String(b.date)))){
-      rows.push([e.date,e.category,e.task,e.minutes,e.workers,workerHours(e).toFixed(2),e.notes]);
-    }
-    const csv=rows.map(row=>row.map(csvCell).join(",")).join("\r\n")+"\r\n";
-    const blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement("a");a.href=url;a.download="cropcircuit-farm-labor-log.csv";a.click();
-    setTimeout(()=>URL.revokeObjectURL(url),1000);
+    const rows=[["date","category","task","chore_code","minutes","workers","worker_hours","notes"]];
+    for(const e of [...entries].sort((a,b)=>String(a.date).localeCompare(String(b.date))))rows.push([e.date,e.category,e.task,e.chore_code||"",e.minutes,e.workers,workerHours(e).toFixed(2),e.notes]);
+    const blob=new Blob([rows.map(r=>r.map(csvCell).join(",")).join("\r\n")+"\r\n"],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+    a.href=url;a.download="cropcircuit-farm-labor-log.csv";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
   });
-
   render();
 })();
-</script>
-</body>
-</html>
+</script></body></html>
