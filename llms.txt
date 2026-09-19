@@ -22,6 +22,8 @@
 - Machine-readable manifest: public_value/manifest.json
 - Farm labor workflow: public_value/FARM_LABOR_TOOLKIT.md
 - Local workspace contract: public_value/LOCAL_WORKSPACE.md
+- Privacy model: public_value/PRIVACY_MODEL.md
+- Provenance policy: public_value/PROVENANCE.md
 - Labor data contract: public_value/LABOR_DATA_CONTRACT.md
 - Chore taxonomy: public_value/farm_chore_taxonomy.json
 - Michigan funding data: public_value/funding_radar.json
