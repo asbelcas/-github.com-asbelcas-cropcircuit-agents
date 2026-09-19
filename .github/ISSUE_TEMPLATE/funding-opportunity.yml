@@ -1,8 +1,6 @@
 name: Funding opportunity or correction
 description: Suggest a Michigan farm/food/conservation funding record or correct an existing one.
 title: "[Funding] "
-labels:
-  - public-value
 body:
   - type: markdown
     attributes:
