@@ -93,6 +93,15 @@ A private local-first time-study tool for discovering where farm labor actually 
 
 It stores entries only in browser storage, calculates worker-hours and labor cost by category/task, and exports CSV for backup or further analysis.
 
+### Equipment Cost Threshold Analyzer
+
+Once a task's annualized labor cost is known, a local-first screening tool calculates the maximum upfront capital cost consistent with a chosen time-reduction assumption and simple-payback horizon:
+
+- [Tool source](public_value/equipment_cost_threshold.html)
+- [Documentation](public_value/EQUIPMENT_COST_THRESHOLD.md)
+
+It is a first-pass threshold, not a purchase recommendation.
+
 ### Labor Opportunity Analyzer
 
 Pair the Offline Farm Labor Log with a browser-only analyzer that annualizes a real time-study sample and ranks repeated work by estimated labor cost:
