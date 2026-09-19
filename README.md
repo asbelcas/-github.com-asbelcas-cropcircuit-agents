@@ -206,6 +206,16 @@ The tools now form an end-to-end local-first workflow:
 
 The explorer respects cohort suppression and will not expose statistics from a group that is below the privacy floor.
 
+### JavaScript package surface
+
+The reusable JavaScript layer now has zero-dependency package metadata and an export entry point for direct GitHub installs and future registry publication:
+
+- [Package usage](public_value/PACKAGE_USAGE.md)
+- `package.json`
+- [Module entry point](public_value/index.js)
+
+No npm registry publication is claimed yet; that remains gated on clean-install verification and evidence of demand.
+
 ### Data packages and catalog metadata
 
 The funding radar and chore taxonomy now include Tabular Data Package metadata, and the repository publishes a schema.org `DataCatalog` JSON-LD description for catalog/search reuse:
