@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CropCircuit Farm Chore Load Planner</title>
+<meta name="description" content="Private browser-only planner that expands recurring farm chores and estimates daily scheduled minutes against a user-set capacity.">
+<style>
+:root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#627067;--line:#dbe4dc;--accent:#215f45;--soft:#edf5ef;--warn:#7a5a00;--bad:#8c3030}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}
+main{max-width:1160px;margin:auto;padding:30px 16px 60px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px}h2{margin:0 0 10px}.lead{color:var(--muted);max-width:900px}
+.notice{background:var(--soft);border:1px solid #cfe0d3;border-radius:12px;padding:12px 14px;margin:18px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}label{display:block;font-weight:650}input{width:100%;padding:9px 10px;margin-top:4px;border:1px solid #cbd6ce;border-radius:8px;background:white;font:inherit}
+button{border:0;background:var(--accent);color:white;font-weight:700;padding:9px 12px;border-radius:8px;cursor:pointer;margin:10px 6px 0 0}.secondary{background:#56675d}
+table{width:100%;border-collapse:collapse;font-size:.84rem}th,td{text-align:left;border-bottom:1px solid var(--line);padding:8px 6px;vertical-align:top}th{font-size:.72rem;text-transform:uppercase;color:var(--muted);letter-spacing:.03em}.scroll{overflow:auto}.small{font-size:.85rem;color:var(--muted)}.empty{text-align:center;color:var(--muted);padding:20px}.warn{color:var(--warn);font-weight:700}.bad{color:var(--bad);font-weight:700}.ok{font-weight:700;color:#1f6c42}code{font-size:.74rem}
+</style></head>
+<body><main>
+<h1>Farm Chore Load Planner</h1>
+<p class="lead">Expand a recurring chore schedule into daily work and compare estimated scheduled minutes with the amount of chore time you actually want available each day.</p>
+<div class="notice"><strong>Capacity is user-defined.</strong> This tool does not decide how much anyone should work. It only compares your own schedule estimates with the daily chore-time budget you enter.</div>
+
+<section class="card">
+<h2>Load schedule</h2>
+<input id="file" type="file" accept=".csv,text/csv">
+<div class="grid" style="margin-top:14px">
+<label>Start date<input id="start" type="date"></label>
+<label>Days to plan<input id="days" type="number" min="1" max="366" step="1" value="30"></label>
+<label>Available chore minutes per day<input id="capacity" type="number" min="1" step="1" value="240"></label>
+</div>
+<button id="plan">Build daily load</button><button id="export" class="secondary" disabled>Export daily load CSV</button>
+</section>
+
+<section class="card"><h2>Daily load</h2>
+<p id="summary" class="small">Load a schedule to begin.</p>
+<div class="scroll"><table>
+<thead><tr><th>Date</th><th>Scheduled tasks</th><th>Estimated minutes</th><th>Capacity used</th><th>Status</th><th>Work</th></tr></thead>
+<tbody id="body"><tr><td colspan="6" class="empty">No plan yet.</td></tr></tbody>
+</table></div></section>
+
+<footer class="small" style="margin-top:20px">CropCircuit Open Farm Utilities. Actual time can differ from scheduled estimates; calibrate estimates with observed labor when possible.</footer>
+</main>
+<script>
+(() => {
+  const $=id=>document.getElementById(id),esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;"),num=(v,d=0)=>Number(v).toLocaleString(undefined,{maximumFractionDigits:d});
+  let schedule=[],planRows=[];
+
+  function parseCSV(text){
+    const parsed=[];let row=[],field="",quoted=false;
+    for(let i=0;i<text.length;i++){
+      const ch=text[i];
+      if(quoted){
+        if(ch==='"'&&text[i+1]==='"'){field+='"';i++}
+        else if(ch==='"')quoted=false;
+        else field+=ch;
+      }else{
+        if(ch==='"')quoted=true;
+        else if(ch===','){row.push(field);field=""}
+        else if(ch==='\n'){row.push(field);parsed.push(row);row=[];field=""}
+        else if(ch!=='\r')field+=ch;
+      }
+    }
+    if(field.length||row.length){row.push(field);parsed.push(row)}
+    if(!parsed.length)return[];
+    const headers=parsed[0].map(x=>x.trim().toLowerCase());
+    return parsed.slice(1).filter(r=>r.some(v=>String(v).trim())).map(r=>{const o={};headers.forEach((h,i)=>o[h]=r[i]??"");return o});
+  }
+
+  function date(v){return new Date(String(v)+"T00:00:00Z")}
+  function iso(d){return d.toISOString().slice(0,10)}
+  function addDays(d,n){const x=new Date(d);x.setUTCDate(x.getUTCDate()+n);return x}
+  function dim(y,m){return new Date(Date.UTC(y,m+1,0)).getUTCDate()}
+  function monthly(first,step){const total=first.getUTCFullYear()*12+first.getUTCMonth()+step,y=Math.floor(total/12),m=total%12,day=first.getUTCDate();return day<=dim(y,m)?new Date(Date.UTC(y,m,day)):null}
+  function yearly(first,step){const y=first.getUTCFullYear()+step,m=first.getUTCMonth(),day=first.getUTCDate();return day<=dim(y,m)?new Date(Date.UTC(y,m,day)):null}
+
+  function occurrences(item,start,end){
+    const first=date(item.first_date||item.date),freq=String(item.frequency||item.freq||"ONCE").toUpperCase(),interval=Math.max(1,Math.floor(Number(item.interval)||1)),out=[];
+    const push=d=>{if(d&&d>=start&&d<=end)out.push(iso(d))};
+    if(freq==="ONCE"){push(first);return out}
+    if(freq==="DAILY"||freq==="WEEKLY"){let d=first,step=freq==="DAILY"?interval:7*interval,guard=0;while(d<=end&&guard<10000){push(d);d=addDays(d,step);guard++}return out}
+    if(freq==="MONTHLY"){let step=0,guard=0;while(guard<10000){const c=monthly(first,step);const marker=monthly(new Date(Date.UTC(first.getUTCFullYear(),first.getUTCMonth(),1)),step);if(marker&&marker>end)break;push(c);step+=interval;guard++}return out}
+    if(freq==="YEARLY"){let step=0,guard=0;while(guard<10000){const c=yearly(first,step),y=first.getUTCFullYear()+step;if(Date.UTC(y,0,1)>end.getTime())break;push(c);step+=interval;guard++}return out}
+    return out;
+  }
+
+  $("start").value=new Date().toISOString().slice(0,10);
+  $("file").addEventListener("change",async()=>{const f=$("file").files[0];schedule=f?parseCSV(await f.text()):[]});
+
+  $("plan").addEventListener("click",async()=>{
+    const f=$("file").files[0];if(!f){alert("Choose a schedule CSV first.");return}
+    if(!schedule.length)schedule=parseCSV(await f.text());
+    const start=date($("start").value),days=Math.max(1,Math.min(Number($("days").value)||30,366)),end=addDays(start,days-1),capacity=Math.max(Number($("capacity").value)||1,1);
+    const map=new Map();
+    for(let i=0;i<days;i++){const d=iso(addDays(start,i));map.set(d,{date:d,total:0,tasks:[]})}
+    for(const item of schedule){
+      const minutes=Math.max(Number(item.estimated_minutes)||0,0);
+      for(const d of occurrences(item,start,end)){
+        const bucket=map.get(d);if(!bucket)continue;
+        bucket.total+=minutes;bucket.tasks.push({task:item.task||"",code:item.chore_code||"",minutes});
+      }
+    }
+    planRows=[...map.values()];
+    const overloaded=planRows.filter(x=>x.total>capacity).length,scheduled=planRows.filter(x=>x.tasks.length).length,total=planRows.reduce((s,x)=>s+x.total,0);
+    $("summary").textContent=`${scheduled} day(s) contain scheduled work · ${num(total)} estimated minutes across the window · ${overloaded} day(s) above your entered capacity.`;
+    $("body").innerHTML=planRows.map(x=>{
+      const pct=x.total/capacity*100,status=x.total>capacity?["Above entered capacity","bad"]:x.total>capacity*0.85?["Near entered capacity","warn"]:["Within entered capacity","ok"];
+      const work=x.tasks.length?x.tasks.map(t=>`${esc(t.task)}${t.code?` <code>${esc(t.code)}</code>`:""} (${num(t.minutes)}m)`).join("<br>"):"—";
+      return `<tr><td>${x.date}</td><td>${x.tasks.length}</td><td>${num(x.total)}</td><td>${num(pct)}%</td><td class="${status[1]}">${status[0]}</td><td>${work}</td></tr>`;
+    }).join("");
+    $("export").disabled=false;
+  });
+
+  $("export").addEventListener("click",()=>{
+    const capacity=Math.max(Number($("capacity").value)||1,1),rows=[["date","task_count","estimated_minutes","capacity_minutes","capacity_percent","tasks"]];
+    planRows.forEach(x=>rows.push([x.date,x.tasks.length,x.total.toFixed(2),capacity,(x.total/capacity*100).toFixed(1),x.tasks.map(t=>[t.task,t.code,t.minutes+"m"].filter(Boolean).join(" | ")).join(" ; ")]));
+    const cell=v=>'"'+String(v??"").replaceAll('"','""')+'"',csv=rows.map(r=>r.map(cell).join(",")).join("\r\n")+"\r\n",blob=new Blob([csv],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+    a.href=url;a.download="cropcircuit-daily-chore-load.csv";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  });
+})();
+</script></body></html>
