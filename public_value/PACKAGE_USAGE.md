@@ -63,6 +63,22 @@ npm test
 
 runs the zero-dependency public-value validators and tests.
 
+## Farm sales economics exports
+
+```js
+import {
+  marketDayEconomics,
+  csaEconomics
+} from "cropcircuit-open-farm-utils";
+```
+
+Direct export paths are also available:
+
+```js
+import { marketDayEconomics } from "cropcircuit-open-farm-utils/market-math";
+import { csaEconomics } from "cropcircuit-open-farm-utils/csa-math";
+```
+
 ## Registry status
 
 No npm registry publication is claimed.
