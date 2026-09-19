@@ -14,6 +14,8 @@
 - Weekly Farm Operations Brief that summarizes local labor activity and upcoming chores without exposing free-text notes.
 - TypeScript declarations for the public JavaScript package surface.
 - Explicit Privacy Model documenting what local-first storage and k-anonymity do and do not protect.
+- Farmers Market Break-Even Calculator plus reusable market-day economics math.
+- CSA Share Price & Break-Even Calculator plus reusable CSA/subscription-share economics math.
 - JSON Schema for the funding dataset.
 - JSON Feed 1.1 representation for feed readers and software consumers.
 - Farm Chore Cost & Payback JavaScript module.
