@@ -68,6 +68,12 @@ A single HTML file that runs entirely in the browser with no account, analytics,
 
 It combines task cost, simple payback, fence-line estimation, water-storage sizing, and sales-channel break-even in one portable file.
 
+### Copy-paste funding integrations
+
+The same funding data can be pulled into Google Sheets, Excel/Power Query, JavaScript, Python, curl, calendar clients, and feed readers:
+
+- [Integration recipes](public_value/FUNDING_INTEGRATIONS.md)
+
 ### Embeddable funding radar
 
 Other Michigan agriculture, food-system, nonprofit, or community websites can reuse the radar without copying the data:
