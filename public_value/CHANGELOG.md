@@ -13,6 +13,7 @@
 - Machine-readable public asset manifest.
 - Private offline Farm Labor Log with local storage, labor-cost summaries, task ranking, CSV export, and printable reports.
 - Browser-only Labor Opportunity Analyzer that imports time-study CSV, annualizes observations, ranks repeated tasks by labor cost, and exports the analysis.
+- Privacy-first small-farm benchmark schema, browser record builder, k-anonymous aggregator, and suppression tests. No public benchmark numbers are fabricated before real sample size exists.
 
 ### Distribution and durability
 - Embeddable zero-dependency Funding Radar widget with county/status/tag filters.
