@@ -1,0 +1,11 @@
+date,category,task,chore_code,minutes,workers,worker_hours,notes
+2026-07-15,Fencing,Move portable fence,fencing.move,21,1,0.35,Synthetic demo
+2026-07-16,Fencing,Move portable fence,fencing.move,19,1,0.32,Synthetic demo
+2026-07-17,Fencing,Move portable fence,fencing.move,22,1,0.37,Synthetic demo
+2026-07-18,Fencing,Move portable fence,fencing.move,20,1,0.33,Synthetic demo
+2026-07-19,Fencing,Move portable fence,fencing.move,20,1,0.33,Synthetic demo
+2026-07-15,Livestock,Fill water trough,livestock.water,18,1,0.30,Synthetic demo
+2026-07-17,Livestock,Fill water trough,livestock.water,17,1,0.28,Synthetic demo
+2026-07-19,Livestock,Fill water trough,livestock.water,18,1,0.30,Synthetic demo
+2026-07-15,Admin,Record farm notes,admin.recordkeeping,17,1,0.28,Synthetic demo
+2026-07-18,Admin,Record farm notes,admin.recordkeeping,16,1,0.27,Synthetic demo
