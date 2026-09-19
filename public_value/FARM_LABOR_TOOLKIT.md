@@ -10,6 +10,7 @@ Record:
 
 - category
 - task
+- optional canonical `chore_code`
 - elapsed minutes
 - workers involved
 
@@ -19,7 +20,7 @@ The log stores data locally and exports CSV.
 
 Load the CSV into the [Labor Opportunity Analyzer](labor_opportunity_analyzer.html).
 
-It annualizes the observation sample and ranks repeated task names by estimated labor cost.
+It annualizes the observation sample and ranks repeated work by estimated labor cost. When `chore_code` is present, grouping uses the canonical code; older uncoded logs fall back to category + task name.
 
 This identifies where investigation is worth spending attention.
 
@@ -59,7 +60,21 @@ When an aggregate cohort file exists, use the [Private Benchmark Explorer](bench
 The loop is:
 
 ```text
-observe → quantify → prioritize → model → anonymize → aggregate → compare → improve
+schedule → observe → normalize → quantify → prioritize → model → change → measure again → anonymize → aggregate → compare → improve
 ```
 
 That creates a reusable operating system for learning from farm work without requiring farmers to surrender raw operational data to a centralized platform.
+
+
+## Interoperability contract
+
+The tools share the [Farm Labor Data Contract](LABOR_DATA_CONTRACT.md).
+
+That contract preserves the operator's free-text task name while optionally adding a stable canonical chore code from the [Open Farm Chore Taxonomy](farm_chore_taxonomy.json).
+
+Synthetic demonstration files are available at:
+
+- [baseline demo CSV](examples/synthetic_labor_log_before.csv)
+- [after-change demo CSV](examples/synthetic_labor_log_after.csv)
+
+They are fabricated examples, not real farm records.
