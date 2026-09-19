@@ -43,6 +43,7 @@ The Labor Opportunity Analyzer, Chore Load Planner, and Schedule Estimate Calibr
 
 ### Local-first farm tools
 
+- [Weekly Farm Operations Brief](weekly_ops_brief.html)
 - [Local Workspace Backup](workspace_backup.html)
 - [Labor CSV Import Mapper](labor_csv_import_mapper.html)
 - [Offline Farm Labor Log](farm_labor_log.html)
