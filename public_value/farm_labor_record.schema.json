@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/farm_labor_record.schema.json",
+  "title": "CropCircuit Farm Labor Record",
+  "description": "Logical row contract for CropCircuit farm labor CSV/JSON records.",
+  "type": "object",
+  "required": [
+    "date",
+    "category",
+    "task",
+    "minutes",
+    "workers",
+    "worker_hours"
+  ],
+  "properties": {
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "category": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task": {
+      "type": "string",
+      "minLength": 1
+    },
+    "chore_code": {
+      "type": "string",
+      "pattern": "^$|^[a-z][a-z0-9_-]*\\.[a-z][a-z0-9_-]*$"
+    },
+    "minutes": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "workers": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "worker_hours": {
+      "type": "number",
+      "minimum": 0
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}
