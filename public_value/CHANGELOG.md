@@ -17,6 +17,7 @@
 - Farmers Market Break-Even Calculator plus reusable market-day economics math.
 - CSA Share Price & Break-Even Calculator plus reusable CSA/subscription-share economics math.
 - Farm Ops Pocket Console: a single dependency-free HTML file combining a local labor log, recurring chore scheduler, seven-day dashboard, and workspace backup.
+- Offline Equipment Maintenance Log plus reusable meter-hour/calendar due-status math with no embedded service intervals.
 - JSON Schema for the funding dataset.
 - JSON Feed 1.1 representation for feed readers and software consumers.
 - Farm Chore Cost & Payback JavaScript module.
