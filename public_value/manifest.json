@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-19.8",
+  "version": "2026-09-19.9",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -114,9 +114,24 @@
       "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/LABOR_TO_BENCHMARK.md",
       "privacy": "Destructive privacy transform: only broad bands and labor-category shares are retained.",
       "dependencies": []
+    },
+    {
+      "id": "private-benchmark-explorer",
+      "type": "standalone-html",
+      "description": "Browser-only comparison of one coarse farm benchmark record against privacy-suppressed cohort aggregates.",
+      "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/benchmark_explorer.html",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/BENCHMARK_EXPLORER.md",
+      "privacy": "Refuses to reveal cohort statistics when the aggregator marks the cohort suppressed.",
+      "dependencies": []
+    },
+    {
+      "id": "farm-labor-decision-benchmark-toolkit",
+      "type": "workflow-documentation",
+      "description": "End-to-end open workflow connecting observation, labor analysis, decision modeling, anonymization, privacy-preserving aggregation, and private comparison.",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/FARM_LABOR_TOOLKIT.md"
     }
   ],
-  "updated_at": "2026-09-19T23:45:00-04:00",
+  "updated_at": "2026-09-19T23:55:00-04:00",
   "validation": {
     "funding_validator": "public_value/validate_funding_radar.mjs",
     "farm_math_tests": "public_value/farm_math.test.mjs",
