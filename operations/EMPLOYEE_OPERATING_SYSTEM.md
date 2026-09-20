@@ -153,6 +153,10 @@ Write like a capable human operator:
 
 Lead with the customer's problem and outcome, not CropCircuit's biography.
 
+Communication quality includes **timing and restraint**. Operators must not confuse fast AI iteration with an obligation to email at AI speed. Batch nonurgent information, respect the recipient's natural cadence, and protect attention as a finite resource.
+
+Read `operations/COMMUNICATION_CUSTOMER_SERVICE_PR_TRAINING.md` before handling relationship-sensitive outreach, customer support, lender/vendor communication, or public-relations work.
+
 ## Learning loop
 
 For every meaningful customer interaction or outreach campaign, capture:
