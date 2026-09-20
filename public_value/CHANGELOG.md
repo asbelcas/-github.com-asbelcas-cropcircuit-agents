@@ -23,6 +23,7 @@
 - Workspace 1.1 unified labor, recurring chores, equipment maintenance, harvest, and sales; 1.0 backups remained import-compatible.
 - Workspace 1.2 adds equipment-parts inventory while preserving 1.0/1.1 import compatibility.
 - Equipment Parts Inventory with operator-entered cross references and explicit compatibility boundary.
+- Offline Equipment Checklist with user-defined machine checks, completion history, and explicit no-default-safety-list boundary.
 - Generic Sales CSV Import Mapper for POS/invoice/spreadsheet exports.
 - Weekly Operations Brief expanded across all Workspace 1.1 operational domains.
 - JSON Schema for the funding dataset.
