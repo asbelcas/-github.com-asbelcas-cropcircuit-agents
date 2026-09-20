@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-20.6",
+  "version": "2026-09-20.7",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -469,6 +469,15 @@
       "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/TRY_IT_NOW.md",
       "third_party_host": "raw.githack.com",
       "caveat": "Preview origin has separate browser-local storage from future Pages or cropcircuit.org origins."
+    },
+    {
+      "id": "synthetic-demo-workspace",
+      "type": "demo-dataset",
+      "description": "Clearly synthetic Workspace 1.2 records across labor, chores, maintenance, parts, harvest, and sales for product evaluation only.",
+      "source": "public_value/examples/synthetic_workspace_1_2.json",
+      "loader": "public_value/demo_workspace.html",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/SYNTHETIC_DEMO.md",
+      "truthfulness_boundary": "Must not be counted as customer usage, farm performance, benchmark input, validation, or revenue."
     }
   ],
   "updated_at": "2026-09-20",
