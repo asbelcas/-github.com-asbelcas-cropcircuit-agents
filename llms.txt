@@ -35,6 +35,7 @@
 - Assisted data setup: public_value/FARM_DATA_SETUP.md
 - Assisted setup intake: public_value/ASSISTED_SETUP_INTAKE.md
 - Assisted setup case study: public_value/examples/assisted_setup_case/README.md
+- Service order ledger: public_value/SERVICE_ORDER_LEDGER.md
 - Temporary runnable previews: public_value/TRY_IT_NOW.md
 - Labor data contract: public_value/LABOR_DATA_CONTRACT.md
 - Chore taxonomy: public_value/farm_chore_taxonomy.json
