@@ -97,3 +97,14 @@ A completed setup should contain:
 9. confirmation that synthetic/example data is not mixed into client files.
 
 See [Synthetic Data Setup Deliverable](SYNTHETIC_DATA_SETUP_DELIVERABLE.md) for the format.
+
+
+## Operator fulfillment controls
+
+The pilot has a published fulfillment standard:
+
+- [Assisted Setup Operator Runbook](ASSISTED_SETUP_OPERATOR_RUNBOOK.md)
+- [Delivery validator](validate_setup_delivery.mjs)
+- [Delivery validator tests](validate_setup_delivery.test.mjs)
+
+The validator checks the final Workspace for schema errors, `demo-` IDs, sensitive-looking field names, required delivery files, canonical CSV presence, and emits SHA-256 checksums.
