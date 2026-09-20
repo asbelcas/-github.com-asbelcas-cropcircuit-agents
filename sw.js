@@ -24,6 +24,8 @@ const STATIC_ASSETS = [
   "./public_value/workspace_backup.html",
   "./public_value/demo_workspace.html",
   "./public_value/weekly_ops_brief.html",
+  "./public_value/ops_snapshot.js",
+  "./public_value/operations_snapshot.html",
   "./public_value/farm_ops_console.html",
   "./public_value/equipment_math.js",
   "./public_value/equipment_maintenance.html",
