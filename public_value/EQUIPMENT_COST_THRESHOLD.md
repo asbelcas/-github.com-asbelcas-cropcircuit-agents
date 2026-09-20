@@ -51,3 +51,16 @@ Simple payback is intentionally crude. The threshold does not automatically acco
 - opportunity cost
 
 Those can matter more than the arithmetic. The tool is for first-pass screening, not capital-investment advice.
+
+
+## Value constraints come first
+
+A capital threshold is downstream of the farm's hard boundaries.
+
+If an equipment or automation choice materially affects animal welfare, soil/water, worker safety/capacity, or critical resilience, use the [Right Relationship Decision Gate](right_relationship_gate.html) before treating this financial threshold as actionable.
+
+The rule is non-compensatory:
+
+**a better payback does not erase a failed hard constraint.**
+
+The threshold tool still does the arithmetic; the value gate determines whether an option belongs in the set of acceptable options at all.
