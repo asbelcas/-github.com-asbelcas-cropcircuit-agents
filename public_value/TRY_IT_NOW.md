@@ -14,6 +14,7 @@ Source: https://raw.githack.com/
 
 These follow `main` and can change as CropCircuit changes.
 
+- [Synthetic Demo Workspace](https://raw.githack.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/demo_workspace.html)
 - [Farm Ops Pocket Console](https://raw.githack.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/farm_ops_console.html)
 - [Universal Farm CSV Mapper](https://raw.githack.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/universal_csv_mapper.html)
 - [Weekly Farm Operations Brief](https://raw.githack.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/weekly_ops_brief.html)
