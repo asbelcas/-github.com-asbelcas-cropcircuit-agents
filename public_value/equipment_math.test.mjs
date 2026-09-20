@@ -28,6 +28,24 @@ assert.equal(
   "overdue"
 );
 
+assert.equal(
+  hourServiceStatus({
+    currentHours: "",
+    lastServiceHours: 1255,
+    intervalHours: 200,
+  }).status,
+  "not-configured"
+);
+
+assert.equal(
+  dateServiceStatus({
+    lastServiceDate: "2026-01-01",
+    intervalDays: " ",
+    asOfDate: "2026-01-31",
+  }).status,
+  "not-configured"
+);
+
 assert.deepEqual(
   dateServiceStatus({
     lastServiceDate: "2026-01-01",
