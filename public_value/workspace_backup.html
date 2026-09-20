@@ -23,7 +23,7 @@ input,select{width:100%;padding:9px 10px;border:1px solid #cbd6ce;border-radius:
 <div class="metric"><strong id="schedule">0</strong><span>scheduled chores</span></div>
 <div class="metric"><strong id="equipment">0</strong><span>maintenance items</span></div>
 <div class="metric"><strong id="harvest">0</strong><span>harvest entries</span></div>
-<div class="metric"><strong id="sales">0</strong><span>sales records</span></div><div class="metric"><strong id="parts">0</strong><span>parts records</span></div>
+<div class="metric"><strong id="sales">0</strong><span>sales records</span></div><div class="metric"><strong id="parts">0</strong><span>parts records</span></div><div class="metric"><strong id="parts">0</strong><span>parts records</span></div>
 <div class="metric"><strong id="rate">—</strong><span>stored labor rate</span></div>
 </div>
 <button id="backup">Export workspace 1.2 JSON</button><button id="refresh" class="secondary">Refresh counts</button>
@@ -50,6 +50,7 @@ function refresh(){
   $("equipment").textContent=w.equipment_maintenance.length;
   $("harvest").textContent=w.harvest_entries.length;
   $("sales").textContent=w.sales_entries.length;
+  $("parts").textContent=w.parts_inventory.length;
   $("parts").textContent=w.parts_inventory.length;
   $("rate").textContent=money(w.labor_settings?.hourly);
 }
