@@ -28,6 +28,8 @@ export function hourServiceStatus({
     current === null ||
     last === null ||
     interval === null ||
+    current < 0 ||
+    last < 0 ||
     interval <= 0
   ) {
     return {
