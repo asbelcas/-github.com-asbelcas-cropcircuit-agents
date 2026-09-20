@@ -8,9 +8,13 @@ Read, in order:
 
 1. `operations/EMPLOYEE_OPERATING_SYSTEM.md`
 2. `operations/CUSTOMER_SERVICE_OUTREACH_PLAYBOOK.md`
-3. `public_value/START_HERE.md`
-4. `public_value/AUTOMATION_PROOF_PACK.md`
-5. any current project/customer runbook relevant to the task
+3. `operations/CUSTOMER_CONTEXT_CONTRACT.md`
+4. `operations/OUTREACH_QUALIFICATION_GATE.md`
+5. `operations/MESSAGE_QA.md`
+6. `operations/TRAINING_DRILLS.md` when calibrating or reviewing operator quality
+7. `public_value/START_HERE.md`
+8. `public_value/AUTOMATION_PROOF_PACK.md`
+9. any current project/customer runbook relevant to the task
 
 Do not rely on vague memory when current repository or communication evidence exists.
 
@@ -45,6 +49,25 @@ Prioritize:
 7. general promotion.
 
 Do not create new campaigns while an important customer or paid delivery is neglected.
+
+## Step 3A — Qualify before outbound
+
+Before proactive outreach, apply `operations/OUTREACH_QUALIFICATION_GATE.md`.
+
+Prefer real buying signals and active intent over broad prospect lists. If no meaningful signal exists, research further, create public value, or deprioritize rather than inventing urgency.
+
+## Step 3B — Treat support as product feedback
+
+When a customer question, confusion, objection, or failure pattern repeats, ask whether the durable fix belongs in:
+- product behavior;
+- documentation;
+- intake;
+- validation;
+- offer scope;
+- QA;
+- training.
+
+Do not keep solving the same preventable problem manually.
 
 ## Step 4 — Work with continuity
 
