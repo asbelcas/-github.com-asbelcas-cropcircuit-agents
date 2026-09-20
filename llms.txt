@@ -32,6 +32,7 @@
 - User-need evidence: public_value/USER_NEED_EVIDENCE_2026-09-20.md
 - Start-here guide: public_value/START_HERE.md
 - Operations snapshot: public_value/OPERATIONS_SNAPSHOT.md
+- Assisted data setup: public_value/FARM_DATA_SETUP.md
 - Temporary runnable previews: public_value/TRY_IT_NOW.md
 - Labor data contract: public_value/LABOR_DATA_CONTRACT.md
 - Chore taxonomy: public_value/farm_chore_taxonomy.json
