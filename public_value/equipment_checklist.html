@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CropCircuit Offline Equipment Checklist</title>
+<meta name="description" content="Private offline user-defined equipment checklist and completion log for small farms.">
+<style>
+:root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#627067;--line:#dbe4dc;--accent:#215f45;--soft:#fff5df;--danger:#8c3030}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}
+main{max-width:1120px;margin:auto;padding:30px 16px 60px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px}h2{margin:0 0 10px}.lead{color:var(--muted);max-width:900px}
+.notice{background:var(--soft);border:1px solid #ead4a7;border-radius:12px;padding:12px 14px;margin:18px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}label{display:block;font-weight:650}input,select,textarea{width:100%;padding:9px 10px;margin-top:4px;border:1px solid #cbd6ce;border-radius:8px;background:white;font:inherit}textarea{min-height:130px}
+button{border:0;background:var(--accent);color:white;font-weight:700;padding:8px 11px;border-radius:8px;cursor:pointer;margin:9px 5px 0 0}.secondary{background:#56675d}.danger{background:var(--danger)}
+.check{display:flex;gap:10px;align-items:flex-start;border-bottom:1px solid var(--line);padding:10px 0}.check input{width:auto;margin-top:4px}.small{font-size:.84rem;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:.84rem}th,td{text-align:left;border-bottom:1px solid var(--line);padding:7px 5px;vertical-align:top}th{font-size:.71rem;text-transform:uppercase;color:var(--muted);letter-spacing:.03em}.scroll{overflow:auto}.empty{text-align:center;color:var(--muted);padding:20px}
+</style></head>
+<body><main>
+<h1>Offline Equipment Checklist</h1>
+<p class="lead">Create your own machine startup, shutdown, inspection, cleaning, or service checklist and keep a local completion history.</p>
+<div class="notice"><strong>Checklist recorder, not safety guidance:</strong> CropCircuit supplies no default inspection items and does not certify that a checklist is complete or safe. Build lists from manufacturer instructions, applicable rules, and qualified farm/service guidance.</div>
+
+<section class="card"><h2>Create checklist template</h2><div class="grid">
+<label>Equipment / system<input id="equipment" type="text" placeholder="Tractor 1"></label>
+<label>Checklist name<input id="name" type="text" placeholder="Pre-use inspection"></label>
+</div>
+<label style="display:block;margin-top:12px">Items — one per line<textarea id="items" placeholder="Enter only the checks your operation has established from appropriate guidance."></textarea></label>
+<button id="save-template">Save checklist</button></section>
+
+<section class="card"><h2>Run checklist</h2>
+<div class="grid">
+<label>Checklist<select id="template"><option value="">— choose checklist —</option></select></label>
+<label>Meter hours (optional)<input id="meter" type="number" min="0" step="0.1"></label>
+</div>
+<div id="checks" style="margin-top:12px"><p class="small">Choose a checklist.</p></div>
+<label style="display:block;margin-top:12px">Issues / follow-up note<textarea id="issues" placeholder="Optional. Do not store passwords or other secrets here."></textarea></label>
+<button id="save-session" disabled>Save completion record</button></section>
+
+<section class="card"><h2>Checklist templates</h2><div class="scroll"><table>
+<thead><tr><th>Equipment</th><th>Name</th><th>Items</th><th></th></tr></thead>
+<tbody id="template-body"><tr><td colspan="4" class="empty">No checklist templates yet.</td></tr></tbody>
+</table></div></section>
+
+<section class="card"><h2>Completion history</h2><div class="scroll"><table>
+<thead><tr><th>Completed</th><th>Equipment</th><th>Checklist</th><th>Checked</th><th>Meter</th><th>Issues note</th></tr></thead>
+<tbody id="history-body"><tr><td colspan="6" class="empty">No completion history yet.</td></tr></tbody>
+</table></div>
+<button id="csv" class="secondary">Export completion CSV</button><button id="json" class="secondary">Export JSON backup</button>
+<label style="display:block;margin-top:14px;font-weight:650">Restore JSON backup<input id="restore-file" type="file" accept=".json,application/json"></label><button id="restore" class="secondary">Replace from backup</button>
+</section>
+
+<footer class="small" style="margin-top:20px">CropCircuit Open Farm Utilities. A checked box records what the operator marked; it does not independently verify that the inspection occurred or that equipment is safe to operate.</footer>
+</main>
+<script>
+(() => {
+  const KEY="cropcircuit_equipment_checklists_v1",$=id=>document.getElementById(id),esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
+  function load(){try{const x=JSON.parse(localStorage.getItem(KEY)||"null");return x&&typeof x==="object"?x:{templates:[],sessions:[]}}catch{return{templates:[],sessions:[]}}}
+  function save(){localStorage.setItem(KEY,JSON.stringify(data))}
+  function id(){return crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random()}
+  function download(name,content,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+  let data=load();if(!Array.isArray(data.templates))data.templates=[];if(!Array.isArray(data.sessions))data.sessions=[];
+
+  function render(){
+    const sel=$("template"),current=sel.value;sel.innerHTML='<option value="">— choose checklist —</option>'+data.templates.map(t=>`<option value="${esc(t.id)}">${esc(t.equipment)} — ${esc(t.name)}</option>`).join("");if(data.templates.some(t=>t.id===current))sel.value=current;
+    $("template-body").innerHTML=data.templates.length?data.templates.map(t=>`<tr><td>${esc(t.equipment)}</td><td>${esc(t.name)}</td><td>${t.items.length}</td><td><button class="danger" data-del-template="${esc(t.id)}">Delete</button></td></tr>`).join(""):'<tr><td colspan="4" class="empty">No checklist templates yet.</td></tr>';
+    $("history-body").innerHTML=data.sessions.length?[...data.sessions].sort((a,b)=>String(b.completed_at).localeCompare(String(a.completed_at))).slice(0,100).map(s=>`<tr><td>${esc(s.completed_at)}</td><td>${esc(s.equipment)}</td><td>${esc(s.checklist_name)}</td><td>${s.checked_count}/${s.total_count}</td><td>${s.meter_hours??""}</td><td>${esc(s.issues_note||"")}</td></tr>`).join(""):'<tr><td colspan="6" class="empty">No completion history yet.</td></tr>';
+    document.querySelectorAll("[data-del-template]").forEach(b=>b.addEventListener("click",()=>{if(!confirm("Delete this checklist template? Existing completion history will remain."))return;data.templates=data.templates.filter(t=>t.id!==b.dataset.delTemplate);save();render();renderChecks()}));
+  }
+
+  function renderChecks(){
+    const t=data.templates.find(x=>x.id===$("template").value);
+    if(!t){$("checks").innerHTML='<p class="small">Choose a checklist.</p>';$("save-session").disabled=true;return}
+    $("checks").innerHTML=t.items.map((item,i)=>`<label class="check"><input type="checkbox" data-check="${i}"><span>${esc(item)}</span></label>`).join("");
+    $("save-session").disabled=false;
+  }
+
+  $("save-template").addEventListener("click",()=>{
+    const equipment=$("equipment").value.trim(),name=$("name").value.trim(),items=$("items").value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+    if(!equipment||!name||!items.length){alert("Enter equipment, checklist name, and at least one checklist item.");return}
+    data.templates.push({id:id(),equipment,name,items,created_at:new Date().toISOString()});save();$("name").value="";$("items").value="";render();
+  });
+  $("template").addEventListener("change",renderChecks);
+  $("save-session").addEventListener("click",()=>{
+    const t=data.templates.find(x=>x.id===$("template").value);if(!t)return;
+    const checks=[...document.querySelectorAll("[data-check]")],checked=checks.filter(x=>x.checked).length;
+    data.sessions.push({id:id(),template_id:t.id,equipment:t.equipment,checklist_name:t.name,completed_at:new Date().toISOString(),checked_count:checked,total_count:t.items.length,checked_items:checks.filter(x=>x.checked).map(x=>t.items[Number(x.dataset.check)]),meter_hours:$("meter").value===""?null:Number($("meter").value),issues_note:$("issues").value.trim()});save();$("issues").value="";checks.forEach(x=>x.checked=false);render();
+  });
+  $("csv").addEventListener("click",()=>{const cell=v=>'"'+String(v??"").replaceAll('"','""')+'"',rows=[["completed_at","equipment","checklist_name","checked_count","total_count","meter_hours","issues_note"]];data.sessions.forEach(s=>rows.push([s.completed_at,s.equipment,s.checklist_name,s.checked_count,s.total_count,s.meter_hours,s.issues_note||""]));download("cropcircuit-equipment-checklist-history.csv",rows.map(r=>r.map(cell).join(",")).join("\r\n")+"\r\n","text/csv;charset=utf-8")});
+  $("json").addEventListener("click",()=>download("cropcircuit-equipment-checklists.json",JSON.stringify({schema_version:"1.0",exported_at:new Date().toISOString(),templates:data.templates,sessions:data.sessions},null,2)+"\n","application/json"));
+  $("restore").addEventListener("click",async()=>{const f=$("restore-file").files[0];if(!f){alert("Choose a JSON backup.");return}try{const x=JSON.parse(await f.text());if(x.schema_version!=="1.0"||!Array.isArray(x.templates)||!Array.isArray(x.sessions))throw new Error("Unsupported backup");if(!confirm("Replace the local checklist templates and history with this backup?"))return;data={templates:x.templates,sessions:x.sessions};save();render();renderChecks()}catch(e){alert("Restore failed: "+e.message)}});
+  render();renderChecks();
+})();
+</script></body></html>
