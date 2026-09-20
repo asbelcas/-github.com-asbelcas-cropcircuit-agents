@@ -20,6 +20,8 @@ For operators who already have farm spreadsheets but do not want to clean and ma
 - [Assisted Farm Data Setup — $149 pilot](public_value/farm_data_setup.html)
 - [Service scope](public_value/FARM_DATA_SETUP.md)
 - [Synthetic example deliverable](public_value/SYNTHETIC_DATA_SETUP_DELIVERABLE.md)
+- [Assisted Setup Intake Builder](public_value/assisted_setup_intake.html)
+- [Synthetic before → after case study](public_value/examples/assisted_setup_case/README.md)
 
 The free Universal CSV Mapper remains available; the paid pilot is implementation labor, not software access.
 
@@ -175,7 +177,7 @@ The local workspace can now generate a private printable report covering recent 
 
 ### Local-first workspace
 
-The local tools now share Workspace 1.1. A dedicated backup tool exports or restores labor, labor settings, chore schedules, equipment maintenance, harvest, and direct-market sales without a server:
+The local tools now share Workspace 1.2. A dedicated backup tool exports or restores labor, labor settings, chore schedules, equipment maintenance, harvest, and direct-market sales without a server:
 
 - [Workspace backup](public_value/workspace_backup.html)
 - [Workspace contract](public_value/LOCAL_WORKSPACE.md)
