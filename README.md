@@ -15,6 +15,13 @@ The fastest way into the system is now [Farm Ops Pocket Console](public_value/fa
 
 Everything below lives in [`public_value/`](public_value/).
 
+### Sales CSV Import Mapper
+
+Existing POS, invoice, or spreadsheet exports can be mapped into CropCircuit's operational sales format without uploading the source file:
+
+- [Sales CSV Import Mapper](public_value/sales_csv_import_mapper.html)
+- [Documentation](public_value/SALES_CSV_IMPORT.md)
+
 ### Offline Farm Sales Log
 
 A local-first sales record separates operational sales arithmetic from accounting claims:
@@ -169,6 +176,16 @@ A local-first harvest record tracks quantities without pretending harvest quanti
 - [Reusable summary/comparison math](public_value/harvest_math.js)
 
 It keeps unlike units separate and can compare two date ranges by crop/item + unit.
+
+### Equipment Parts Inventory
+
+A local parts register now complements maintenance tracking:
+
+- [Parts Inventory](public_value/parts_inventory.html)
+- [Documentation](public_value/PARTS_INVENTORY.md)
+- [Reusable stock-status math](public_value/inventory_math.js)
+
+It records operator-entered cross references but does not claim substitute parts are compatible.
 
 ### Equipment Maintenance Log
 
