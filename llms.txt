@@ -12,6 +12,9 @@
 - Prefer primary program sources for funding facts.
 - Do not fabricate benchmark data.
 - Suppress benchmark cohort statistics below the privacy floor.
+- Optimize nothing blindly.
+- A failed user-defined hard constraint cannot be compensated for by higher ROI.
+- Unknown is not equivalent to acceptable; prefer reversible tests when practical.
 
 ## Best entry points
 
@@ -43,6 +46,9 @@
 - Funding schema: public_value/funding_radar.schema.json
 - Farm Math source: public_value/farm_math.js
 - Benchmark specification: public_value/FARM_BENCHMARK_SPEC.md
+- Dharma-informed design doctrine: public_value/DHARMA_DESIGN_DOCTRINE.md
+- Right relationship constitution: public_value/right_relationship_constitution.json
+- Right relationship gate: public_value/RIGHT_RELATIONSHIP_GATE.md
 
 ## Important data-status note
 
