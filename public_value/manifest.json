@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-20.9",
+  "version": "2026-09-20.10",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -478,6 +478,19 @@
       "loader": "public_value/demo_workspace.html",
       "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/SYNTHETIC_DEMO.md",
       "truthfulness_boundary": "Must not be counted as customer usage, farm performance, benchmark input, validation, or revenue."
+    },
+    {
+      "id": "shareable-operations-snapshot",
+      "type": "standalone-html",
+      "description": "Browser-local coarse farm operations summary that excludes raw rows and free-text notes, with sales dollar totals opt-in only.",
+      "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/operations_snapshot.html",
+      "docs": "https://github.com/asbelcas/-github.com/asbelcas-cropcircuit-agents/blob/main/public_value/OPERATIONS_SNAPSHOT.md",
+      "math": "public_value/ops_snapshot.js",
+      "privacy": "Raw rows, notes, and exact transaction dates excluded; sales dollars omitted by default.",
+      "dependencies": [
+        "public_value/workspace.js",
+        "public_value/ops_snapshot.js"
+      ]
     }
   ],
   "updated_at": "2026-09-20",
@@ -504,7 +517,8 @@
     "sales_math_tests": "public_value/sales_math.test.mjs",
     "inventory_math_tests": "public_value/inventory_math.test.mjs",
     "workspace_example_validation": "public_value/validate_workspace_examples.mjs",
-    "data_contract_validation": "public_value/validate_data_contracts.mjs"
+    "data_contract_validation": "public_value/validate_data_contracts.mjs",
+    "operations_snapshot_tests": "public_value/ops_snapshot.test.mjs"
   },
   "stable_snapshot": {
     "version": "0.15.1",
