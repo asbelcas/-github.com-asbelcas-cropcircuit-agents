@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CropCircuit Assisted Setup Intake Builder</title>
+<meta name="description" content="Build a privacy-safe assisted farm data setup request without uploading farm records.">
+<style>
+:root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#627067;--line:#dbe4dc;--accent:#215f45;--soft:#edf5ef;--bad:#8c3030}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}
+main{max-width:980px;margin:auto;padding:30px 16px 60px}h1{font-size:clamp(2.2rem,6vw,3.8rem);line-height:1.02;margin:0 0 10px}.lead{color:var(--muted);max-width:850px}.notice{background:var(--soft);border:1px solid #cfe0d3;border-radius:12px;padding:12px 14px;margin:18px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}label{display:block;font-weight:650}input,select,textarea{width:100%;padding:9px 10px;margin-top:4px;border:1px solid #cbd6ce;border-radius:8px;background:white;font:inherit}textarea{min-height:110px}button,a.button{display:inline-block;border:0;text-decoration:none;background:var(--accent);color:white;font-weight:700;padding:9px 12px;border-radius:8px;cursor:pointer;margin:10px 6px 0 0}.secondary{background:#56675d!important}.small{font-size:.84rem;color:var(--muted)}.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}.checks label{display:flex;gap:8px;align-items:center;font-weight:500}.checks input{width:auto;margin:0}.output{white-space:pre-wrap;background:#f8faf8;border:1px solid var(--line);border-radius:10px;padding:14px;min-height:180px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.bad{color:var(--bad);font-weight:700}
+</style></head>
+<body><main>
+<h1>Assisted Setup Intake Builder</h1>
+<p class="lead">Create a short, privacy-safe request for the $149 CropCircuit Assisted Farm Data Setup pilot without uploading farm records or typing private customer information.</p>
+<div class="notice"><strong>Do not enter farm names, street addresses, customer names, bank/card data, payroll/HR data, credentials, SSNs, or medical information.</strong> This builder creates a scope brief only.</div>
+
+<section class="card"><h2>Scope</h2><div class="grid">
+<label>Number of source files<select id="files"><option>1</option><option>2</option><option selected>3</option></select></label>
+<label>Approximate total rows<select id="rows"><option value="under-250">under 250</option><option value="250-750">250–750</option><option value="751-1500">751–1,500</option><option value="over-1500">over 1,500</option></select></label>
+<label>Source formats<select id="formats"><option>CSV</option><option>XLSX</option><option>CSV + XLSX</option><option>Other / mixed</option></select></label>
+<label>Desired turnaround<select id="turnaround"><option>standard 3 business days</option><option>flexible / no hard deadline</option><option>need to discuss timing</option></select></label>
+</div></section>
+
+<section class="card"><h2>What is in the files?</h2><div class="checks">
+<label><input type="checkbox" value="labor" data-domain>Labor / time logs</label>
+<label><input type="checkbox" value="chores" data-domain>Recurring chores</label>
+<label><input type="checkbox" value="maintenance" data-domain>Equipment maintenance</label>
+<label><input type="checkbox" value="parts" data-domain>Parts inventory</label>
+<label><input type="checkbox" value="harvest" data-domain>Harvest</label>
+<label><input type="checkbox" value="sales" data-domain>Direct-market sales</label>
+</div></section>
+
+<section class="card"><h2>Known data condition</h2><div class="grid">
+<label>Column consistency<select id="columns"><option>mostly consistent</option><option>mixed names / conventions</option><option>messy / unknown</option></select></label>
+<label>Sensitive excluded data removed?<select id="sensitive"><option value="yes">Yes</option><option value="not-yet">Not yet</option><option value="unsure">Unsure</option></select></label>
+<label>Include sales dollars in shareable snapshot?<select id="salesdollars"><option value="no">No</option><option value="yes">Yes</option><option value="na">Not applicable</option></select></label>
+</div>
+<label style="margin-top:12px">Non-sensitive scope note<textarea id="note" maxlength="400" placeholder="Example: One sheet has dates as MM/DD/YYYY and another uses YYYY-MM-DD. No farm/customer names needed here."></textarea></label>
+<p class="small">Keep this note about file structure, not farm identity.</p></section>
+
+<section class="card"><h2>Your request brief</h2>
+<button id="build">Generate request</button>
+<button id="copy" class="secondary" disabled>Copy request</button>
+<button id="download" class="secondary" disabled>Download .txt</button>
+<div id="out" class="output" style="margin-top:12px">Generate a request to begin.</div>
+<p id="status" class="small"></p>
+<a class="button" href="https://x.com/asbelcas" target="_blank" rel="noopener">Open @asbelcas on X</a>
+<p class="small">DM the generated text only. Do not attach private farm files until scope and a transfer method are confirmed.</p>
+</section>
+
+<footer class="small" style="margin-top:20px">CropCircuit Open Farm Utilities · local intake builder. Nothing entered here is uploaded by this page.</footer>
+</main>
+<script>
+(()=>{const $=id=>document.getElementById(id);let current="";
+function rid(){const a=new Uint8Array(4);crypto.getRandomValues(a);return "DS-"+new Date().toISOString().slice(0,10).replaceAll("-","")+"-"+[...a].map(x=>x.toString(16).padStart(2,"0")).join("").toUpperCase()}
+$("build").addEventListener("click",()=>{const domains=[...document.querySelectorAll("[data-domain]:checked")].map(x=>x.value);const sensitive=$("sensitive").value;const id=rid();current=[
+"DATA SETUP",
+"request_id: "+id,
+"source_files: "+$("files").value,
+"approx_rows: "+$("rows").value,
+"formats: "+$("formats").value,
+"domains: "+(domains.length?domains.join(", "):"not selected yet"),
+"column_condition: "+$("columns").value,
+"sensitive_excluded_data_removed: "+sensitive,
+"sales_dollars_in_snapshot: "+$("salesdollars").value,
+"turnaround: "+$("turnaround").value,
+"scope_note: "+($("note").value.trim()||"none"),
+"",
+"I have not attached private files. Please confirm whether this fits the $149 pilot scope and tell me the safe next step."
+].join("\n");$("out").textContent=current;$("copy").disabled=$("download").disabled=false;$("status").innerHTML=sensitive==="yes"?"Request ready.":"<span class='bad'>Before file transfer, remove excluded sensitive data or ask what should be removed.</span>"});
+$("copy").addEventListener("click",async()=>{if(!current)return;await navigator.clipboard.writeText(current);$("status").textContent="Request copied."});
+$("download").addEventListener("click",()=>{if(!current)return;const blob=new Blob([current+"\n"],{type:"text/plain"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=current.match(/request_id: (\S+)/)?.[1]+".txt";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)});
+})();
+</script></body></html>
