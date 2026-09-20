@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CropCircuit Customer Context Record",
+  "description": "Schema for private customer/prospect context records. Do not commit real customer records to the public repository.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contact_id",
+    "relationship_type",
+    "status",
+    "problem_or_goal",
+    "last_interaction_summary",
+    "next_action",
+    "do_not_contact"
+  ],
+  "properties": {
+    "contact_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "relationship_type": {
+      "enum": [
+        "prospect",
+        "customer",
+        "partner",
+        "vendor",
+        "lender",
+        "other"
+      ]
+    },
+    "source": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "problem_or_goal": {
+      "type": "string",
+      "minLength": 1
+    },
+    "relevant_offer_or_capability": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "evidence_sent": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "cropcircuit_promises": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "counterparty_promises": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "last_interaction_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "last_interaction_summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "new_signal",
+        "researching",
+        "qualified",
+        "contacted",
+        "engaged",
+        "discovery",
+        "proposal_or_scope",
+        "awaiting_customer",
+        "awaiting_cropcircuit",
+        "paid_active",
+        "delivered",
+        "won",
+        "no_fit",
+        "declined",
+        "dormant",
+        "do_not_contact"
+      ]
+    },
+    "blocker": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "owner": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "next_action": {
+      "type": "string",
+      "minLength": 1
+    },
+    "next_review_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "do_not_contact": {
+      "type": "boolean"
+    },
+    "uncertainties": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "source_references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
