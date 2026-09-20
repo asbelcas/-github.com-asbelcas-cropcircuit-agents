@@ -13,6 +13,10 @@ CropCircuit's AI operators use a durable employee operating system so customer s
 - [Customer Service & Outreach Playbook](operations/CUSTOMER_SERVICE_OUTREACH_PLAYBOOK.md)
 - [New Session Boot](operations/NEW_SESSION_BOOT.md)
 - [Customer & Outreach Message QA](operations/MESSAGE_QA.md)
+- [Customer Context Contract](operations/CUSTOMER_CONTEXT_CONTRACT.md)
+- [Outreach Qualification Gate](operations/OUTREACH_QUALIFICATION_GATE.md)
+- [Customer Service & Outreach Training Drills](operations/TRAINING_DRILLS.md)
+- [Customer Context JSON Schema](operations/customer_context.schema.json)
 
 These files are the current operating doctrine for long-horizon CropCircuit agent work. The model instance may change; the documented standards, evidence, and handoff state should persist.
 
