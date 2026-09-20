@@ -1,0 +1,29 @@
+{
+  "min_payout_cents": 1000,
+  "allowed_work": [
+    "coding",
+    "research",
+    "data",
+    "documentation",
+    "analysis",
+    "spreadsheet",
+    "qa",
+    "web_research"
+  ],
+  "reject_if": [
+    "requires physical-world action",
+    "requires pretending to be the human owner",
+    "requires a medical, demographic, or eligibility claim not established by evidence",
+    "requires spending money",
+    "requires secrets in a public deliverable",
+    "requires credential sharing",
+    "requires unlawful or deceptive activity"
+  ],
+  "human_gates": [
+    "identity/KYC",
+    "tax certification",
+    "contract/signature",
+    "wallet signature",
+    "irreversible spend"
+  ]
+}
