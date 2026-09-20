@@ -126,6 +126,6 @@ Usage and actual external payment are separate evidence.
 
 ## Optional assisted setup
 
-If the free mapping tools solve the problem but you do not want to do the cleanup yourself, see [Assisted Farm Data Setup](farm_data_setup.html).
+If the free mapping tools solve the problem but you do not want to do the cleanup yourself, see [Assisted Farm Data Setup](farm_data_setup.html). Build a privacy-safe scope request first with the [Assisted Setup Intake Builder](assisted_setup_intake.html).
 
 The pilot is a fixed $149 implementation job: up to three source exports / 1,500 rows, cleaned canonical files, Workspace 1.2, a mapping-quality note, and an Operations Snapshot when the data supports one.
