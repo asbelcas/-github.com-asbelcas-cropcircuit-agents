@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CropCircuit Shareable Farm Operations Snapshot</title>
+<meta name="description" content="Generate a coarse browser-local farm operations snapshot without exposing raw task rows or free-text notes.">
+<style>
+:root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#627067;--line:#dbe4dc;--accent:#215f45;--soft:#edf5ef}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}
+main{max-width:1120px;margin:auto;padding:30px 16px 60px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px}h2{margin:0 0 10px}.lead{color:var(--muted);max-width:900px}
+.notice{background:var(--soft);border:1px solid #cfe0d3;border-radius:12px;padding:12px 14px;margin:18px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:11px}.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:9px}.metric{border:1px solid var(--line);border-radius:10px;padding:11px;background:#fafcf9}.metric strong{display:block;font-size:1.3rem}
+label{display:block;font-weight:650}input{width:100%;padding:9px 10px;margin-top:4px;border:1px solid #cbd6ce;border-radius:8px;background:white;font:inherit}button{border:0;background:var(--accent);color:white;font-weight:700;padding:9px 12px;border-radius:8px;cursor:pointer;margin:9px 6px 0 0}.secondary{background:#56675d}
+table{width:100%;border-collapse:collapse;font-size:.84rem}th,td{text-align:left;border-bottom:1px solid var(--line);padding:7px 5px;vertical-align:top}th{font-size:.7rem;text-transform:uppercase;color:var(--muted);letter-spacing:.03em}.scroll{overflow:auto}.small{font-size:.83rem;color:var(--muted)}.empty{text-align:center;color:var(--muted);padding:18px}
+@media print{button,.controls,.notice{display:none}body{background:white}.card{break-inside:avoid}}
+</style></head>
+<body><main>
+<h1>Shareable Farm Operations Snapshot</h1>
+<p class="lead">Turn the local Workspace into a coarse summary suitable for a collaborator, advisor, consultant, or your own records without exporting raw task rows or free-text notes.</p>
+<div class="notice"><strong>Privacy default:</strong> exact task rows, free-text notes, and exact transaction dates are excluded. Sales dollar amounts are excluded unless you explicitly opt in.</div>
+
+<section class="card controls"><h2>Snapshot settings</h2><div class="grid">
+<label>Start date<input id="start" type="date"></label>
+<label>End date<input id="end" type="date"></label>
+<label style="display:flex;gap:8px;align-items:center;margin-top:24px"><input id="sales-dollars" type="checkbox" style="width:auto;margin:0"> Include sales dollar totals</label>
+</div><button id="build">Build snapshot</button><button id="download" class="secondary" disabled>Download JSON</button><button id="print" class="secondary">Print / save PDF</button></section>
+
+<section class="card"><h2>Summary</h2><div class="metrics">
+<div class="metric"><strong id="labor-hours">0</strong><span>worker-hours</span></div>
+<div class="metric"><strong id="chore-count">0</strong><span>scheduled chore templates</span></div>
+<div class="metric"><strong id="maint-count">0</strong><span>maintenance items</span></div>
+<div class="metric"><strong id="parts-low">0</strong><span>parts at/below threshold</span></div>
+<div class="metric"><strong id="harvest-count">0</strong><span>harvest entries</span></div>
+<div class="metric"><strong id="sales-count">0</strong><span>sales records</span></div>
+</div></section>
+
+<section class="card"><h2>Labor by category</h2><div class="scroll"><table><thead><tr><th>Category</th><th>Entries</th><th>Worker-hours</th><th>Share</th></tr></thead><tbody id="labor-body"></tbody></table></div></section>
+<section class="card"><h2>Harvest totals</h2><div class="scroll"><table><thead><tr><th>Item</th><th>Unit</th><th>Entries</th><th>Quantity</th></tr></thead><tbody id="harvest-body"></tbody></table></div></section>
+<section class="card"><h2>Sales channels</h2><div class="scroll"><table><thead id="sales-head"></thead><tbody id="sales-body"></tbody></table></div></section>
+<p id="status" class="small"></p>
+
+<footer class="small" style="margin-top:20px">CropCircuit Open Farm Utilities. A coarse snapshot reduces disclosure but is not guaranteed anonymous. Review the exported file before sharing it.</footer>
+</main>
+<script type="module">
+import { readWorkspace } from "./workspace.js";
+import { buildOperationsSnapshot } from "./ops_snapshot.js";
+const $=id=>document.getElementById(id),esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;"),num=(v,d=1)=>Number(v).toLocaleString(undefined,{maximumFractionDigits:d}),money=v=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(Number(v)||0);
+let snapshot=null;
+function iso(d){return d.toISOString().slice(0,10)}
+function defaultWindow(){const end=new Date(),start=new Date(end);start.setDate(start.getDate()-29);$("start").value=iso(start);$("end").value=iso(end)}
+function empty(cols,msg){return `<tr><td colspan="${cols}" class="empty">${esc(msg)}</td></tr>`}
+
+function build(){
+  const start=$("start").value,end=$("end").value;
+  if(!start||!end||end<start){alert("Choose a valid date range.");return}
+  snapshot=buildOperationsSnapshot(readWorkspace(localStorage),{
+    startDate:start,
+    endDate:end,
+    includeSalesDollars:$("sales-dollars").checked
+  });
+  $("labor-hours").textContent=num(snapshot.labor.worker_hours);
+  $("chore-count").textContent=snapshot.chores.recurring_templates;
+  $("maint-count").textContent=snapshot.equipment.maintenance_items;
+  $("parts-low").textContent=snapshot.equipment.parts_at_or_below_threshold;
+  $("harvest-count").textContent=snapshot.harvest.entries;
+  $("sales-count").textContent=snapshot.sales.records;
+  $("labor-body").innerHTML=snapshot.labor.categories.length?snapshot.labor.categories.map(x=>`<tr><td>${esc(x.category)}</td><td>${x.entries}</td><td>${num(x.worker_hours,2)}</td><td>${num(x.share_percent,1)}%</td></tr>`).join(""):empty(4,"No labor data in this period.");
+  $("harvest-body").innerHTML=snapshot.harvest.totals_by_item_unit.length?snapshot.harvest.totals_by_item_unit.map(x=>`<tr><td>${esc(x.item)}</td><td>${esc(x.unit)}</td><td>${x.entries}</td><td>${num(x.quantity,3)}</td></tr>`).join(""):empty(4,"No harvest data in this period.");
+  if(snapshot.privacy.sales_dollars_included){
+    $("sales-head").innerHTML="<tr><th>Channel</th><th>Records</th><th>Gross</th><th>Net receipts</th><th>Entered direct costs</th></tr>";
+    $("sales-body").innerHTML=snapshot.sales.channels.length?snapshot.sales.channels.map(x=>`<tr><td>${esc(x.channel)}</td><td>${x.records}</td><td>${money(x.gross_amount)}</td><td>${money(x.net_receipts)}</td><td>${money(x.direct_costs_entered)}</td></tr>`).join(""):empty(5,"No sales data in this period.");
+  }else{
+    $("sales-head").innerHTML="<tr><th>Channel</th><th>Records</th></tr>";
+    $("sales-body").innerHTML=snapshot.sales.channels.length?snapshot.sales.channels.map(x=>`<tr><td>${esc(x.channel)}</td><td>${x.records}</td></tr>`).join(""):empty(2,"No sales data in this period.");
+  }
+  $("status").textContent=`Snapshot built for ${start} through ${end}. Raw rows, free-text notes, and exact transaction dates are not included.`;
+  $("download").disabled=false;
+}
+$("build").addEventListener("click",build);
+$("download").addEventListener("click",()=>{
+  if(!snapshot)return;
+  const blob=new Blob([JSON.stringify(snapshot,null,2)+"\n"],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+  a.href=url;a.download="cropcircuit-operations-snapshot.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+});
+$("print").addEventListener("click",()=>window.print());
+defaultWindow();build();
+</script></body></html>
