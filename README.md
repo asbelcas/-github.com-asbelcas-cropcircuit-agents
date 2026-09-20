@@ -193,6 +193,15 @@ A local parts register now complements maintenance tracking:
 
 It records operator-entered cross references but does not claim substitute parts are compatible.
 
+### Offline Equipment Checklist
+
+A local checklist recorder lets farms define machine-specific checks from their own manufacturer/employer/service guidance:
+
+- [Equipment Checklist](public_value/equipment_checklist.html)
+- [Documentation](public_value/EQUIPMENT_CHECKLIST.md)
+
+CropCircuit deliberately supplies no default safety checklist and does not treat checked boxes as independent verification.
+
 ### Equipment Maintenance Log
 
 A local-first equipment service register tracks the intervals the operator chooses, by meter-hours, calendar time, or both:
