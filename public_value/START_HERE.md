@@ -92,6 +92,7 @@ The benchmark, package exports, schemas, feeds, and machine-readable layers exis
 | --- | --- |
 | "I don't know where my time goes." | Offline Farm Labor Log |
 | "I already have a labor spreadsheet." | Universal Farm CSV Mapper |
+| "I want someone else to clean/map my farm spreadsheets." | Assisted Farm Data Setup |
 | "Our schedule is unrealistic." | Schedule Estimate Calibrator |
 | "Too many chores land on the same day." | Farm Chore Load Planner |
 | "I don't know whether an equipment purchase saves enough labor." | Equipment Cost Threshold Analyzer |
@@ -121,3 +122,10 @@ These tools are public utility work.
 They do not imply CropCircuit has paying customers, product-market fit, or validated willingness to pay.
 
 Usage and actual external payment are separate evidence.
+
+
+## Optional assisted setup
+
+If the free mapping tools solve the problem but you do not want to do the cleanup yourself, see [Assisted Farm Data Setup](farm_data_setup.html).
+
+The pilot is a fixed $149 implementation job: up to three source exports / 1,500 rows, cleaned canonical files, Workspace 1.2, a mapping-quality note, and an Operations Snapshot when the data supports one.
