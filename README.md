@@ -374,6 +374,18 @@ Software can discover the current public assets through:
 
 - [manifest.json](public_value/manifest.json)
 
+### Dharma-Informed Design Doctrine
+
+CropCircuit now has an explicit value layer for decisions that cannot be reduced to ROI:
+
+- [Dharma-Informed Design Doctrine](public_value/DHARMA_DESIGN_DOCTRINE.md)
+- [Right Relationship Decision Gate](public_value/right_relationship_gate.html)
+- [Gate documentation](public_value/RIGHT_RELATIONSHIP_GATE.md)
+- [Machine-readable constitution](public_value/right_relationship_constitution.json)
+- [Reusable non-compensatory gate](public_value/right_relationship.js)
+
+The design is inspired by Hindu philosophical concepts but is not presented as a complete or authoritative account of Hinduism. The important software rule is structural: declared hard ecological, welfare, human, legal, safety, or resilience boundaries are not silently traded away by a higher ROI score.
+
 ## Design rules
 
 1. **Useful before monetized.** An asset should solve a real problem even if nobody pays.
@@ -381,6 +393,7 @@ Software can discover the current public assets through:
 3. **Primary sources over stale summaries.** Funding records link to the program owner.
 4. **Machine-readable by default.** Useful information should be available as data, not trapped in prose.
 5. **Small composable pieces.** Build things other people can reuse, link, import, or adapt.
+6. **Optimize nothing blindly.** Separate human-defined hard boundaries from financial/efficiency optimization; unknown is not the same as acceptable.
 
 ## Privacy and provenance
 
