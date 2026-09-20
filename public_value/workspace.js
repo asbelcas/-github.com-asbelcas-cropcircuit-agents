@@ -1,12 +1,12 @@
 /**
  * CropCircuit local-first workspace helpers.
- * Backward-compatible with workspace 1.0 backups.
+ * Backward-compatible with workspace 1.0 and 1.1 backups.
  * The workspace can contain private operational data and is never transmitted
  * by this module. Callers provide a Storage-compatible object.
  */
 
-export const WORKSPACE_VERSION = "1.1";
-export const SUPPORTED_WORKSPACE_VERSIONS = Object.freeze(["1.0","1.1"]);
+export const WORKSPACE_VERSION = "1.2";
+export const SUPPORTED_WORKSPACE_VERSIONS = Object.freeze(["1.0","1.1","1.2"]);
 
 export const WORKSPACE_KEYS = Object.freeze({
   laborEntries: "cropcircuit_farm_labor_log_v1",
@@ -15,6 +15,7 @@ export const WORKSPACE_KEYS = Object.freeze({
   equipmentMaintenance: "cropcircuit_equipment_maintenance_v1",
   harvestEntries: "cropcircuit_harvest_log_v1",
   salesEntries: "cropcircuit_sales_log_v1",
+  partsInventory: "cropcircuit_parts_inventory_v1",
 });
 
 function safeParse(value, fallback) {
@@ -55,6 +56,7 @@ export function readWorkspace(storage) {
     equipment_maintenance: arrayOrEmpty(getJson(storage, WORKSPACE_KEYS.equipmentMaintenance, [])),
     harvest_entries: arrayOrEmpty(getJson(storage, WORKSPACE_KEYS.harvestEntries, [])),
     sales_entries: arrayOrEmpty(getJson(storage, WORKSPACE_KEYS.salesEntries, [])),
+    parts_inventory: arrayOrEmpty(getJson(storage, WORKSPACE_KEYS.partsInventory, [])),
   };
 }
 
@@ -77,10 +79,14 @@ export function validateWorkspace(workspace) {
     errors.push("labor_settings must be an object");
   }
 
-  if (version === "1.1") {
+  if (version === "1.1" || version === "1.2") {
     if (!Array.isArray(workspace.equipment_maintenance)) errors.push("equipment_maintenance must be an array");
     if (!Array.isArray(workspace.harvest_entries)) errors.push("harvest_entries must be an array");
     if (!Array.isArray(workspace.sales_entries)) errors.push("sales_entries must be an array");
+  }
+
+  if (version === "1.2") {
+    if (!Array.isArray(workspace.parts_inventory)) errors.push("parts_inventory must be an array");
   }
 
   return errors;
@@ -119,9 +125,18 @@ export function writeWorkspace(storage, workspace, { mode = "replace" } = {}) {
   let laborEntries = workspace.labor_entries;
   let choreSchedule = workspace.chore_schedule;
   let laborSettings = workspace.labor_settings;
-  let equipment = version === "1.1" ? workspace.equipment_maintenance : current.equipment_maintenance;
-  let harvest = version === "1.1" ? workspace.harvest_entries : current.harvest_entries;
-  let sales = version === "1.1" ? workspace.sales_entries : current.sales_entries;
+  let equipment = (version === "1.1" || version === "1.2")
+    ? workspace.equipment_maintenance
+    : current.equipment_maintenance;
+  let harvest = (version === "1.1" || version === "1.2")
+    ? workspace.harvest_entries
+    : current.harvest_entries;
+  let sales = (version === "1.1" || version === "1.2")
+    ? workspace.sales_entries
+    : current.sales_entries;
+  let parts = version === "1.2"
+    ? workspace.parts_inventory
+    : current.parts_inventory;
 
   if (mode === "merge") {
     laborEntries = mergeById(current.labor_entries, laborEntries);
@@ -130,6 +145,7 @@ export function writeWorkspace(storage, workspace, { mode = "replace" } = {}) {
     equipment = mergeById(current.equipment_maintenance, equipment);
     harvest = mergeById(current.harvest_entries, harvest);
     sales = mergeById(current.sales_entries, sales);
+    parts = mergeById(current.parts_inventory, parts);
   } else if (mode !== "replace") {
     return { ok:false, errors:[`unsupported import mode ${mode}`] };
   }
@@ -140,6 +156,7 @@ export function writeWorkspace(storage, workspace, { mode = "replace" } = {}) {
   setJson(storage,WORKSPACE_KEYS.equipmentMaintenance,equipment);
   setJson(storage,WORKSPACE_KEYS.harvestEntries,harvest);
   setJson(storage,WORKSPACE_KEYS.salesEntries,sales);
+  setJson(storage,WORKSPACE_KEYS.partsInventory,parts);
 
   return {
     ok:true,
@@ -149,5 +166,6 @@ export function writeWorkspace(storage, workspace, { mode = "replace" } = {}) {
     equipment_maintenance:equipment.length,
     harvest_entries:harvest.length,
     sales_entries:sales.length,
+    parts_inventory:parts.length,
   };
 }
