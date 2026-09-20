@@ -16,6 +16,8 @@ const STATIC_ASSETS = [
   "./public_value/funding_explorer.html",
   "./public_value/schedule_estimate_calibrator.html",
   "./public_value/labor_csv_import_mapper.html",
+  "./public_value/data_contracts.json",
+  "./public_value/universal_csv_mapper.html",
   "./public_value/schedule_math.js",
   "./public_value/chore_load_planner.html",
   "./public_value/workspace.js",
