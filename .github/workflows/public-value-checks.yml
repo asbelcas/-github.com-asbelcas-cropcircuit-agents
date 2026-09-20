@@ -78,3 +78,5 @@ jobs:
         run: node public_value/validate_setup_delivery.test.mjs
       - name: Test right relationship gate
         run: node public_value/right_relationship.test.mjs
+      - name: Test high-impact decision records
+        run: node public_value/validate_decision_record.test.mjs
