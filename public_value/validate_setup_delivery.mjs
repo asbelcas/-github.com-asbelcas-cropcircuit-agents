@@ -47,7 +47,8 @@ export function validateSetupDelivery(dir) {
       }
 
       const json=JSON.stringify(workspace);
-      if (/demo-/i.test(json)) errors.push("workspace contains demo-* identifiers");
+      if (/(?:demo|case|synthetic)-/i.test(json)) errors.push("workspace contains synthetic/example identifiers (demo- / case- / synthetic-)");
+      if (/synthetic case-study|synthetic demo|demonstration only/i.test(json)) errors.push("workspace appears to contain synthetic/example content");
     } catch (error) {
       errors.push(`workspace.json parse failed: ${error.message}`);
     }
