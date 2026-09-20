@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-09-20T12:00:00Z",
+  "period": {
+    "start_date": "2026-09-14",
+    "end_date": "2026-09-20"
+  },
+  "privacy": {
+    "raw_rows_included": false,
+    "free_text_notes_included": false,
+    "exact_dates_included": false,
+    "sales_dollars_included": false
+  },
+  "labor": {
+    "entries": 5,
+    "worker_hours": 11.05,
+    "categories": [
+      {
+        "category": "Market / Sales",
+        "entries": 1,
+        "worker_hours": 5,
+        "share_percent": 45.2
+      },
+      {
+        "category": "Wash / Pack",
+        "entries": 1,
+        "worker_hours": 2.67,
+        "share_percent": 24.1
+      },
+      {
+        "category": "Harvest",
+        "entries": 1,
+        "worker_hours": 2.33,
+        "share_percent": 21.1
+      },
+      {
+        "category": "Fencing",
+        "entries": 1,
+        "worker_hours": 0.58,
+        "share_percent": 5.3
+      },
+      {
+        "category": "Livestock",
+        "entries": 1,
+        "worker_hours": 0.47,
+        "share_percent": 4.2
+      }
+    ]
+  },
+  "chores": {
+    "recurring_templates": 0
+  },
+  "equipment": {
+    "maintenance_items": 2,
+    "maintenance_items_with_interval": 2,
+    "parts_tracked": 1,
+    "parts_with_threshold": 1,
+    "parts_at_or_below_threshold": 1
+  },
+  "harvest": {
+    "entries": 0,
+    "totals_by_item_unit": []
+  },
+  "sales": {
+    "records": 2,
+    "channels": [
+      {
+        "channel": "Farmers Market",
+        "records": 1
+      },
+      {
+        "channel": "CSA",
+        "records": 1
+      }
+    ]
+  }
+}
