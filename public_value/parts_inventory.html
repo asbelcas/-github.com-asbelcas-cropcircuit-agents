@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CropCircuit Offline Equipment Parts Inventory</title>
+<meta name="description" content="Private offline equipment-parts inventory with OEM and alternate part numbers, stock thresholds, supplier fields, CSV export, and JSON backup.">
+<style>
+:root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#627067;--line:#dbe4dc;--accent:#215f45;--soft:#edf5ef;--danger:#8c3030;--warn:#7a5a00}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}
+main{max-width:1240px;margin:auto;padding:30px 16px 60px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px}h2{margin:0 0 10px}.lead{color:var(--muted);max-width:920px}
+.notice{background:var(--soft);border:1px solid #cfe0d3;border-radius:12px;padding:12px 14px;margin:18px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:11px}label{display:block;font-weight:650}input{width:100%;padding:9px 10px;margin-top:4px;border:1px solid #cbd6ce;border-radius:8px;background:white;font:inherit}
+button{border:0;background:var(--accent);color:white;font-weight:700;padding:8px 11px;border-radius:8px;cursor:pointer;margin:9px 5px 0 0}.secondary{background:#56675d}.danger{background:var(--danger)}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:9px}.metric{border:1px solid var(--line);border-radius:10px;padding:11px;background:#fafcf9}.metric strong{display:block;font-size:1.3rem}
+table{width:100%;border-collapse:collapse;font-size:.81rem}th,td{text-align:left;border-bottom:1px solid var(--line);padding:7px 5px;vertical-align:top}th{font-size:.68rem;text-transform:uppercase;color:var(--muted);letter-spacing:.03em}.scroll{overflow:auto}.small{font-size:.83rem;color:var(--muted)}.empty{text-align:center;color:var(--muted);padding:20px}.reorder{color:var(--warn);font-weight:800}.ok{color:#1f6c42;font-weight:700}code{font-size:.74rem}
+</style></head>
+<body><main>
+<h1>Offline Equipment Parts Inventory</h1>
+<p class="lead">Keep commonly used filters, belts, bearings, seals, kits, and alternate supplier numbers in one local record, with simple user-defined reorder thresholds.</p>
+<div class="notice"><strong>Cross-reference, don't guess:</strong> alternate part numbers are entered by the operator. CropCircuit does not assert that two parts are interchangeable or compatible with a machine.</div>
+
+<section class="card"><h2>Add part</h2><div class="grid">
+<label>Equipment / system<input id="equipment" type="text" placeholder="Tractor 1"></label>
+<label>Part name<input id="name" type="text" placeholder="Engine oil filter"></label>
+<label>OEM / primary part number<input id="primary" type="text" placeholder="ABC-123"></label>
+<label>Alternate part numbers<input id="alternates" type="text" placeholder="XYZ-9; Brand2 456"></label>
+<label>Supplier<input id="supplier" type="text" placeholder="Local dealer / vendor"></label>
+<label>Storage location<input id="location" type="text" placeholder="Shop shelf A2"></label>
+<label>Quantity on hand<input id="quantity" type="number" min="0" step="1" value="0"></label>
+<label>Reorder threshold<input id="threshold" type="number" min="0" step="1" value="0"></label>
+<label>Preferred order quantity<input id="order-qty" type="number" min="0" step="1" placeholder="Optional"></label>
+</div><button id="add">Add part</button></section>
+
+<section class="card"><h2>Inventory status</h2><div class="metrics">
+<div class="metric"><strong id="count">0</strong><span>parts tracked</span></div>
+<div class="metric"><strong id="reorder-count">0</strong><span>at/below threshold</span></div>
+<div class="metric"><strong id="configured-count">0</strong><span>with stock thresholds</span></div>
+</div></section>
+
+<section class="card"><h2>Parts</h2>
+<div class="grid">
+<label>Search<input id="search" type="search" placeholder="equipment, part number, supplier..."></label>
+<label>Show<input id="filter" list="filters" value="all"><datalist id="filters"><option value="all"><option value="reorder"><option value="ok"></datalist></label>
+</div>
+<div class="scroll" style="margin-top:12px"><table>
+<thead><tr><th>Equipment</th><th>Part</th><th>Primary #</th><th>Alternates</th><th>Supplier</th><th>Location</th><th>On hand</th><th>Threshold</th><th>Status</th><th>Actions</th></tr></thead>
+<tbody id="body"><tr><td colspan="10" class="empty">No parts yet.</td></tr></tbody>
+</table></div>
+<button id="csv" class="secondary">Export CSV</button><button id="json" class="secondary">Export JSON backup</button>
+<label style="display:block;margin-top:14px;font-weight:650">Restore JSON backup<input id="restore-file" type="file" accept=".json,application/json"></label><button id="restore" class="secondary">Replace from backup</button>
+</section>
+
+<footer class="small" style="margin-top:20px">CropCircuit Open Farm Utilities. Verify part compatibility with manufacturer/service documentation or a qualified supplier before installation.</footer>
+</main>
+<script>
+(() => {
+  const KEY="cropcircuit_parts_inventory_v1",$=id=>document.getElementById(id),esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
+  function load(){try{const x=JSON.parse(localStorage.getItem(KEY)||"[]");return Array.isArray(x)?x:[]}catch{return[]}}
+  function save(){localStorage.setItem(KEY,JSON.stringify(parts))}
+  function status(x){const q=Number(x.quantity_on_hand),t=Number(x.reorder_threshold);if(!Number.isFinite(q)||!Number.isFinite(t))return"not-configured";return q<=t?"reorder":"ok"}
+  function download(name,content,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+  let parts=load();
+
+  function render(){
+    const q=$("search").value.trim().toLowerCase(),filter=$("filter").value.trim().toLowerCase()||"all";
+    const rows=parts.filter(x=>{
+      const hay=[x.equipment,x.part_name,x.primary_part_number,x.alternate_part_numbers,x.supplier,x.storage_location].join(" ").toLowerCase();
+      return (!q||hay.includes(q))&&(filter==="all"||status(x)===filter);
+    }).sort((a,b)=>status(a)==="reorder"&&status(b)!=="reorder"?-1:status(a)!=="reorder"&&status(b)==="reorder"?1:String(a.equipment).localeCompare(String(b.equipment)));
+    $("count").textContent=parts.length;$("reorder-count").textContent=parts.filter(x=>status(x)==="reorder").length;$("configured-count").textContent=parts.filter(x=>status(x)!=="not-configured").length;
+    $("body").innerHTML=rows.length?rows.map(x=>`<tr><td>${esc(x.equipment)}</td><td>${esc(x.part_name)}</td><td><code>${esc(x.primary_part_number||"")}</code></td><td>${esc(x.alternate_part_numbers||"")}</td><td>${esc(x.supplier||"")}</td><td>${esc(x.storage_location||"")}</td><td>${x.quantity_on_hand??""}</td><td>${x.reorder_threshold??""}</td><td class="${status(x)}">${esc(status(x))}</td><td><button data-qty="${esc(x.id)}" class="secondary">Set qty</button><button data-del="${esc(x.id)}" class="danger">Delete</button></td></tr>`).join(""):'<tr><td colspan="10" class="empty">No matching parts.</td></tr>';
+    document.querySelectorAll("[data-qty]").forEach(b=>b.addEventListener("click",()=>{const x=parts.find(p=>p.id===b.dataset.qty);if(!x)return;const v=prompt("Quantity on hand:",x.quantity_on_hand??0);if(v===null)return;const n=Number(v);if(!Number.isFinite(n)||n<0){alert("Enter a non-negative number.");return}x.quantity_on_hand=n;save();render()}));
+    document.querySelectorAll("[data-del]").forEach(b=>b.addEventListener("click",()=>{parts=parts.filter(p=>p.id!==b.dataset.del);save();render()}));
+  }
+
+  $("add").addEventListener("click",()=>{const equipment=$("equipment").value.trim(),name=$("name").value.trim();if(!equipment||!name){alert("Enter equipment/system and a part name.");return}parts.push({id:crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random(),equipment,part_name:name,primary_part_number:$("primary").value.trim(),alternate_part_numbers:$("alternates").value.trim(),supplier:$("supplier").value.trim(),storage_location:$("location").value.trim(),quantity_on_hand:Math.max(Number($("quantity").value)||0,0),reorder_threshold:Math.max(Number($("threshold").value)||0,0),preferred_order_quantity:$("order-qty").value===""?null:Math.max(Number($("order-qty").value)||0,0)});save();$("name").value="";$("primary").value="";$("alternates").value="";render()});
+  $("search").addEventListener("input",render);$("filter").addEventListener("input",render);
+  $("csv").addEventListener("click",()=>{const cell=v=>'"'+String(v??"").replaceAll('"','""')+'"',rows=[["equipment","part_name","primary_part_number","alternate_part_numbers","supplier","storage_location","quantity_on_hand","reorder_threshold","preferred_order_quantity","stock_status"]];parts.forEach(x=>rows.push([x.equipment,x.part_name,x.primary_part_number,x.alternate_part_numbers,x.supplier,x.storage_location,x.quantity_on_hand,x.reorder_threshold,x.preferred_order_quantity,status(x)]));download("cropcircuit-parts-inventory.csv",rows.map(r=>r.map(cell).join(",")).join("\r\n")+"\r\n","text/csv;charset=utf-8")});
+  $("json").addEventListener("click",()=>download("cropcircuit-parts-inventory.json",JSON.stringify({schema_version:"1.0",exported_at:new Date().toISOString(),parts},null,2)+"\n","application/json"));
+  $("restore").addEventListener("click",async()=>{const f=$("restore-file").files[0];if(!f){alert("Choose a JSON backup.");return}try{const x=JSON.parse(await f.text());if(x.schema_version!=="1.0"||!Array.isArray(x.parts))throw new Error("Unsupported backup");if(!confirm("Replace the local parts inventory with this backup?"))return;parts=x.parts;save();render()}catch(e){alert("Restore failed: "+e.message)}});
+  render();
+})();
+</script></body></html>
