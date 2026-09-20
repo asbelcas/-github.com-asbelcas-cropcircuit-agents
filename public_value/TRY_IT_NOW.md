@@ -27,15 +27,16 @@ These follow `main` and can change as CropCircuit changes.
 - [CSA Share Price & Break-Even](https://raw.githack.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/csa_break_even.html)
 - [Funding Explorer](https://raw.githack.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/funding_explorer.html)
 
-## Fixed 0.15.0 preview URLs
+## Fixed 0.15.1 preview URLs
 
-These point to commit `3cc0d81e523b72b63213bcbb571d5802470089bb`, so the files behind the URLs do not change.
+These point to commit `55ed09997d00c25af50199def43ccb7e73e9f407`, so the files behind the URLs do not change.
 
-- [Farm Ops Pocket Console — 0.15.0](https://rawcdn.githack.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/3cc0d81e523b72b63213bcbb571d5802470089bb/public_value/farm_ops_console.html)
-- [Universal Farm CSV Mapper — 0.15.0](https://rawcdn.githack.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/3cc0d81e523b72b63213bcbb571d5802470089bb/public_value/universal_csv_mapper.html)
-- [Weekly Farm Operations Brief — 0.15.0](https://rawcdn.githack.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/3cc0d81e523b72b63213bcbb571d5802470089bb/public_value/weekly_ops_brief.html)
-- [Farmers Market Break-Even — 0.15.0](https://rawcdn.githack.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/3cc0d81e523b72b63213bcbb571d5802470089bb/public_value/market_day_break_even.html)
-- [CSA Share Price & Break-Even — 0.15.0](https://rawcdn.githack.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/3cc0d81e523b72b63213bcbb571d5802470089bb/public_value/csa_break_even.html)
+- [Farm Ops Pocket Console — 0.15.1](https://rawcdn.githack.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/55ed09997d00c25af50199def43ccb7e73e9f407/public_value/farm_ops_console.html)
+- [Universal Farm CSV Mapper — 0.15.1](https://rawcdn.githack.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/55ed09997d00c25af50199def43ccb7e73e9f407/public_value/universal_csv_mapper.html)
+- [Synthetic Demo Workspace — 0.15.1](https://rawcdn.githack.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/55ed09997d00c25af50199def43ccb7e73e9f407/public_value/demo_workspace.html)
+- [Weekly Farm Operations Brief — 0.15.1](https://rawcdn.githack.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/55ed09997d00c25af50199def43ccb7e73e9f407/public_value/weekly_ops_brief.html)
+- [Farmers Market Break-Even — 0.15.1](https://rawcdn.githack.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/55ed09997d00c25af50199def43ccb7e73e9f407/public_value/market_day_break_even.html)
+- [CSA Share Price & Break-Even — 0.15.1](https://rawcdn.githack.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/55ed09997d00c25af50199def43ccb7e73e9f407/public_value/csa_break_even.html)
 
 ## Important local-storage caveat
 
