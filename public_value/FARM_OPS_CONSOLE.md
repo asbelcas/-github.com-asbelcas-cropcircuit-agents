@@ -34,10 +34,10 @@ It exists for a practical reason: a farmer should be able to save one file and b
 
 ### Workspace backup
 
-- export a Workspace 1.1 backup
-- preserve labor, labor settings, chore schedule, equipment maintenance, harvest, and sales collections
-- restore Workspace 1.0 or 1.1 backups
-- when restoring an older 1.0 backup, preserve newer equipment, harvest, and sales collections
+- export a Workspace 1.2 backup
+- preserve labor, labor settings, chore schedule, equipment maintenance, parts inventory, harvest, and sales collections
+- restore Workspace 1.0, 1.1, or 1.2 backups
+- when restoring an older backup, preserve collections introduced in newer workspace versions
 
 ## Compatibility
 
@@ -49,6 +49,7 @@ When the Pocket Console is opened from the same web origin as the rest of CropCi
 - `cropcircuit_equipment_maintenance_v1`
 - `cropcircuit_harvest_log_v1`
 - `cropcircuit_sales_log_v1`
+- `cropcircuit_parts_inventory_v1`
 
 That means observations created in the Pocket Console can feed the larger local-first toolkit.
 
