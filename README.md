@@ -385,6 +385,8 @@ CropCircuit now has an explicit value layer for decisions that cannot be reduced
 - [Reusable non-compensatory gate](public_value/right_relationship.js)
 - [High-Impact Decision Record](public_value/HIGH_IMPACT_DECISION_RECORD.md)
 - [Decision record schema](public_value/decision_record.schema.json)
+- [Governed Farm Decision Workflow](public_value/GOVERNED_DECISION_WORKFLOW.md)
+- [Synthetic governed automation example](public_value/examples/synthetic_governed_automation_decision.json)
 
 The design is inspired by Hindu philosophical concepts but is not presented as a complete or authoritative account of Hinduism. The important software rule is structural: declared hard ecological, welfare, human, legal, safety, or resilience boundaries are not silently traded away by a higher ROI score.
 
