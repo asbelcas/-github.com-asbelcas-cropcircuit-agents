@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-20.14",
+  "version": "2026-09-20.15",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -536,6 +536,31 @@
       "storage_key": "cropcircuit_service_order_ledger_v1",
       "privacy": "Designed to use request IDs rather than unnecessary customer personal information.",
       "dependencies": []
+    },
+    {
+      "id": "dharma-design-doctrine",
+      "type": "design-policy",
+      "description": "Human-governed value layer inspired by Hindu philosophical concepts: right relationship, non-harm, reciprocity, enoughness, wider-system welfare, disciplined action, and cyclical renewal.",
+      "docs": "public_value/DHARMA_DESIGN_DOCTRINE.md",
+      "boundary": "Not presented as a complete or authoritative account of Hinduism."
+    },
+    {
+      "id": "right-relationship-constitution",
+      "type": "machine-readable-policy",
+      "description": "Machine-readable non-compensatory value constitution for CropCircuit decision tools and agents.",
+      "source": "public_value/right_relationship_constitution.json"
+    },
+    {
+      "id": "right-relationship-gate",
+      "type": "standalone-html",
+      "description": "Local-first decision gate that prevents failed user-defined hard constraints from being offset by higher financial or efficiency scores.",
+      "source": "public_value/right_relationship_gate.html",
+      "docs": "public_value/RIGHT_RELATIONSHIP_GATE.md",
+      "math": "public_value/right_relationship.js",
+      "tests": "public_value/right_relationship.test.mjs",
+      "dependencies": [
+        "public_value/right_relationship.js"
+      ]
     }
   ],
   "updated_at": "2026-09-20",
@@ -564,7 +589,8 @@
     "workspace_example_validation": "public_value/validate_workspace_examples.mjs",
     "data_contract_validation": "public_value/validate_data_contracts.mjs",
     "operations_snapshot_tests": "public_value/ops_snapshot.test.mjs",
-    "assisted_setup_delivery_tests": "public_value/validate_setup_delivery.test.mjs"
+    "assisted_setup_delivery_tests": "public_value/validate_setup_delivery.test.mjs",
+    "right_relationship_tests": "public_value/right_relationship.test.mjs"
   },
   "stable_snapshot": {
     "version": "0.16.2",
