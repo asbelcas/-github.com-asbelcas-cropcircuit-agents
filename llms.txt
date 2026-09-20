@@ -23,6 +23,8 @@
 - Farm labor workflow: public_value/FARM_LABOR_TOOLKIT.md
 - Local workspace contract: public_value/LOCAL_WORKSPACE.md
 - Workspace schema: public_value/workspace.schema.json
+- Parts inventory: public_value/PARTS_INVENTORY.md
+- Sales CSV import mapper: public_value/SALES_CSV_IMPORT.md
 - Privacy model: public_value/PRIVACY_MODEL.md
 - Provenance policy: public_value/PROVENANCE.md
 - Labor data contract: public_value/LABOR_DATA_CONTRACT.md
