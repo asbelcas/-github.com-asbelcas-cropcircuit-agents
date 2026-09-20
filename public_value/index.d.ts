@@ -419,3 +419,23 @@ export function buildOperationsSnapshot(
     includeSalesDollars?: boolean;
   }
 ): Record<string, unknown>;
+
+export function evaluateRightRelationship(input?: {
+  hard_constraints?: Array<{
+    id?: string;
+    label?: string;
+    status?: "pass" | "fail" | "unknown" | string;
+    required?: boolean;
+  }>;
+  unknowns?: Array<string | { id?: string; label?: string }>;
+  enoughness_met?: boolean;
+  reversible?: boolean;
+}): {
+  gate: "pass" | "hold" | "reject";
+  failed_hard_constraints: string[];
+  unresolved_hard_constraints: string[];
+  unknowns: string[];
+  enoughness_met: boolean;
+  reversible: boolean;
+  summary: string;
+};
