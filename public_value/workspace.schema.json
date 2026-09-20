@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/workspace.schema.json",
   "title": "CropCircuit Local Workspace",
-  "description": "Portable browser-local CropCircuit workspace backup. Version 1.1 adds equipment maintenance, harvest, and sales collections while version 1.0 remains import-compatible.",
+  "description": "Portable browser-local CropCircuit workspace backup. Version 1.2 adds equipment-parts inventory; versions 1.0 and 1.1 remain import-compatible.",
   "oneOf": [
     {
       "title": "Workspace 1.0",
@@ -87,6 +87,69 @@
           }
         },
         "sales_entries": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    {
+      "title": "Workspace 1.2",
+      "type": "object",
+      "required": [
+        "schema_version",
+        "labor_entries",
+        "labor_settings",
+        "chore_schedule",
+        "equipment_maintenance",
+        "harvest_entries",
+        "sales_entries",
+        "parts_inventory"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "1.2"
+        },
+        "exported_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "labor_entries": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "labor_settings": {
+          "type": "object"
+        },
+        "chore_schedule": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "equipment_maintenance": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "harvest_entries": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "sales_entries": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "parts_inventory": {
           "type": "array",
           "items": {
             "type": "object"
