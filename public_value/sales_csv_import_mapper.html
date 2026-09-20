@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CropCircuit Sales CSV Import Mapper</title>
+<meta name="description" content="Private browser-only mapper that converts an arbitrary sales CSV into the CropCircuit offline sales-log format.">
+<style>
+:root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#627067;--line:#dbe4dc;--accent:#215f45;--soft:#edf5ef;--warn:#7a5a00}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}
+main{max-width:1180px;margin:auto;padding:30px 16px 60px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px}h2{margin:0 0 10px}.lead{color:var(--muted);max-width:900px}
+.notice{background:var(--soft);border:1px solid #cfe0d3;border-radius:12px;padding:12px 14px;margin:18px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}label{display:block;font-weight:650}select,input{width:100%;padding:9px 10px;margin-top:4px;border:1px solid #cbd6ce;border-radius:8px;background:white;font:inherit}
+button{border:0;background:var(--accent);color:white;font-weight:700;padding:9px 12px;border-radius:8px;cursor:pointer;margin:10px 6px 0 0}.secondary{background:#56675d}
+table{width:100%;border-collapse:collapse;font-size:.84rem}th,td{text-align:left;border-bottom:1px solid var(--line);padding:8px 6px;vertical-align:top}th{font-size:.72rem;text-transform:uppercase;color:var(--muted);letter-spacing:.03em}.scroll{overflow:auto}.small{font-size:.85rem;color:var(--muted)}.empty{text-align:center;color:var(--muted);padding:20px}.warn{color:var(--warn);font-weight:700}
+</style></head>
+<body><main>
+<h1>Sales CSV Import Mapper</h1>
+<p class="lead">Convert an export from a point-of-sale system, invoice system, or spreadsheet into CropCircuit's local sales-log format without uploading the source file.</p>
+<div class="notice"><strong>Generic by design:</strong> CropCircuit does not claim vendor-specific compatibility with Square, QuickBooks, Shopify, or another platform. You explicitly map the columns in the file you have.</div>
+
+<section class="card">
+<h2>1. Load source CSV</h2>
+<input id="file" type="file" accept=".csv,text/csv">
+<p id="meta" class="small">Choose a CSV export.</p>
+</section>
+
+<section class="card">
+<h2>2. Map columns</h2>
+<div id="mapping" class="grid"></div>
+<p class="small">Required: date and gross amount. Channel can be a mapped column or a fixed label supplied below.</p>
+<label style="margin-top:12px">Fixed channel if no channel column is mapped<input id="fixed-channel" type="text" placeholder="Farmers Market"></label>
+<button id="transform" disabled>Transform & validate</button>
+</section>
+
+<section class="card">
+<h2>3. Preview</h2>
+<p id="status" class="small">No transformed rows yet.</p>
+<div class="scroll"><table>
+<thead><tr><th>Date</th><th>Channel</th><th>Item/note</th><th>Gross</th><th>Fees</th><th>Refunds/discounts</th><th>Direct costs</th><th>Net receipts</th></tr></thead>
+<tbody id="body"><tr><td colspan="8" class="empty">Load and map a CSV to begin.</td></tr></tbody>
+</table></div>
+<button id="csv" class="secondary" disabled>Export canonical CSV</button>
+<button id="json" class="secondary" disabled>Export sales-log JSON</button>
+</section>
+
+<footer class="small" style="margin-top:20px">CropCircuit Open Farm Utilities. The mapper preserves arithmetic fields; it does not determine accounting or tax treatment.</footer>
+</main>
+
+<script>
+(() => {
+  const $=id=>document.getElementById(id);
+  const TARGETS=[
+    ["date","Date",true],
+    ["channel","Sales channel",false],
+    ["item","Item / description",false],
+    ["gross_amount","Gross amount",true],
+    ["payment_fees","Payment fees",false],
+    ["refunds_discounts","Refunds / discounts",false],
+    ["direct_costs","Direct costs",false]
+  ];
+  let sourceRows=[],headers=[],mapped=[];
+
+  function parseCSV(text){
+    const rows=[];let row=[],field="",quoted=false;
+    for(let i=0;i<text.length;i++){
+      const ch=text[i];
+      if(quoted){
+        if(ch==='"'&&text[i+1]==='"'){field+='"';i++}
+        else if(ch==='"')quoted=false;
+        else field+=ch;
+      }else{
+        if(ch==='"')quoted=true;
+        else if(ch===','){row.push(field);field=""}
+        else if(ch==='\n'){row.push(field);rows.push(row);row=[];field=""}
+        else if(ch!=='\r')field+=ch;
+      }
+    }
+    if(field.length||row.length){row.push(field);rows.push(row)}
+    if(!rows.length)return{headers:[],rows:[]};
+    const h=rows[0].map((x,i)=>String(x||`column_${i+1}`).trim());
+    return{headers:h,rows:rows.slice(1).filter(r=>r.some(v=>String(v).trim())).map(r=>{const o={};h.forEach((x,i)=>o[x]=r[i]??"");return o})};
+  }
+
+  function esc(v){return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
+  function guess(key){
+    const aliases={
+      date:["date","transaction date","sale date","created at","time"],
+      channel:["channel","sales channel","location","source","market"],
+      item:["item","description","product","product name","memo","note"],
+      gross_amount:["gross amount","gross","total","amount","sales","sale amount"],
+      payment_fees:["payment fees","fees","fee","processing fee","card fee"],
+      refunds_discounts:["refunds / discounts","refunds","discounts","refund","discount"],
+      direct_costs:["direct costs","cost of goods","cogs","cost"]
+    }[key]||[];
+    const lower=headers.map(h=>h.toLowerCase().trim());
+    for(const alias of aliases){const i=lower.indexOf(alias);if(i>=0)return headers[i]}
+    return"";
+  }
+  function build(){
+    const root=$("mapping");root.innerHTML="";
+    for(const [key,label,required] of TARGETS){
+      const wrap=document.createElement("label");wrap.textContent=label+(required?" *":"");
+      const s=document.createElement("select");s.id="map-"+key;
+      s.innerHTML='<option value="">— not mapped —</option>'+headers.map(h=>`<option value="${esc(h)}">${esc(h)}</option>`).join("");
+      s.value=guess(key);wrap.appendChild(s);root.appendChild(wrap);
+    }
+  }
+  function amount(v){
+    const cleaned=String(v??"").trim().replace(/[$,%]/g,"").replace(/,/g,"");
+    if(!cleaned)return 0;
+    const n=Number(cleaned);
+    return Number.isFinite(n)?Math.abs(n):null;
+  }
+  function date(v){
+    const s=String(v??"").trim();
+    if(/^\d{4}-\d{2}-\d{2}$/.test(s))return s;
+    const d=new Date(s);
+    return Number.isFinite(d.getTime())?d.toISOString().slice(0,10):"";
+  }
+
+  $("file").addEventListener("change",async()=>{
+    const f=$("file").files[0];
+    if(!f){headers=[];sourceRows=[];$("transform").disabled=true;return}
+    const parsed=parseCSV(await f.text());headers=parsed.headers;sourceRows=parsed.rows;
+    $("meta").textContent=`${sourceRows.length} data rows · ${headers.length} columns: ${headers.join(", ")}`;
+    build();$("transform").disabled=!sourceRows.length;
+  });
+
+  $("transform").addEventListener("click",()=>{
+    const map=Object.fromEntries(TARGETS.map(([k])=>[k,$("map-"+k).value]));
+    if(!map.date||!map.gross_amount){$("status").innerHTML='<span class="warn">Map both date and gross amount.</span>';return}
+    const fixed=$("fixed-channel").value.trim(),warnings=[];mapped=[];
+    sourceRows.forEach((r,i)=>{
+      const gross=amount(r[map.gross_amount]),fees=map.payment_fees?amount(r[map.payment_fees]):0,refunds=map.refunds_discounts?amount(r[map.refunds_discounts]):0,direct=map.direct_costs?amount(r[map.direct_costs]):0;
+      const out={
+        id:(crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random()),
+        date:date(r[map.date]),
+        channel:(map.channel?String(r[map.channel]??"").trim():"")||fixed||"Unspecified",
+        item:map.item?String(r[map.item]??"").trim():"",
+        gross_amount:gross,
+        payment_fees:fees,
+        refunds_discounts:refunds,
+        direct_costs:direct
+      };
+      if(!out.date)warnings.push(`row ${i+2}: invalid date`);
+      if(gross===null)warnings.push(`row ${i+2}: invalid gross amount`);
+      for(const [name,val] of [["payment fees",fees],["refunds/discounts",refunds],["direct costs",direct]])if(val===null)warnings.push(`row ${i+2}: invalid ${name}`);
+      if(out.date&&gross!==null&&fees!==null&&refunds!==null&&direct!==null)mapped.push(out);
+    });
+    $("status").innerHTML=warnings.length?'<span class="warn">'+warnings.length+' row warning(s); invalid rows were omitted.</span>':mapped.length+' rows transformed.';
+    $("body").innerHTML=mapped.slice(0,75).map(r=>{const net=r.gross_amount-r.payment_fees-r.refunds_discounts;return`<tr><td>${esc(r.date)}</td><td>${esc(r.channel)}</td><td>${esc(r.item)}</td><td>${r.gross_amount.toFixed(2)}</td><td>${r.payment_fees.toFixed(2)}</td><td>${r.refunds_discounts.toFixed(2)}</td><td>${r.direct_costs.toFixed(2)}</td><td>${net.toFixed(2)}</td></tr>`}).join("")||'<tr><td colspan="8" class="empty">No valid rows.</td></tr>';
+    $("csv").disabled=!mapped.length;$("json").disabled=!mapped.length;
+  });
+
+  function cell(v){return '"'+String(v??"").replaceAll('"','""')+'"'}
+  function download(name,content,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+  $("csv").addEventListener("click",()=>{const rows=[["date","channel","item","gross_amount","payment_fees","refunds_discounts","direct_costs"]];mapped.forEach(r=>rows.push([r.date,r.channel,r.item,r.gross_amount.toFixed(2),r.payment_fees.toFixed(2),r.refunds_discounts.toFixed(2),r.direct_costs.toFixed(2)]));download("cropcircuit-canonical-sales.csv",rows.map(r=>r.map(cell).join(",")).join("\r\n")+"\r\n","text/csv;charset=utf-8")});
+  $("json").addEventListener("click",()=>download("cropcircuit-sales-log.json",JSON.stringify({schema_version:"1.0",exported_at:new Date().toISOString(),entries:mapped},null,2)+"\n","application/json"));
+})();
+</script></body></html>
