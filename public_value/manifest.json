@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-20.5",
+  "version": "2026-09-20.6",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -455,6 +455,20 @@
       "contracts": "public_value/data_contracts.json",
       "privacy": "Source CSV remains in the browser; no upload or server processing is required.",
       "dependencies": []
+    },
+    {
+      "id": "start-here-guide",
+      "type": "onboarding-documentation",
+      "description": "Concise problem-based decision guide that steers users to the smallest relevant CropCircuit workflow.",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/START_HERE.md"
+    },
+    {
+      "id": "temporary-runnable-previews",
+      "type": "distribution-documentation",
+      "description": "Temporary third-party browser-renderable preview links for key HTML tools while GitHub Pages remains disabled.",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/TRY_IT_NOW.md",
+      "third_party_host": "raw.githack.com",
+      "caveat": "Preview origin has separate browser-local storage from future Pages or cropcircuit.org origins."
     }
   ],
   "updated_at": "2026-09-20",
@@ -482,8 +496,8 @@
     "inventory_math_tests": "public_value/inventory_math.test.mjs"
   },
   "stable_snapshot": {
-    "version": "0.14.0",
-    "branch": "release/public-value-0.14.0",
-    "commit": "aeba8c9756ba21d10be5d16e6fa6fd3623c19844"
+    "version": "0.15.0",
+    "branch": "release/public-value-0.15.0",
+    "commit": "3cc0d81e523b72b63213bcbb571d5802470089bb"
   }
 }
