@@ -521,8 +521,8 @@
     "operations_snapshot_tests": "public_value/ops_snapshot.test.mjs"
   },
   "stable_snapshot": {
-    "version": "0.15.1",
-    "branch": "release/public-value-0.15.1",
-    "commit": "55ed09997d00c25af50199def43ccb7e73e9f407"
+    "version": "0.16.0",
+    "branch": "release/public-value-0.16.0",
+    "commit": "4a163769aaf7443e93ffe55d74935359b2780319"
   }
 }
