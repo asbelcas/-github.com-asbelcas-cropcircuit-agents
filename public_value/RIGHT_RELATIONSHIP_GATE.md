@@ -73,3 +73,13 @@ After evaluation, the browser tool can download a local JSON decision record con
 - the PASS / HOLD / REJECT gate result.
 
 Nothing is uploaded. The record exists so a later operator or agent can inspect **why** a decision passed, held, or failed instead of seeing only the final outcome.
+
+
+## Decision-record contract
+
+Machine-readable decision records use:
+
+- [JSON Schema](right_relationship_record.schema.json)
+- [Synthetic example](examples/synthetic_right_relationship_decision.json)
+
+The synthetic example deliberately lands on **HOLD** because a resilience constraint and winter sensor reliability remain unresolved. It demonstrates that "unknown" is not silently treated as "pass."
