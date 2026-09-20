@@ -2,22 +2,23 @@
 
 CropCircuit's local-first tools intentionally avoid requiring a central farm account.
 
-To make that practical, compatible tools use stable browser-storage keys, and `workspace.js` provides one backup/restore format.
+Compatible tools use stable browser-storage keys, and `workspace.js` provides one portable backup/restore format.
 
 ## Workspace schema
 
-Current version: **1.1**
+Current version: **1.2**
 
 ```json
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "exported_at": "ISO timestamp",
   "labor_entries": [],
   "labor_settings": {},
   "chore_schedule": [],
   "equipment_maintenance": [],
   "harvest_entries": [],
-  "sales_entries": []
+  "sales_entries": [],
+  "parts_inventory": []
 }
 ```
 
@@ -29,43 +30,36 @@ Current version: **1.1**
 - `cropcircuit_equipment_maintenance_v1`
 - `cropcircuit_harvest_log_v1`
 - `cropcircuit_sales_log_v1`
+- `cropcircuit_parts_inventory_v1`
 
-These keys are now part of the local interoperability contract.
+These keys are part of the local interoperability contract.
 
 ## Backward compatibility
 
-Workspace **1.0** contained only labor entries, labor settings, and the chore schedule.
+Workspace **1.0** contained labor, labor settings, and the chore schedule.
 
-`workspace.js` continues to accept 1.0 backups.
+Workspace **1.1** added equipment maintenance, harvest, and sales.
 
-When an old 1.0 backup is imported in **replace** mode, CropCircuit replaces the three fields present in that backup but deliberately preserves any newer equipment-maintenance, harvest, and sales records already stored in the browser.
+Workspace **1.2** adds equipment-parts inventory.
 
-A 1.1 backup can replace or merge the full workspace.
+`workspace.js` accepts all three versions.
+
+In replace mode, an older backup replaces only the collections that existed in that version and deliberately preserves collections introduced later. That prevents an old backup from silently deleting newer operational records.
 
 ## Backup tool
 
 [workspace_backup.html](workspace_backup.html) can:
 
-- display record counts for all workspace collections
-- export the full workspace as JSON
+- display record counts across the workspace
+- export the full current workspace as JSON
 - restore a compatible workspace
 - merge another backup
 
 Merge mode deduplicates records that share the same non-empty `id`.
 
-## What belongs in the workspace
+## Private operational data
 
-### Private operational records
-
-The workspace can contain:
-
-- exact dates
-- free-text task names
-- labor notes
-- equipment service history
-- harvest quantities
-- direct-market sales records
-- locally chosen labor-rate settings
+A workspace can contain exact dates, free-text tasks, labor notes, service history, part numbers and stock levels, harvest quantities, sales records, and local rate settings.
 
 A workspace backup is therefore **not anonymous benchmark data**.
 
@@ -73,11 +67,9 @@ Treat it as a private farm record.
 
 ## Benchmark boundary
 
-The anonymous benchmark pipeline exists specifically to discard operational detail before aggregation.
+The anonymous benchmark pipeline is intentionally separate from the raw workspace.
 
 Do not publish a raw workspace as benchmark input.
-
-Use the documented labor-to-benchmark transform instead.
 
 ## No server dependency
 
@@ -85,4 +77,4 @@ Use the documented labor-to-benchmark transform instead.
 
 It operates on a Storage-compatible object supplied by the caller, normally browser `localStorage`.
 
-That design reduces central data collection, but browser storage is not an encrypted vault. See [Privacy Model](PRIVACY_MODEL.md).
+That reduces central data collection, but browser storage is not an encrypted vault. See [Privacy Model](PRIVACY_MODEL.md).
