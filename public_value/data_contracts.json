@@ -1,0 +1,316 @@
+{
+  "version": "1.0",
+  "updated_at": "2026-09-20",
+  "purpose": "Machine-readable field registry for CropCircuit local-first operational CSVs and Workspace 1.2 collections.",
+  "contracts": [
+    {
+      "id": "labor",
+      "label": "Labor log",
+      "workspace_collection": "labor_entries",
+      "storage_key": "cropcircuit_farm_labor_log_v1",
+      "required": [
+        "date",
+        "category",
+        "task",
+        "minutes",
+        "workers"
+      ],
+      "fields": [
+        {
+          "name": "date",
+          "type": "date",
+          "description": "Observation date"
+        },
+        {
+          "name": "category",
+          "type": "string"
+        },
+        {
+          "name": "task",
+          "type": "string"
+        },
+        {
+          "name": "chore_code",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "minutes",
+          "type": "number",
+          "minimum": 0
+        },
+        {
+          "name": "workers",
+          "type": "number",
+          "minimum": 0
+        },
+        {
+          "name": "worker_hours",
+          "type": "number",
+          "minimum": 0,
+          "optional": true,
+          "derived": "minutes / 60 * workers"
+        },
+        {
+          "name": "notes",
+          "type": "string",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "id": "chore_schedule",
+      "label": "Recurring chore schedule",
+      "workspace_collection": "chore_schedule",
+      "storage_key": "cropcircuit_chore_schedule_v1",
+      "required": [
+        "task",
+        "first_date",
+        "frequency",
+        "interval",
+        "estimated_minutes"
+      ],
+      "fields": [
+        {
+          "name": "task",
+          "type": "string"
+        },
+        {
+          "name": "chore_code",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "first_date",
+          "type": "date"
+        },
+        {
+          "name": "frequency",
+          "type": "enum",
+          "values": [
+            "ONCE",
+            "DAILY",
+            "WEEKLY",
+            "MONTHLY",
+            "YEARLY"
+          ]
+        },
+        {
+          "name": "interval",
+          "type": "integer",
+          "minimum": 1
+        },
+        {
+          "name": "estimated_minutes",
+          "type": "number",
+          "minimum": 0
+        },
+        {
+          "name": "notes",
+          "type": "string",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "id": "equipment_maintenance",
+      "label": "Equipment maintenance",
+      "workspace_collection": "equipment_maintenance",
+      "storage_key": "cropcircuit_equipment_maintenance_v1",
+      "required": [
+        "equipment",
+        "service"
+      ],
+      "fields": [
+        {
+          "name": "equipment",
+          "type": "string"
+        },
+        {
+          "name": "service",
+          "type": "string"
+        },
+        {
+          "name": "current_hours",
+          "type": "number",
+          "minimum": 0,
+          "optional": true
+        },
+        {
+          "name": "last_service_hours",
+          "type": "number",
+          "minimum": 0,
+          "optional": true
+        },
+        {
+          "name": "interval_hours",
+          "type": "number",
+          "minimum": 0,
+          "optional": true
+        },
+        {
+          "name": "last_service_date",
+          "type": "date",
+          "optional": true
+        },
+        {
+          "name": "interval_days",
+          "type": "integer",
+          "minimum": 0,
+          "optional": true
+        }
+      ]
+    },
+    {
+      "id": "parts_inventory",
+      "label": "Equipment parts inventory",
+      "workspace_collection": "parts_inventory",
+      "storage_key": "cropcircuit_parts_inventory_v1",
+      "required": [
+        "equipment",
+        "part_name"
+      ],
+      "fields": [
+        {
+          "name": "equipment",
+          "type": "string"
+        },
+        {
+          "name": "part_name",
+          "type": "string"
+        },
+        {
+          "name": "primary_part_number",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "alternate_part_numbers",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "supplier",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "storage_location",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "quantity_on_hand",
+          "type": "number",
+          "minimum": 0,
+          "optional": true
+        },
+        {
+          "name": "reorder_threshold",
+          "type": "number",
+          "minimum": 0,
+          "optional": true
+        },
+        {
+          "name": "preferred_order_quantity",
+          "type": "number",
+          "minimum": 0,
+          "optional": true
+        }
+      ]
+    },
+    {
+      "id": "harvest",
+      "label": "Harvest log",
+      "workspace_collection": "harvest_entries",
+      "storage_key": "cropcircuit_harvest_log_v1",
+      "required": [
+        "date",
+        "item",
+        "quantity",
+        "unit"
+      ],
+      "fields": [
+        {
+          "name": "date",
+          "type": "date"
+        },
+        {
+          "name": "item",
+          "type": "string"
+        },
+        {
+          "name": "quantity",
+          "type": "number",
+          "minimum": 0
+        },
+        {
+          "name": "unit",
+          "type": "string"
+        },
+        {
+          "name": "destination",
+          "type": "string",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "id": "sales",
+      "label": "Direct-market sales",
+      "workspace_collection": "sales_entries",
+      "storage_key": "cropcircuit_sales_log_v1",
+      "required": [
+        "date",
+        "channel",
+        "gross_amount"
+      ],
+      "fields": [
+        {
+          "name": "date",
+          "type": "date"
+        },
+        {
+          "name": "channel",
+          "type": "string"
+        },
+        {
+          "name": "item",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "gross_amount",
+          "type": "number",
+          "minimum": 0
+        },
+        {
+          "name": "payment_fees",
+          "type": "number",
+          "minimum": 0,
+          "optional": true,
+          "default": 0
+        },
+        {
+          "name": "refunds_discounts",
+          "type": "number",
+          "minimum": 0,
+          "optional": true,
+          "default": 0
+        },
+        {
+          "name": "direct_costs",
+          "type": "number",
+          "minimum": 0,
+          "optional": true,
+          "default": 0
+        }
+      ]
+    }
+  ]
+}
