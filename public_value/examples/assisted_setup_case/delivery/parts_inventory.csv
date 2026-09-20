@@ -1,0 +1,2 @@
+equipment,part_name,primary_part_number,alternate_part_numbers,supplier,storage_location,quantity_on_hand,reorder_threshold,preferred_order_quantity
+Demo Tractor,Engine oil filter,DEMO-OIL-100,DEMO-ALT-100,,,1,2,
