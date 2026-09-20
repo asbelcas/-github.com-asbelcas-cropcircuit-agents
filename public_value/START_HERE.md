@@ -103,6 +103,7 @@ The benchmark, package exports, schemas, feeds, and machine-readable layers exis
 | "I want market-day break-even math." | Farmers Market Break-Even |
 | "I need to pressure-test CSA pricing." | CSA Share Price & Break-Even |
 | "I want a weekly operating picture." | Weekly Farm Operations Brief |
+| "I need to share a summary without sending raw farm records." | Shareable Farm Operations Snapshot |
 | "I need Michigan funding deadlines." | Michigan Farm Funding Explorer |
 
 ## Data ownership
