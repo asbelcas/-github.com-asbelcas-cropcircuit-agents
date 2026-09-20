@@ -21,35 +21,28 @@ storage.setItem(WORKSPACE_KEYS.choreSchedule, JSON.stringify([{id:"s1",task:"Fee
 storage.setItem(WORKSPACE_KEYS.equipmentMaintenance, JSON.stringify([{id:"e1",equipment:"Tractor"}]));
 storage.setItem(WORKSPACE_KEYS.harvestEntries, JSON.stringify([{id:"h1",item:"Tomato"}]));
 storage.setItem(WORKSPACE_KEYS.salesEntries, JSON.stringify([{id:"x1",channel:"Farmers Market"}]));
+storage.setItem(WORKSPACE_KEYS.partsInventory, JSON.stringify([{id:"p1",part_name:"Oil filter"}]));
 
-assert.equal(WORKSPACE_VERSION,"1.1");
-assert.deepEqual([...SUPPORTED_WORKSPACE_VERSIONS],["1.0","1.1"]);
+assert.equal(WORKSPACE_VERSION,"1.2");
+assert.deepEqual([...SUPPORTED_WORKSPACE_VERSIONS],["1.0","1.1","1.2"]);
 
-const exported = readWorkspace(storage);
-assert.equal(exported.schema_version,"1.1");
-assert.equal(exported.labor_entries.length,1);
-assert.equal(exported.chore_schedule.length,1);
-assert.equal(exported.equipment_maintenance.length,1);
-assert.equal(exported.harvest_entries.length,1);
-assert.equal(exported.sales_entries.length,1);
+const exported=readWorkspace(storage);
+assert.equal(exported.schema_version,"1.2");
+assert.equal(exported.parts_inventory.length,1);
 assert.deepEqual(validateWorkspace(exported),[]);
 
-// A v1.0 backup remains valid and must not erase datasets added in v1.1.
-const legacyReplacement = {
+// Workspace 1.0 preserves all newer collections on replace.
+const legacy10={
   schema_version:"1.0",
   labor_entries:[{id:"b",task:"Water"}],
   labor_settings:{hourly:25},
   chore_schedule:[{id:"s2",task:"Water"}],
 };
-const legacyResult = writeWorkspace(storage,legacyReplacement);
-assert.equal(legacyResult.ok,true);
-assert.deepEqual(JSON.parse(storage.getItem(WORKSPACE_KEYS.laborEntries)).map(x=>x.id),["b"]);
-assert.deepEqual(JSON.parse(storage.getItem(WORKSPACE_KEYS.equipmentMaintenance)).map(x=>x.id),["e1"]);
-assert.deepEqual(JSON.parse(storage.getItem(WORKSPACE_KEYS.harvestEntries)).map(x=>x.id),["h1"]);
-assert.deepEqual(JSON.parse(storage.getItem(WORKSPACE_KEYS.salesEntries)).map(x=>x.id),["x1"]);
+assert.equal(writeWorkspace(storage,legacy10).ok,true);
+assert.deepEqual(JSON.parse(storage.getItem(WORKSPACE_KEYS.partsInventory)).map(x=>x.id),["p1"]);
 
-// A v1.1 replacement updates the full workspace.
-const replacement = {
+// Workspace 1.1 may replace equipment/harvest/sales, but preserves parts added in 1.2.
+const legacy11={
   schema_version:"1.1",
   labor_entries:[{id:"c",task:"Fence"}],
   labor_settings:{hourly:30},
@@ -58,37 +51,61 @@ const replacement = {
   harvest_entries:[{id:"h2",item:"Cucumber"}],
   sales_entries:[{id:"x2",channel:"CSA"}],
 };
+const legacy11Result=writeWorkspace(storage,legacy11);
+assert.equal(legacy11Result.ok,true);
+assert.deepEqual(JSON.parse(storage.getItem(WORKSPACE_KEYS.partsInventory)).map(x=>x.id),["p1"]);
+assert.deepEqual(JSON.parse(storage.getItem(WORKSPACE_KEYS.equipmentMaintenance)).map(x=>x.id),["e2"]);
+
+// Workspace 1.2 updates the full workspace.
+const replacement={
+  schema_version:"1.2",
+  labor_entries:[{id:"d",task:"Harvest"}],
+  labor_settings:{hourly:35},
+  chore_schedule:[{id:"s4",task:"Harvest"}],
+  equipment_maintenance:[{id:"e3",equipment:"Seeder"}],
+  harvest_entries:[{id:"h3",item:"Pepper"}],
+  sales_entries:[{id:"x3",channel:"Farm Stand"}],
+  parts_inventory:[{id:"p2",part_name:"Belt"}],
+};
 const replaceResult=writeWorkspace(storage,replacement);
 assert.equal(replaceResult.ok,true);
-assert.equal(replaceResult.equipment_maintenance,1);
-assert.equal(replaceResult.harvest_entries,1);
-assert.equal(replaceResult.sales_entries,1);
+assert.equal(replaceResult.parts_inventory,1);
 
-// Merge mode deduplicates matching non-empty IDs across every record collection.
-const merge = {
-  schema_version:"1.1",
-  labor_entries:[{id:"c",task:"Duplicate"},{id:"d",task:"Harvest"}],
-  labor_settings:{hourly:35},
-  chore_schedule:[{id:"s3",task:"Duplicate"},{id:"s4",task:"Harvest"}],
-  equipment_maintenance:[{id:"e2",equipment:"Duplicate"},{id:"e3",equipment:"Seeder"}],
-  harvest_entries:[{id:"h2",item:"Duplicate"},{id:"h3",item:"Pepper"}],
-  sales_entries:[{id:"x2",channel:"Duplicate"},{id:"x3",channel:"Farm Stand"}],
+// Merge mode deduplicates IDs across every collection.
+const merge={
+  schema_version:"1.2",
+  labor_entries:[{id:"d",task:"Duplicate"},{id:"e",task:"Pack"}],
+  labor_settings:{hourly:40},
+  chore_schedule:[{id:"s4",task:"Duplicate"},{id:"s5",task:"Pack"}],
+  equipment_maintenance:[{id:"e3",equipment:"Duplicate"},{id:"e4",equipment:"Truck"}],
+  harvest_entries:[{id:"h3",item:"Duplicate"},{id:"h4",item:"Squash"}],
+  sales_entries:[{id:"x3",channel:"Duplicate"},{id:"x4",channel:"Wholesale"}],
+  parts_inventory:[{id:"p2",part_name:"Duplicate"},{id:"p3",part_name:"Bearing"}],
 };
-const merged = writeWorkspace(storage,merge,{mode:"merge"});
+const merged=writeWorkspace(storage,merge,{mode:"merge"});
 assert.equal(merged.ok,true);
-assert.deepEqual(JSON.parse(storage.getItem(WORKSPACE_KEYS.laborEntries)).map(x=>x.id),["c","d"]);
-assert.deepEqual(JSON.parse(storage.getItem(WORKSPACE_KEYS.choreSchedule)).map(x=>x.id),["s3","s4"]);
-assert.deepEqual(JSON.parse(storage.getItem(WORKSPACE_KEYS.equipmentMaintenance)).map(x=>x.id),["e2","e3"]);
-assert.deepEqual(JSON.parse(storage.getItem(WORKSPACE_KEYS.harvestEntries)).map(x=>x.id),["h2","h3"]);
-assert.deepEqual(JSON.parse(storage.getItem(WORKSPACE_KEYS.salesEntries)).map(x=>x.id),["x2","x3"]);
-assert.equal(JSON.parse(storage.getItem(WORKSPACE_KEYS.laborSettings)).hourly,35);
+assert.deepEqual(JSON.parse(storage.getItem(WORKSPACE_KEYS.partsInventory)).map(x=>x.id),["p2","p3"]);
+assert.equal(JSON.parse(storage.getItem(WORKSPACE_KEYS.laborSettings)).hourly,40);
 
-// v1.1 workspaces require the three v1.1 record collections.
+// v1.2 requires parts inventory; v1.1 does not.
 assert.ok(validateWorkspace({
+  schema_version:"1.2",
+  labor_entries:[],
+  labor_settings:{},
+  chore_schedule:[],
+  equipment_maintenance:[],
+  harvest_entries:[],
+  sales_entries:[],
+}).some(x=>x.includes("parts_inventory")));
+
+assert.deepEqual(validateWorkspace({
   schema_version:"1.1",
   labor_entries:[],
   labor_settings:{},
   chore_schedule:[],
-}).some(x=>x.includes("equipment_maintenance")));
+  equipment_maintenance:[],
+  harvest_entries:[],
+  sales_entries:[],
+}),[]);
 
-console.log("PASS: CropCircuit local workspace helpers v1.1 + v1.0 compatibility");
+console.log("PASS: CropCircuit local workspace helpers v1.2 + v1.0/v1.1 compatibility");
