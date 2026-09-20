@@ -4,6 +4,7 @@
 
 ### Added
 - Dharma-Informed Design Doctrine, machine-readable Right Relationship Constitution, and local-first non-compensatory decision gate. Hard user-defined value boundaries cannot be overridden by a higher ROI score; unknown effects remain explicit.
+- Added a portable High-Impact Decision Record schema + validator so agents can preserve purpose, evidence, hard constraints, unknowns, reversibility, decision outcome, and review trigger instead of reconstructing rationale after the fact.
 - Michigan Farm Funding Radar in JSON, CSV, Markdown, and iCalendar formats.
 - Offline-capable Michigan Farm Funding Explorer with status/county/tag/search/deadline filters and filtered CSV/JSON export.
 - Tabular Data Package metadata for the funding radar and chore taxonomy, taxonomy CSV export, schema.org DataCatalog JSON-LD, and a zero-dependency package validator.
