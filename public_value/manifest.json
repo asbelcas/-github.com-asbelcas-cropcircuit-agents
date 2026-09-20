@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-20.2",
+  "version": "2026-09-20.3",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -423,6 +423,16 @@
         "public_value/templates/sales_log_template.csv",
         "public_value/templates/workspace_1_2_empty.json"
       ]
+    },
+    {
+      "id": "offline-equipment-checklist",
+      "type": "standalone-html",
+      "description": "Browser-local user-defined equipment checklist templates and completion history.",
+      "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/equipment_checklist.html",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/EQUIPMENT_CHECKLIST.md",
+      "storage_key": "cropcircuit_equipment_checklists_v1",
+      "safety_boundary": "CropCircuit supplies no default safety checklist and does not certify completion.",
+      "dependencies": []
     }
   ],
   "updated_at": "2026-09-20",
