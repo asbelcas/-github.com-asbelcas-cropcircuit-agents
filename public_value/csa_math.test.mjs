@@ -31,4 +31,14 @@ const impossible=csaEconomics({
 });
 assert.equal(impossible.breakEvenShares,null);
 
+assert.throws(
+  () => csaEconomics({ plannedShares:"", pricePerShare:600 }),
+  TypeError
+);
+
+assert.throws(
+  () => csaEconomics({ plannedShares:40, pricePerShare:-1 }),
+  RangeError
+);
+
 console.log("PASS: CropCircuit CSA economics");
