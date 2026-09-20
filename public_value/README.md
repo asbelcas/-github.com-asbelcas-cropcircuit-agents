@@ -13,6 +13,14 @@ The operating principle is **utility before solicitation**: publish things that 
 
 Every demo record is synthetic and uses a `demo-` ID so it can be removed without deleting normal records.
 
+## Assisted setup
+
+- [Assisted Farm Data Setup — $149 pilot](farm_data_setup.html)
+- [Service scope](FARM_DATA_SETUP.md)
+- [Synthetic example deliverable](SYNTHETIC_DATA_SETUP_DELIVERABLE.md)
+
+This is optional implementation work for operators who prefer to hand off spreadsheet cleanup. The free mapper remains available.
+
 ## Import existing records
 
 - [Universal Farm CSV Mapper](universal_csv_mapper.html)
