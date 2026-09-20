@@ -30,6 +30,7 @@
 - Universal Farm CSV Mapper plus machine-readable operational data-contract registry covering labor, chores, maintenance, parts, harvest, and sales.
 - Synthetic Demo Workspace for evaluating the local workflow without using real farm records; demo data is explicitly excluded from validation/revenue/benchmark claims.
 - Added workspace example and data-contract validators to the public validation command/workflow.
+- Shareable Farm Operations Snapshot for coarse advisor/consultant review without exposing raw workspace rows or free-text notes.
 - Weekly Operations Brief expanded across all Workspace 1.1 operational domains.
 - JSON Schema for the funding dataset.
 - JSON Feed 1.1 representation for feed readers and software consumers.
