@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CropCircuit Right Relationship Gate</title>
+<style>
+:root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#647168;--line:#d9e3db;--accent:#215f45;--hold:#7b5a00;--reject:#8c3030}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}main{max-width:1050px;margin:auto;padding:30px 16px 60px}h1{font-size:clamp(2.1rem,5vw,3.5rem);line-height:1.05;margin:0 0 8px}.lead{color:var(--muted);max-width:900px}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}label{display:block;font-weight:650}input,select,textarea{width:100%;padding:9px 10px;margin-top:4px;border:1px solid #cbd6ce;border-radius:8px;background:white;font:inherit}textarea{min-height:95px}button{border:0;background:var(--accent);color:white;font-weight:750;padding:9px 12px;border-radius:8px;cursor:pointer;margin-top:10px}.small{font-size:.84rem;color:var(--muted)}.constraint{display:grid;grid-template-columns:1.5fr 1fr 2fr;gap:10px;align-items:end;border-bottom:1px solid var(--line);padding:10px 0}.result{font-size:1.4rem;font-weight:800}.pass{color:var(--accent)}.hold{color:var(--hold)}.reject{color:var(--reject)}@media(max-width:720px){.constraint{grid-template-columns:1fr}}
+</style></head>
+<body><main>
+<h1>Right Relationship Decision Gate</h1>
+<p class="lead">Use this before ROI ranking when a farm decision has hard ecological, animal-welfare, human, legal, safety, or resilience boundaries.</p>
+<div class="card"><strong>Design rule:</strong> a failed hard constraint cannot be compensated for by a larger profit or efficiency gain. This tool does not assign a universal moral score.</div>
+<section class="card"><h2>Decision</h2><div class="grid">
+<label>Decision / option<input id="decision" placeholder="Example: automate daily feeding"></label>
+<label>Purpose<input id="purpose" placeholder="What real need is this trying to meet?"></label>
+</div><label style="margin-top:12px">Enoughness question<textarea id="enough" placeholder="What would count as enough? Is the need already sufficiently met?"></textarea></label></section>
+<section class="card"><h2>Hard constraints</h2><p class="small">Set only boundaries you actually mean to treat as non-negotiable.</p><div id="constraints"></div></section>
+<section class="card"><h2>Reciprocity and wider effects</h2><div class="grid">
+<label>What does this return?<textarea id="return" placeholder="soil organic matter, human time, habitat, resilience, shared knowledge..."></textarea></label>
+<label>Who/what bears the costs?<textarea id="costs" placeholder="animals, watershed, operator, neighbors, future maintenance..."></textarea></label>
+<label>Important unknowns<textarea id="unknowns" placeholder="One per line"></textarea></label>
+<label>Reversibility<select id="reversible"><option value="unknown">Unknown</option><option value="yes">Easy to reverse/test small</option><option value="no">Hard to reverse</option></select></label>
+</div><button id="evaluate">Evaluate gate</button></section>
+<section class="card"><h2>Result</h2><div id="result" class="result">Not evaluated</div><p id="summary"></p><p class="small">PASS means only that no required hard constraint is marked failed or unresolved. It is not a moral endorsement.</p></section>
+<footer class="small" style="margin-top:20px">Inspired by CropCircuit's Dharma-Informed Design Doctrine. Not presented as a complete or authoritative account of Hinduism.</footer>
+</main>
+<script type="module">
+import { evaluateRightRelationship } from "./right_relationship.js";
+const defs=[["legal_safety","Legal / safety"],["animal_welfare","Animal welfare"],["soil_water","Soil / water"],["human_capacity","Human capacity / dignity"],["resilience","Critical resilience / failure mode"]];
+const root=document.getElementById("constraints");
+root.innerHTML=defs.map(([id,label])=>'<div class="constraint"><div><strong>'+label+'</strong><div class="small">User-defined boundary</div></div><label>Status<select data-id="'+id+'"><option value="unknown">Unknown</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="not-required">Not a hard constraint</option></select></label><label>Evidence / note<input data-note="'+id+'" placeholder="What supports this judgment?"></label></div>').join("");
+document.getElementById("evaluate").addEventListener("click",()=>{
+ const hard=[...document.querySelectorAll("[data-id]")].map(s=>({id:s.dataset.id,status:s.value==="not-required"?"pass":s.value,required:s.value!=="not-required"}));
+ const unknowns=document.getElementById("unknowns").value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+ const out=evaluateRightRelationship({hard_constraints:hard,unknowns,reversible:document.getElementById("reversible").value==="yes"});
+ const result=document.getElementById("result");result.textContent=out.gate.toUpperCase();result.className="result "+out.gate;
+ document.getElementById("summary").textContent=out.summary+(out.failed_hard_constraints.length?" Failed: "+out.failed_hard_constraints.join(", ")+".":"")+(out.unresolved_hard_constraints.length?" Unresolved: "+out.unresolved_hard_constraints.join(", ")+".":"")+(out.unknowns.length?" Other unknowns: "+out.unknowns.join(", ")+".":"");
+});
+</script></body></html>
