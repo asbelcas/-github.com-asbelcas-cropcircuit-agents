@@ -128,3 +128,17 @@ A complete synthetic case study is available at:
 It contains intentionally messy input CSVs plus canonical outputs, Workspace 1.2, a coarse operations snapshot, and a delivery note.
 
 The delivery validator deliberately rejects the case-study identifiers if someone tries to treat that synthetic package as a paid client delivery.
+
+
+## Service-order ledger
+
+CropCircuit also publishes a browser-local [Service Order Ledger](service_order_ledger.html) for operator use.
+
+It separates:
+
+- open quoted pipeline;
+- confirmed external customer payments;
+- confirmed + delivered work;
+- refunds.
+
+An inquiry, payment link, checkout click, verbal commitment, or internal transfer is never treated as confirmed customer revenue.
