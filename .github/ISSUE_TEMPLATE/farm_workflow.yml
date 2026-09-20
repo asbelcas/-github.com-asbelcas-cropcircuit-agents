@@ -1,0 +1,42 @@
+name: Farm workflow / feature request
+description: Describe a real farm workflow that an existing CropCircuit tool does not cover well
+title: "[Workflow] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Start with the farm problem, not the software feature. Please do not include private farm/customer information.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What farm task or decision is hard today?
+      description: Describe the workflow in plain language.
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: How is it handled now?
+      description: Spreadsheet, notebook, whiteboard, another app, memory, manual calculation, etc.
+    validations:
+      required: true
+  - type: textarea
+    id: friction
+    attributes:
+      label: What specifically wastes time or creates mistakes?
+    validations:
+      required: true
+  - type: textarea
+    id: minimum
+    attributes:
+      label: Smallest useful output
+      description: What is the minimum result that would make the workflow better?
+  - type: checkboxes
+    id: portability
+    attributes:
+      label: Portability / privacy
+      options:
+        - label: This workflow should ideally work without sending raw farm records to a central server.
+        - label: CSV/spreadsheet compatibility matters.
+        - label: Machine-readable/API compatibility matters.
