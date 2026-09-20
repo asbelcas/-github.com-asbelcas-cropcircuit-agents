@@ -40,6 +40,14 @@ assert.equal(
   "not-configured"
 );
 
+assert.equal(
+  partStockStatus({
+    quantityOnHand: -1,
+    reorderThreshold: 2,
+  }).status,
+  "not-configured"
+);
+
 assert.deepEqual(
   summarizePartInventory([
     {quantity_on_hand:1,reorder_threshold:2},
