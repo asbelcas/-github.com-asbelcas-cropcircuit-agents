@@ -394,26 +394,6 @@
       "type": "standalone-html",
       "description": "Browser-local equipment parts cross-reference and stock record with user-supplied reorder thresholds.",
       "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/parts_inventory.html",
-      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/PARTS_INVENTORY.md",
-      "math": "public_value/inventory_math.js",
-      "storage_key": "cropcircuit_parts_inventory_v1",
-      "safety_boundary": "Alternate part compatibility is not asserted by CropCircuit.",
-      "dependencies": []
-    },
-    {
-      "id": "sales-csv-import-mapper",
-      "type": "standalone-html",
-      "description": "Generic browser-only mapper from arbitrary sales CSV columns to the CropCircuit offline sales-log schema.",
-      "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/sales_csv_import_mapper.html",
-      "docs": "https://github.com/asbelcas/-github.com/asbelcas-cropcircuit-agents/blob/main/public_value/SALES_CSV_IMPORT.md",
-      "privacy": "No upload or server processing is required.",
-      "dependencies": []
-    },
-    {
-      "id": "equipment-parts-inventory",
-      "type": "standalone-html",
-      "description": "Browser-local equipment parts cross-reference and stock record with user-supplied reorder thresholds.",
-      "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/parts_inventory.html",
       "docs": "https://github.com/asbelcas/-github.com/asbelcas-cropcircuit-agents/blob/main/public_value/PARTS_INVENTORY.md",
       "math": "public_value/inventory_math.js",
       "storage_key": "cropcircuit_parts_inventory_v1",
