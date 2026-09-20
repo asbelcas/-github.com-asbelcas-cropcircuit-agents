@@ -10,6 +10,19 @@ A contact should normally pass the gate before outbound outreach.
 
 ## Gate
 
+## Gate 0 — Suppression check
+
+Before researching fit or drafting any message, check the private do-not-contact/suppression state and relevant thread history.
+
+If the contact has explicitly opted out:
+- stop;
+- do not qualify them for a new offer;
+- do not treat a new campaign as permission;
+- do not draft a "last try" or "different offer" message.
+
+A prior opt-out overrides every downstream qualification signal unless the person later re-initiates contact and clearly asks to communicate.
+
+
 ### 1. Problem fit
 
 Can CropCircuit name a plausible operational problem this person or organization may actually have?
