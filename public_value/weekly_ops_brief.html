@@ -34,6 +34,7 @@ table{width:100%;border-collapse:collapse;font-size:.84rem}th,td{text-align:left
 <div class="metric"><strong id="harvest-count">0</strong><span>harvest entries</span></div>
 <div class="metric"><strong id="sales-net">$0</strong><span>sales net receipts</span></div>
 <div class="metric"><strong id="maintenance-due">0</strong><span>maintenance due/overdue</span></div>
+<div class="metric"><strong id="parts-reorder">0</strong><span>parts at/below threshold</span></div>
 <div class="metric"><strong id="upcoming">0</strong><span>upcoming chore occurrences</span></div>
 </div></section>
 
@@ -61,6 +62,11 @@ table{width:100%;border-collapse:collapse;font-size:.84rem}th,td{text-align:left
 <div class="scroll"><table><thead><tr><th>Equipment</th><th>Service item</th><th>Status</th><th>Hours remaining</th><th>Days remaining</th></tr></thead><tbody id="equipment-body"></tbody></table></div>
 </section>
 
+<section class="card"><h2>Parts stock status</h2>
+<p class="small">Reorder flags use only the stock thresholds entered by the operator. Alternate part numbers are references, not compatibility claims.</p>
+<div class="scroll"><table><thead><tr><th>Equipment</th><th>Part</th><th>Primary #</th><th>On hand</th><th>Threshold</th><th>Status</th></tr></thead><tbody id="parts-body"></tbody></table></div>
+</section>
+
 <section class="card"><h2>Upcoming scheduled work</h2>
 <p id="schedule-window" class="small"></p>
 <div class="scroll"><table><thead><tr><th>Date</th><th>Tasks</th><th>Estimated minutes</th><th>Work</th></tr></thead><tbody id="schedule-body"></tbody></table></div>
@@ -76,6 +82,7 @@ import { normalizeLaborIdentity, workerHours } from "./labor_contract.js";
 import { summarizeHarvest } from "./harvest_math.js";
 import { summarizeSales } from "./sales_math.js";
 import { combinedServiceStatus } from "./equipment_math.js";
+import { partStockStatus } from "./inventory_math.js";
 
 const $=id=>document.getElementById(id);
 const esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
@@ -122,11 +129,16 @@ function build(){
   const dueCount=maintenance.filter(r=>["overdue","due"].includes(r.status.overall)).length;$("maintenance-due").textContent=dueCount;
   $("equipment-body").innerHTML=maintenance.length?maintenance.map(({x,status})=>`<tr><td>${esc(x.equipment)}</td><td>${esc(x.service)}</td><td class="${status.overall==="overdue"?"bad":status.overall==="due"?"warn":""}">${esc(status.overall)}</td><td>${status.hours.hoursRemaining===null?"—":num(status.hours.hoursRemaining)}</td><td>${status.date.daysRemaining===null?"—":status.date.daysRemaining}</td></tr>`).join(""):empty(5,"No equipment maintenance items stored.");
 
+  const parts=w.parts_inventory.map(x=>({x,status:partStockStatus({quantityOnHand:x.quantity_on_hand,reorderThreshold:x.reorder_threshold,preferredOrderQuantity:x.preferred_order_quantity})}))
+    .sort((a,b)=>a.status.status==="reorder"&&b.status.status!=="reorder"?-1:a.status.status!=="reorder"&&b.status.status==="reorder"?1:String(a.x.equipment||"").localeCompare(String(b.x.equipment||"")));
+  $("parts-reorder").textContent=parts.filter(r=>r.status.status==="reorder").length;
+  $("parts-body").innerHTML=parts.length?parts.map(({x,status})=>`<tr><td>${esc(x.equipment||"")}</td><td>${esc(x.part_name||"")}</td><td><code>${esc(x.primary_part_number||"")}</code></td><td>${x.quantity_on_hand??"—"}</td><td>${x.reorder_threshold??"—"}</td><td class="${status.status==="reorder"?"warn":""}">${esc(status.status)}</td></tr>`).join(""):empty(6,"No equipment parts inventory stored.");
+
   const futureDays=Math.max(1,Math.min(Number($("future-days").value)||7,90)),futureStart=addDays(end,1),futureEnd=addDays(end,futureDays),schedule=buildDailyLoad(w.chore_schedule,{startDate:futureStart,endDate:futureEnd});
   $("upcoming").textContent=schedule.reduce((s,d)=>s+d.tasks.length,0);$("schedule-window").textContent=`Upcoming window: ${futureStart} through ${futureEnd}.`;
   $("schedule-body").innerHTML=schedule.length?schedule.map(d=>`<tr><td>${d.date}</td><td>${d.tasks.length}</td><td>${num(d.total_estimated_minutes,0)}</td><td>${d.tasks.map(t=>`${esc(t.task)}${t.chore_code?` <code>${esc(t.chore_code)}</code>`:""}`).join("<br>")}</td></tr>`).join(""):empty(4,"No scheduled work falls in the upcoming window.");
 
-  $("source").textContent=`Workspace 1.1 view: ${w.labor_entries.length} labor, ${w.chore_schedule.length} chore, ${w.equipment_maintenance.length} maintenance, ${w.harvest_entries.length} harvest, and ${w.sales_entries.length} sales record(s) stored locally. Report window: ${start} through ${end}.`;
+  $("source").textContent=`Workspace 1.2 view: ${w.labor_entries.length} labor, ${w.chore_schedule.length} chore, ${w.equipment_maintenance.length} maintenance, ${w.parts_inventory.length} parts, ${w.harvest_entries.length} harvest, and ${w.sales_entries.length} sales record(s) stored locally. Report window: ${start} through ${end}.`;
 }
 $("build").addEventListener("click",build);$("print").addEventListener("click",()=>window.print());defaultWindow();build();
 </script></body></html>
