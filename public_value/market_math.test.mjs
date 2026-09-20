@@ -38,4 +38,14 @@ const impossible = marketDayEconomics({
 });
 assert.equal(impossible.breakEvenTransactions, null);
 
+assert.throws(
+  () => marketDayEconomics({ averageSale: "" }),
+  TypeError
+);
+
+assert.throws(
+  () => marketDayEconomics({ averageSale: 25, boothFee: -1 }),
+  RangeError
+);
+
 console.log("PASS: CropCircuit market day math");
