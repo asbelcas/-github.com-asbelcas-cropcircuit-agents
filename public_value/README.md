@@ -4,6 +4,13 @@ This directory is the public, reusable core of CropCircuit.
 
 The operating principle is **utility before solicitation**: publish things that are genuinely useful without requiring a sales call, account, subscription, or surrender of raw farm data.
 
+## Import existing records
+
+- [Universal Farm CSV Mapper](universal_csv_mapper.html)
+- [Data-contract registry](data_contracts.json)
+
+Map arbitrary CSV exports into labor, chores, maintenance, parts, harvest, or sales, then export canonical data or write valid rows to the local workspace.
+
 ## Spreadsheet starting point
 
 - [Spreadsheet Starter Kit](SPREADSHEET_STARTER_KIT.md)
