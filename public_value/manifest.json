@@ -296,7 +296,7 @@
     {
       "id": "weekly-farm-operations-brief",
       "type": "standalone-html",
-      "description": "Browser-local printable operations summary spanning labor, harvest, direct-market sales, equipment maintenance, and upcoming recurring chores.",
+      "description": "Browser-local printable operations summary spanning labor, harvest, direct-market sales, equipment maintenance, parts stock status, and upcoming recurring chores.",
       "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/weekly_ops_brief.html",
       "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/WEEKLY_OPS_BRIEF.md",
       "privacy": "Reads only the browser-local CropCircuit workspace; free-text notes are not displayed in the report.",
@@ -306,7 +306,8 @@
         "public_value/labor_contract.js",
         "public_value/harvest_math.js",
         "public_value/sales_math.js",
-        "public_value/equipment_math.js"
+        "public_value/equipment_math.js",
+        "public_value/inventory_math.js"
       ]
     },
     {
@@ -346,7 +347,7 @@
       "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/farm_ops_console.html",
       "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/FARM_OPS_CONSOLE.md",
       "privacy": "No external libraries, account, analytics, server sync, or network requests are required by the file.",
-      "compatibility": "Uses the shared CropCircuit local workspace keys when opened from the same origin.",
+      "compatibility": "Uses and preserves the shared CropCircuit Workspace 1.2 keys when opened from the same origin.",
       "dependencies": []
     },
     {
@@ -385,7 +386,7 @@
     {
       "id": "workspace-json-schema",
       "type": "data-standard",
-      "description": "JSON Schema for portable CropCircuit Workspace 1.0 and 1.1 backups.",
+      "description": "JSON Schema for portable CropCircuit Workspace 1.0, 1.1, and 1.2 backups.",
       "source": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/workspace.schema.json"
     },
     {
