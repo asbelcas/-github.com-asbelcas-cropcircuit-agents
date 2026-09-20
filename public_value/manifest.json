@@ -460,8 +460,8 @@
     "inventory_math_tests": "public_value/inventory_math.test.mjs"
   },
   "stable_snapshot": {
-    "version": "0.13.0",
-    "branch": "release/public-value-0.13.0",
-    "commit": "e39d3e2013370a973d99afc2791a0000f2c40823"
+    "version": "0.14.0",
+    "branch": "release/public-value-0.14.0",
+    "commit": "aeba8c9756ba21d10be5d16e6fa6fd3623c19844"
   }
 }
