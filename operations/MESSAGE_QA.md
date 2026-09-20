@@ -2,7 +2,7 @@
 
 Run this before sending meaningful external customer, prospect, partner, or lender communication.
 
-Score each item 0 or 1. Target: 9/10 or better. A failure on Truth, Recipient, or Opt-out is a hard stop.
+Score each item 0 or 1. Target: 11/12 or better. A failure on Truth, Recipient, Opt-out, or Pacing/Attention is a hard stop.
 
 | Check | Pass condition |
 | --- | --- |
@@ -16,6 +16,8 @@ Score each item 0 or 1. Target: 9/10 or better. A failure on Truth, Recipient, o
 | CTA | One obvious low-friction next step. |
 | Continuity | Next action/state can be recorded after sending; no duplicate contact. |
 | Respect | No pressure tricks; opt-outs/declines/channel norms are honored. |
+| Pacing / Attention | Message is worth interrupting the recipient now; no unnecessary stacked email or premature follow-up. |
+| Cognitive Load | Related questions are batched, avoidable research burden is removed, and one primary response/action is obvious. |
 
 ## Hard-stop failures
 
@@ -26,6 +28,8 @@ Do not send when:
 - the offer/scope is materially unclear;
 - sensitive/private information is included unnecessarily;
 - the same message was already sent recently;
+- a meaningful nonurgent message was already sent very recently and this new message can reasonably wait or be batched;
+- the message creates multiple avoidable decisions/research tasks for the recipient;
 - an important claim needs current verification and has not been checked.
 
 ## Support-response addendum
@@ -45,3 +49,15 @@ For outbound, confirm:
 - there is evidence behind the value proposition;
 - the offer is small enough to evaluate;
 - the follow-up cadence will add new value rather than repeat the pitch.
+
+
+## PACE preflight
+
+Before send, answer:
+
+- **Purpose:** What single job does this message need to do?
+- **Attention:** Why is it worth the recipient's attention now?
+- **Context:** What prior thread information have we reused so they do not need to repeat themselves?
+- **Ease:** What is the one easiest next step?
+
+If Attention or Ease cannot be answered clearly, hold the message.

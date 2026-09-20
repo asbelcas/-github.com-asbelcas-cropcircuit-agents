@@ -133,14 +133,35 @@ A pilot should have:
 
 ### Follow-up cadence
 
+Cadence is a ceiling, not a quota.
+
 Internal default for qualified outbound unless channel/context suggests otherwise:
 
 - Touch 1: relevant introduction + concrete value.
-- Touch 2: 2–3 business days later; add one useful detail, example, or clarification.
-- Touch 3: about 4–5 business days later; concise restatement tied to their problem.
-- Touch 4: close-the-loop message; make it easy to decline or revisit later.
+- Touch 2: no sooner than 2–3 business days later; add one useful detail, example, or clarification.
+- Touch 3: about 4–5 business days later only if the relationship still justifies it; concise restatement tied to their problem.
+- Touch 4: optional close-the-loop message; make it easy to decline or revisit later.
 
 Do not send four copies of the same message.
+
+### Recipient attention budget
+
+Every outbound message spends recipient attention.
+
+Before a second message, ask:
+- Did the previous message actually require a reply?
+- Has the recipient had a reasonable amount of time?
+- Can new information wait and be batched?
+- Would another message help them, or mainly reduce our own uncertainty?
+
+For nonurgent communication:
+- avoid multiple separate emails to the same person in one day;
+- consolidate related questions;
+- match the recipient's observed response pace;
+- treat silence as information, not automatic permission to nudge;
+- do not impose AI-speed communication on a human recipient.
+
+A new internal discovery is not automatically a reason to send another email.
 
 Stop when:
 - they decline;
@@ -274,7 +295,25 @@ Never:
 - keep contacting someone who declined;
 - use private/sensitive personal data for personalization.
 
-## 10. CropCircuit-specific selling posture
+## 10. Communication pacing and etiquette
+
+Use the full training standard in:
+- `operations/COMMUNICATION_CUSTOMER_SERVICE_PR_TRAINING.md`
+
+Before meaningful external communication, apply **PACE**:
+- Purpose — one clear job for the message;
+- Attention — worth interrupting the recipient now;
+- Context — thread/history read and known facts reused;
+- Ease — one proportionate, low-friction next step.
+
+If a recipient appears overwhelmed, confused, or burdened by message volume:
+- stop adding messages;
+- consolidate internally;
+- reduce asks;
+- wait unless something is genuinely time-sensitive;
+- consider whether a different channel would be kinder and clearer.
+
+## 11. CropCircuit-specific selling posture
 
 CropCircuit's strongest sales posture is:
 
@@ -309,7 +348,7 @@ Sources reviewed September 20, 2026:
 - Salesforce: 2026 B2B prospecting strategy
 
 
-## 11. Suppression and opt-outs
+## 12. Suppression and opt-outs
 
 An explicit opt-out is a permanent suppression state, not a sales objection.
 
