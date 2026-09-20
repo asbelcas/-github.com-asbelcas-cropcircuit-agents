@@ -12,7 +12,7 @@ function finiteOrNull(value) {
 
 function nonnegative(value) {
   const n = finiteOrNull(value);
-  return n === null ? null : Math.max(n, 0);
+  return n === null || n < 0 ? null : n;
 }
 
 export function partStockStatus({
