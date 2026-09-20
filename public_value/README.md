@@ -1,4 +1,6 @@
-# CropCircuit Public Value Assets
+# CropCircuit Public Value
+
+**New here?** Start with [Start Here](START_HERE.md). For temporary runnable previews while Pages is disabled, see [Try CropCircuit Now](TRY_IT_NOW.md). Assets
 
 This directory is the public, reusable core of CropCircuit.
 
