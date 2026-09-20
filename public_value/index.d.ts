@@ -184,8 +184,8 @@ export function buildDailyLoad(
   }>;
 }>;
 
-export const WORKSPACE_VERSION: "1.1";
-export const SUPPORTED_WORKSPACE_VERSIONS: readonly ["1.0","1.1"];
+export const WORKSPACE_VERSION: "1.2";
+export const SUPPORTED_WORKSPACE_VERSIONS: readonly ["1.0","1.1","1.2"];
 
 export const WORKSPACE_KEYS: Readonly<{
   laborEntries: string;
@@ -194,10 +194,11 @@ export const WORKSPACE_KEYS: Readonly<{
   equipmentMaintenance: string;
   harvestEntries: string;
   salesEntries: string;
+  partsInventory: string;
 }>;
 
 export interface CropCircuitWorkspace {
-  schema_version: "1.0" | "1.1";
+  schema_version: "1.0" | "1.1" | "1.2";
   exported_at?: string;
   labor_entries: Array<Record<string, unknown>>;
   labor_settings: Record<string, unknown>;
@@ -205,6 +206,7 @@ export interface CropCircuitWorkspace {
   equipment_maintenance?: Array<Record<string, unknown>>;
   harvest_entries?: Array<Record<string, unknown>>;
   sales_entries?: Array<Record<string, unknown>>;
+  parts_inventory?: Array<Record<string, unknown>>;
 }
 
 export function readWorkspace(storage: Storage): CropCircuitWorkspace;
@@ -221,6 +223,7 @@ export function writeWorkspace(
   equipment_maintenance?: number;
   harvest_entries?: number;
   sales_entries?: number;
+  parts_inventory?: number;
 };
 
 export function marketDayEconomics(args: {
@@ -381,3 +384,29 @@ export function summarizeSales(
   netReceipts: number;
   contributionAfterDirectCosts: number;
 }>;
+
+export function partStockStatus(args: {
+  quantityOnHand: number | string;
+  reorderThreshold: number | string;
+  preferredOrderQuantity?: number | string | null;
+}): {
+  configured: boolean;
+  status: "reorder" | "ok" | "not-configured";
+  quantityOnHand: number | null;
+  reorderThreshold: number | null;
+  suggestedOrderQuantity: number | null;
+};
+
+export function summarizePartInventory(
+  parts: Array<{
+    quantity_on_hand?: number | string;
+    reorder_threshold?: number | string;
+    preferred_order_quantity?: number | string | null;
+    [key: string]: unknown;
+  }>
+): {
+  totalParts: number;
+  configuredParts: number;
+  reorderParts: number;
+  okParts: number;
+};
