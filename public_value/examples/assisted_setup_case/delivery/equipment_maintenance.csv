@@ -1,0 +1,3 @@
+equipment,service,current_hours,last_service_hours,interval_hours,last_service_date,interval_days
+Demo Tractor,Engine oil and filter,1425,1255,200,2026-06-01,180
+Demo Utility Vehicle,General inspection,620,500,150,2026-04-15,120
