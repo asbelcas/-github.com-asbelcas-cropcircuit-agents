@@ -410,3 +410,12 @@ export function summarizePartInventory(
   reorderParts: number;
   okParts: number;
 };
+
+export function buildOperationsSnapshot(
+  workspace: Record<string, unknown>,
+  options?: {
+    startDate?: string | null;
+    endDate?: string | null;
+    includeSalesDollars?: boolean;
+  }
+): Record<string, unknown>;
