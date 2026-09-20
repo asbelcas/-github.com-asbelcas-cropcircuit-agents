@@ -1,6 +1,6 @@
 {
   "name": "cropcircuit-open-farm-utils",
-  "version": "0.15.0",
+  "version": "0.15.1",
   "description": "Local-first farm operations utilities, reusable farm math, funding-data tools, and privacy-preserving benchmark infrastructure.",
   "type": "module",
   "license": "MIT",
