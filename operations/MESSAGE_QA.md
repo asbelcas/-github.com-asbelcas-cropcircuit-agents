@@ -61,3 +61,15 @@ Before send, answer:
 - **Ease:** What is the one easiest next step?
 
 If Attention or Ease cannot be answered clearly, hold the message.
+
+
+## Deterministic pacing preflight
+
+For automatable external-message workflows, run `tools/communication_pace_linter.py` before send when the needed timing/context metadata is available.
+
+Interpretation:
+- `HOLD` — do not send until the named pacing/context blocker changes;
+- `REVIEW` — inspect cognitive load, question count, length, or pressure language;
+- `PASS` — no configured deterministic pacing blocker was found.
+
+A linter `PASS` does not replace the full message QA, thread read, truth check, suppression check, or human/agent judgment.
