@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-20.3",
+  "version": "2026-09-20.4",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -433,6 +433,12 @@
       "storage_key": "cropcircuit_equipment_checklists_v1",
       "safety_boundary": "CropCircuit supplies no default safety checklist and does not certify completion.",
       "dependencies": []
+    },
+    {
+      "id": "user-need-evidence-2026-09-20",
+      "type": "research-note",
+      "description": "Public community signals behind CropCircuit's spreadsheet-compatible, local-first equipment and direct-market utility direction, explicitly not treated as market validation.",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/USER_NEED_EVIDENCE_2026-09-20.md"
     }
   ],
   "updated_at": "2026-09-20",
