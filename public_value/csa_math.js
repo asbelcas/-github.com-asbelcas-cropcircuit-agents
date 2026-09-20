@@ -4,11 +4,17 @@
  */
 
 function finite(name, value) {
+  if (value === null || value === undefined) throw new TypeError(`${name} must be a finite number`);
+  if (typeof value === "string" && value.trim() === "") throw new TypeError(`${name} must be a finite number`);
   const n = Number(value);
   if (!Number.isFinite(n)) throw new TypeError(`${name} must be a finite number`);
   return n;
 }
-function nonnegative(name, value) { return Math.max(finite(name, value), 0); }
+function nonnegative(name, value) {
+  const n = finite(name, value);
+  if (n < 0) throw new RangeError(`${name} must be non-negative`);
+  return n;
+}
 function round(value, places = 2) {
   const p = 10 ** places;
   return Math.round((value + Number.EPSILON) * p) / p;
