@@ -42,6 +42,16 @@ Existing POS, invoice, or spreadsheet exports can be mapped into CropCircuit's o
 - [Sales CSV Import Mapper](public_value/sales_csv_import_mapper.html)
 - [Documentation](public_value/SALES_CSV_IMPORT.md)
 
+### Shareable Farm Operations Snapshot
+
+A coarse export bridges private local records to advisor/consultant review without sending the raw Workspace:
+
+- [Operations Snapshot](public_value/operations_snapshot.html)
+- [Documentation](public_value/OPERATIONS_SNAPSHOT.md)
+- [Reusable summary helper](public_value/ops_snapshot.js)
+
+Sales-dollar summaries are opt-in; notes and raw rows are excluded.
+
 ### Offline Farm Sales Log
 
 A local-first sales record separates operational sales arithmetic from accounting claims:
