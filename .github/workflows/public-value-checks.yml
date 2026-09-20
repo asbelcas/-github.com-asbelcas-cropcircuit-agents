@@ -66,3 +66,5 @@ jobs:
         run: node public_value/harvest_math.test.mjs
       - name: Test sales summary math
         run: node public_value/sales_math.test.mjs
+      - name: Test parts inventory math
+        run: node public_value/inventory_math.test.mjs
