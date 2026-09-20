@@ -425,5 +425,6 @@ The repository includes a GitHub Actions workflow for funding-data freshness and
 - `release/public-value-0.15.1` → commit `55ed09997d00c25af50199def43ccb7e73e9f407`
 - `release/public-value-0.16.0` → commit `4a163769aaf7443e93ffe55d74935359b2780319`
 - `release/public-value-0.16.1` → commit `21e7368fbc0875b658cbec7549b2a117bb5065fa`
+- `release/public-value-0.16.2` → commit `47945f5d56529dfda2a972c23feb457f565be92d`
 
 Integration examples pin code by commit SHA for reproducibility, while mutable funding data remains on `main`.
