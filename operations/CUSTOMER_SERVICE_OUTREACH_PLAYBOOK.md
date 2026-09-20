@@ -307,3 +307,33 @@ Sources reviewed September 20, 2026:
 - Intercom: personal support and personalization at scale
 - HubSpot: customer service, prospecting, personalization, AI prospecting
 - Salesforce: 2026 B2B prospecting strategy
+
+
+## 11. Suppression and opt-outs
+
+An explicit opt-out is a permanent suppression state, not a sales objection.
+
+Examples:
+- "remove me";
+- "take me off your list";
+- "do not contact me";
+- "stop emailing me";
+- an equivalent unambiguous request.
+
+Before outbound or follow-up to a known contact:
+
+1. check the private suppression / do-not-contact state;
+2. inspect thread history when practical;
+3. if an explicit opt-out exists, do not draft, recommend, queue, or send sales outreach;
+4. do not clear suppression because a new offer, campaign, agent, or contact list exists;
+5. only resume commercial communication if the person later re-initiates contact and clearly asks to communicate.
+
+A suppression system must operate across campaigns, not inside one campaign only.
+
+If an opt-out was previously missed, treat that as a process incident:
+- stop further outreach;
+- mark the relationship suppressed;
+- identify why the suppression did not carry forward;
+- repair the workflow before scaling outbound volume.
+
+Public repositories should document the suppression mechanism, not publish real suppressed contact PII.
