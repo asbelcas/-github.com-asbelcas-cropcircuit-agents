@@ -563,6 +563,15 @@
       ],
       "record_schema": "public_value/right_relationship_record.schema.json",
       "synthetic_example": "public_value/examples/synthetic_right_relationship_decision.json"
+    },
+    {
+      "id": "high-impact-decision-record",
+      "type": "governance-data-standard",
+      "description": "Portable JSON decision record preserving purpose, hard constraints, evidence, viability, enoughness, uncertainty, reversibility, gate result, outcome, and review trigger.",
+      "schema": "public_value/decision_record.schema.json",
+      "validator": "public_value/validate_decision_record.mjs",
+      "tests": "public_value/validate_decision_record.test.mjs",
+      "docs": "public_value/HIGH_IMPACT_DECISION_RECORD.md"
     }
   ],
   "updated_at": "2026-09-20",
@@ -592,7 +601,8 @@
     "data_contract_validation": "public_value/validate_data_contracts.mjs",
     "operations_snapshot_tests": "public_value/ops_snapshot.test.mjs",
     "assisted_setup_delivery_tests": "public_value/validate_setup_delivery.test.mjs",
-    "right_relationship_tests": "public_value/right_relationship.test.mjs"
+    "right_relationship_tests": "public_value/right_relationship.test.mjs",
+    "decision_record_tests": "public_value/validate_decision_record.test.mjs"
   },
   "stable_snapshot": {
     "version": "0.17.3",
