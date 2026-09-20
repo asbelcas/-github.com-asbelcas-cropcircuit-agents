@@ -25,6 +25,8 @@
 - Equipment Parts Inventory with operator-entered cross references and explicit compatibility boundary.
 - Offline Equipment Checklist with user-defined machine checks, completion history, and explicit no-default-safety-list boundary.
 - Generic Sales CSV Import Mapper for POS/invoice/spreadsheet exports.
+- Spreadsheet Starter Kit with blank portable operational CSV templates.
+- User-Need Evidence note documenting the public community signals behind the direction without treating them as market validation.
 - Weekly Operations Brief expanded across all Workspace 1.1 operational domains.
 - JSON Schema for the funding dataset.
 - JSON Feed 1.1 representation for feed readers and software consumers.
