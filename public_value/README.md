@@ -20,6 +20,7 @@ Every demo record is synthetic and uses a `demo-` ID so it can be removed withou
 - [Synthetic example deliverable](SYNTHETIC_DATA_SETUP_DELIVERABLE.md)
 - [Assisted Setup Intake Builder](assisted_setup_intake.html)
 - [Synthetic before → after case study](examples/assisted_setup_case/README.md)
+- [Local Service Order Ledger](service_order_ledger.html)
 
 This is optional implementation work for operators who prefer to hand off spreadsheet cleanup. The free mapper remains available.
 
