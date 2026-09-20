@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CropCircuit Synthetic Demo Workspace</title>
+<meta name="description" content="Load or remove clearly synthetic demo farm records from the local CropCircuit workspace.">
+<style>
+:root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#627067;--line:#dbe4dc;--accent:#215f45;--soft:#edf5ef;--danger:#8c3030}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}
+main{max-width:900px;margin:auto;padding:30px 16px 60px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px}h2{margin:0 0 10px}.lead{color:var(--muted)}
+.notice{background:var(--soft);border:1px solid #cfe0d3;border-radius:12px;padding:12px 14px;margin:18px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}.metric{border:1px solid var(--line);border-radius:10px;padding:12px;background:#fafcf9}.metric strong{display:block;font-size:1.35rem}
+button{border:0;background:var(--accent);color:white;font-weight:700;padding:10px 13px;border-radius:8px;cursor:pointer;margin:10px 6px 0 0}.danger{background:var(--danger)}.secondary{background:#56675d}.small{font-size:.85rem;color:var(--muted)}
+</style></head>
+<body><main>
+<h1>Synthetic Demo Workspace</h1>
+<p class="lead">Load a small fictional farm dataset into this browser so you can try CropCircuit's local-first tools before entering any real records.</p>
+<div class="notice"><strong>Every demo record is synthetic.</strong> Demo IDs begin with <code>demo-</code>. You can remove them again without deleting normal records.</div>
+
+<section class="card"><h2>Demo contents</h2><div class="metrics">
+<div class="metric"><strong>6</strong><span>labor entries</span></div>
+<div class="metric"><strong>3</strong><span>scheduled chores</span></div>
+<div class="metric"><strong>2</strong><span>maintenance items</span></div>
+<div class="metric"><strong>2</strong><span>parts records</span></div>
+<div class="metric"><strong>3</strong><span>harvest entries</span></div>
+<div class="metric"><strong>2</strong><span>sales records</span></div>
+</div>
+<p class="small">The records are intentionally simple and exist only to exercise the workflow.</p>
+<button id="load">Merge demo into local workspace</button>
+<button id="remove" class="danger">Remove demo records</button>
+<button id="backup" class="secondary">Download demo Workspace JSON</button>
+<p id="status" class="small"></p></section>
+
+<section class="card"><h2>What to try next</h2>
+<p>After loading the demo, open the Weekly Farm Operations Brief, Labor Opportunity Analyzer, Schedule Estimate Calibrator, Parts Inventory, Harvest Log, or Sales Log from the same web origin. They will read the compatible local records.</p>
+<p class="small">Browser storage is origin-scoped. A demo loaded under a temporary preview origin will not automatically appear under a different future Pages or cropcircuit.org origin.</p>
+</section>
+
+<footer class="small" style="margin-top:20px">CropCircuit Open Farm Utilities. Synthetic data only.</footer>
+</main>
+<script type="module">
+import { writeWorkspace, readWorkspace, WORKSPACE_KEYS } from "./workspace.js";
+
+const DEMO={"schema_version":"1.2","exported_at":"2026-09-20T11:15:00Z","labor_entries":[{"id":"demo-l1","date":"2026-09-14","category":"Fencing","task":"Move portable fence","chore_code":"fencing.move","minutes":35,"workers":1,"worker_hours":0.583,"notes":"Synthetic demo record"},{"id":"demo-l2","date":"2026-09-15","category":"Livestock","task":"Fill water troughs","chore_code":"livestock.water","minutes":28,"workers":1,"worker_hours":0.467,"notes":"Synthetic demo record"},{"id":"demo-l3","date":"2026-09-16","category":"Harvest","task":"Harvest tomatoes","chore_code":"harvest.pick","minutes":70,"workers":2,"worker_hours":2.333,"notes":"Synthetic demo record"},{"id":"demo-l4","date":"2026-09-17","category":"Wash / Pack","task":"Wash and pack produce","chore_code":"washpack.pack","minutes":80,"workers":2,"worker_hours":2.667,"notes":"Synthetic demo record"},{"id":"demo-l5","date":"2026-09-18","category":"Market / Sales","task":"Farmers market setup and selling","chore_code":"market.sell","minutes":300,"workers":1,"worker_hours":5,"notes":"Synthetic demo record"},{"id":"demo-l6","date":"2026-09-19","category":"Maintenance","task":"Grease equipment","chore_code":"maintenance.grease","minutes":25,"workers":1,"worker_hours":0.417,"notes":"Synthetic demo record"}],"labor_settings":{"hourly":22},"chore_schedule":[{"id":"demo-s1","task":"Move portable fence","chore_code":"fencing.move","category":"Fencing","first_date":"2026-09-21","frequency":"DAILY","interval":1,"estimated_minutes":30,"notes":"Synthetic demo"},{"id":"demo-s2","task":"Check water system","chore_code":"water.inspect","category":"Water","first_date":"2026-09-21","frequency":"DAILY","interval":1,"estimated_minutes":15,"notes":"Synthetic demo"},{"id":"demo-s3","task":"Record farm notes","chore_code":"admin.recordkeeping","category":"Admin","first_date":"2026-09-21","frequency":"WEEKLY","interval":1,"estimated_minutes":20,"notes":"Synthetic demo"}],"equipment_maintenance":[{"id":"demo-e1","equipment":"Demo Tractor","service":"Engine oil and filter","current_hours":1425,"last_service_hours":1255,"interval_hours":200,"last_service_date":"2026-06-01","interval_days":180},{"id":"demo-e2","equipment":"Demo Utility Vehicle","service":"General inspection","current_hours":620,"last_service_hours":500,"interval_hours":150,"last_service_date":"2026-04-15","interval_days":120}],"harvest_entries":[{"id":"demo-h1","date":"2026-09-16","item":"Tomato","quantity":42,"unit":"lb","destination":"Farmers Market"},{"id":"demo-h2","date":"2026-09-16","item":"Cucumber","quantity":28,"unit":"count","destination":"Farmers Market"},{"id":"demo-h3","date":"2026-09-18","item":"Tomato","quantity":31,"unit":"lb","destination":"CSA"}],"sales_entries":[{"id":"demo-x1","date":"2026-09-18","channel":"Farmers Market","item":"Mixed produce","gross_amount":640,"payment_fees":19.2,"refunds_discounts":10,"direct_costs":165},{"id":"demo-x2","date":"2026-09-19","channel":"CSA","item":"Weekly shares","gross_amount":480,"payment_fees":14.4,"refunds_discounts":0,"direct_costs":130}],"parts_inventory":[{"id":"demo-p1","equipment":"Demo Tractor","part_name":"Engine oil filter","primary_part_number":"DEMO-OIL-100","alternate_part_numbers":"DEMO-ALT-100","supplier":"Demo Farm Supply","storage_location":"Shop shelf A","quantity_on_hand":1,"reorder_threshold":2,"preferred_order_quantity":4},{"id":"demo-p2","equipment":"Demo Tractor","part_name":"Grease cartridge","primary_part_number":"DEMO-GREASE-1","alternate_part_numbers":"","supplier":"Demo Farm Supply","storage_location":"Shop shelf B","quantity_on_hand":8,"reorder_threshold":3,"preferred_order_quantity":6}]};
+const $=id=>document.getElementById(id);
+
+function removeDemoFrom(key,isObject=false){
+  if(isObject)return;
+  let rows=[];
+  try{const x=JSON.parse(localStorage.getItem(key)||"[]");if(Array.isArray(x))rows=x}catch{}
+  localStorage.setItem(key,JSON.stringify(rows.filter(x=>!String(x?.id||"").startsWith("demo-"))));
+}
+
+$("load").addEventListener("click",()=>{
+  const result=writeWorkspace(localStorage,DEMO,{mode:"merge"});
+  $("status").textContent=result.ok
+    ? `Demo merged. Workspace now has ${result.labor_entries} labor, ${result.chore_schedule} chores, ${result.equipment_maintenance} maintenance, ${result.parts_inventory} parts, ${result.harvest_entries} harvest, and ${result.sales_entries} sales records.`
+    : "Could not load demo: "+result.errors.join("; ");
+});
+
+$("remove").addEventListener("click",()=>{
+  if(!confirm("Remove all local records whose IDs begin with demo-? Normal records will remain."))return;
+  removeDemoFrom(WORKSPACE_KEYS.laborEntries);
+  removeDemoFrom(WORKSPACE_KEYS.choreSchedule);
+  removeDemoFrom(WORKSPACE_KEYS.equipmentMaintenance);
+  removeDemoFrom(WORKSPACE_KEYS.harvestEntries);
+  removeDemoFrom(WORKSPACE_KEYS.salesEntries);
+  removeDemoFrom(WORKSPACE_KEYS.partsInventory);
+  const w=readWorkspace(localStorage);
+  $("status").textContent=`Demo records removed. Remaining: ${w.labor_entries.length} labor, ${w.chore_schedule.length} chores, ${w.equipment_maintenance.length} maintenance, ${w.parts_inventory.length} parts, ${w.harvest_entries.length} harvest, ${w.sales_entries.length} sales.`;
+});
+
+$("backup").addEventListener("click",()=>{
+  const blob=new Blob([JSON.stringify(DEMO,null,2)+"\n"],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+  a.href=url;a.download="cropcircuit-synthetic-demo-workspace-v1.2.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+});
+</script></body></html>
