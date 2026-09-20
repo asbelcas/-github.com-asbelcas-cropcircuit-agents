@@ -57,13 +57,19 @@ Due / overdue status uses only the meter-hour and calendar intervals stored by t
 
 CropCircuit does not supply maintenance intervals.
 
+## Parts inventory
+
+The brief also shows the local equipment-parts inventory and flags rows at or below the operator-entered reorder threshold.
+
+The report does not assert that alternate part numbers are compatible substitutes.
+
 ## Upcoming recurring work
 
 The brief expands the local chore schedule after the report end date using the same recurrence logic as `schedule_math.js`.
 
 ## Privacy
 
-The report is generated entirely in the browser from Workspace 1.1 data.
+The report is generated entirely in the browser from Workspace 1.2 data.
 
 Free-text notes are deliberately not shown.
 
