@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-20.1",
+  "version": "2026-09-20.2",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -408,6 +408,21 @@
       "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/SALES_CSV_IMPORT.md",
       "privacy": "No upload or server processing is required.",
       "dependencies": []
+    },
+    {
+      "id": "spreadsheet-starter-kit",
+      "type": "template-kit",
+      "description": "Blank portable CSV templates for labor, recurring chores, equipment maintenance, parts inventory, harvest, and sales plus an empty Workspace 1.2 JSON file.",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/SPREADSHEET_STARTER_KIT.md",
+      "templates": [
+        "public_value/templates/labor_log_template.csv",
+        "public_value/templates/chore_schedule_template.csv",
+        "public_value/templates/equipment_maintenance_template.csv",
+        "public_value/templates/parts_inventory_template.csv",
+        "public_value/templates/harvest_log_template.csv",
+        "public_value/templates/sales_log_template.csv",
+        "public_value/templates/workspace_1_2_empty.json"
+      ]
     }
   ],
   "updated_at": "2026-09-20",
