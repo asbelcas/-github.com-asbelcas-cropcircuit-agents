@@ -108,3 +108,23 @@ The pilot has a published fulfillment standard:
 - [Delivery validator tests](validate_setup_delivery.test.mjs)
 
 The validator checks the final Workspace for schema errors, `demo-` IDs, sensitive-looking field names, required delivery files, canonical CSV presence, and emits SHA-256 checksums.
+
+
+## Intake builder
+
+Before sending any private source files, use the [Assisted Setup Intake Builder](assisted_setup_intake.html).
+
+It creates a short scope request with a random request ID and explicitly excludes farm/customer identifying information.
+
+- [Intake builder](assisted_setup_intake.html)
+- [Intake documentation](ASSISTED_SETUP_INTAKE.md)
+
+## Before → after case study
+
+A complete synthetic case study is available at:
+
+- [Synthetic assisted setup case](examples/assisted_setup_case/README.md)
+
+It contains intentionally messy input CSVs plus canonical outputs, Workspace 1.2, a coarse operations snapshot, and a delivery note.
+
+The delivery validator deliberately rejects the case-study identifiers if someone tries to treat that synthetic package as a paid client delivery.
