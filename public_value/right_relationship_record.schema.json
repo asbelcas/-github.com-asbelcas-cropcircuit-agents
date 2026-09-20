@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/right_relationship_record.schema.json",
+  "title": "CropCircuit Right Relationship Decision Record",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "generated_at",
+    "decision",
+    "purpose",
+    "hard_constraints",
+    "unknowns",
+    "evaluation"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "decision": {
+      "type": "string"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "enoughness_note": {
+      "type": "string"
+    },
+    "reciprocity_note": {
+      "type": "string"
+    },
+    "cost_bearers_note": {
+      "type": "string"
+    },
+    "reversibility": {
+      "enum": [
+        "unknown",
+        "yes",
+        "no"
+      ]
+    },
+    "hard_constraints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "required"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "pass",
+              "fail",
+              "unknown"
+            ]
+          },
+          "required": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evaluation": {
+      "type": "object",
+      "required": [
+        "gate",
+        "failed_hard_constraints",
+        "unresolved_hard_constraints",
+        "unknowns",
+        "summary"
+      ],
+      "properties": {
+        "gate": {
+          "enum": [
+            "pass",
+            "hold",
+            "reject"
+          ]
+        },
+        "failed_hard_constraints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unresolved_hard_constraints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unknowns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "enoughness_met": {
+          "type": "boolean"
+        },
+        "reversible": {
+          "type": "boolean"
+        },
+        "summary": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
