@@ -25,6 +25,15 @@ For operators who already have farm spreadsheets but do not want to clean and ma
 
 The free Universal CSV Mapper remains available; the paid pilot is implementation labor, not software access.
 
+### Automation Proof & Scoping
+
+For prospective data/AI workflow projects, CropCircuit now publishes an evidence-based capability map and a reusable project preflight:
+
+- [Automation Proof Pack](public_value/AUTOMATION_PROOF_PACK.md)
+- [Automation Project Preflight](public_value/AUTOMATION_PROJECT_PREFLIGHT.md)
+
+The proof pack deliberately separates demonstrated repository capabilities from integrations that would still need to be built and verified for a client.
+
 ### Universal Farm CSV Mapper
 
 Existing spreadsheets can now be mapped into six CropCircuit operational contracts without rewriting the source file:
