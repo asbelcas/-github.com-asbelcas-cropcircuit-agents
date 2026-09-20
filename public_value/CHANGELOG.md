@@ -34,6 +34,7 @@
 - Assisted Farm Data Setup $149 pilot: a bounded implementation service turning existing farm exports into canonical CSVs, Workspace 1.2, mapping notes, and an optional operations snapshot.
 - Published assisted-setup operator runbook and delivery validator with schema, sensitive-field, synthetic-marker, required-file, and checksum checks.
 - Added privacy-safe Assisted Setup Intake Builder plus a complete synthetic before/after case study.
+- Added Local Service Order Ledger to keep quoted pipeline, confirmed external payments, delivery, and refunds separate.
 - Weekly Operations Brief expanded across all Workspace 1.1 operational domains.
 - JSON Schema for the funding dataset.
 - JSON Feed 1.1 representation for feed readers and software consumers.
