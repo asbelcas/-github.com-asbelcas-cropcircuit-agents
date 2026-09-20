@@ -10,6 +10,8 @@ import {
 assert.equal(workerHours({ minutes: 30, workers: 2 }), 1);
 assert.equal(workerHours({ minutes: "15", workers: "1" }), 0.25);
 assert.equal(workerHours({ minutes: "bad", workers: 1 }), null);
+assert.equal(workerHours({ minutes: "", workers: 1 }), null);
+assert.equal(normalizeLaborRecord({ minutes: "", workers: "1" }).minutes, null);
 
 assert.deepEqual(
   normalizeLaborIdentity({
