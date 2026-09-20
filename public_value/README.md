@@ -250,6 +250,15 @@ GitHub Actions workflow files are present, but automated workflow execution has 
 
 Community discussions are used as problem/workflow signals, not as claims of product-market fit or willingness to pay.
 
+## Right relationship and value constraints
+
+- [Dharma-Informed Design Doctrine](DHARMA_DESIGN_DOCTRINE.md)
+- [Right Relationship Decision Gate](right_relationship_gate.html)
+- [Decision-gate documentation](RIGHT_RELATIONSHIP_GATE.md)
+- [Machine-readable constitution](right_relationship_constitution.json)
+
+CropCircuit does not use one universal moral score. User-declared hard boundaries are non-compensatory: a failed water, welfare, safety, human-capacity, or resilience boundary cannot be erased by a larger projected financial gain.
+
 ## Privacy model
 
 - [Privacy model and limitations](PRIVACY_MODEL.md)
