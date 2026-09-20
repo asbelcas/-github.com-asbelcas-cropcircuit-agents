@@ -6,6 +6,13 @@ This directory is the public, reusable core of CropCircuit.
 
 The operating principle is **utility before solicitation**: publish things that are genuinely useful without requiring a sales call, account, subscription, or surrender of raw farm data.
 
+## Try with fictional data
+
+- [Synthetic Demo Workspace](demo_workspace.html)
+- [Demo documentation](SYNTHETIC_DEMO.md)
+
+Every demo record is synthetic and uses a `demo-` ID so it can be removed without deleting normal records.
+
 ## Import existing records
 
 - [Universal Farm CSV Mapper](universal_csv_mapper.html)
