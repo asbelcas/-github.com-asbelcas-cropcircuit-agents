@@ -1,0 +1,6 @@
+date,category,task,chore_code,minutes,workers,worker_hours,notes
+2026-09-14,Fencing,Move portable fence,fencing.move,35,1,0.583333,Synthetic case-study record
+2026-09-15,Livestock,Fill water troughs,livestock.water,28,1,0.466667,Synthetic case-study record
+2026-09-16,Harvest,Harvest tomatoes,harvest.pick,70,2,2.333333,Synthetic case-study record
+2026-09-17,Wash / Pack,Wash and pack produce,washpack.pack,80,2,2.666667,Synthetic case-study record
+2026-09-18,Market / Sales,Farmers market setup and selling,market.sell,300,1,5,Synthetic case-study record
