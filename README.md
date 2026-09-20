@@ -5,6 +5,12 @@ CropCircuit is building small, reusable tools and datasets for practical farm de
 **Current principle: utility before solicitation.**  
 Instead of leading with a consulting pitch, this repository now exposes useful building blocks that farmers, developers, educators, and AI systems can use directly.
 
+## Start here
+
+Use [Start Here](public_value/START_HERE.md) to choose the smallest useful path. You do not need the whole toolkit.
+
+Temporary runnable previews are listed in [Try CropCircuit Now](public_value/TRY_IT_NOW.md) while GitHub Pages remains disabled.
+
 ## Public value assets
 
 ### Universal Farm CSV Mapper
@@ -393,5 +399,6 @@ The repository includes GitHub Actions checks for funding data structure/freshne
 - `release/public-value-0.10.0` → commit `31b9c0af8a9c9a5c8c82ca2306878a7873aadbfc`
 - `release/public-value-0.13.0` → commit `e39d3e2013370a973d99afc2791a0000f2c40823`
 - `release/public-value-0.14.0` → commit `aeba8c9756ba21d10be5d16e6fa6fd3623c19844`
+- `release/public-value-0.15.0` → commit `3cc0d81e523b72b63213bcbb571d5802470089bb`
 
 Integration examples pin code by commit SHA for reproducibility, while mutable funding data remains on `main`.
