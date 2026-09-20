@@ -1,0 +1,20 @@
+Metric,Before,After
+Source rows,12,12
+Exact duplicate rows,1,1
+Unique logical orders,11,11
+Rows needing human review,4,4
+Standardized state values,0,12
+Standardized phone values,0,11
+Standardized status values,0,12
+
+Reconciliation,Value,Result
+Duplicate-included numeric sales total,1355.00,Includes exact duplicate row
+Unique-order numeric sales total,1220.00,Duplicate excluded
+Difference due to duplicate row,135.00,Duplicate impact isolated
+
+QA Check,Result,
+No source rows silently deleted,PASS,
+Ambiguous quantity not guessed,PASS,
+Invalid email not fabricated,PASS,
+Duplicate visibly flagged,PASS,
+Derived totals reconciled,PASS,
