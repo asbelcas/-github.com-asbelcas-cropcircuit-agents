@@ -13,6 +13,16 @@ Temporary runnable previews are listed in [Try CropCircuit Now](public_value/TRY
 
 ## Public value assets
 
+### Assisted Farm Data Setup
+
+For operators who already have farm spreadsheets but do not want to clean and map them themselves:
+
+- [Assisted Farm Data Setup — $149 pilot](public_value/farm_data_setup.html)
+- [Service scope](public_value/FARM_DATA_SETUP.md)
+- [Synthetic example deliverable](public_value/SYNTHETIC_DATA_SETUP_DELIVERABLE.md)
+
+The free Universal CSV Mapper remains available; the paid pilot is implementation labor, not software access.
+
 ### Universal Farm CSV Mapper
 
 Existing spreadsheets can now be mapped into six CropCircuit operational contracts without rewriting the source file:
