@@ -1,0 +1,4 @@
+Machine,Maintenance Item,Current Meter,Last Service Meter,Hours Interval,Last Service Date,Days Interval,Part,Primary Part Number,Alt Number,On Hand,Reorder At
+Demo Tractor,Engine oil and filter,1425,1255,200,2026-06-01,180,Engine oil filter,DEMO-OIL-100,DEMO-ALT-100,1,2
+Demo Utility Vehicle,General inspection,620,500,150,2026-04-15,120,,,,,
+Demo Tractor,tractor filter,,,,,,,,,,
