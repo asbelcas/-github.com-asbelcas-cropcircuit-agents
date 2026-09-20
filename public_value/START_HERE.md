@@ -50,6 +50,14 @@ Examples:
 
 ## Path C — "I just want to test the idea"
 
+Start with the [Synthetic Demo Workspace](demo_workspace.html) if you want to see the local workflow without entering real records.
+
+The demo can merge fictional `demo-` records into the local workspace and later remove only those demo IDs.
+
+Then use the temporary runnable preview links in [Try CropCircuit Now](TRY_IT_NOW.md).
+
+### If you do not want to load demo records
+
 Use the temporary runnable preview links in [Try CropCircuit Now](TRY_IT_NOW.md).
 
 GitHub Pages is not enabled yet, so those previews use a third-party static-file proxy.
