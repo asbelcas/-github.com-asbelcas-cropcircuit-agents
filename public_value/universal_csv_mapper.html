@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CropCircuit Universal Farm CSV Mapper</title>
+<meta name="description" content="Private browser-only mapper from arbitrary CSV columns into CropCircuit labor, chores, maintenance, parts, harvest, or sales data contracts.">
+<style>
+:root{--bg:#f4f7f2;--card:#fff;--ink:#17211b;--muted:#627067;--line:#dbe4dc;--accent:#215f45;--soft:#edf5ef;--warn:#7a5a00;--bad:#8c3030}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}
+main{max-width:1240px;margin:auto;padding:30px 16px 60px}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:0 0 8px}h2{margin:0 0 10px}.lead{color:var(--muted);max-width:950px}
+.notice{background:var(--soft);border:1px solid #cfe0d3;border-radius:12px;padding:12px 14px;margin:18px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}label{display:block;font-weight:650}input,select{width:100%;padding:9px 10px;margin-top:4px;border:1px solid #cbd6ce;border-radius:8px;background:white;font:inherit}
+button{border:0;background:var(--accent);color:white;font-weight:700;padding:9px 12px;border-radius:8px;cursor:pointer;margin:10px 6px 0 0}.secondary{background:#56675d}.danger{background:var(--bad)}
+.maprow{display:grid;grid-template-columns:minmax(180px,1fr) minmax(180px,1fr) minmax(180px,1fr);gap:10px;align-items:end;border-bottom:1px solid var(--line);padding:10px 0}
+.req{font-size:.72rem;color:var(--warn);font-weight:800;text-transform:uppercase}.small{font-size:.84rem;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:.81rem}th,td{text-align:left;border-bottom:1px solid var(--line);padding:7px 5px;vertical-align:top}th{font-size:.68rem;text-transform:uppercase;color:var(--muted);letter-spacing:.03em}.scroll{overflow:auto}.empty{text-align:center;color:var(--muted);padding:20px}.warn{color:var(--warn);font-weight:700}.bad{color:var(--bad);font-weight:700}
+@media(max-width:720px){.maprow{grid-template-columns:1fr}}
+</style></head>
+<body><main>
+<h1>Universal Farm CSV Mapper</h1>
+<p class="lead">Take an existing spreadsheet export and map it into one of CropCircuit's open operational data contracts: labor, recurring chores, equipment maintenance, parts inventory, harvest, or direct-market sales.</p>
+<div class="notice"><strong>Migration, not lock-in:</strong> the source CSV stays in your browser. You can export a canonical CSV/JSON file or write the converted rows into the local CropCircuit workspace. Nothing is uploaded.</div>
+
+<section class="card"><h2>1. Choose target and source file</h2><div class="grid">
+<label>Target data contract<select id="target"></select></label>
+<label>Source CSV<input id="file" type="file" accept=".csv,text/csv"></label>
+</div><p id="meta" class="small">Choose a target and CSV.</p></section>
+
+<section class="card"><h2>2. Map fields</h2>
+<p class="small">For each CropCircuit field, choose a source column or enter one fixed value to apply to every imported row.</p>
+<div id="mapping"></div>
+<button id="transform" disabled>Transform & validate</button>
+</section>
+
+<section class="card"><h2>3. Preview and use</h2>
+<p id="status" class="small">No transformed rows yet.</p>
+<div class="scroll"><table><thead id="thead"></thead><tbody id="tbody"><tr><td class="empty">No preview.</td></tr></tbody></table></div>
+<button id="csv" class="secondary" disabled>Export canonical CSV</button>
+<button id="json" class="secondary" disabled>Export canonical JSON</button>
+<button id="local" disabled>Add to local CropCircuit workspace</button>
+</section>
+
+<footer class="small" style="margin-top:20px">CropCircuit Open Farm Utilities. The mapper transforms fields only. It does not verify accounting treatment, equipment compatibility, maintenance requirements, agronomic meaning, or other domain judgments.</footer>
+</main>
+
+<script>
+(() => {
+  const CONTRACTS=[{"id":"labor","label":"Labor log","storage":"cropcircuit_farm_labor_log_v1","required":["date","category","task","minutes","workers"],"fields":[["date","date"],["category","string"],["task","string"],["chore_code","string"],["minutes","number"],["workers","number"],["worker_hours","number"],["notes","string"]]},{"id":"chore_schedule","label":"Recurring chore schedule","storage":"cropcircuit_chore_schedule_v1","required":["task","first_date","frequency","interval","estimated_minutes"],"fields":[["task","string"],["chore_code","string"],["category","string"],["first_date","date"],["frequency","string"],["interval","number"],["estimated_minutes","number"],["notes","string"]]},{"id":"equipment_maintenance","label":"Equipment maintenance","storage":"cropcircuit_equipment_maintenance_v1","required":["equipment","service"],"fields":[["equipment","string"],["service","string"],["current_hours","number"],["last_service_hours","number"],["interval_hours","number"],["last_service_date","date"],["interval_days","number"]]},{"id":"parts_inventory","label":"Equipment parts inventory","storage":"cropcircuit_parts_inventory_v1","required":["equipment","part_name"],"fields":[["equipment","string"],["part_name","string"],["primary_part_number","string"],["alternate_part_numbers","string"],["supplier","string"],["storage_location","string"],["quantity_on_hand","number"],["reorder_threshold","number"],["preferred_order_quantity","number"]]},{"id":"harvest","label":"Harvest log","storage":"cropcircuit_harvest_log_v1","required":["date","item","quantity","unit"],"fields":[["date","date"],["item","string"],["quantity","number"],["unit","string"],["destination","string"]]},{"id":"sales","label":"Direct-market sales","storage":"cropcircuit_sales_log_v1","required":["date","channel","gross_amount"],"fields":[["date","date"],["channel","string"],["item","string"],["gross_amount","number"],["payment_fees","number"],["refunds_discounts","number"],["direct_costs","number"]]}];
+  const $=id=>document.getElementById(id),esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
+  let headers=[],sourceRows=[],mapped=[];
+
+  function parseCSV(text){
+    const rows=[];let row=[],field="",quoted=false;
+    for(let i=0;i<text.length;i++){
+      const ch=text[i];
+      if(quoted){if(ch==='"'&&text[i+1]==='"'){field+='"';i++}else if(ch==='"')quoted=false;else field+=ch}
+      else{if(ch==='"')quoted=true;else if(ch===','){row.push(field);field=""}else if(ch==='\n'){row.push(field);rows.push(row);row=[];field=""}else if(ch!=='\r')field+=ch}
+    }
+    if(field.length||row.length){row.push(field);rows.push(row)}
+    if(!rows.length)return{headers:[],rows:[]};
+    const h=rows[0].map((x,i)=>String(x||`column_${i+1}`).trim());
+    return{headers:h,rows:rows.slice(1).filter(r=>r.some(v=>String(v).trim())).map(r=>{const o={};h.forEach((x,i)=>o[x]=r[i]??"");return o})};
+  }
+  function current(){return CONTRACTS.find(c=>c.id===$("target").value)||CONTRACTS[0]}
+  function normalizeName(s){return String(s).toLowerCase().replace(/[^a-z0-9]+/g,"").trim()}
+  function guess(field){const nf=normalizeName(field);const exact=headers.find(h=>normalizeName(h)===nf);if(exact)return exact;
+    const aliases={first_date:["date","startdate"],estimated_minutes:["minutes","duration","estimatedduration"],gross_amount:["gross","amount","total","sales"],payment_fees:["fees","fee","processingfee"],refunds_discounts:["refunds","discounts","refunddiscount"],direct_costs:["directcost","cogs","costofgoods"],part_name:["part","name"],primary_part_number:["partnumber","oemnumber","oempartnumber"],quantity_on_hand:["quantity","qty","onhand"],reorder_threshold:["threshold","reorderpoint"]}[field]||[];
+    return headers.find(h=>aliases.includes(normalizeName(h)))||"";
+  }
+  function renderMapping(){
+    const c=current(),root=$("mapping");
+    root.innerHTML=c.fields.map(([name,type])=>`<div class="maprow"><div><strong>${esc(name)}</strong> <span class="small">(${esc(type)})</span> ${c.required.includes(name)?'<span class="req">required</span>':""}</div><label>Source column<select id="src-${esc(name)}"><option value="">— none —</option>${headers.map(h=>`<option value="${esc(h)}">${esc(h)}</option>`).join("")}</select></label><label>Fixed value<input id="fixed-${esc(name)}" type="text" placeholder="Optional"></label></div>`).join("");
+    c.fields.forEach(([name])=>{const s=$("src-"+name);if(s)s.value=guess(name)});
+  }
+  function parseDate(v){const s=String(v??"").trim();if(!s)return"";if(/^\d{4}-\d{2}-\d{2}$/.test(s))return s;const d=new Date(s);return Number.isFinite(d.getTime())?d.toISOString().slice(0,10):null}
+  function parseNumber(v){const s=String(v??"").trim().replace(/[$,%]/g,"").replace(/,/g,"");if(!s)return null;const n=Number(s);return Number.isFinite(n)?n:null}
+  function convert(v,type){if(type==="date")return parseDate(v);if(type==="number")return parseNumber(v);return String(v??"").trim()}
+  function newId(){return crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random()}
+
+  $("target").innerHTML=CONTRACTS.map(c=>`<option value="${c.id}">${esc(c.label)}</option>`).join("");
+  $("target").addEventListener("change",renderMapping);
+  $("file").addEventListener("change",async()=>{const f=$("file").files[0];if(!f){headers=[];sourceRows=[];$("transform").disabled=true;renderMapping();return}const p=parseCSV(await f.text());headers=p.headers;sourceRows=p.rows;$("meta").textContent=`${sourceRows.length} data row(s) · ${headers.length} source column(s): ${headers.join(", ")}`;$("transform").disabled=!sourceRows.length;renderMapping()});
+
+  $("transform").addEventListener("click",()=>{
+    const c=current(),warnings=[];mapped=[];
+    for(let i=0;i<sourceRows.length;i++){
+      const srcRow=sourceRows[i],out={id:newId()};
+      for(const [name,type] of c.fields){
+        const src=$("src-"+name).value,fixed=$("fixed-"+name).value;
+        const raw=fixed!==""?fixed:(src?srcRow[src]:"");
+        const value=convert(raw,type);
+        if(value!==""&&value!==null)out[name]=value;
+      }
+      if(c.id==="labor"&&out.worker_hours===undefined&&Number.isFinite(out.minutes)&&Number.isFinite(out.workers))out.worker_hours=out.minutes/60*out.workers;
+      if(c.id==="sales"){for(const f of ["payment_fees","refunds_discounts","direct_costs"])if(out[f]===undefined)out[f]=0}
+      const missing=c.required.filter(f=>out[f]===undefined||out[f]===null||out[f]==="");
+      if(missing.length){warnings.push(`row ${i+2}: missing/invalid ${missing.join(", ")}`);continue}
+      const badNumber=c.fields.filter(([name,type])=>type==="number"&&out[name]!==undefined&&(!Number.isFinite(out[name])||out[name]<0)).map(([name])=>name);
+      if(badNumber.length){warnings.push(`row ${i+2}: invalid non-negative number ${badNumber.join(", ")}`);continue}
+      if(c.id==="chore_schedule"){out.frequency=String(out.frequency).toUpperCase();if(!["ONCE","DAILY","WEEKLY","MONTHLY","YEARLY"].includes(out.frequency)){warnings.push(`row ${i+2}: unsupported frequency`);continue}}
+      mapped.push(out);
+    }
+    const fields=c.fields.map(([n])=>n);$("thead").innerHTML="<tr>"+fields.map(f=>`<th>${esc(f)}</th>`).join("")+"</tr>";
+    $("tbody").innerHTML=mapped.length?mapped.slice(0,100).map(r=>"<tr>"+fields.map(f=>`<td>${esc(r[f]??"")}</td>`).join("")+"</tr>").join(""):'<tr><td class="empty">No valid transformed rows.</td></tr>';
+    $("status").innerHTML=`${mapped.length} valid row(s).`+(warnings.length?` <span class="warn">${warnings.length} row warning(s); invalid rows omitted.</span>`:"");
+    $("csv").disabled=$("json").disabled=$("local").disabled=!mapped.length;
+  });
+
+  function cell(v){return '"'+String(v??"").replaceAll('"','""')+'"'}
+  function download(name,content,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+  $("csv").addEventListener("click",()=>{const fields=current().fields.map(([n])=>n),rows=[fields,...mapped.map(r=>fields.map(f=>r[f]??""))];download(`cropcircuit-${current().id}.csv`,rows.map(r=>r.map(cell).join(",")).join("\r\n")+"\r\n","text/csv;charset=utf-8")});
+  $("json").addEventListener("click",()=>download(`cropcircuit-${current().id}.json`,JSON.stringify({contract:current().id,exported_at:new Date().toISOString(),records:mapped},null,2)+"\n","application/json"));
+  $("local").addEventListener("click",()=>{const c=current();if(!confirm(`Add ${mapped.length} converted record(s) to the local ${c.label} collection in this browser?`))return;let existing=[];try{const x=JSON.parse(localStorage.getItem(c.storage)||"[]");if(Array.isArray(x))existing=x}catch{}const ids=new Set(existing.map(x=>String(x.id||"")).filter(Boolean));let added=0;for(const row of mapped){if(row.id&&ids.has(row.id))continue;existing.push(row);if(row.id)ids.add(row.id);added++}localStorage.setItem(c.storage,JSON.stringify(existing));$("status").textContent=`Added ${added} record(s) to the local ${c.label} collection. ${existing.length} total stored.`});
+  renderMapping();
+})();
+</script></body></html>
