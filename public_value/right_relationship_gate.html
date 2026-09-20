@@ -29,10 +29,13 @@ import { evaluateRightRelationship } from "./right_relationship.js";
 const defs=[["legal_safety","Legal / safety"],["animal_welfare","Animal welfare"],["soil_water","Soil / water"],["human_capacity","Human capacity / dignity"],["resilience","Critical resilience / failure mode"]];
 const root=document.getElementById("constraints");
 root.innerHTML=defs.map(([id,label])=>'<div class="constraint"><div><strong>'+label+'</strong><div class="small">User-defined boundary</div></div><label>Status<select data-id="'+id+'"><option value="unknown">Unknown</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="not-required">Not a hard constraint</option></select></label><label>Evidence / note<input data-note="'+id+'" placeholder="What supports this judgment?"></label></div>').join("");
-let latestRecord=null;\ndocument.getElementById("evaluate").addEventListener("click",()=>{
+let latestRecord=null;
+document.getElementById("evaluate").addEventListener("click",()=>{
  const hard=[...document.querySelectorAll("[data-id]")].map(s=>({id:s.dataset.id,status:s.value==="not-required"?"pass":s.value,required:s.value!=="not-required"}));
  const unknowns=document.getElementById("unknowns").value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
- const out=evaluateRightRelationship({hard_constraints:hard,unknowns,reversible:document.getElementById("reversible").value==="yes"});\n latestRecord={schema_version:"1.0",generated_at:new Date().toISOString(),decision:document.getElementById("decision").value.trim(),purpose:document.getElementById("purpose").value.trim(),enoughness_note:document.getElementById("enough").value.trim(),reciprocity_note:document.getElementById("return").value.trim(),cost_bearers_note:document.getElementById("costs").value.trim(),reversibility:document.getElementById("reversible").value,hard_constraints:hard,unknowns,evaluation:out};\n document.getElementById("download-record").disabled=false;
+ const out=evaluateRightRelationship({hard_constraints:hard,unknowns,reversible:document.getElementById("reversible").value==="yes"});
+ latestRecord={schema_version:"1.0",generated_at:new Date().toISOString(),decision:document.getElementById("decision").value.trim(),purpose:document.getElementById("purpose").value.trim(),enoughness_note:document.getElementById("enough").value.trim(),reciprocity_note:document.getElementById("return").value.trim(),cost_bearers_note:document.getElementById("costs").value.trim(),reversibility:document.getElementById("reversible").value,hard_constraints:hard,unknowns,evaluation:out};
+ document.getElementById("download-record").disabled=false;
  const result=document.getElementById("result");result.textContent=out.gate.toUpperCase();result.className="result "+out.gate;
  document.getElementById("summary").textContent=out.summary+(out.failed_hard_constraints.length?" Failed: "+out.failed_hard_constraints.join(", ")+".":"")+(out.unresolved_hard_constraints.length?" Unresolved: "+out.unresolved_hard_constraints.join(", ")+".":"")+(out.unknowns.length?" Other unknowns: "+out.unknowns.join(", ")+".":"");
 });
