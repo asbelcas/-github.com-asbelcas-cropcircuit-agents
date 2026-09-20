@@ -56,6 +56,10 @@ jobs:
         run: node public_value/schedule_math.test.mjs
       - name: Test local-first workspace helpers
         run: node public_value/workspace.test.mjs
+      - name: Validate workspace examples
+        run: node public_value/validate_workspace_examples.mjs
+      - name: Validate operational data contract registry
+        run: node public_value/validate_data_contracts.mjs
       - name: Test farm sales economics
         run: |
           node public_value/market_math.test.mjs
