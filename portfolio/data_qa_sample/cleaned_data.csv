@@ -1,0 +1,13 @@
+Order ID,Customer Name,Order Date,Product,Qty,Unit Price,Line Total,State,Phone,Email,Status,Duplicate?,Review Needed?,Review Reason
+A-1001,Jamie Lee,2026-09-01,Field Kit,2,45.00,90.00,MI,269-555-0199,jamie@example.com,Shipped,No,No,
+A-1002,Morgan Reed,2026-09-02,Soil Sensor,1,89.00,89.00,MI,269-555-0120,morgan.reed@example.com,Shipped,No,No,
+A-1003,Taylor Kim,2026-09-03,Field Kit,3,45.00,135.00,MI,269-555-0111,taylor.kim@example.com,Pending,No,No,
+A-1003,Taylor Kim,2026-09-03,Field Kit,3,45.00,135.00,MI,269-555-0111,taylor.kim@example.com,Pending,Yes,Yes,Exact duplicate of prior source row
+A-1004,Alex Rivera,2026-09-04,Weather Logger,1,125.50,125.50,MI,269-555-0133,alex.r@example.com,Cancelled,No,No,
+A-1005,Sam Patel,2026-09-05,Soil Sensor,,89.00,,MI,269-555-0144,sam.patel@example.com,Shipped,No,Yes,"Quantity is non-numeric ('two'); requires confirmation"
+A-1006,Jordan Bell,2026-09-06,Field Kit,2,45.00,90.00,MI,,jordan.bell@example.com,Pending,No,Yes,Phone missing
+A-1007,Riley Chen,2026-09-07,Weather Logger,1,125.50,125.50,MI,269-555-0166,riley.chen@example.com,Shipped,No,No,
+A-1008,Chris Doe,2026-09-08,Field Kit,4,45.00,180.00,MI,269-555-0177,chris.doe@example.com,Returned,No,No,
+A-1009,Pat Green,2026-09-09,Soil Sensor,1,89.00,89.00,MI,269-555-0188,pat.green@example,Shipped,No,Yes,Email format appears invalid
+A-1010,Dana Fox,2026-09-10,Weather Logger,2,125.50,251.00,MI,269-555-0190,dana.fox@example.com,Pending,No,No,
+A-1011,Casey North,2026-09-11,Field Kit,1,45.00,45.00,MI,269-555-0191,casey.north@example.com,Shipped,No,No,
