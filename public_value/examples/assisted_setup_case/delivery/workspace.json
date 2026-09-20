@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.2",
+  "labor_entries": [
+    {
+      "id": "case-l1",
+      "date": "2026-09-14",
+      "category": "Fencing",
+      "task": "Move portable fence",
+      "chore_code": "fencing.move",
+      "minutes": 35,
+      "workers": 1,
+      "worker_hours": 0.583333,
+      "notes": "Synthetic case-study record"
+    },
+    {
+      "id": "case-l2",
+      "date": "2026-09-15",
+      "category": "Livestock",
+      "task": "Fill water troughs",
+      "chore_code": "livestock.water",
+      "minutes": 28,
+      "workers": 1,
+      "worker_hours": 0.466667,
+      "notes": "Synthetic case-study record"
+    },
+    {
+      "id": "case-l3",
+      "date": "2026-09-16",
+      "category": "Harvest",
+      "task": "Harvest tomatoes",
+      "chore_code": "harvest.pick",
+      "minutes": 70,
+      "workers": 2,
+      "worker_hours": 2.333333,
+      "notes": "Synthetic case-study record"
+    },
+    {
+      "id": "case-l4",
+      "date": "2026-09-17",
+      "category": "Wash / Pack",
+      "task": "Wash and pack produce",
+      "chore_code": "washpack.pack",
+      "minutes": 80,
+      "workers": 2,
+      "worker_hours": 2.666667,
+      "notes": "Synthetic case-study record"
+    },
+    {
+      "id": "case-l5",
+      "date": "2026-09-18",
+      "category": "Market / Sales",
+      "task": "Farmers market setup and selling",
+      "chore_code": "market.sell",
+      "minutes": 300,
+      "workers": 1,
+      "worker_hours": 5,
+      "notes": "Synthetic case-study record"
+    }
+  ],
+  "labor_settings": {},
+  "chore_schedule": [],
+  "equipment_maintenance": [
+    {
+      "id": "case-e1",
+      "equipment": "Demo Tractor",
+      "service": "Engine oil and filter",
+      "current_hours": 1425,
+      "last_service_hours": 1255,
+      "interval_hours": 200,
+      "last_service_date": "2026-06-01",
+      "interval_days": 180
+    },
+    {
+      "id": "case-e2",
+      "equipment": "Demo Utility Vehicle",
+      "service": "General inspection",
+      "current_hours": 620,
+      "last_service_hours": 500,
+      "interval_hours": 150,
+      "last_service_date": "2026-04-15",
+      "interval_days": 120
+    }
+  ],
+  "harvest_entries": [],
+  "sales_entries": [
+    {
+      "id": "case-s1",
+      "date": "2026-09-18",
+      "channel": "Farmers Market",
+      "item": "Mixed produce",
+      "gross_amount": 640,
+      "payment_fees": 19.2,
+      "refunds_discounts": 10,
+      "direct_costs": 165
+    },
+    {
+      "id": "case-s2",
+      "date": "2026-09-19",
+      "channel": "CSA",
+      "item": "Weekly shares",
+      "gross_amount": 480,
+      "payment_fees": 14.4,
+      "refunds_discounts": 0,
+      "direct_costs": 130
+    }
+  ],
+  "parts_inventory": [
+    {
+      "id": "case-p1",
+      "equipment": "Demo Tractor",
+      "part_name": "Engine oil filter",
+      "primary_part_number": "DEMO-OIL-100",
+      "alternate_part_numbers": "DEMO-ALT-100",
+      "supplier": "",
+      "storage_location": "",
+      "quantity_on_hand": 1,
+      "reorder_threshold": 2,
+      "preferred_order_quantity": null
+    }
+  ]
+}
