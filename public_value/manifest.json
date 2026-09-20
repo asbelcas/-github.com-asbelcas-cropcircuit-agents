@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-20.16",
+  "version": "2026-09-20.17",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -572,6 +572,14 @@
       "validator": "public_value/validate_decision_record.mjs",
       "tests": "public_value/validate_decision_record.test.mjs",
       "docs": "public_value/HIGH_IMPACT_DECISION_RECORD.md"
+    },
+    {
+      "id": "governed-decision-workflow",
+      "type": "workflow-guide",
+      "description": "Value-constrained farm decision workflow: purpose → hard constraints → evidence/unknowns → gate → viability/math → reversible experiment → measurement → review.",
+      "docs": "public_value/GOVERNED_DECISION_WORKFLOW.md",
+      "synthetic_example": "public_value/examples/synthetic_governed_automation_decision.json",
+      "decision_record_schema": "public_value/decision_record.schema.json"
     }
   ],
   "updated_at": "2026-09-20",
