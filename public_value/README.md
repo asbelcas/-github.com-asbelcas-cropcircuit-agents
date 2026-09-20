@@ -40,7 +40,7 @@ Key files:
 
 ### Local workspace
 
-The browser-local tools now share **Workspace 1.1**, spanning labor, recurring chores, equipment maintenance, harvest, and direct-market sales:
+The browser-local tools now share **Workspace 1.2**, spanning labor, recurring chores, equipment maintenance, parts inventory, harvest, and direct-market sales:
 
 - [Workspace documentation](LOCAL_WORKSPACE.md)
 - [Workspace JSON Schema](workspace.schema.json)
@@ -58,6 +58,7 @@ The Labor Opportunity Analyzer, Chore Load Planner, and Schedule Estimate Calibr
 - [Labor Opportunity Analyzer](labor_opportunity_analyzer.html)
 - [Equipment Cost Threshold Analyzer](equipment_cost_threshold.html)
 - [Offline Harvest Log](harvest_log.html)
+- [Equipment Parts Inventory](parts_inventory.html)
 - [Equipment Maintenance Log](equipment_maintenance.html)
 - [Farm Chore Load Planner](chore_load_planner.html)
 - [Schedule Estimate Calibrator](schedule_estimate_calibrator.html)
@@ -72,6 +73,7 @@ Most standalone HTML tools do all processing in the browser and do not upload fa
 
 ## Farm business economics
 
+- [Sales CSV Import Mapper](sales_csv_import_mapper.html)
 - [Offline Farm Sales Log](sales_log.html)
 - [Farmers Market Break-Even Calculator](market_day_break_even.html)
 - [CSA Share Price & Break-Even Calculator](csa_break_even.html)
