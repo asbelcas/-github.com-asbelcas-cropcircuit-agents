@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "decision_id": "synthetic-governed-automation-001",
+  "created_at": "2026-09-20T13:30:00Z",
+  "decision": "Run a small pilot of an automated livestock water-refill system.",
+  "purpose": "Reduce repetitive refill labor while preserving animal access to water and manual fallback.",
+  "hard_constraints": [
+    {
+      "id": "animal_water_access",
+      "label": "Animals must retain reliable water access",
+      "required": true,
+      "status": "pass",
+      "evidence": "Synthetic design includes existing manual trough fill as fallback during pilot."
+    },
+    {
+      "id": "electrical_safety",
+      "label": "Installation must meet applicable electrical/safety requirements",
+      "required": true,
+      "status": "unknown",
+      "evidence": "Synthetic example has not yet received contractor/code review."
+    },
+    {
+      "id": "manual_fallback",
+      "label": "Automation failure must not remove the operator's ability to supply water manually",
+      "required": true,
+      "status": "pass",
+      "evidence": "Synthetic design retains manual valve/fill route."
+    },
+    {
+      "id": "water_waste",
+      "label": "Pilot must not create unacceptable overflow/waste",
+      "required": true,
+      "status": "unknown",
+      "evidence": "Synthetic float-valve failure behavior has not yet been observed."
+    }
+  ],
+  "viability": {
+    "financial": "Modeled labor savings exist in the synthetic scenario, but purchase/payback analysis is deferred until the gate clears.",
+    "operational": "Small pilot is feasible because the existing manual system remains available.",
+    "legal": "Applicable installation requirements have not yet been verified in this synthetic case.",
+    "technical": "Components are conceptually simple but failure behavior still needs testing.",
+    "biological_ecological": "Reliable animal water access is protected by fallback; overflow/water-waste behavior remains uncertain."
+  },
+  "reciprocity": "Potentially returns repetitive chore time to the operator while preserving water access; water waste must be checked.",
+  "enoughness": "The synthetic target is to reduce refill labor enough to remove a recurring bottleneck, not to maximize automation coverage across the entire farm.",
+  "wider_system_effects": "Possible reduced labor burden; possible water waste if failure modes are not controlled.",
+  "unknowns": [
+    "Electrical/code suitability",
+    "Observed overflow/failure behavior"
+  ],
+  "reversibility": {
+    "level": "high",
+    "note": "Pilot can be removed and the existing manual watering method retained."
+  },
+  "gate": "hold",
+  "decision_outcome": "experiment",
+  "review_trigger": "Re-evaluate after qualified installation review and a short observed pilot confirms failure behavior and water-use performance.",
+  "evidence_notes": [
+    "Synthetic demonstration only; no real farm measurements are claimed."
+  ]
+}
