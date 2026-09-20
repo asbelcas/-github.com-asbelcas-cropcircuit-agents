@@ -20,7 +20,10 @@
 - Offline Equipment Maintenance Log plus reusable meter-hour/calendar due-status math with no embedded service intervals.
 - Offline Harvest Log plus reusable crop/unit summary and period-comparison math; harvest quantity is kept separate from revenue.
 - Offline Farm Sales Log plus reusable channel-summary math, explicitly separated from accounting/tax treatment.
-- Workspace 1.1 now unifies labor, recurring chores, equipment maintenance, harvest, and sales; 1.0 backups remain import-compatible and newer collections are preserved when importing old backups.
+- Workspace 1.1 unified labor, recurring chores, equipment maintenance, harvest, and sales; 1.0 backups remained import-compatible.
+- Workspace 1.2 adds equipment-parts inventory while preserving 1.0/1.1 import compatibility.
+- Equipment Parts Inventory with operator-entered cross references and explicit compatibility boundary.
+- Generic Sales CSV Import Mapper for POS/invoice/spreadsheet exports.
 - Weekly Operations Brief expanded across all Workspace 1.1 operational domains.
 - JSON Schema for the funding dataset.
 - JSON Feed 1.1 representation for feed readers and software consumers.
