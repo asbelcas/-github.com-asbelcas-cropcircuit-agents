@@ -1,0 +1,206 @@
+{
+  "schema_version": "1.2",
+  "exported_at": "2026-09-20T11:15:00Z",
+  "labor_entries": [
+    {
+      "id": "demo-l1",
+      "date": "2026-09-14",
+      "category": "Fencing",
+      "task": "Move portable fence",
+      "chore_code": "fencing.move",
+      "minutes": 35,
+      "workers": 1,
+      "worker_hours": 0.583,
+      "notes": "Synthetic demo record"
+    },
+    {
+      "id": "demo-l2",
+      "date": "2026-09-15",
+      "category": "Livestock",
+      "task": "Fill water troughs",
+      "chore_code": "livestock.water",
+      "minutes": 28,
+      "workers": 1,
+      "worker_hours": 0.467,
+      "notes": "Synthetic demo record"
+    },
+    {
+      "id": "demo-l3",
+      "date": "2026-09-16",
+      "category": "Harvest",
+      "task": "Harvest tomatoes",
+      "chore_code": "harvest.pick",
+      "minutes": 70,
+      "workers": 2,
+      "worker_hours": 2.333,
+      "notes": "Synthetic demo record"
+    },
+    {
+      "id": "demo-l4",
+      "date": "2026-09-17",
+      "category": "Wash / Pack",
+      "task": "Wash and pack produce",
+      "chore_code": "washpack.pack",
+      "minutes": 80,
+      "workers": 2,
+      "worker_hours": 2.667,
+      "notes": "Synthetic demo record"
+    },
+    {
+      "id": "demo-l5",
+      "date": "2026-09-18",
+      "category": "Market / Sales",
+      "task": "Farmers market setup and selling",
+      "chore_code": "market.sell",
+      "minutes": 300,
+      "workers": 1,
+      "worker_hours": 5,
+      "notes": "Synthetic demo record"
+    },
+    {
+      "id": "demo-l6",
+      "date": "2026-09-19",
+      "category": "Maintenance",
+      "task": "Grease equipment",
+      "chore_code": "maintenance.grease",
+      "minutes": 25,
+      "workers": 1,
+      "worker_hours": 0.417,
+      "notes": "Synthetic demo record"
+    }
+  ],
+  "labor_settings": {
+    "hourly": 22
+  },
+  "chore_schedule": [
+    {
+      "id": "demo-s1",
+      "task": "Move portable fence",
+      "chore_code": "fencing.move",
+      "category": "Fencing",
+      "first_date": "2026-09-21",
+      "frequency": "DAILY",
+      "interval": 1,
+      "estimated_minutes": 30,
+      "notes": "Synthetic demo"
+    },
+    {
+      "id": "demo-s2",
+      "task": "Check water system",
+      "chore_code": "water.inspect",
+      "category": "Water",
+      "first_date": "2026-09-21",
+      "frequency": "DAILY",
+      "interval": 1,
+      "estimated_minutes": 15,
+      "notes": "Synthetic demo"
+    },
+    {
+      "id": "demo-s3",
+      "task": "Record farm notes",
+      "chore_code": "admin.recordkeeping",
+      "category": "Admin",
+      "first_date": "2026-09-21",
+      "frequency": "WEEKLY",
+      "interval": 1,
+      "estimated_minutes": 20,
+      "notes": "Synthetic demo"
+    }
+  ],
+  "equipment_maintenance": [
+    {
+      "id": "demo-e1",
+      "equipment": "Demo Tractor",
+      "service": "Engine oil and filter",
+      "current_hours": 1425,
+      "last_service_hours": 1255,
+      "interval_hours": 200,
+      "last_service_date": "2026-06-01",
+      "interval_days": 180
+    },
+    {
+      "id": "demo-e2",
+      "equipment": "Demo Utility Vehicle",
+      "service": "General inspection",
+      "current_hours": 620,
+      "last_service_hours": 500,
+      "interval_hours": 150,
+      "last_service_date": "2026-04-15",
+      "interval_days": 120
+    }
+  ],
+  "harvest_entries": [
+    {
+      "id": "demo-h1",
+      "date": "2026-09-16",
+      "item": "Tomato",
+      "quantity": 42,
+      "unit": "lb",
+      "destination": "Farmers Market"
+    },
+    {
+      "id": "demo-h2",
+      "date": "2026-09-16",
+      "item": "Cucumber",
+      "quantity": 28,
+      "unit": "count",
+      "destination": "Farmers Market"
+    },
+    {
+      "id": "demo-h3",
+      "date": "2026-09-18",
+      "item": "Tomato",
+      "quantity": 31,
+      "unit": "lb",
+      "destination": "CSA"
+    }
+  ],
+  "sales_entries": [
+    {
+      "id": "demo-x1",
+      "date": "2026-09-18",
+      "channel": "Farmers Market",
+      "item": "Mixed produce",
+      "gross_amount": 640,
+      "payment_fees": 19.2,
+      "refunds_discounts": 10,
+      "direct_costs": 165
+    },
+    {
+      "id": "demo-x2",
+      "date": "2026-09-19",
+      "channel": "CSA",
+      "item": "Weekly shares",
+      "gross_amount": 480,
+      "payment_fees": 14.4,
+      "refunds_discounts": 0,
+      "direct_costs": 130
+    }
+  ],
+  "parts_inventory": [
+    {
+      "id": "demo-p1",
+      "equipment": "Demo Tractor",
+      "part_name": "Engine oil filter",
+      "primary_part_number": "DEMO-OIL-100",
+      "alternate_part_numbers": "DEMO-ALT-100",
+      "supplier": "Demo Farm Supply",
+      "storage_location": "Shop shelf A",
+      "quantity_on_hand": 1,
+      "reorder_threshold": 2,
+      "preferred_order_quantity": 4
+    },
+    {
+      "id": "demo-p2",
+      "equipment": "Demo Tractor",
+      "part_name": "Grease cartridge",
+      "primary_part_number": "DEMO-GREASE-1",
+      "alternate_part_numbers": "",
+      "supplier": "Demo Farm Supply",
+      "storage_location": "Shop shelf B",
+      "quantity_on_hand": 8,
+      "reorder_threshold": 3,
+      "preferred_order_quantity": 6
+    }
+  ]
+}
