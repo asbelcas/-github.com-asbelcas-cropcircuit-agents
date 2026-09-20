@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-09-20T12:45:00Z",
+  "decision": "Replace a repeated manual water-checking route with remote sensors",
+  "purpose": "Reduce repetitive travel while preserving reliable animal water access.",
+  "enoughness_note": "The goal is reliable water monitoring and fewer unnecessary trips, not eliminating human observation.",
+  "reciprocity_note": "Returns operator time and may improve faster detection of water failures.",
+  "cost_bearers_note": "Adds electronics, energy use, maintenance, and a new failure mode if alerts are trusted blindly.",
+  "reversibility": "yes",
+  "hard_constraints": [
+    {
+      "id": "legal_safety",
+      "status": "pass",
+      "required": true
+    },
+    {
+      "id": "animal_welfare",
+      "status": "pass",
+      "required": true
+    },
+    {
+      "id": "soil_water",
+      "status": "pass",
+      "required": true
+    },
+    {
+      "id": "human_capacity",
+      "status": "pass",
+      "required": true
+    },
+    {
+      "id": "resilience",
+      "status": "unknown",
+      "required": true
+    }
+  ],
+  "unknowns": [
+    "sensor reliability during winter conditions"
+  ],
+  "evaluation": {
+    "gate": "hold",
+    "failed_hard_constraints": [],
+    "unresolved_hard_constraints": [
+      "resilience"
+    ],
+    "unknowns": [
+      "sensor reliability during winter conditions"
+    ],
+    "enoughness_met": false,
+    "reversible": true,
+    "summary": "No required hard constraint is known to fail, but important constraints or effects remain unresolved."
+  }
+}
