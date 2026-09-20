@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Start Here
+    url: https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/START_HERE.md
+    about: Choose the smallest relevant CropCircuit workflow before opening a request.
