@@ -1,0 +1,5 @@
+Order ID,Field,Source Value,Issue,Recommended Action,Auto-corrected?
+A-1003,Row,Exact duplicate,Duplicate source row,Exclude duplicate from downstream unique-order counts unless client says otherwise,No
+A-1005,Qty,two,Non-numeric quantity,Confirm intended quantity with client/source system,No
+A-1006,Phone,[blank],Missing value,Leave blank; request source confirmation only if phone is required,No
+A-1009,Email,pat.green@example,Invalid-looking email format,Do not invent domain; request correction,No
