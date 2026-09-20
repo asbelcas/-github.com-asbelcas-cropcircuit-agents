@@ -46,6 +46,15 @@ assert.equal(
   "not-configured"
 );
 
+assert.equal(
+  hourServiceStatus({
+    currentHours: -1,
+    lastServiceHours: 0,
+    intervalHours: 100,
+  }).status,
+  "not-configured"
+);
+
 assert.deepEqual(
   dateServiceStatus({
     lastServiceDate: "2026-01-01",
