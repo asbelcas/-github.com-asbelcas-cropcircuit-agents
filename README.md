@@ -407,7 +407,7 @@ Current work is centered on creating durable internet utility: tools, datasets, 
 
 ## Automated quality checks
 
-The repository includes GitHub Actions checks for funding data structure/freshness, JavaScript syntax, Farm Math, and the funding-query CLI on changes and on a daily schedule. This is meant to make stale "open" deadlines fail visibly instead of quietly lingering.
+The repository includes a GitHub Actions workflow for funding-data freshness and the public validation suite. The workflow file is committed, but GitHub has reported zero workflow runs so far, so automated execution is **not yet verified**. Local/manual validators remain the evidence source until Actions actually runs.
 
 
 ## Stable public-value snapshots
