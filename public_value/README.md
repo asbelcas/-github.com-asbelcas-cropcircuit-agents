@@ -18,6 +18,8 @@ Every demo record is synthetic and uses a `demo-` ID so it can be removed withou
 - [Assisted Farm Data Setup — $149 pilot](farm_data_setup.html)
 - [Service scope](FARM_DATA_SETUP.md)
 - [Synthetic example deliverable](SYNTHETIC_DATA_SETUP_DELIVERABLE.md)
+- [Assisted Setup Intake Builder](assisted_setup_intake.html)
+- [Synthetic before → after case study](examples/assisted_setup_case/README.md)
 
 This is optional implementation work for operators who prefer to hand off spreadsheet cleanup. The free mapper remains available.
 
