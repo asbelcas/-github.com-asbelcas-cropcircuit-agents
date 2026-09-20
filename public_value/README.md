@@ -258,6 +258,8 @@ Community discussions are used as problem/workflow signals, not as claims of pro
 - [Machine-readable constitution](right_relationship_constitution.json)
 - [High-Impact Decision Record](HIGH_IMPACT_DECISION_RECORD.md)
 - [Decision record schema](decision_record.schema.json)
+- [Governed Farm Decision Workflow](GOVERNED_DECISION_WORKFLOW.md)
+- [Synthetic governed automation example](examples/synthetic_governed_automation_decision.json)
 
 CropCircuit does not use one universal moral score. User-declared hard boundaries are non-compensatory: a failed water, welfare, safety, human-capacity, or resilience boundary cannot be erased by a larger projected financial gain.
 
