@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-20.10",
+  "version": "2026-09-20.11",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -491,6 +491,21 @@
         "public_value/workspace.js",
         "public_value/ops_snapshot.js"
       ]
+    },
+    {
+      "id": "assisted-farm-data-setup",
+      "type": "productized-service",
+      "description": "Fixed-scope pilot that converts existing farm CSV/XLSX exports into cleaned canonical files, Workspace 1.2, mapping/quality notes, and an optional coarse operations snapshot.",
+      "price_usd": 149,
+      "pilot_capacity": 3,
+      "target_delivery_business_days": 3,
+      "max_source_files": 3,
+      "max_total_rows": 1500,
+      "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/farm_data_setup.html",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/FARM_DATA_SETUP.md",
+      "synthetic_example": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/SYNTHETIC_DATA_SETUP_DELIVERABLE.md",
+      "request_channel": "X DM @asbelcas with DATA SETUP",
+      "note": "Free Universal CSV Mapper remains available; this service sells implementation labor, not access to the tools."
     }
   ],
   "updated_at": "2026-09-20",
