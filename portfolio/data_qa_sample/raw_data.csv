@@ -1,0 +1,13 @@
+Order ID,Customer Name,Order Date,Product,Qty,Unit Price,State,Phone,Email,Status
+A-1001,"  Jamie Lee ",9/1/26,field kit,2,$45.00,mi,"(269) 555-0199","JAMIE@example.com ",shipped
+A1002,"MORGAN  REED",2026-09-02,Soil Sensor,1,89,Michigan,269.555.0120,morgan.reed@example.com,Shipped
+A-1003,Taylor Kim,09-03-2026,FIELD KIT,3,45,MI,2695550111,taylor.kim@example.com,pending
+A-1003,Taylor Kim,09-03-2026,FIELD KIT,3,45,MI,2695550111,taylor.kim@example.com,pending
+A-1004,Alex Rivera,Sept 4 2026,Weather Logger,1,125.5,Mich.,269-555-0133,alex.r@example.com,CANCELLED
+A1005,Sam Patel,9/5/2026,soil sensor,two,89.00,MI,2695550144,sam.patel@example.com,shipped
+A-1006,Jordan Bell,2026/09/06,Field Kit,2,45.00,Michigan,,jordan.bell@example.com,pending
+A-1007,Riley Chen,09/07/26,Weather logger,1,125.50,MI,"269 555 0166",riley.chen@example.com,SHIPPED
+A1008,Chris Doe,9-8-26,Field Kit,4,45,MI,2695550177,chris.doe@example.com,returned
+A-1009,Pat Green,2026-09-09,Soil Sensor,1,89,Michigan,2695550188,pat.green@example,Shipped
+A-1010,Dana Fox,09/10/2026,weather logger,2,125.50,MI,2695550190,dana.fox@example.com,Pending
+A1011,Casey North,9/11/26,Field Kit,1,45,mi,2695550191,casey.north@example.com,shipped
