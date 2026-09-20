@@ -76,3 +76,5 @@ jobs:
         run: node public_value/ops_snapshot.test.mjs
       - name: Test assisted setup delivery validation
         run: node public_value/validate_setup_delivery.test.mjs
+      - name: Test right relationship gate
+        run: node public_value/right_relationship.test.mjs
