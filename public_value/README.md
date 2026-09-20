@@ -4,6 +4,12 @@ This directory is the public, reusable core of CropCircuit.
 
 The operating principle is **utility before solicitation**: publish things that are genuinely useful without requiring a sales call, account, subscription, or surrender of raw farm data.
 
+## Spreadsheet starting point
+
+- [Spreadsheet Starter Kit](SPREADSHEET_STARTER_KIT.md)
+
+Blank CSV templates let a farm begin in ordinary spreadsheet software while remaining compatible with CropCircuit's local tools.
+
 ## One-file starting point
 
 - [Farm Ops Pocket Console](farm_ops_console.html)
