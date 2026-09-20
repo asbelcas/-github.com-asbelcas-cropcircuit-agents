@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-20.12",
+  "version": "2026-09-20.13",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -507,7 +507,25 @@
       "request_channel": "X DM @asbelcas with DATA SETUP",
       "note": "Free Universal CSV Mapper remains available; this service sells implementation labor, not access to the tools.",
       "operator_runbook": "public_value/ASSISTED_SETUP_OPERATOR_RUNBOOK.md",
-      "delivery_validator": "public_value/validate_setup_delivery.mjs"
+      "delivery_validator": "public_value/validate_setup_delivery.mjs",
+      "intake_builder": "public_value/assisted_setup_intake.html",
+      "synthetic_case_study": "public_value/examples/assisted_setup_case/README.md"
+    },
+    {
+      "id": "assisted-setup-intake-builder",
+      "type": "standalone-html",
+      "description": "Browser-only scope-request builder for the assisted setup pilot that deliberately avoids farm/customer identifying data and private file uploads.",
+      "source": "public_value/assisted_setup_intake.html",
+      "docs": "public_value/ASSISTED_SETUP_INTAKE.md",
+      "privacy": "No upload; generated request is copied/downloaded by the user.",
+      "dependencies": []
+    },
+    {
+      "id": "synthetic-assisted-setup-case-study",
+      "type": "demo-dataset",
+      "description": "Before/after fictional assisted-setup case with messy source CSVs and canonical delivery outputs.",
+      "source": "public_value/examples/assisted_setup_case/README.md",
+      "truthfulness_boundary": "Synthetic only; must never count as client work, benchmark input, validation, or revenue."
     }
   ],
   "updated_at": "2026-09-20",
