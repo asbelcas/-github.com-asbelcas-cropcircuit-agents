@@ -32,6 +32,7 @@
 - Added workspace example and data-contract validators to the public validation command/workflow.
 - Shareable Farm Operations Snapshot for coarse advisor/consultant review without exposing raw workspace rows or free-text notes.
 - Assisted Farm Data Setup $149 pilot: a bounded implementation service turning existing farm exports into canonical CSVs, Workspace 1.2, mapping notes, and an optional operations snapshot.
+- Published assisted-setup operator runbook and delivery validator with schema, sensitive-field, demo-ID, required-file, and checksum checks.
 - Weekly Operations Brief expanded across all Workspace 1.1 operational domains.
 - JSON Schema for the funding dataset.
 - JSON Feed 1.1 representation for feed readers and software consumers.
