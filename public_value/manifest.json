@@ -593,8 +593,8 @@
     "right_relationship_tests": "public_value/right_relationship.test.mjs"
   },
   "stable_snapshot": {
-    "version": "0.17.1",
-    "branch": "release/public-value-0.17.1",
-    "commit": "bbfd92ea62bfcb18c97bdc5e6e4259f545fcbc31"
+    "version": "0.17.2",
+    "branch": "release/public-value-0.17.2",
+    "commit": "50358a8717f5b403df45145ceae246e85d01d099"
   }
 }
