@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-20.4",
+  "version": "2026-09-20.5",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -439,6 +439,22 @@
       "type": "research-note",
       "description": "Public community signals behind CropCircuit's spreadsheet-compatible, local-first equipment and direct-market utility direction, explicitly not treated as market validation.",
       "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/USER_NEED_EVIDENCE_2026-09-20.md"
+    },
+    {
+      "id": "farm-data-contract-registry",
+      "type": "data-standard",
+      "description": "Machine-readable registry of CropCircuit labor, chore schedule, equipment maintenance, parts, harvest, and sales field contracts.",
+      "source": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/data_contracts.json"
+    },
+    {
+      "id": "universal-farm-csv-mapper",
+      "type": "standalone-html",
+      "description": "Generic browser-only mapper from arbitrary CSV columns into six CropCircuit operational contracts with optional direct local-workspace import.",
+      "source": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/universal_csv_mapper.html",
+      "docs": "https://github.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/blob/main/public_value/UNIVERSAL_CSV_MAPPER.md",
+      "contracts": "public_value/data_contracts.json",
+      "privacy": "Source CSV remains in the browser; no upload or server processing is required.",
+      "dependencies": []
     }
   ],
   "updated_at": "2026-09-20",
