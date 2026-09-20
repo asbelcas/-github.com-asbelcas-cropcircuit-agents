@@ -7,6 +7,14 @@ Instead of leading with a consulting pitch, this repository now exposes useful b
 
 ## Public value assets
 
+### Universal Farm CSV Mapper
+
+Existing spreadsheets can now be mapped into six CropCircuit operational contracts without rewriting the source file:
+
+- [Universal Farm CSV Mapper](public_value/universal_csv_mapper.html)
+- [Documentation](public_value/UNIVERSAL_CSV_MAPPER.md)
+- [Machine-readable data contracts](public_value/data_contracts.json)
+
 ### Spreadsheet Starter Kit
 
 For farms that prefer Excel, Google Sheets, or LibreOffice, CropCircuit now publishes blank portable CSV templates matching the same open data contracts:
