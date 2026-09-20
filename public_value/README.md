@@ -216,6 +216,12 @@ The repository contains zero-dependency checks for:
 
 GitHub Actions workflow files are present, but automated workflow execution has not yet been independently verified.
 
+## Product-direction evidence
+
+- [User-need evidence — 2026-09-20](USER_NEED_EVIDENCE_2026-09-20.md)
+
+Community discussions are used as problem/workflow signals, not as claims of product-market fit or willingness to pay.
+
 ## Privacy model
 
 - [Privacy model and limitations](PRIVACY_MODEL.md)
