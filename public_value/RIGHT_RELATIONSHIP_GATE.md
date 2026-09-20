@@ -56,3 +56,20 @@ The module returns a gate state plus failed/unresolved constraints and a plain-l
 ## Related policy
 - Dharma-Informed Design Doctrine
 - Machine-readable right relationship constitution
+
+
+## Decision record export
+
+After evaluation, the browser tool can download a local JSON decision record containing:
+
+- decision / option;
+- purpose;
+- enoughness note;
+- reciprocity note;
+- who/what bears costs;
+- hard-constraint states;
+- important unknowns;
+- reversibility;
+- the PASS / HOLD / REJECT gate result.
+
+Nothing is uploaded. The record exists so a later operator or agent can inspect **why** a decision passed, held, or failed instead of seeing only the final outcome.
