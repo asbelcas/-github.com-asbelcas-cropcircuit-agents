@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-20.17",
+  "version": "2026-09-20.18",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -580,6 +580,18 @@
       "docs": "public_value/GOVERNED_DECISION_WORKFLOW.md",
       "synthetic_example": "public_value/examples/synthetic_governed_automation_decision.json",
       "decision_record_schema": "public_value/decision_record.schema.json"
+    },
+    {
+      "id": "automation-proof-pack",
+      "type": "capability-documentation",
+      "description": "Evidence-based map from existing CropCircuit public code to common data/AI automation patterns, with explicit unproven-integration boundaries.",
+      "docs": "public_value/AUTOMATION_PROOF_PACK.md"
+    },
+    {
+      "id": "automation-project-preflight",
+      "type": "workflow-template",
+      "description": "Reusable scoping worksheet for triggers, inputs, deterministic rules, LLM boundaries, destinations, failure handling, idempotency, security, and pilot acceptance tests.",
+      "docs": "public_value/AUTOMATION_PROJECT_PREFLIGHT.md"
     }
   ],
   "updated_at": "2026-09-20",
