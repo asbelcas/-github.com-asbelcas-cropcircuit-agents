@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-20.15",
+  "version": "2026-09-20.16",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -560,7 +560,9 @@
       "tests": "public_value/right_relationship.test.mjs",
       "dependencies": [
         "public_value/right_relationship.js"
-      ]
+      ],
+      "record_schema": "public_value/right_relationship_record.schema.json",
+      "synthetic_example": "public_value/examples/synthetic_right_relationship_decision.json"
     }
   ],
   "updated_at": "2026-09-20",
