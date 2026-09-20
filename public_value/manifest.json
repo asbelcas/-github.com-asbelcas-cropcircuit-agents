@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-20.8",
+  "version": "2026-09-20.9",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -507,8 +507,8 @@
     "data_contract_validation": "public_value/validate_data_contracts.mjs"
   },
   "stable_snapshot": {
-    "version": "0.15.0",
-    "branch": "release/public-value-0.15.0",
-    "commit": "3cc0d81e523b72b63213bcbb571d5802470089bb"
+    "version": "0.15.1",
+    "branch": "release/public-value-0.15.1",
+    "commit": "55ed09997d00c25af50199def43ccb7e73e9f407"
   }
 }
