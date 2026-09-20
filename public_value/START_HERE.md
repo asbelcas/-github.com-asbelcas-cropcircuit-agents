@@ -106,6 +106,7 @@ The benchmark, package exports, schemas, feeds, and machine-readable layers exis
 | "I want a weekly operating picture." | Weekly Farm Operations Brief |
 | "I need to share a summary without sending raw farm records." | Shareable Farm Operations Snapshot |
 | "I need Michigan funding deadlines." | Michigan Farm Funding Explorer |
+| "I have two profitable options but one may violate a value boundary." | Right Relationship Decision Gate |
 
 ## Data ownership
 
@@ -129,3 +130,10 @@ Usage and actual external payment are separate evidence.
 If the free mapping tools solve the problem but you do not want to do the cleanup yourself, see [Assisted Farm Data Setup](farm_data_setup.html). Build a privacy-safe scope request first with the [Assisted Setup Intake Builder](assisted_setup_intake.html).
 
 The pilot is a fixed $149 implementation job: up to three source exports / 1,500 rows, cleaned canonical files, Workspace 1.2, a mapping-quality note, and an Operations Snapshot when the data supports one.
+
+
+## Before optimizing a morally loaded decision
+
+If a decision touches animal welfare, soil/water, human capacity, safety, resilience, or another non-negotiable value, use the [Right Relationship Decision Gate](right_relationship_gate.html) **before** ranking options by ROI.
+
+The gate does not supply a universal moral score. It asks the operator to declare hard boundaries, unknowns, enoughness, and reversibility so that financial upside cannot silently override a non-negotiable constraint.
