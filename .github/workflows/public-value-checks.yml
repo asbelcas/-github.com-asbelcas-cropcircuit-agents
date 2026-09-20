@@ -72,3 +72,5 @@ jobs:
         run: node public_value/sales_math.test.mjs
       - name: Test parts inventory math
         run: node public_value/inventory_math.test.mjs
+      - name: Test operations snapshot
+        run: node public_value/ops_snapshot.test.mjs
