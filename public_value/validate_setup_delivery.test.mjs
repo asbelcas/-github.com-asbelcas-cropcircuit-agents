@@ -43,6 +43,21 @@ fs.writeFileSync(path.join(demoDir,"delivery_note.md"),"# Delivery note\n");
 assert.equal(validateSetupDelivery(demoDir).ok,false);
 assert.ok(validateSetupDelivery(demoDir).errors.some(x=>x.includes("demo")));
 
+const caseDir=makeDir();
+fs.writeFileSync(path.join(caseDir,"workspace.json"),JSON.stringify({
+  schema_version:"1.2",
+  labor_entries:[{id:"case-1"}],
+  labor_settings:{},
+  chore_schedule:[],
+  equipment_maintenance:[],
+  harvest_entries:[],
+  sales_entries:[],
+  parts_inventory:[]
+}));
+fs.writeFileSync(path.join(caseDir,"delivery_note.md"),"# Delivery note\n");
+assert.equal(validateSetupDelivery(caseDir).ok,false);
+assert.ok(validateSetupDelivery(caseDir).errors.some(x=>x.includes("synthetic/example")));
+
 const sensitiveDir=makeDir();
 fs.writeFileSync(path.join(sensitiveDir,"workspace.json"),JSON.stringify({
   schema_version:"1.2",
