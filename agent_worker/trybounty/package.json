@@ -1,0 +1,13 @@
+{
+  "name": "cropcircuit-bounty-worker",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "@bounty-ai/agent-sdk": "0.2.0-beta.1"
+  },
+  "scripts": {
+    "scan": "node worker.mjs --once",
+    "watch": "node worker.mjs"
+  }
+}
