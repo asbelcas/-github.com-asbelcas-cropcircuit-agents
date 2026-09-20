@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/decision_record.schema.json",
+  "title": "CropCircuit High-Impact Decision Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "decision_id",
+    "created_at",
+    "decision",
+    "purpose",
+    "hard_constraints",
+    "viability",
+    "reciprocity",
+    "enoughness",
+    "wider_system_effects",
+    "unknowns",
+    "reversibility",
+    "gate",
+    "decision_outcome",
+    "review_trigger"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "decision_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "decision": {
+      "type": "string",
+      "minLength": 1
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1
+    },
+    "hard_constraints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "required",
+          "status",
+          "evidence"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "label": {
+            "type": "string"
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "status": {
+            "enum": [
+              "pass",
+              "fail",
+              "unknown"
+            ]
+          },
+          "evidence": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "viability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "financial",
+        "operational",
+        "legal",
+        "technical",
+        "biological_ecological"
+      ],
+      "properties": {
+        "financial": {
+          "type": "string"
+        },
+        "operational": {
+          "type": "string"
+        },
+        "legal": {
+          "type": "string"
+        },
+        "technical": {
+          "type": "string"
+        },
+        "biological_ecological": {
+          "type": "string"
+        }
+      }
+    },
+    "reciprocity": {
+      "type": "string"
+    },
+    "enoughness": {
+      "type": "string"
+    },
+    "wider_system_effects": {
+      "type": "string"
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reversibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "level",
+        "note"
+      ],
+      "properties": {
+        "level": {
+          "enum": [
+            "high",
+            "medium",
+            "low",
+            "unknown"
+          ]
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "gate": {
+      "enum": [
+        "pass_to_review",
+        "hold",
+        "reject"
+      ]
+    },
+    "decision_outcome": {
+      "enum": [
+        "proceed",
+        "hold",
+        "reject",
+        "experiment"
+      ]
+    },
+    "review_trigger": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence_notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
