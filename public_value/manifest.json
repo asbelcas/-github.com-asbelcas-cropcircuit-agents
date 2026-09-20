@@ -1,6 +1,6 @@
 {
   "name": "CropCircuit Public Value Assets",
-  "version": "2026-09-20.13",
+  "version": "2026-09-20.14",
   "publisher": "CropCircuit",
   "principle": "utility before solicitation",
   "assets": [
@@ -526,6 +526,16 @@
       "description": "Before/after fictional assisted-setup case with messy source CSVs and canonical delivery outputs.",
       "source": "public_value/examples/assisted_setup_case/README.md",
       "truthfulness_boundary": "Synthetic only; must never count as client work, benchmark input, validation, or revenue."
+    },
+    {
+      "id": "local-service-order-ledger",
+      "type": "standalone-html",
+      "description": "Browser-local request/payment/delivery ledger that separates quoted pipeline from confirmed external customer payment and delivered work.",
+      "source": "public_value/service_order_ledger.html",
+      "docs": "public_value/SERVICE_ORDER_LEDGER.md",
+      "storage_key": "cropcircuit_service_order_ledger_v1",
+      "privacy": "Designed to use request IDs rather than unnecessary customer personal information.",
+      "dependencies": []
     }
   ],
   "updated_at": "2026-09-20",
