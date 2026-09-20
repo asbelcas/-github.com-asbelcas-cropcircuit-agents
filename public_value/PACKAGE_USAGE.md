@@ -113,6 +113,17 @@ import {
 
 These helpers describe entered sales records; they do not determine accounting or tax treatment.
 
+## Parts inventory math
+
+```js
+import {
+  partStockStatus,
+  summarizePartInventory
+} from "cropcircuit-open-farm-utils/inventory-math";
+```
+
+Reorder status uses only operator-supplied stock quantities and thresholds.
+
 ## Registry status
 
 No npm registry publication is claimed.
