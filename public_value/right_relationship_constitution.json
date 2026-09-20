@@ -1,0 +1,80 @@
+{
+  "name": "CropCircuit Right Relationship Constitution",
+  "version": "1.0",
+  "status": "design-policy",
+  "inspiration_note": "Inspired by Hindu philosophical concepts used in CropCircuit design discussions; not claimed as a complete or authoritative representation of Hinduism.",
+  "axiom": "Let machines handle measurement, prediction, repetitive labor, and coordination. Let dharma determine what the machines are optimizing for.",
+  "principles": [
+    {
+      "id": "dharma",
+      "label": "Right relationship",
+      "question": "Does this option fit the land, animals, people, community, and long-term purpose of the farm?"
+    },
+    {
+      "id": "ahimsa",
+      "label": "Minimize avoidable harm",
+      "question": "What harms are created, who or what bears them, and which are avoidable?"
+    },
+    {
+      "id": "yajna",
+      "label": "Reciprocity",
+      "question": "What does this option return to the ecological, human, or community systems it draws from?"
+    },
+    {
+      "id": "aparigraha",
+      "label": "Enoughness",
+      "question": "Is the stated need already sufficiently met, and if so what justifies additional throughput or accumulation?"
+    },
+    {
+      "id": "loka_samgraha",
+      "label": "Wider-system welfare",
+      "question": "Does this strengthen or weaken the larger ecological and social system beyond the farm boundary?"
+    },
+    {
+      "id": "karma_yoga",
+      "label": "Disciplined action without metric worship",
+      "question": "Can this be measured and improved without allowing one metric to override the larger purpose?"
+    },
+    {
+      "id": "cycles",
+      "label": "Cycles over infinite growth",
+      "question": "Does the plan allow rest, fallow, maintenance, contraction, renewal, and succession where appropriate?"
+    }
+  ],
+  "decision_order": [
+    "purpose",
+    "hard_constraints",
+    "viability",
+    "descriptive_effects",
+    "sufficiency",
+    "uncertainty",
+    "reversibility",
+    "decision"
+  ],
+  "hard_constraint_policy": {
+    "rule": "A failed hard constraint cannot be compensated for by a higher weighted score on another dimension.",
+    "examples": [
+      "legal_or_safety",
+      "animal_welfare",
+      "soil_or_water",
+      "human_capacity",
+      "critical_resilience"
+    ]
+  },
+  "uncertainty_policy": {
+    "rule": "Unknown is not equivalent to acceptable.",
+    "preferred_response": [
+      "label_uncertainty",
+      "identify_missing_evidence",
+      "prefer_reversible_test_when_practical"
+    ]
+  },
+  "default_output_policy": {
+    "single_moral_score": false,
+    "rank_only_if_user_defines_tradeoffs": true,
+    "show_assumptions": true,
+    "show_unknowns": true,
+    "show_failed_hard_constraints": true
+  },
+  "shorthand": "Measure everything useful. Optimize nothing blindly. Take enough. Return something. Preserve life and future possibility."
+}
