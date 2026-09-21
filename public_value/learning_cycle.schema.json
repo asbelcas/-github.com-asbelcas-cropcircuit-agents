@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/learning_cycle.schema.json",
+  "title": "CropCircuit Learning Cycle v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "cycle_id",
+    "created_at",
+    "question",
+    "prediction",
+    "action",
+    "stop_rule",
+    "provenance",
+    "observations",
+    "contradictions",
+    "updates"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1" },
+    "cycle_id": { "type": "string", "minLength": 1 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "question": { "type": "string", "minLength": 1 },
+    "prediction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["statement", "confidence", "falsifiers"],
+      "properties": {
+        "statement": { "type": "string", "minLength": 1 },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "falsifiers": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["description", "reversible"],
+      "properties": {
+        "description": { "type": "string", "minLength": 1 },
+        "reversible": { "type": "boolean" },
+        "cost_cap": { "type": ["number", "null"], "minimum": 0 },
+        "owner": { "type": "string" }
+      }
+    },
+    "stop_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["description", "status"],
+      "properties": {
+        "description": { "type": "string", "minLength": 1 },
+        "status": { "enum": ["not_met", "met", "unknown"] },
+        "evidence": { "type": "string" }
+      }
+    },
+    "provenance": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind"],
+        "properties": {
+          "kind": {
+            "enum": [
+              "human_observation",
+              "sensor_observation",
+              "transaction",
+              "experiment",
+              "external_source",
+              "model_inference",
+              "assumption"
+            ]
+          },
+          "ref": { "type": "string" },
+          "note": { "type": "string" }
+        },
+        "anyOf": [
+          { "required": ["ref"] },
+          { "required": ["note"] }
+        ]
+      }
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["recorded_at", "result"],
+        "properties": {
+          "recorded_at": { "type": "string", "format": "date-time" },
+          "result": { "type": "string", "minLength": 1 },
+          "evidence_refs": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "surprise": {
+            "type": ["object", "null"],
+            "additionalProperties": false,
+            "required": ["score", "reason"],
+            "properties": {
+              "score": { "type": "number", "minimum": 0, "maximum": 1 },
+              "reason": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    },
+    "contradictions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["statement", "status"],
+        "properties": {
+          "statement": { "type": "string", "minLength": 1 },
+          "status": { "enum": ["unresolved", "resolved"] },
+          "evidence_refs": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "updates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["recorded_at", "confidence_before", "confidence_after", "rationale"],
+        "properties": {
+          "recorded_at": { "type": "string", "format": "date-time" },
+          "confidence_before": { "type": "number", "minimum": 0, "maximum": 1 },
+          "confidence_after": { "type": "number", "minimum": 0, "maximum": 1 },
+          "rationale": { "type": "string", "minLength": 1 },
+          "model_change": { "type": "string" },
+          "next_action": { "type": "string" }
+        }
+      }
+    }
+  }
+}

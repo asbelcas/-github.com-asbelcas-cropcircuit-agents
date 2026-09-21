@@ -439,3 +439,119 @@ export function evaluateRightRelationship(input?: {
   reversible: boolean;
   summary: string;
 };
+
+
+export type LearningProvenanceKind =
+  | "human_observation"
+  | "sensor_observation"
+  | "transaction"
+  | "experiment"
+  | "external_source"
+  | "model_inference"
+  | "assumption";
+
+export interface LearningCycle {
+  schema_version: "0.1";
+  cycle_id: string;
+  created_at: string;
+  question: string;
+  prediction: {
+    statement: string;
+    confidence: number;
+    falsifiers: string[];
+  };
+  action: {
+    description: string;
+    reversible: boolean;
+    cost_cap?: number | null;
+    owner?: string;
+  };
+  stop_rule: {
+    description: string;
+    status: "not_met" | "met" | "unknown";
+    evidence?: string;
+  };
+  provenance: Array<{
+    kind: LearningProvenanceKind;
+    ref?: string;
+    note?: string;
+  }>;
+  observations: Array<{
+    recorded_at: string;
+    result: string;
+    evidence_refs?: string[];
+    surprise?: { score: number; reason: string } | null;
+  }>;
+  contradictions: Array<{
+    statement: string;
+    status: "unresolved" | "resolved";
+    evidence_refs?: string[];
+    note?: string;
+  }>;
+  updates: Array<{
+    recorded_at: string;
+    confidence_before: number;
+    confidence_after: number;
+    rationale: string;
+    model_change?: string;
+    next_action?: string;
+  }>;
+}
+
+export function validateLearningCycle(record?: Partial<LearningCycle>): {
+  valid: boolean;
+  errors: string[];
+  warnings: string[];
+};
+
+export function appendObservation(
+  record: LearningCycle,
+  observation: LearningCycle["observations"][number]
+): LearningCycle;
+
+export function appendContradiction(
+  record: LearningCycle,
+  contradiction: {
+    statement: string;
+    status?: "unresolved" | "resolved";
+    evidence_refs?: string[];
+    note?: string;
+  }
+): LearningCycle;
+
+export function appendConfidenceUpdate(
+  record: LearningCycle,
+  update: {
+    recorded_at: string;
+    confidence_after: number;
+    rationale: string;
+    model_change?: string;
+    next_action?: string;
+  }
+): LearningCycle;
+
+export function summarizeLearningCycle(record?: Partial<LearningCycle>): {
+  state: "invalid" | "planned" | "observed" | "contradicted" | "stopped";
+  validation: { valid: boolean; errors: string[]; warnings: string[] };
+  observations: number;
+  unresolved_contradictions: number;
+  initial_confidence?: number;
+  current_confidence?: number;
+  confidence_delta: number | null;
+  latest_surprise: { score: number; reason: string } | null;
+  prediction_preserved?: boolean;
+};
+
+export function shouldContinueLearning(record?: Partial<LearningCycle>): {
+  continue: boolean;
+  reason:
+    | "invalid_record"
+    | "stop_rule_met"
+    | "resolve_or_test_contradiction"
+    | "await_observation"
+    | "clarify_stop_rule"
+    | "continue_until_stop_rule";
+  summary: ReturnType<typeof summarizeLearningCycle>;
+};
+
+export const PROVENANCE_KINDS: ReadonlySet<LearningProvenanceKind>;
