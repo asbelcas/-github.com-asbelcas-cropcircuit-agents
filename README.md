@@ -71,6 +71,21 @@ The fastest way into the system is now [Farm Ops Pocket Console](public_value/fa
 
 Everything below lives in [`public_value/`](public_value/).
 
+
+### Inspectable Learning Loop
+
+CropCircuit now includes a minimal epistemic loop for preserving predictions before outcomes and learning from contradiction instead of rewriting the story afterward:
+
+**prediction → action → observation → contradiction → update**
+
+- [Learning Loop documentation](public_value/LEARNING_LOOP.md)
+- [Reusable JavaScript primitive](public_value/learning_loop.js)
+- [JSON Schema](public_value/learning_cycle.schema.json)
+- [Tests](public_value/learning_loop.test.mjs)
+- [Synthetic farm-workflow example](public_value/examples/synthetic_learning_cycle.json)
+
+The loop records provenance, falsifiers, confidence changes, surprise, reversibility, and explicit stopping rules. It does not grant agents permission to bypass the existing Right Relationship gate or human/ecological hard constraints.
+
 ### Sales CSV Import Mapper
 
 Existing POS, invoice, or spreadsheet exports can be mapped into CropCircuit's operational sales format without uploading the source file:
