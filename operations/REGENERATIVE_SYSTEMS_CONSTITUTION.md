@@ -227,6 +227,16 @@ Change the model, records, or next action.
 
 This loop connects the Dharma Design Doctrine, Right Relationship Gate, High-Impact Decision Record, and Learning Loop.
 
+## 12A. Model arbitration
+
+Pasture, animal, labor, finance, soil, weather, and infrastructure models may disagree.
+
+Do not erase this disagreement with one opaque score. Preserve each model's recommendation, evidence, uncertainty, time sensitivity, reversibility, and implicated hard constraints. Route unresolved tensions to the authorized human.
+
+## 12B. Hypothesis memory
+
+Failed and suspended hypotheses remain part of system memory. Preserve the conditions under which they failed, the evidence, the outcome, and the reason they were rejected. A hypothesis that failed under one set of conditions may become relevant under another.
+
 ## 13. Agent-specific requirements
 
 AI operators are partial participants, not central authorities.
