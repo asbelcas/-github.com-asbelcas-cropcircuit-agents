@@ -86,6 +86,19 @@ The Farm Ops Pocket Console now includes a **Quick observe** tab backed by the s
 
 [Open the Farm Ops Pocket Console source](public_value/farm_ops_console.html)
 
+### Closed Learning Loop
+
+The Farm Ops Pocket Console can now turn an observation into a complete learning cycle without rewriting the original prediction after the result is known:
+
+**observation → prediction → action → outcome → contradiction → update**
+
+- [Pocket Console Learning Cycles](public_value/POCKET_LEARNING_LOOP.md)
+- [Learning Cycle JSON Schema](public_value/learning_cycle.schema.json)
+- [Learning Loop](public_value/learning_loop.js)
+- [Compatibility test](public_value/pocket_learning_cycle.test.mjs)
+
+The Pocket Console preserves source provenance, the original prediction, confidence changes, contradictions, lessons, and next actions in local browser storage and workspace backups.
+
 ### Fast Reflex Loop
 
 The first executable nerve is now in place: a shared observation contract plus an inspectable fast-loop alert engine for sparse farm signals.
