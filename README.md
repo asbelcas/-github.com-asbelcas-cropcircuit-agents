@@ -73,6 +73,16 @@ The fastest way into the system is now [Farm Ops Pocket Console](public_value/fa
 Everything below lives in [`public_value/`](public_value/).
 
 
+### Farm Nervous System Architecture
+
+CropCircuit now defines an implementable nervous-system layer with separate fast and slow loops, cross-domain signal convergence, explicit model arbitration, a dynamic financial resilience floor, and preserved failed-hypothesis memory:
+
+- [Farm Nervous System Architecture](public_value/FARM_NERVOUS_SYSTEM_ARCHITECTURE.md)
+- [Signal Convergence primitive](public_value/signal_convergence.js)
+- [Signal Convergence tests](public_value/signal_convergence.test.mjs)
+
+The convergence primitive creates provisional investigation tokens only; it does not diagnose causes or authorize irreversible actions.
+
 ### Inspectable Learning Loop
 
 CropCircuit now includes a minimal epistemic loop for preserving predictions before outcomes and learning from contradiction instead of rewriting the story afterward:
