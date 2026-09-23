@@ -1,0 +1,19 @@
+{
+  "schema_version": "0.1",
+  "event_id": "synthetic-water-001",
+  "recorded_at": "2026-09-23T18:00:00Z",
+  "source": {
+    "kind": "sensor_observation",
+    "ref": "synthetic:tank-sensor-1"
+  },
+  "domain": "water",
+  "signal_key": "tank_percent",
+  "summary": "Synthetic tank level reading used only to demonstrate the observation contract.",
+  "value": 12,
+  "unit": "%",
+  "severity_hint": "watch",
+  "evidence_refs": ["synthetic:reading-001"],
+  "tags": ["synthetic", "reflex-loop-demo"],
+  "privacy": "private",
+  "note": "This is not a real farm reading and the numeric value is not a recommended threshold."
+}
