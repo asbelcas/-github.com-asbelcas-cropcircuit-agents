@@ -86,6 +86,17 @@ The Farm Ops Pocket Console now includes a **Quick observe** tab backed by the s
 
 [Open the Farm Ops Pocket Console source](public_value/farm_ops_console.html)
 
+### Financial Resilience Floor
+
+CropCircuit now has a deterministic, non-compensatory financial gate for consequential recommendations. The farm supplies the metrics and its own declared thresholds; CropCircuit does not invent a universal cash reserve, debt-service limit, or runway target.
+
+- [Financial Resilience Floor documentation](public_value/FINANCIAL_RESILIENCE_FLOOR.md)
+- [Evaluator](public_value/financial_resilience_floor.js)
+- [Tests](public_value/financial_resilience_floor.test.mjs)
+- [Synthetic policy example](public_value/examples/synthetic_financial_resilience_policy.json)
+
+A required floor that fails produces **REJECT**. A required floor that cannot be evaluated produces **HOLD**. Passing the floor means only **PASS_TO_REVIEW** — not an automatic recommendation.
+
 ### Cross-Domain Convergence in the Pocket Console
 
 The Pocket Console can now surface a provisional pattern when deliberately tagged observations from at least three distinct farm domains point toward the same possible hypothesis.
