@@ -84,6 +84,24 @@ The operator's job is to participate skillfully:
 
 Do not confuse control with competence.
 
+## 5A. Two-speed nervous system
+
+CropCircuit must separate fast reflex loops from slow deliberative loops.
+
+Fast loops may escalate urgent welfare, safety, water, equipment, or other threshold anomalies from minimal reliable input. They must not wait for the full relationship model to assemble.
+
+Slow loops integrate cross-domain context, model relationships, record predictions, compare outcomes, and learn across longer timescales.
+
+The slow loop may explain a fast-loop alert later. It may not block a justified fast-loop escalation now.
+
+## 5B. Lateral convergence
+
+Contradiction may arrive sideways rather than as one prediction cleanly failing.
+
+When independent domains begin pointing toward the same anomaly, CropCircuit may create a provisional hypothesis for investigation. That hypothesis must remain uncertainty-labeled, evidence-linked, and non-authorizing.
+
+Cross-domain convergence is not proof of cause.
+
 ## 6. Action makes the shared state more determinate
 
 A decision narrows future possibilities.
