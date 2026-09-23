@@ -86,6 +86,18 @@ The Farm Ops Pocket Console now includes a **Quick observe** tab backed by the s
 
 [Open the Farm Ops Pocket Console source](public_value/farm_ops_console.html)
 
+### Repeated-Decision Pilot Instrumentation
+
+The Farm Nervous System now has a comparison protocol for generating evidence from repeated real decisions without turning a small pilot into a superiority claim.
+
+- [Repeated-Decision Pilot Protocol](public_value/REPEATED_DECISION_PILOT.md)
+- [Pilot instrumentation](public_value/pilot_learning_rate.js)
+- [Pilot record schema](public_value/pilot_decision_record.schema.json)
+- [Pilot tests](public_value/pilot_learning_rate.test.mjs)
+- [Synthetic example](public_value/examples/synthetic_pilot_decision.json)
+
+The instrument compares recorded prediction trajectories from the farmer, CropCircuit, and—when genuinely available—a conventional rule/software comparator. It reports descriptive contradiction and confidence patterns and deliberately selects **no winner**.
+
 ### Relationship Flow View
 
 The Farm Nervous System now has a local-first relationship map for making flows, dependencies, stress, evidence, and unknowns visible without inventing a single farm-health score.
