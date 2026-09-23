@@ -169,6 +169,17 @@ A failed idea under drought may become useful under wet conditions.
 
 The graveyard is searchable memory, not a trash bin.
 
+### Implemented foundation
+
+The first shared fast-loop substrate now exists:
+
+- `observation_event.schema.json` defines a source-aware observation event
+- `reflex_loop.js` evaluates inspectable farm-defined reflex rules from sparse observations
+- `reflex_loop.test.mjs` verifies alert-only behavior, clear state, record-only freeform observations, and provenance warnings
+- `REFLEX_LOOP.md` documents the safety boundary
+
+The Reflex Loop intentionally does not diagnose causes or authorize irreversible actions.
+
 ## 7. Minimum viable nervous system
 
 Build in this sequence:
