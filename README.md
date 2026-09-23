@@ -73,6 +73,19 @@ The fastest way into the system is now [Farm Ops Pocket Console](public_value/fa
 Everything below lives in [`public_value/`](public_value/).
 
 
+### Frictionless Observation Capture
+
+The Farm Ops Pocket Console now includes a **Quick observe** tab backed by the shared observation contract. A farmer can capture a plain-language observation first and optionally add source, domain, severity, signal key, value, and unit without filling out a long form.
+
+- observations stay local-first in browser storage
+- quick domain buttons reduce capture friction
+- freeform observations do not require a signal key
+- model inference remains explicitly labeled as inference
+- observation records are included in the Pocket Console workspace backup when present
+- the shared field registry now includes the observation collection
+
+[Open the Farm Ops Pocket Console source](public_value/farm_ops_console.html)
+
 ### Fast Reflex Loop
 
 The first executable nerve is now in place: a shared observation contract plus an inspectable fast-loop alert engine for sparse farm signals.

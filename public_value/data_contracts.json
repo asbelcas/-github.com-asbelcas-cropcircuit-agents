@@ -1,8 +1,107 @@
 {
   "version": "1.0",
-  "updated_at": "2026-09-20",
-  "purpose": "Machine-readable field registry for CropCircuit local-first operational CSVs and Workspace 1.2 collections.",
+  "updated_at": "2026-09-23",
+  "purpose": "Machine-readable field registry for CropCircuit local-first operational CSVs and browser workspace collections.",
   "contracts": [
+    {
+      "id": "observations",
+      "label": "Farm observations",
+      "workspace_collection": "observation_events",
+      "storage_key": "cropcircuit_observation_events_v1",
+      "required": [
+        "schema_version",
+        "event_id",
+        "recorded_at",
+        "source_kind",
+        "domain",
+        "summary"
+      ],
+      "fields": [
+        {
+          "name": "schema_version",
+          "type": "string",
+          "const": "0.1"
+        },
+        {
+          "name": "event_id",
+          "type": "string"
+        },
+        {
+          "name": "recorded_at",
+          "type": "date-time"
+        },
+        {
+          "name": "source_kind",
+          "type": "enum",
+          "values": [
+            "human_observation",
+            "sensor_observation",
+            "transaction",
+            "import",
+            "external_source",
+            "model_inference"
+          ]
+        },
+        {
+          "name": "domain",
+          "type": "enum",
+          "values": [
+            "animal_welfare",
+            "livestock",
+            "water",
+            "infrastructure",
+            "safety",
+            "pasture",
+            "soil",
+            "crop",
+            "labor",
+            "finance",
+            "weather",
+            "market",
+            "other"
+          ]
+        },
+        {
+          "name": "signal_key",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "summary",
+          "type": "string"
+        },
+        {
+          "name": "value",
+          "type": "string_or_number_or_boolean",
+          "optional": true
+        },
+        {
+          "name": "unit",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "severity_hint",
+          "type": "enum",
+          "values": [
+            "normal",
+            "watch",
+            "urgent",
+            "emergency"
+          ],
+          "optional": true
+        },
+        {
+          "name": "privacy",
+          "type": "enum",
+          "values": [
+            "private",
+            "shareable"
+          ],
+          "optional": true
+        }
+      ]
+    },
     {
       "id": "labor",
       "label": "Labor log",

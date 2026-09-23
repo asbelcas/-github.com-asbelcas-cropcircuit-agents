@@ -18,11 +18,12 @@ table{width:100%;border-collapse:collapse;font-size:.83rem}th,td{text-align:left
 </style></head>
 <body><main>
 <h1>Farm Ops Pocket Console</h1>
-<p class="lead">One offline HTML file for labor observations, recurring chores, a seven-day operating summary, and a full-workspace backup that preserves compatible equipment, harvest, and sales records.</p>
+<p class="lead">One offline HTML file for quick farm observations, labor records, recurring chores, a seven-day operating summary, and a full-workspace backup that preserves compatible equipment, harvest, sales, and observation records.</p>
 <div class="notice"><strong>Single-file / local-first:</strong> no account, analytics, server sync, or external library. It uses the same CropCircuit browser-storage keys as the larger toolkit when opened from the same origin.</div>
 
 <div class="tabs">
 <button class="tab active" data-tab="dashboard">Dashboard</button>
+<button class="tab" data-tab="observe">Quick observe</button>
 <button class="tab" data-tab="labor">Log labor</button>
 <button class="tab" data-tab="schedule">Schedule chores</button>
 <button class="tab" data-tab="backup">Backup</button>
@@ -38,6 +39,34 @@ table{width:100%;border-collapse:collapse;font-size:.83rem}th,td{text-align:left
 <div class="card"><h2>Labor by category</h2><div class="scroll"><table><thead><tr><th>Category</th><th>Entries</th><th>Worker-hours</th><th>%</th></tr></thead><tbody id="d-cats"></tbody></table></div></div>
 <div class="card"><h2>Next 7 days</h2><div class="scroll"><table><thead><tr><th>Date</th><th>Work</th><th>Estimated minutes</th></tr></thead><tbody id="d-schedule"></tbody></table></div></div>
 <button id="print-dashboard" class="secondary">Print dashboard</button>
+</section>
+
+<section id="observe" class="panel">
+<div class="card entry-controls">
+<h2>Quick observation</h2>
+<p class="small">Capture first, structure later. A plain-language note is enough; signal, value, and unit are optional.</p>
+<div>
+<button class="secondary" data-o-preset="animal_welfare">Animal / welfare</button>
+<button class="secondary" data-o-preset="water">Water</button>
+<button class="secondary" data-o-preset="infrastructure">Infrastructure</button>
+<button class="secondary" data-o-preset="safety">Safety</button>
+<button class="secondary" data-o-preset="pasture">Pasture</button>
+<button class="secondary" data-o-preset="soil">Soil</button>
+<button class="secondary" data-o-preset="other">Other</button>
+</div>
+<div class="grid" style="margin-top:10px">
+<label>Source<select id="o-source"><option value="human_observation" selected>Human observation</option><option value="sensor_observation">Sensor observation</option><option value="transaction">Transaction</option><option value="import">Import</option><option value="external_source">External source</option><option value="model_inference">Model inference</option></select></label>
+<label>Domain<select id="o-domain"><option value="livestock">Livestock</option><option value="animal_welfare">Animal welfare</option><option value="water">Water</option><option value="infrastructure">Infrastructure</option><option value="safety">Safety</option><option value="pasture">Pasture</option><option value="soil">Soil</option><option value="crop">Crop</option><option value="labor">Labor</option><option value="finance">Finance</option><option value="weather">Weather</option><option value="market">Market</option><option value="other">Other</option></select></label>
+<label>Severity hint<select id="o-severity"><option value="normal">Normal</option><option value="watch" selected>Watch</option><option value="urgent">Urgent</option><option value="emergency">Emergency</option></select></label>
+<label>Signal key (optional)<input id="o-signal" type="text" placeholder="tank_percent"></label>
+<label>Value (optional)<input id="o-value" type="text" placeholder="12"></label>
+<label>Unit (optional)<input id="o-unit" type="text" placeholder="%"></label>
+</div>
+<label style="margin-top:10px">What happened?<input id="o-summary" type="text" placeholder="Ewe avoided the northwest corner twice during this move" autocomplete="off"></label>
+<button id="o-add">Save observation</button>
+<p class="small">Stored locally in this browser. Model inference stays explicitly labeled as inference; it is not converted into a direct observation.</p>
+</div>
+<div class="card"><h2>Recent observations</h2><div class="scroll"><table><thead><tr><th>Time</th><th>Domain</th><th>Observation</th><th>Signal</th><th>Value</th><th>Source</th><th></th></tr></thead><tbody id="o-body"></tbody></table></div></div>
 </section>
 
 <section id="labor" class="panel">
@@ -78,12 +107,12 @@ table{width:100%;border-collapse:collapse;font-size:.83rem}th,td{text-align:left
 <script>
 (() => {
   const TAXONOMY=[{"id":"livestock","label":"Livestock","tasks":[{"code":"livestock.feed","label":"Feed animals"},{"code":"livestock.water","label":"Water animals"},{"code":"livestock.bedding","label":"Bedding / litter"},{"code":"livestock.health_check","label":"Health / welfare check"},{"code":"livestock.move_rotate","label":"Move / rotate animals"},{"code":"livestock.milking","label":"Milking"},{"code":"livestock.egg_collect","label":"Collect eggs"},{"code":"livestock.birth_repro","label":"Birth / reproduction care"},{"code":"livestock.handling","label":"Handling / restraint"},{"code":"livestock.cleaning","label":"Livestock-area cleaning"}]},{"id":"crops","label":"Field / Crop","tasks":[{"code":"crops.seed_starting","label":"Seed starting"},{"code":"crops.bed_prep","label":"Bed / field preparation"},{"code":"crops.plant_transplant","label":"Transplanting"},{"code":"crops.seed_direct","label":"Direct seeding"},{"code":"crops.irrigation","label":"Irrigation"},{"code":"crops.weeding","label":"Weeding / cultivation"},{"code":"crops.fertility_compost","label":"Fertility / compost application"},{"code":"crops.scouting","label":"Crop scouting / monitoring"},{"code":"crops.harvest","label":"Harvest"},{"code":"crops.postharvest_field","label":"Field cleanup after harvest"}]},{"id":"washpack","label":"Wash / Pack","tasks":[{"code":"washpack.wash","label":"Wash produce / product"},{"code":"washpack.sort_grade","label":"Sort / grade"},{"code":"washpack.pack","label":"Pack / label"},{"code":"washpack.clean_sanitize","label":"Clean / sanitize wash-pack area"},{"code":"washpack.inventory","label":"Inventory / cooler handling"}]},{"id":"fencing","label":"Fencing","tasks":[{"code":"fencing.install","label":"Install fence"},{"code":"fencing.move","label":"Move temporary fence"},{"code":"fencing.repair","label":"Repair / inspect fence"}]},{"id":"water","label":"Water systems","tasks":[{"code":"water.fill","label":"Fill / move water"},{"code":"water.system_check","label":"Check water system"},{"code":"water.repair","label":"Repair water system"}]},{"id":"maintenance","label":"Maintenance","tasks":[{"code":"maintenance.equipment","label":"Equipment maintenance / repair"},{"code":"maintenance.building","label":"Building / infrastructure maintenance"},{"code":"maintenance.cleaning","label":"General cleaning"},{"code":"maintenance.materials","label":"Materials / supply handling"}]},{"id":"sales","label":"Market / Sales","tasks":[{"code":"sales.market_setup","label":"Market setup"},{"code":"sales.market_selling","label":"Market selling"},{"code":"sales.market_teardown","label":"Market teardown"},{"code":"sales.farmstand","label":"Farm stand"},{"code":"sales.csa_pack","label":"CSA packing"},{"code":"sales.csa_distribution","label":"CSA distribution"},{"code":"sales.delivery","label":"Delivery / route"}]},{"id":"admin","label":"Admin","tasks":[{"code":"admin.recordkeeping","label":"Farm recordkeeping"},{"code":"admin.bookkeeping","label":"Bookkeeping"},{"code":"admin.ordering","label":"Ordering / purchasing"},{"code":"admin.customer_comms","label":"Customer communication"},{"code":"admin.grants_compliance","label":"Grant / compliance paperwork"},{"code":"admin.planning","label":"Planning / scheduling"}]},{"id":"general","label":"General","tasks":[{"code":"general.travel_internal","label":"Internal travel / walking"},{"code":"general.setup_cleanup","label":"Setup / cleanup"},{"code":"general.material_handling","label":"General material handling"},{"code":"general.other","label":"Other farm work"}]}];
-  const LABOR_KEY="cropcircuit_farm_labor_log_v1", SCHEDULE_KEY="cropcircuit_chore_schedule_v1", SETTINGS_KEY="cropcircuit_farm_labor_settings_v1", EQUIPMENT_KEY="cropcircuit_equipment_maintenance_v1", HARVEST_KEY="cropcircuit_harvest_log_v1", SALES_KEY="cropcircuit_sales_log_v1", PARTS_KEY="cropcircuit_parts_inventory_v1";
+  const LABOR_KEY="cropcircuit_farm_labor_log_v1", SCHEDULE_KEY="cropcircuit_chore_schedule_v1", SETTINGS_KEY="cropcircuit_farm_labor_settings_v1", EQUIPMENT_KEY="cropcircuit_equipment_maintenance_v1", HARVEST_KEY="cropcircuit_harvest_log_v1", SALES_KEY="cropcircuit_sales_log_v1", PARTS_KEY="cropcircuit_parts_inventory_v1", OBS_KEY="cropcircuit_observation_events_v1";
   const $=id=>document.getElementById(id),esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;"),num=(v,d=1)=>Number(v).toLocaleString(undefined,{maximumFractionDigits:d});
   function load(key,fallback){try{const x=JSON.parse(localStorage.getItem(key)||"null");return x??fallback}catch{return fallback}}
   function save(key,value){localStorage.setItem(key,JSON.stringify(value))}
-  let labor=load(LABOR_KEY,[]), schedule=load(SCHEDULE_KEY,[]);
-  if(!Array.isArray(labor))labor=[];if(!Array.isArray(schedule))schedule=[];
+  let labor=load(LABOR_KEY,[]), schedule=load(SCHEDULE_KEY,[]), observations=load(OBS_KEY,[]);
+  if(!Array.isArray(labor))labor=[];if(!Array.isArray(schedule))schedule=[];if(!Array.isArray(observations))observations=[];
   function extraWorkspace(){return {equipment_maintenance:Array.isArray(load(EQUIPMENT_KEY,[]))?load(EQUIPMENT_KEY,[]):[],harvest_entries:Array.isArray(load(HARVEST_KEY,[]))?load(HARVEST_KEY,[]):[],sales_entries:Array.isArray(load(SALES_KEY,[]))?load(SALES_KEY,[]):[],parts_inventory:Array.isArray(load(PARTS_KEY,[]))?load(PARTS_KEY,[]):[]}}
 
   function today(){return new Date().toISOString().slice(0,10)}
@@ -107,6 +136,11 @@ table{width:100%;border-collapse:collapse;font-size:.83rem}th,td{text-align:left
     return out;
   }
 
+  function renderObservations(){
+    const rows=[...observations].sort((a,b)=>String(b.recorded_at||"").localeCompare(String(a.recorded_at||""))).slice(0,75);
+    $("o-body").innerHTML=rows.length?rows.map(r=>`<tr><td>${esc(String(r.recorded_at||"").replace("T"," ").slice(0,16))}</td><td>${esc(r.domain||"")}</td><td>${esc(r.summary||"")}</td><td><code>${esc(r.signal_key||"")}</code></td><td>${esc(r.value??"")} ${esc(r.unit||"")}</td><td>${esc(r.source?.kind||"")}</td><td><button class="danger" data-o-del="${esc(r.event_id)}">Delete</button></td></tr>`).join(""):'<tr><td colspan="7" class="empty">No observations yet.</td></tr>';
+    document.querySelectorAll("[data-o-del]").forEach(b=>b.addEventListener("click",()=>{observations=observations.filter(x=>x.event_id!==b.dataset.oDel);save(OBS_KEY,observations);renderAll()}));
+  }
   function renderLabor(){
     const rows=[...labor].sort((a,b)=>String(b.date).localeCompare(String(a.date))||(b.createdAt||0)-(a.createdAt||0)).slice(0,50);
     $("l-body").innerHTML=rows.length?rows.map(r=>`<tr><td>${esc(r.date)}</td><td>${esc(r.task)}</td><td><code>${esc(r.chore_code||"")}</code></td><td>${num(r.minutes,0)}</td><td>${num(r.workers,0)}</td><td>${num(workerHours(r),2)}</td><td><button class="danger" data-l-del="${esc(r.id)}">Delete</button></td></tr>`).join(""):'<tr><td colspan="7" class="empty">No labor entries yet.</td></tr>';
@@ -126,15 +160,18 @@ table{width:100%;border-collapse:collapse;font-size:.83rem}th,td{text-align:left
     schedule.forEach(t=>{for(const d of occurrences(t,dateObj(futureStart),dateObj(futureEnd))){const v=map.get(d)||{minutes:0,tasks:[]},m=Math.max(Number(t.minutes??t.estimated_minutes)||0,0);v.minutes+=m;v.tasks.push(t);map.set(d,v)}});
     const days=[...map.entries()].sort((a,b)=>a[0].localeCompare(b[0]));$("d-upcoming").textContent=days.reduce((s,[,v])=>s+v.tasks.length,0);$("d-schedule").innerHTML=days.length?days.map(([d,v])=>`<tr><td>${d}</td><td>${v.tasks.map(t=>esc(t.task)+(t.chore_code?` <code>${esc(t.chore_code)}</code>`:"")).join("<br>")}</td><td>${num(v.minutes,0)}</td></tr>`).join(""):'<tr><td colspan="3" class="empty">No scheduled chores in the next 7 days.</td></tr>';
   }
-  function renderAll(){renderLabor();renderSchedule();renderDashboard()}
+  function renderAll(){renderObservations();renderLabor();renderSchedule();renderDashboard()}
+
+  document.querySelectorAll("[data-o-preset]").forEach(b=>b.addEventListener("click",()=>{$("o-domain").value=b.dataset.oPreset;$("o-summary").focus()}));
+  $("o-add").addEventListener("click",()=>{const summary=$("o-summary").value.trim();if(!summary){alert("Write a short observation first.");return}const raw=$("o-value").value.trim(),n=Number(raw),value=raw===""?null:(Number.isFinite(n)&&String(n)===raw? n:raw);observations.push({schema_version:"0.1",event_id:crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random(),recorded_at:new Date().toISOString(),source:{kind:$("o-source").value},domain:$("o-domain").value,signal_key:$("o-signal").value.trim()||undefined,summary,value,unit:$("o-unit").value.trim()||undefined,severity_hint:$("o-severity").value,evidence_refs:[],tags:[],privacy:"private"});save(OBS_KEY,observations);$("o-summary").value="";$("o-signal").value="";$("o-value").value="";$("o-unit").value="";renderAll()});
 
   $("l-add").addEventListener("click",()=>{const task=$("l-task").value.trim(),minutes=Math.max(Number($("l-minutes").value)||0,0),workers=Math.max(Number($("l-workers").value)||0,0);if(!task||minutes<=0||workers<=0){alert("Enter a task, minutes, and workers.");return}labor.push({id:crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random(),createdAt:Date.now(),date:$("l-date").value||today(),category:$("l-category").value,task,chore_code:$("l-code").value,minutes,workers,notes:""});save(LABOR_KEY,labor);$("l-task").value="";$("l-code").value="";renderAll()});
   $("s-add").addEventListener("click",()=>{const task=$("s-task").value.trim();if(!task){alert("Enter a task.");return}schedule.push({id:crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random(),task,chore_code:$("s-code").value,category:$("s-category").value,date:$("s-date").value||today(),freq:$("s-freq").value,interval:Math.max(Number($("s-interval").value)||1,1),minutes:Math.max(Number($("s-minutes").value)||0,0),notes:""});save(SCHEDULE_KEY,schedule);$("s-task").value="";$("s-code").value="";renderAll()});
 
   document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));b.classList.add("active");$(b.dataset.tab).classList.add("active")}));
   $("print-dashboard").addEventListener("click",()=>window.print());
-  $("b-export").addEventListener("click",()=>{const workspace={schema_version:"1.2",exported_at:new Date().toISOString(),labor_entries:labor,labor_settings:load(SETTINGS_KEY,{}),chore_schedule:schedule,...extraWorkspace()},blob=new Blob([JSON.stringify(workspace,null,2)+"\n"],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="cropcircuit-local-workspace-v1.2.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)});
-  $("b-import").addEventListener("click",async()=>{const f=$("b-file").files[0];if(!f){$("b-status").textContent="Choose a backup JSON file.";return}try{const w=JSON.parse(await f.text());if(!["1.0","1.1","1.2"].includes(String(w.schema_version))||!Array.isArray(w.labor_entries)||!Array.isArray(w.chore_schedule)){throw new Error("Unsupported or invalid workspace file")}if(!confirm("Replace this browser's CropCircuit fields represented by the selected backup?"))return;labor=w.labor_entries;schedule=w.chore_schedule;save(LABOR_KEY,labor);save(SCHEDULE_KEY,schedule);save(SETTINGS_KEY,w.labor_settings||{});if(["1.1","1.2"].includes(w.schema_version)){if(!Array.isArray(w.equipment_maintenance)||!Array.isArray(w.harvest_entries)||!Array.isArray(w.sales_entries))throw new Error("Incomplete workspace backup");save(EQUIPMENT_KEY,w.equipment_maintenance);save(HARVEST_KEY,w.harvest_entries);save(SALES_KEY,w.sales_entries)}if(w.schema_version==="1.2"){if(!Array.isArray(w.parts_inventory))throw new Error("Incomplete workspace 1.2 backup");save(PARTS_KEY,w.parts_inventory)}$("b-status").textContent="Workspace restored. Older backups preserve collections introduced in newer workspace versions.";renderAll()}catch(e){$("b-status").textContent="Restore failed: "+e.message}});
+  $("b-export").addEventListener("click",()=>{const workspace={schema_version:"1.2",exported_at:new Date().toISOString(),labor_entries:labor,labor_settings:load(SETTINGS_KEY,{}),chore_schedule:schedule,observation_events:observations,...extraWorkspace()},blob=new Blob([JSON.stringify(workspace,null,2)+"\n"],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="cropcircuit-local-workspace-v1.2.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)});
+  $("b-import").addEventListener("click",async()=>{const f=$("b-file").files[0];if(!f){$("b-status").textContent="Choose a backup JSON file.";return}try{const w=JSON.parse(await f.text());if(!["1.0","1.1","1.2"].includes(String(w.schema_version))||!Array.isArray(w.labor_entries)||!Array.isArray(w.chore_schedule)){throw new Error("Unsupported or invalid workspace file")}if(!confirm("Replace this browser's CropCircuit fields represented by the selected backup?"))return;labor=w.labor_entries;schedule=w.chore_schedule;save(LABOR_KEY,labor);save(SCHEDULE_KEY,schedule);save(SETTINGS_KEY,w.labor_settings||{});if(["1.1","1.2"].includes(w.schema_version)){if(!Array.isArray(w.equipment_maintenance)||!Array.isArray(w.harvest_entries)||!Array.isArray(w.sales_entries))throw new Error("Incomplete workspace backup");save(EQUIPMENT_KEY,w.equipment_maintenance);save(HARVEST_KEY,w.harvest_entries);save(SALES_KEY,w.sales_entries)}if(w.schema_version==="1.2"){if(!Array.isArray(w.parts_inventory))throw new Error("Incomplete workspace 1.2 backup");save(PARTS_KEY,w.parts_inventory)}if(Array.isArray(w.observation_events)){observations=w.observation_events;save(OBS_KEY,observations)}$("b-status").textContent="Workspace restored. Older backups preserve collections introduced in newer workspace versions.";renderAll()}catch(e){$("b-status").textContent="Restore failed: "+e.message}});
   renderAll();
 })();
 </script></body></html>
