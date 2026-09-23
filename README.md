@@ -86,6 +86,19 @@ The Farm Ops Pocket Console now includes a **Quick observe** tab backed by the s
 
 [Open the Farm Ops Pocket Console source](public_value/farm_ops_console.html)
 
+### Model Tension and Hypothesis Memory
+
+CropCircuit now preserves two kinds of information conventional decision software often erases: **disagreement between models** and **failed/suspended hypotheses**.
+
+- [Model Tension documentation](public_value/MODEL_TENSION.md)
+- [Model Tension primitive](public_value/model_tension.js)
+- [Hypothesis Memory documentation](public_value/HYPOTHESIS_MEMORY.md)
+- [Hypothesis Memory primitive](public_value/hypothesis_memory.js)
+
+The Pocket Console also has a **Memory** tab where learning cycles can be deliberately classified as active, supported, inconclusive, suspended, or rejected; conditions, tags, and the reason for the disposition stay searchable and are included in workspace backups.
+
+A contradiction does not automatically mark a hypothesis false. Rejection is an explicit operator decision.
+
 ### Financial Resilience Floor
 
 CropCircuit now has a deterministic, non-compensatory financial gate for consequential recommendations. The farm supplies the metrics and its own declared thresholds; CropCircuit does not invent a universal cash reserve, debt-service limit, or runway target.
