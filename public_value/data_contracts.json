@@ -278,6 +278,39 @@
       ]
     },
     {
+      "id": "relationship_map",
+      "label": "Relationship map",
+      "workspace_collection": "relationship_map",
+      "storage_key": "cropcircuit_relationship_map_v1",
+      "required": [
+        "schema_version",
+        "map_id",
+        "updated_at",
+        "nodes",
+        "edges"
+      ],
+      "fields": [
+        {
+          "name": "map_id",
+          "type": "string"
+        },
+        {
+          "name": "updated_at",
+          "type": "date-time"
+        },
+        {
+          "name": "nodes",
+          "type": "array",
+          "description": "Participants, resources, places, processes, or constraints with state, evidence refs, and unknowns."
+        },
+        {
+          "name": "edges",
+          "type": "array",
+          "description": "Recorded relationships/flows with state, evidence refs, and unknowns."
+        }
+      ]
+    },
+    {
       "id": "labor",
       "label": "Labor log",
       "workspace_collection": "labor_entries",
