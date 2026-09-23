@@ -123,6 +123,16 @@ The system must distinguish:
 
 A recommendation that would cross a declared financial floor is **HOLD** or **REJECT**, not "high ROI."
 
+The financial resilience floor now has an executable primitive:
+
+- `financial_resilience_floor.js` evaluates farm-defined numeric constraints
+- required failures are non-compensatory and produce `reject`
+- missing required metrics produce `hold`
+- passing the financial floor produces only `pass_to_review`, never an automatic recommendation
+- no universal threshold is embedded in the software
+
+See `FINANCIAL_RESILIENCE_FLOOR.md`.
+
 ## 5. Model arbitration without one magic score
 
 CropCircuit will contain multiple partial models:
