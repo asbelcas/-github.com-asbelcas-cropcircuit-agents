@@ -11,14 +11,15 @@ Read, in order:
 3. `public_value/DHARMA_DESIGN_DOCTRINE.md`
 4. `public_value/RIGHT_RELATIONSHIP_GATE.md`
 5. `public_value/LEARNING_LOOP.md`
-6. `operations/CUSTOMER_SERVICE_OUTREACH_PLAYBOOK.md`
-7. `operations/CUSTOMER_CONTEXT_CONTRACT.md`
-8. `operations/OUTREACH_QUALIFICATION_GATE.md`
-9. `operations/MESSAGE_QA.md`
-10. `operations/TRAINING_DRILLS.md` when calibrating or reviewing operator quality
-11. `public_value/START_HERE.md`
-12. `public_value/AUTOMATION_PROOF_PACK.md`
-13. any current project/customer runbook relevant to the task
+6. `public_value/FARM_NERVOUS_SYSTEM_ARCHITECTURE.md`
+7. `operations/CUSTOMER_SERVICE_OUTREACH_PLAYBOOK.md`
+8. `operations/CUSTOMER_CONTEXT_CONTRACT.md`
+9. `operations/OUTREACH_QUALIFICATION_GATE.md`
+10. `operations/MESSAGE_QA.md`
+11. `operations/TRAINING_DRILLS.md` when calibrating or reviewing operator quality
+12. `public_value/START_HERE.md`
+13. `public_value/AUTOMATION_PROOF_PACK.md`
+14. any current project/customer runbook relevant to the task
 
 Do not rely on vague memory when current repository or communication evidence exists.
 
