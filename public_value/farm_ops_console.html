@@ -78,7 +78,7 @@ table{width:100%;border-collapse:collapse;font-size:.83rem}th,td{text-align:left
 <section id="learn" class="panel">
 <div class="card">
 <h2>Cross-domain convergence</h2>
-<p class="small">CropCircuit surfaces a provisional pattern only when at least three distinct domains have been deliberately tagged with the same possible pattern and each tagged signal meets the minimum support threshold. This is evidence to investigate, not a diagnosis or authorization.</p>
+<p class="small">CropCircuit surfaces a provisional pattern only when qualifying tagged observations from at least three distinct domains point to the same possible pattern. This is evidence to investigate, not a diagnosis or authorization.</p>
 <div class="scroll"><table><thead><tr><th>Possible pattern</th><th>Domains</th><th>Signals</th><th>Mean support</th><th></th></tr></thead><tbody id="cv-body"></tbody></table></div>
 </div>
 
@@ -249,7 +249,7 @@ table{width:100%;border-collapse:collapse;font-size:.83rem}th,td{text-align:left
     const rows=[...observations].sort((a,b)=>String(b.recorded_at||"").localeCompare(String(a.recorded_at||""))).slice(0,75);
     $("o-body").innerHTML=rows.length?rows.map(r=>`<tr><td>${esc(String(r.recorded_at||"").replace("T"," ").slice(0,16))}</td><td>${esc(r.domain||"")}</td><td>${esc(r.summary||"")}</td><td><code>${esc(r.signal_key||"")}</code></td><td>${esc(r.value??"")} ${esc(r.unit||"")}</td><td>${r.hypothesis_key?`<code>${esc(r.hypothesis_key)}</code> ${Number.isFinite(Number(r.hypothesis_confidence))?`(${num(100*Number(r.hypothesis_confidence),0)}%)`:""}`:"—"}</td><td>${esc(r.source?.kind||"")}</td><td><button class="secondary" data-o-learn="${esc(r.event_id)}">Learn</button><button class="danger" data-o-del="${esc(r.event_id)}">Delete</button></td></tr>`).join(""):'<tr><td colspan="7" class="empty">No observations yet.</td></tr>';
     document.querySelectorAll("[data-o-del]").forEach(b=>b.addEventListener("click",()=>{observations=observations.filter(x=>x.event_id!==b.dataset.oDel);save(OBS_KEY,observations);renderAll()}));
-    document.querySelectorAll("[data-o-learn]").forEach(b=>b.addEventListener("click",()=>{fillLearningSelectors();$("lc-source").value=b.dataset.oLearn;const o=observations.find(x=>x.event_id===b.dataset.oLearn);if(o&&!$("lc-question").value.trim())$("lc-question").value="What explains: "+o.summary+"?";setTab("learn");$("lc-prediction").focus()}));
+    document.querySelectorAll("[data-o-learn]").forEach(b=>b.addEventListener("click",()=>{selectedConvergenceKey="";$("lc-convergence-note").textContent="";fillLearningSelectors();$("lc-source").value=b.dataset.oLearn;const o=observations.find(x=>x.event_id===b.dataset.oLearn);if(o&&!$("lc-question").value.trim())$("lc-question").value="What explains: "+o.summary+"?";setTab("learn");$("lc-prediction").focus()}));
   }
   function renderConvergence(){
     const tokens=convergenceTokens();
