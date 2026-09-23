@@ -253,6 +253,15 @@ Build in this sequence:
    - show which evidence supports each connection
    - show unknowns
 
+The relationship view now has an executable primitive and Pocket Console surface:
+
+- `relationship_flow.js` validates recorded nodes and edges, surfaces stressed/unknown areas, and traces local neighborhoods
+- non-unknown states without evidence references generate warnings
+- the Pocket Console **Relationships** tab stores local nodes, flows, evidence, and unknowns
+- connectedness is not treated as proof of causation
+
+See `RELATIONSHIP_FLOW.md`.
+
 Only then should higher-level recommendation systems dominate product development.
 
 ## 8. What remains decentralized
