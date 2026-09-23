@@ -98,6 +98,8 @@ The Farm Nervous System now has a comparison protocol for generating evidence fr
 
 The instrument compares recorded prediction trajectories from the farmer, CropCircuit, and—when genuinely available—a conventional rule/software comparator. It reports descriptive contradiction and confidence patterns and deliberately selects **no winner**.
 
+The Farm Ops Pocket Console now has a **Pilot** tab for recording those predictions before outcomes, closing records after outcomes, and viewing the same descriptive learning summary without editing JSON by hand.
+
 ### Relationship Flow View
 
 The Farm Nervous System now has a local-first relationship map for making flows, dependencies, stress, evidence, and unknowns visible without inventing a single farm-health score.
