@@ -86,6 +86,16 @@ The Farm Ops Pocket Console now includes a **Quick observe** tab backed by the s
 
 [Open the Farm Ops Pocket Console source](public_value/farm_ops_console.html)
 
+### Relationship Flow View
+
+The Farm Nervous System now has a local-first relationship map for making flows, dependencies, stress, evidence, and unknowns visible without inventing a single farm-health score.
+
+- [Relationship Flow documentation](public_value/RELATIONSHIP_FLOW.md)
+- [Relationship Flow primitive](public_value/relationship_flow.js)
+- [Relationship Flow tests](public_value/relationship_flow.test.mjs)
+
+The Pocket Console **Relationships** tab can record nodes and directed relationships across water, nutrients, animals, materials, labor, money, information, trust, energy, risk, and other flows. Stressed and unknown relationships remain explicit, evidence references stay attached, and connected does not automatically mean causal.
+
 ### Model Tension and Hypothesis Memory
 
 CropCircuit now preserves two kinds of information conventional decision software often erases: **disagreement between models** and **failed/suspended hypotheses**.
