@@ -334,6 +334,8 @@ Repeated-decision pilot instrumentation is now implemented:
 
 See `REPEATED_DECISION_PILOT.md`.
 
+The Pocket Console now exposes the repeated-decision pilot workflow directly: pre-outcome farmer/CropCircuit predictions, optional conventional comparator, outcome closure, per-predictor relation notes, and descriptive repeated-decision summaries. Pilot records persist in local workspace backup.
+
 ## 12. Product consequence
 
 This changes the roadmap.

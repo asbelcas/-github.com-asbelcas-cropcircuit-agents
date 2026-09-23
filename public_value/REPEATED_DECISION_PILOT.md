@@ -117,6 +117,25 @@ The repo's default summary deliberately selects **no winner**.
 - do not exclude failures because they make a predictor look bad
 - label synthetic data as synthetic
 
+## Pocket Console capture
+
+The Farm Ops Pocket Console now includes a **Pilot** tab so the first real pilot does not require hand-editing JSON.
+
+The operator can:
+
+- name the pilot and repeated decision class
+- record context tags and governance state
+- record farmer/operator and CropCircuit predictions before the outcome
+- optionally record a conventional comparator
+- record confidence and reasons
+- return later to record the observed outcome
+- classify each prediction as supported, mixed, or contradicted with a note
+- inspect descriptive prediction summaries over repeated decisions
+
+The console deliberately does not declare a winner. Early-versus-late contradiction windows appear only after at least six evaluated decisions for that predictor.
+
+Pilot records remain local-first and are included in the workspace backup as `pilot_decisions`.
+
 ## Files
 
 - [pilot_learning_rate.js](pilot_learning_rate.js)
