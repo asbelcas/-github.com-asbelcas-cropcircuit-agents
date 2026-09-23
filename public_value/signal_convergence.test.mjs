@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import {
   detectSignalConvergence,
+  detectObservationConvergence,
+  observationToConvergenceSignal,
   summarizeConvergence,
 } from "./signal_convergence.js";
 
@@ -88,3 +90,75 @@ assert.throws(
 );
 
 console.log("PASS: CropCircuit signal convergence v0.1");
+
+
+const observationSignals = [
+  {
+    schema_version: "0.1",
+    event_id: "obs-animal-1",
+    recorded_at: "2026-09-23T15:00:00Z",
+    source: { kind: "human_observation" },
+    domain: "animal_welfare",
+    summary: "Flock avoided the northwest corner.",
+    hypothesis_key: "northwest-paddock-anomaly",
+    hypothesis_confidence: 0.7
+  },
+  {
+    schema_version: "0.1",
+    event_id: "obs-water-1",
+    recorded_at: "2026-09-23T15:05:00Z",
+    source: { kind: "sensor_observation" },
+    domain: "water",
+    summary: "Water use pattern changed near the northwest paddock.",
+    hypothesis_key: "northwest-paddock-anomaly",
+    hypothesis_confidence: 0.5
+  },
+  {
+    schema_version: "0.1",
+    event_id: "obs-labor-1",
+    recorded_at: "2026-09-23T15:10:00Z",
+    source: { kind: "human_observation" },
+    domain: "labor",
+    summary: "Extra time was needed to move animals through the same area.",
+    hypothesis_key: "northwest-paddock-anomaly",
+    hypothesis_confidence: 0.4
+  },
+  {
+    schema_version: "0.1",
+    event_id: "obs-untagged-1",
+    recorded_at: "2026-09-23T15:20:00Z",
+    source: { kind: "human_observation" },
+    domain: "weather",
+    summary: "Unrelated weather note."
+  }
+];
+
+const mapped = observationToConvergenceSignal(observationSignals[0]);
+assert.equal(mapped.id, "obs-animal-1");
+assert.equal(mapped.hypothesis_key, "northwest-paddock-anomaly");
+assert.equal(mapped.confidence, 0.7);
+assert.equal(observationToConvergenceSignal(observationSignals[3]), null);
+
+const observationTokens = detectObservationConvergence(observationSignals);
+assert.equal(observationTokens.length, 1);
+assert.equal(observationTokens[0].hypothesis_key, "northwest-paddock-anomaly");
+assert.equal(observationTokens[0].distinct_domains, 3);
+assert.deepEqual(
+  observationTokens[0].domains,
+  ["animal_welfare", "labor", "water"]
+);
+assert.equal(observationTokens[0].authorization, "none");
+
+assert.throws(
+  () => detectObservationConvergence([
+    {
+      event_id: "obs-bad",
+      recorded_at: "2026-09-23T15:30:00Z",
+      domain: "soil",
+      hypothesis_key: "x"
+    }
+  ]),
+  /hypothesis_confidence must be between 0 and 1/
+);
+
+console.log("PASS: CropCircuit observation convergence mapping");

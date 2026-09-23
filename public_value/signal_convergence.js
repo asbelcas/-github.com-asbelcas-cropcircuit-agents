@@ -93,6 +93,41 @@ export function detectSignalConvergence(signals = [], options = {}) {
   });
 }
 
+export function observationToConvergenceSignal(event = {}, index = 0) {
+  if (!isText(event?.hypothesis_key)) return null;
+  if (!isText(event?.event_id)) {
+    throw new TypeError(`observations[${index}].event_id is required when hypothesis_key is set`);
+  }
+  if (!isText(event?.domain)) {
+    throw new TypeError(`observations[${index}].domain is required when hypothesis_key is set`);
+  }
+  if (!isText(event?.recorded_at)) {
+    throw new TypeError(`observations[${index}].recorded_at is required when hypothesis_key is set`);
+  }
+  if (!isConfidence(event?.hypothesis_confidence)) {
+    throw new TypeError(`observations[${index}].hypothesis_confidence must be between 0 and 1 when hypothesis_key is set`);
+  }
+
+  return {
+    id: event.event_id,
+    domain: event.domain,
+    hypothesis_key: event.hypothesis_key,
+    confidence: Number(event.hypothesis_confidence),
+    recorded_at: event.recorded_at,
+    evidence_ref: event.event_id,
+    note: isText(event?.summary) ? event.summary : "",
+  };
+}
+
+export function detectObservationConvergence(observations = [], options = {}) {
+  const signals = [];
+  observations.forEach((event, index) => {
+    const signal = observationToConvergenceSignal(event, index);
+    if (signal) signals.push(signal);
+  });
+  return detectSignalConvergence(signals, options);
+}
+
 export function summarizeConvergence(tokens = []) {
   return {
     tokens: tokens.length,

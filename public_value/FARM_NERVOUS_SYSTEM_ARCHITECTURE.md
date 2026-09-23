@@ -193,6 +193,16 @@ The first full slow-loop path is now implemented in the Pocket Console:
 
 See `POCKET_LEARNING_LOOP.md` and `pocket_learning_cycle.test.mjs`.
 
+Cross-domain convergence is now visible in the Pocket Console:
+
+- observations can optionally carry a user-supplied provisional hypothesis key and support strength
+- qualifying observations from at least three distinct domains can surface a provisional convergence token
+- the token explicitly carries no action authorization
+- **Investigate** moves the contributing observations into a new learning cycle as provenance
+- CropCircuit pre-fills a neutral question but does not invent the prediction, falsifier, or action
+
+See `POCKET_CONVERGENCE.md` and `signal_convergence.js`.
+
 ## 7. Minimum viable nervous system
 
 Build in this sequence:
