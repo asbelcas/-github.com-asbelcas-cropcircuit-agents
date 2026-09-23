@@ -131,6 +131,8 @@ Where relevant, evaluate:
 - learning value
 - future optionality
 
+Implementation: `public_value/financial_resilience_floor.js` provides a farm-defined hard gate for financial floors. It intentionally contains no universal reserve, debt, or runway thresholds.
+
 ## 8. Truth over attachment
 
 Direct experience, intuition, measurement, scientific evidence, historical experience, and local knowledge may all contribute.
