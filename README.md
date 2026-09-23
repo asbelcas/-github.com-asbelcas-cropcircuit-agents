@@ -73,6 +73,18 @@ The fastest way into the system is now [Farm Ops Pocket Console](public_value/fa
 Everything below lives in [`public_value/`](public_value/).
 
 
+### Fast Reflex Loop
+
+The first executable nerve is now in place: a shared observation contract plus an inspectable fast-loop alert engine for sparse farm signals.
+
+- [Observation Event JSON Schema](public_value/observation_event.schema.json)
+- [Reflex Loop](public_value/reflex_loop.js)
+- [Reflex Loop documentation](public_value/REFLEX_LOOP.md)
+- [Reflex Loop tests](public_value/reflex_loop.test.mjs)
+- [Synthetic observation example](public_value/examples/synthetic_observation_event.json)
+
+The loop returns alerts only. It does not diagnose causes or authorize irreversible actions, and its thresholds must come from an explicit governed source rather than being invented by the software.
+
 ### Farm Nervous System Architecture
 
 CropCircuit now defines an implementable nervous-system layer with separate fast and slow loops, cross-domain signal convergence, explicit model arbitration, a dynamic financial resilience floor, and preserved failed-hypothesis memory:
