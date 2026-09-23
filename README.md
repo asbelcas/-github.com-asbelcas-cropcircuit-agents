@@ -86,6 +86,16 @@ The Farm Ops Pocket Console now includes a **Quick observe** tab backed by the s
 
 [Open the Farm Ops Pocket Console source](public_value/farm_ops_console.html)
 
+### Cross-Domain Convergence in the Pocket Console
+
+The Pocket Console can now surface a provisional pattern when deliberately tagged observations from at least three distinct farm domains point toward the same possible hypothesis.
+
+- [Pocket Console convergence workflow](public_value/POCKET_CONVERGENCE.md)
+- [Signal Convergence primitive](public_value/signal_convergence.js)
+- [Observation Event Schema](public_value/observation_event.schema.json)
+
+The token is an invitation to investigate. It is not a diagnosis, confidence claim about causation, or authorization for irreversible action. The **Investigate** path carries contributing observations into the existing Learning Loop as provenance while leaving the actual prediction, falsifier, and action to the operator.
+
 ### Closed Learning Loop
 
 The Farm Ops Pocket Console can now turn an observation into a complete learning cycle without rewriting the original prediction after the result is known:
