@@ -369,7 +369,8 @@
           "name": "metrics",
           "type": "object"
         }
-      ]
+      ],
+      "storage_key": "cropcircuit_pilot_decisions_v1"
     },
     {
       "id": "labor",
