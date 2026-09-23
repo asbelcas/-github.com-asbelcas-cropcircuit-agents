@@ -1,0 +1,47 @@
+{
+  "schema_version": "0.1",
+  "record_id": "synthetic-pilot-decision-001",
+  "pilot_id": "synthetic-repeat-pilot",
+  "decision_class": "synthetic-animal-move",
+  "created_at": "2026-09-23T12:00:00Z",
+  "context_tags": ["synthetic", "training-only"],
+  "governance": {
+    "gate": "pass",
+    "hard_constraints": [],
+    "note": "Synthetic record used only to demonstrate the contract."
+  },
+  "predictors": [
+    {
+      "predictor_id": "farmer",
+      "prediction": "The animals will use the full paddock after the move.",
+      "confidence": 0.7,
+      "reason": "Synthetic example."
+    },
+    {
+      "predictor_id": "cropcircuit",
+      "prediction": "Use of the northwest corner will remain lower than the rest of the paddock.",
+      "confidence": 0.55,
+      "reason": "Synthetic example."
+    }
+  ],
+  "outcome": {
+    "recorded_at": "2026-09-23T18:00:00Z",
+    "description": "Synthetic outcome: northwest-corner use remained lower.",
+    "evidence_refs": ["synthetic:outcome-001"]
+  },
+  "evaluations": [
+    {
+      "predictor_id": "farmer",
+      "relation": "contradicted",
+      "note": "Synthetic outcome did not match the full-paddock prediction."
+    },
+    {
+      "predictor_id": "cropcircuit",
+      "relation": "supported",
+      "note": "Synthetic outcome was consistent with the lower-use prediction."
+    }
+  ],
+  "metrics": {
+    "labor_minutes": 18
+  }
+}

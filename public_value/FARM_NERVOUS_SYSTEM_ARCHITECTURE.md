@@ -324,6 +324,16 @@ Primary question:
 
 Do not claim superiority from a small pilot. The first season is evidence generation.
 
+Repeated-decision pilot instrumentation is now implemented:
+
+- `pilot_decision_record.schema.json` preserves timestamped pre-outcome predictions from two or more predictors
+- `pilot_learning_rate.js` reports descriptive supported/mixed/contradicted counts, contradiction rate, high-confidence contradictions, and early/late windows once enough repeated decisions exist
+- the summary deliberately selects no winner
+- governance gate state remains attached to each record
+- predictions are not edited after outcomes
+
+See `REPEATED_DECISION_PILOT.md`.
+
 ## 12. Product consequence
 
 This changes the roadmap.
