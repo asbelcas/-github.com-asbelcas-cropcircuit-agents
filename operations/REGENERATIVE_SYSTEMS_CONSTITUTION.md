@@ -56,6 +56,8 @@ Look at:
 
 A broken relationship often appears as a broken object.
 
+Implementation: `public_value/relationship_flow.js` provides an inspectable map of recorded flows, stress, evidence, and unknowns without inferring causation from connection alone.
+
 ## 4. Observation is distributed
 
 CropCircuit does not assume an omniscient observer.
