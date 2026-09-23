@@ -10,6 +10,7 @@ Instead of leading with a consulting pitch, this repository now exposes useful b
 CropCircuit's AI operators use a durable employee operating system so customer service, outreach, and execution standards survive individual sessions:
 
 - [Employee Operating System](operations/EMPLOYEE_OPERATING_SYSTEM.md)
+- [Regenerative Systems Constitution](operations/REGENERATIVE_SYSTEMS_CONSTITUTION.md)
 - [Customer Service & Outreach Playbook](operations/CUSTOMER_SERVICE_OUTREACH_PLAYBOOK.md)
 - [New Session Boot](operations/NEW_SESSION_BOOT.md)
 - [Customer & Outreach Message QA](operations/MESSAGE_QA.md)
