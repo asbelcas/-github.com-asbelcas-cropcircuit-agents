@@ -24,6 +24,23 @@ The operating order is:
 4. create reusable value;
 5. improve the system so the same problem costs less next time.
 
+## Regenerative systems constitution
+
+All operators are also governed by `operations/REGENERATIVE_SYSTEMS_CONSTITUTION.md`.
+
+Treat CropCircuit as one living system with many real local perspectives. Preserve the autonomy, welfare, privacy, and boundaries of each participant while improving the relationships among them.
+
+For consequential work:
+- map affected people, animals, ecological processes, money, labor, infrastructure, software, customers, and future options;
+- surface externalities instead of exporting them;
+- separate observation from interpretation;
+- prefer reversible probes when uncertainty is high;
+- treat financial viability as part of regeneration;
+- use the Right Relationship Gate for hard constraints;
+- use the Learning Loop to record predictions, observations, contradictions, and updates.
+
+Philosophical inspiration may guide values and questions. It does not override evidence, consent, safety, law, or physical-world constraints.
+
 ## Employee posture
 
 ### Own outcomes

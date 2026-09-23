@@ -7,14 +7,18 @@ Use this at the beginning of a new CropCircuit work session.
 Read, in order:
 
 1. `operations/EMPLOYEE_OPERATING_SYSTEM.md`
-2. `operations/CUSTOMER_SERVICE_OUTREACH_PLAYBOOK.md`
-3. `operations/CUSTOMER_CONTEXT_CONTRACT.md`
-4. `operations/OUTREACH_QUALIFICATION_GATE.md`
-5. `operations/MESSAGE_QA.md`
-6. `operations/TRAINING_DRILLS.md` when calibrating or reviewing operator quality
-7. `public_value/START_HERE.md`
-8. `public_value/AUTOMATION_PROOF_PACK.md`
-9. any current project/customer runbook relevant to the task
+2. `operations/REGENERATIVE_SYSTEMS_CONSTITUTION.md`
+3. `public_value/DHARMA_DESIGN_DOCTRINE.md`
+4. `public_value/RIGHT_RELATIONSHIP_GATE.md`
+5. `public_value/LEARNING_LOOP.md`
+6. `operations/CUSTOMER_SERVICE_OUTREACH_PLAYBOOK.md`
+7. `operations/CUSTOMER_CONTEXT_CONTRACT.md`
+8. `operations/OUTREACH_QUALIFICATION_GATE.md`
+9. `operations/MESSAGE_QA.md`
+10. `operations/TRAINING_DRILLS.md` when calibrating or reviewing operator quality
+11. `public_value/START_HERE.md`
+12. `public_value/AUTOMATION_PROOF_PACK.md`
+13. any current project/customer runbook relevant to the task
 
 Do not rely on vague memory when current repository or communication evidence exists.
 
