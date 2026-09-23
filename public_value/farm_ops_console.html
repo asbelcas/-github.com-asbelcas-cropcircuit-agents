@@ -26,6 +26,7 @@ table{width:100%;border-collapse:collapse;font-size:.83rem}th,td{text-align:left
 <button class="tab" data-tab="observe">Quick observe</button>
 <button class="tab" data-tab="learn">Learn</button>
 <button class="tab" data-tab="memory">Memory</button>
+<button class="tab" data-tab="relationships">Relationships</button>
 <button class="tab" data-tab="labor">Log labor</button>
 <button class="tab" data-tab="schedule">Schedule chores</button>
 <button class="tab" data-tab="backup">Backup</button>
@@ -40,6 +41,7 @@ table{width:100%;border-collapse:collapse;font-size:.83rem}th,td{text-align:left
 <div class="metric"><strong id="d-learning">0</strong><span>open learning cycles</span></div>
 <div class="metric"><strong id="d-convergence">0</strong><span>cross-domain patterns</span></div>
 <div class="metric"><strong id="d-memory">0</strong><span>hypothesis memories</span></div>
+<div class="metric"><strong id="d-relations">0</strong><span>stressed / unknown relationships</span></div>
 </div></div>
 <div class="card"><h2>Labor by category</h2><div class="scroll"><table><thead><tr><th>Category</th><th>Entries</th><th>Worker-hours</th><th>%</th></tr></thead><tbody id="d-cats"></tbody></table></div></div>
 <div class="card"><h2>Next 7 days</h2><div class="scroll"><table><thead><tr><th>Date</th><th>Work</th><th>Estimated minutes</th></tr></thead><tbody id="d-schedule"></tbody></table></div></div>
@@ -143,6 +145,52 @@ table{width:100%;border-collapse:collapse;font-size:.83rem}th,td{text-align:left
 </div>
 </section>
 
+<section id="relationships" class="panel">
+<div class="card entry-controls">
+<h2>Add a node</h2>
+<p class="small">A node is a locally meaningful participant, place, resource, process, or constraint. Mark unknown when you do not yet have enough evidence to call its state.</p>
+<div class="grid">
+<label>Label<input id="rg-node-label" type="text" placeholder="Paddock 4"></label>
+<label>Kind<input id="rg-node-kind" type="text" placeholder="pasture"></label>
+<label>State<select id="rg-node-state"><option value="unknown" selected>Unknown</option><option value="healthy">Healthy</option><option value="watch">Watch</option><option value="stressed">Stressed</option></select></label>
+<label>Evidence ref (optional)<input id="rg-node-evidence" type="text" placeholder="observation ID, note ID, sensor record..."></label>
+</div>
+<label style="margin-top:10px">Unknown / question (optional)<input id="rg-node-unknown" type="text" placeholder="Cause of avoidance is unresolved."></label>
+<button id="rg-node-add">Add node</button>
+</div>
+
+<div class="card entry-controls">
+<h2>Add a relationship</h2>
+<p class="small">Record only the relationship you actually mean. Connected does not automatically mean causal.</p>
+<div class="grid">
+<label>From<select id="rg-from"><option value="">— choose node —</option></select></label>
+<label>To<select id="rg-to"><option value="">— choose node —</option></select></label>
+<label>Relationship<input id="rg-relationship" type="text" placeholder="supplies water"></label>
+<label>Flow<select id="rg-flow"><option>water</option><option>nutrients</option><option>animals</option><option>materials</option><option>labor</option><option>money</option><option>information</option><option>trust</option><option>energy</option><option>risk</option><option selected>other</option></select></label>
+<label>State<select id="rg-edge-state"><option value="unknown" selected>Unknown</option><option value="healthy">Healthy</option><option value="watch">Watch</option><option value="stressed">Stressed</option></select></label>
+<label>Evidence ref (optional)<input id="rg-edge-evidence" type="text" placeholder="observation ID, learning cycle, log..."></label>
+</div>
+<label style="margin-top:10px">Unknown / question (optional)<input id="rg-edge-unknown" type="text" placeholder="Whether low pressure contributed is still unknown."></label>
+<button id="rg-edge-add">Add relationship</button>
+</div>
+
+<div class="card">
+<h2>Relationship focus</h2>
+<div class="metrics">
+<div class="metric"><strong id="rg-nodes">0</strong><span>nodes</span></div>
+<div class="metric"><strong id="rg-edges">0</strong><span>relationships</span></div>
+<div class="metric"><strong id="rg-stressed">0</strong><span>stressed</span></div>
+<div class="metric"><strong id="rg-unknown">0</strong><span>unknown</span></div>
+</div>
+<div class="scroll"><table><thead><tr><th>From → To</th><th>Relationship</th><th>Flow</th><th>State</th><th>Evidence</th><th>Unknowns</th><th></th></tr></thead><tbody id="rg-edge-body"></tbody></table></div>
+</div>
+
+<div class="card">
+<h2>Nodes</h2>
+<div class="scroll"><table><thead><tr><th>Node</th><th>Kind</th><th>State</th><th>Evidence</th><th>Unknowns</th><th>Connections</th><th></th></tr></thead><tbody id="rg-node-body"></tbody></table></div>
+</div>
+</section>
+
 <section id="labor" class="panel">
 <div class="card entry-controls"><h2>Add labor observation</h2><div class="grid">
 <label>Date<input id="l-date" type="date"></label>
@@ -181,12 +229,12 @@ table{width:100%;border-collapse:collapse;font-size:.83rem}th,td{text-align:left
 <script>
 (() => {
   const TAXONOMY=[{"id":"livestock","label":"Livestock","tasks":[{"code":"livestock.feed","label":"Feed animals"},{"code":"livestock.water","label":"Water animals"},{"code":"livestock.bedding","label":"Bedding / litter"},{"code":"livestock.health_check","label":"Health / welfare check"},{"code":"livestock.move_rotate","label":"Move / rotate animals"},{"code":"livestock.milking","label":"Milking"},{"code":"livestock.egg_collect","label":"Collect eggs"},{"code":"livestock.birth_repro","label":"Birth / reproduction care"},{"code":"livestock.handling","label":"Handling / restraint"},{"code":"livestock.cleaning","label":"Livestock-area cleaning"}]},{"id":"crops","label":"Field / Crop","tasks":[{"code":"crops.seed_starting","label":"Seed starting"},{"code":"crops.bed_prep","label":"Bed / field preparation"},{"code":"crops.plant_transplant","label":"Transplanting"},{"code":"crops.seed_direct","label":"Direct seeding"},{"code":"crops.irrigation","label":"Irrigation"},{"code":"crops.weeding","label":"Weeding / cultivation"},{"code":"crops.fertility_compost","label":"Fertility / compost application"},{"code":"crops.scouting","label":"Crop scouting / monitoring"},{"code":"crops.harvest","label":"Harvest"},{"code":"crops.postharvest_field","label":"Field cleanup after harvest"}]},{"id":"washpack","label":"Wash / Pack","tasks":[{"code":"washpack.wash","label":"Wash produce / product"},{"code":"washpack.sort_grade","label":"Sort / grade"},{"code":"washpack.pack","label":"Pack / label"},{"code":"washpack.clean_sanitize","label":"Clean / sanitize wash-pack area"},{"code":"washpack.inventory","label":"Inventory / cooler handling"}]},{"id":"fencing","label":"Fencing","tasks":[{"code":"fencing.install","label":"Install fence"},{"code":"fencing.move","label":"Move temporary fence"},{"code":"fencing.repair","label":"Repair / inspect fence"}]},{"id":"water","label":"Water systems","tasks":[{"code":"water.fill","label":"Fill / move water"},{"code":"water.system_check","label":"Check water system"},{"code":"water.repair","label":"Repair water system"}]},{"id":"maintenance","label":"Maintenance","tasks":[{"code":"maintenance.equipment","label":"Equipment maintenance / repair"},{"code":"maintenance.building","label":"Building / infrastructure maintenance"},{"code":"maintenance.cleaning","label":"General cleaning"},{"code":"maintenance.materials","label":"Materials / supply handling"}]},{"id":"sales","label":"Market / Sales","tasks":[{"code":"sales.market_setup","label":"Market setup"},{"code":"sales.market_selling","label":"Market selling"},{"code":"sales.market_teardown","label":"Market teardown"},{"code":"sales.farmstand","label":"Farm stand"},{"code":"sales.csa_pack","label":"CSA packing"},{"code":"sales.csa_distribution","label":"CSA distribution"},{"code":"sales.delivery","label":"Delivery / route"}]},{"id":"admin","label":"Admin","tasks":[{"code":"admin.recordkeeping","label":"Farm recordkeeping"},{"code":"admin.bookkeeping","label":"Bookkeeping"},{"code":"admin.ordering","label":"Ordering / purchasing"},{"code":"admin.customer_comms","label":"Customer communication"},{"code":"admin.grants_compliance","label":"Grant / compliance paperwork"},{"code":"admin.planning","label":"Planning / scheduling"}]},{"id":"general","label":"General","tasks":[{"code":"general.travel_internal","label":"Internal travel / walking"},{"code":"general.setup_cleanup","label":"Setup / cleanup"},{"code":"general.material_handling","label":"General material handling"},{"code":"general.other","label":"Other farm work"}]}];
-  const LABOR_KEY="cropcircuit_farm_labor_log_v1", SCHEDULE_KEY="cropcircuit_chore_schedule_v1", SETTINGS_KEY="cropcircuit_farm_labor_settings_v1", EQUIPMENT_KEY="cropcircuit_equipment_maintenance_v1", HARVEST_KEY="cropcircuit_harvest_log_v1", SALES_KEY="cropcircuit_sales_log_v1", PARTS_KEY="cropcircuit_parts_inventory_v1", OBS_KEY="cropcircuit_observation_events_v1", LEARN_KEY="cropcircuit_learning_cycles_v1", HYP_KEY="cropcircuit_hypothesis_memory_v1";
+  const LABOR_KEY="cropcircuit_farm_labor_log_v1", SCHEDULE_KEY="cropcircuit_chore_schedule_v1", SETTINGS_KEY="cropcircuit_farm_labor_settings_v1", EQUIPMENT_KEY="cropcircuit_equipment_maintenance_v1", HARVEST_KEY="cropcircuit_harvest_log_v1", SALES_KEY="cropcircuit_sales_log_v1", PARTS_KEY="cropcircuit_parts_inventory_v1", OBS_KEY="cropcircuit_observation_events_v1", LEARN_KEY="cropcircuit_learning_cycles_v1", HYP_KEY="cropcircuit_hypothesis_memory_v1", REL_KEY="cropcircuit_relationship_map_v1";
   const $=id=>document.getElementById(id),esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;"),num=(v,d=1)=>Number(v).toLocaleString(undefined,{maximumFractionDigits:d});
   function load(key,fallback){try{const x=JSON.parse(localStorage.getItem(key)||"null");return x??fallback}catch{return fallback}}
   function save(key,value){localStorage.setItem(key,JSON.stringify(value))}
-  let labor=load(LABOR_KEY,[]), schedule=load(SCHEDULE_KEY,[]), observations=load(OBS_KEY,[]), learningCycles=load(LEARN_KEY,[]), hypothesisMemory=load(HYP_KEY,[]), selectedConvergenceKey="";
-  if(!Array.isArray(labor))labor=[];if(!Array.isArray(schedule))schedule=[];if(!Array.isArray(observations))observations=[];if(!Array.isArray(learningCycles))learningCycles=[];if(!Array.isArray(hypothesisMemory))hypothesisMemory=[];
+  let labor=load(LABOR_KEY,[]), schedule=load(SCHEDULE_KEY,[]), observations=load(OBS_KEY,[]), learningCycles=load(LEARN_KEY,[]), hypothesisMemory=load(HYP_KEY,[]), relationshipMap=load(REL_KEY,{schema_version:"0.1",map_id:"local-farm-map",updated_at:new Date().toISOString(),nodes:[],edges:[]}), selectedConvergenceKey="";
+  if(!Array.isArray(labor))labor=[];if(!Array.isArray(schedule))schedule=[];if(!Array.isArray(observations))observations=[];if(!Array.isArray(learningCycles))learningCycles=[];if(!Array.isArray(hypothesisMemory))hypothesisMemory=[];if(!relationshipMap||typeof relationshipMap!=="object"||!Array.isArray(relationshipMap.nodes)||!Array.isArray(relationshipMap.edges))relationshipMap={schema_version:"0.1",map_id:"local-farm-map",updated_at:new Date().toISOString(),nodes:[],edges:[]};
   function extraWorkspace(){return {equipment_maintenance:Array.isArray(load(EQUIPMENT_KEY,[]))?load(EQUIPMENT_KEY,[]):[],harvest_entries:Array.isArray(load(HARVEST_KEY,[]))?load(HARVEST_KEY,[]):[],sales_entries:Array.isArray(load(SALES_KEY,[]))?load(SALES_KEY,[]):[],parts_inventory:Array.isArray(load(PARTS_KEY,[]))?load(PARTS_KEY,[]):[]}}
 
   function today(){return new Date().toISOString().slice(0,10)}
@@ -246,6 +294,20 @@ table{width:100%;border-collapse:collapse;font-size:.83rem}th,td{text-align:left
       ref:o.event_id,
       note:o.summary||""
     }));
+  }
+  function slug(v){return String(v||"").trim().toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"")}
+  function relConnections(nodeId){return relationshipMap.edges.filter(e=>e.from===nodeId||e.to===nodeId).length}
+  function fillRelationshipNodeSelectors(){
+    const a=$("rg-from")?.value||"",b=$("rg-to")?.value||"";
+    const options='<option value="">— choose node —</option>'+relationshipMap.nodes.map(n=>`<option value="${esc(n.id)}">${esc(n.label)}</option>`).join("");
+    $("rg-from").innerHTML=options;$("rg-to").innerHTML=options;
+    if([...$("rg-from").options].some(o=>o.value===a))$("rg-from").value=a;
+    if([...$("rg-to").options].some(o=>o.value===b))$("rg-to").value=b;
+  }
+  function relationshipFocusCount(){
+    const stressed=relationshipMap.edges.filter(e=>e.state==="stressed").length+relationshipMap.nodes.filter(n=>n.state==="stressed").length;
+    const unknown=relationshipMap.edges.filter(e=>e.state==="unknown"||(e.unknowns||[]).length).length+relationshipMap.nodes.filter(n=>n.state==="unknown"||(n.unknowns||[]).length).length;
+    return stressed+unknown;
   }
   function csvParts(v){return String(v||"").split(",").map(x=>x.trim()).filter(Boolean)}
   function buildMemoryEntry(cycle, disposition, reason, conditions, tags){
@@ -344,6 +406,18 @@ table{width:100%;border-collapse:collapse;font-size:.83rem}th,td{text-align:left
     const rows=[...hypothesisMemory].filter(x=>memoryMatches(x,q,filter)).sort((a,b)=>String(b.updated_at||b.created_at||"").localeCompare(String(a.updated_at||a.created_at||"")));
     $("hm-body").innerHTML=rows.length?rows.map(e=>{const latest=(e.outcomes||[]).length?e.outcomes[e.outcomes.length-1].result:"—";return `<tr><td>${esc(e.disposition||"")}</td><td>${esc(e.original_prediction||"")}</td><td>${num(100*Number(e.current_confidence||0),0)}%</td><td>${esc([...(e.conditions||[]),...(e.tags||[])].join(", ")||"—")}</td><td>${esc(e.reason||"—")}</td><td>${esc(latest)}</td></tr>`}).join(""):'<tr><td colspan="6" class="empty">No matching hypothesis memories yet.</td></tr>';
   }
+  function renderRelationships(){
+    fillRelationshipNodeSelectors();
+    $("rg-nodes").textContent=relationshipMap.nodes.length;
+    $("rg-edges").textContent=relationshipMap.edges.length;
+    $("rg-stressed").textContent=relationshipMap.nodes.filter(n=>n.state==="stressed").length+relationshipMap.edges.filter(e=>e.state==="stressed").length;
+    $("rg-unknown").textContent=relationshipMap.nodes.filter(n=>n.state==="unknown").length+relationshipMap.edges.filter(e=>e.state==="unknown"||(e.unknowns||[]).length).length;
+    const nodeName=id=>relationshipMap.nodes.find(n=>n.id===id)?.label||id;
+    $("rg-edge-body").innerHTML=relationshipMap.edges.length?relationshipMap.edges.map(e=>`<tr><td>${esc(nodeName(e.from))} → ${esc(nodeName(e.to))}</td><td>${esc(e.relationship||"")}</td><td>${esc(e.flow_kind||"")}</td><td>${esc(e.state||"")}</td><td>${esc((e.evidence_refs||[]).join(", ")||"—")}</td><td>${esc((e.unknowns||[]).join("; ")||"—")}</td><td><button class="danger" data-rg-edge-del="${esc(e.id)}">Delete</button></td></tr>`).join(""):'<tr><td colspan="7" class="empty">No relationships recorded yet.</td></tr>';
+    $("rg-node-body").innerHTML=relationshipMap.nodes.length?relationshipMap.nodes.map(n=>`<tr><td>${esc(n.label)}</td><td>${esc(n.kind||"")}</td><td>${esc(n.state||"")}</td><td>${esc((n.evidence_refs||[]).join(", ")||"—")}</td><td>${esc((n.unknowns||[]).join("; ")||"—")}</td><td>${relConnections(n.id)}</td><td><button class="danger" data-rg-node-del="${esc(n.id)}">Delete</button></td></tr>`).join(""):'<tr><td colspan="7" class="empty">No nodes recorded yet.</td></tr>';
+    document.querySelectorAll("[data-rg-edge-del]").forEach(b=>b.addEventListener("click",()=>{relationshipMap.edges=relationshipMap.edges.filter(e=>e.id!==b.dataset.rgEdgeDel);relationshipMap.updated_at=new Date().toISOString();save(REL_KEY,relationshipMap);renderAll()}));
+    document.querySelectorAll("[data-rg-node-del]").forEach(b=>b.addEventListener("click",()=>{const id=b.dataset.rgNodeDel;if(relationshipMap.edges.some(e=>e.from===id||e.to===id)){alert("Delete connected relationships first so the map does not lose its evidence trail.");return}relationshipMap.nodes=relationshipMap.nodes.filter(n=>n.id!==id);relationshipMap.updated_at=new Date().toISOString();save(REL_KEY,relationshipMap);renderAll()}));
+  }
   function renderLabor(){
     const rows=[...labor].sort((a,b)=>String(b.date).localeCompare(String(a.date))||(b.createdAt||0)-(a.createdAt||0)).slice(0,50);
     $("l-body").innerHTML=rows.length?rows.map(r=>`<tr><td>${esc(r.date)}</td><td>${esc(r.task)}</td><td><code>${esc(r.chore_code||"")}</code></td><td>${num(r.minutes,0)}</td><td>${num(r.workers,0)}</td><td>${num(workerHours(r),2)}</td><td><button class="danger" data-l-del="${esc(r.id)}">Delete</button></td></tr>`).join(""):'<tr><td colspan="7" class="empty">No labor entries yet.</td></tr>';
@@ -361,9 +435,9 @@ table{width:100%;border-collapse:collapse;font-size:.83rem}th,td{text-align:left
     const cats=[...byCat.entries()].sort((a,b)=>b[1].hours-a[1].hours);$("d-cats").innerHTML=cats.length?cats.map(([cat,v])=>`<tr><td>${esc(cat)}</td><td>${v.entries}</td><td>${num(v.hours)}</td><td>${num(hours?100*v.hours/hours:0,1)}%</td></tr>`).join(""):'<tr><td colspan="4" class="empty">No labor observations in the last 7 days.</td></tr>';
     const futureStart=addDays(end,1),futureEnd=addDays(end,7),map=new Map();
     schedule.forEach(t=>{for(const d of occurrences(t,dateObj(futureStart),dateObj(futureEnd))){const v=map.get(d)||{minutes:0,tasks:[]},m=Math.max(Number(t.minutes??t.estimated_minutes)||0,0);v.minutes+=m;v.tasks.push(t);map.set(d,v)}});
-    const days=[...map.entries()].sort((a,b)=>a[0].localeCompare(b[0]));$("d-upcoming").textContent=days.reduce((s,[,v])=>s+v.tasks.length,0);$("d-schedule").innerHTML=days.length?days.map(([d,v])=>`<tr><td>${d}</td><td>${v.tasks.map(t=>esc(t.task)+(t.chore_code?` <code>${esc(t.chore_code)}</code>`:"")).join("<br>")}</td><td>${num(v.minutes,0)}</td></tr>`).join(""):'<tr><td colspan="3" class="empty">No scheduled chores in the next 7 days.</td></tr>';$("d-learning").textContent=openLearningCycles().length;$("d-convergence").textContent=convergenceTokens().length;$("d-memory").textContent=hypothesisMemory.length;
+    const days=[...map.entries()].sort((a,b)=>a[0].localeCompare(b[0]));$("d-upcoming").textContent=days.reduce((s,[,v])=>s+v.tasks.length,0);$("d-schedule").innerHTML=days.length?days.map(([d,v])=>`<tr><td>${d}</td><td>${v.tasks.map(t=>esc(t.task)+(t.chore_code?` <code>${esc(t.chore_code)}</code>`:"")).join("<br>")}</td><td>${num(v.minutes,0)}</td></tr>`).join(""):'<tr><td colspan="3" class="empty">No scheduled chores in the next 7 days.</td></tr>';$("d-learning").textContent=openLearningCycles().length;$("d-convergence").textContent=convergenceTokens().length;$("d-memory").textContent=hypothesisMemory.length;$("d-relations").textContent=relationshipFocusCount();
   }
-  function renderAll(){renderObservations();renderConvergence();renderLearning();renderHypothesisMemory();renderLabor();renderSchedule();renderDashboard()}
+  function renderAll(){renderObservations();renderConvergence();renderLearning();renderHypothesisMemory();renderRelationships();renderLabor();renderSchedule();renderDashboard()}
 
   document.querySelectorAll("[data-o-preset]").forEach(b=>b.addEventListener("click",()=>{$("o-domain").value=b.dataset.oPreset;$("o-summary").focus()}));
   $("o-add").addEventListener("click",()=>{const summary=$("o-summary").value.trim();if(!summary){alert("Write a short observation first.");return}const raw=$("o-value").value.trim(),n=Number(raw),value=raw===""?null:(Number.isFinite(n)&&String(n)===raw? n:raw),pattern=normalizePatternKey($("o-pattern").value),supportRaw=$("o-pattern-confidence").value.trim();let support;if(pattern){if(supportRaw===""){alert("If you tag a possible pattern, add how strongly this observation supports it.");return}const pct=Number(supportRaw);if(!Number.isFinite(pct)||pct<0||pct>100){alert("Pattern support must be between 0 and 100%.");return}support=pct/100}observations.push({schema_version:"0.1",event_id:crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random(),recorded_at:new Date().toISOString(),source:{kind:$("o-source").value},domain:$("o-domain").value,signal_key:$("o-signal").value.trim()||undefined,hypothesis_key:pattern||undefined,hypothesis_confidence:pattern?support:undefined,summary,value,unit:$("o-unit").value.trim()||undefined,severity_hint:$("o-severity").value,evidence_refs:[],tags:[],privacy:"private"});save(OBS_KEY,observations);$("o-summary").value="";$("o-signal").value="";$("o-value").value="";$("o-unit").value="";$("o-pattern").value="";$("o-pattern-confidence").value="";renderAll()});
@@ -436,13 +510,34 @@ table{width:100%;border-collapse:collapse;font-size:.83rem}th,td{text-align:left
   $("hm-search").addEventListener("input",()=>renderHypothesisMemory());
   $("hm-filter").addEventListener("change",()=>renderHypothesisMemory());
 
+  $("rg-node-add").addEventListener("click",()=>{
+    const label=$("rg-node-label").value.trim(),kind=$("rg-node-kind").value.trim()||"other",base=slug(label);
+    if(!label||!base){alert("Enter a node label.");return}
+    let id=base,i=2;while(relationshipMap.nodes.some(n=>n.id===id))id=base+"-"+i++;
+    const evidence=$("rg-node-evidence").value.trim(),unknown=$("rg-node-unknown").value.trim();
+    relationshipMap.nodes.push({id,label,kind,state:$("rg-node-state").value,evidence_refs:evidence?[evidence]:[],unknowns:unknown?[unknown]:[]});
+    relationshipMap.updated_at=new Date().toISOString();save(REL_KEY,relationshipMap);
+    ["rg-node-label","rg-node-kind","rg-node-evidence","rg-node-unknown"].forEach(id=>$(id).value="");$("rg-node-state").value="unknown";renderAll();
+  });
+
+  $("rg-edge-add").addEventListener("click",()=>{
+    const from=$("rg-from").value,to=$("rg-to").value,relationship=$("rg-relationship").value.trim();
+    if(!from||!to||!relationship){alert("Choose both nodes and describe the relationship.");return}
+    if(from===to&&!confirm("This is a self-relationship. Save it anyway?"))return;
+    const evidence=$("rg-edge-evidence").value.trim(),unknown=$("rg-edge-unknown").value.trim(),base=slug(from+"-"+to+"-"+relationship)||("edge-"+Date.now());
+    let id=base,i=2;while(relationshipMap.edges.some(e=>e.id===id))id=base+"-"+i++;
+    relationshipMap.edges.push({id,from,to,relationship,flow_kind:$("rg-flow").value,state:$("rg-edge-state").value,evidence_refs:evidence?[evidence]:[],unknowns:unknown?[unknown]:[],note:""});
+    relationshipMap.updated_at=new Date().toISOString();save(REL_KEY,relationshipMap);
+    ["rg-relationship","rg-edge-evidence","rg-edge-unknown"].forEach(id=>$(id).value="");$("rg-edge-state").value="unknown";$("rg-flow").value="other";renderAll();
+  });
+
   $("l-add").addEventListener("click",()=>{const task=$("l-task").value.trim(),minutes=Math.max(Number($("l-minutes").value)||0,0),workers=Math.max(Number($("l-workers").value)||0,0);if(!task||minutes<=0||workers<=0){alert("Enter a task, minutes, and workers.");return}labor.push({id:crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random(),createdAt:Date.now(),date:$("l-date").value||today(),category:$("l-category").value,task,chore_code:$("l-code").value,minutes,workers,notes:""});save(LABOR_KEY,labor);$("l-task").value="";$("l-code").value="";renderAll()});
   $("s-add").addEventListener("click",()=>{const task=$("s-task").value.trim();if(!task){alert("Enter a task.");return}schedule.push({id:crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random(),task,chore_code:$("s-code").value,category:$("s-category").value,date:$("s-date").value||today(),freq:$("s-freq").value,interval:Math.max(Number($("s-interval").value)||1,1),minutes:Math.max(Number($("s-minutes").value)||0,0),notes:""});save(SCHEDULE_KEY,schedule);$("s-task").value="";$("s-code").value="";renderAll()});
 
   document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>setTab(b.dataset.tab)));
   $("print-dashboard").addEventListener("click",()=>window.print());
-  $("b-export").addEventListener("click",()=>{const workspace={schema_version:"1.2",exported_at:new Date().toISOString(),labor_entries:labor,labor_settings:load(SETTINGS_KEY,{}),chore_schedule:schedule,observation_events:observations,learning_cycles:learningCycles,hypothesis_memory:hypothesisMemory,...extraWorkspace()},blob=new Blob([JSON.stringify(workspace,null,2)+"\n"],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="cropcircuit-local-workspace-v1.2.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)});
-  $("b-import").addEventListener("click",async()=>{const f=$("b-file").files[0];if(!f){$("b-status").textContent="Choose a backup JSON file.";return}try{const w=JSON.parse(await f.text());if(!["1.0","1.1","1.2"].includes(String(w.schema_version))||!Array.isArray(w.labor_entries)||!Array.isArray(w.chore_schedule)){throw new Error("Unsupported or invalid workspace file")}if(!confirm("Replace this browser's CropCircuit fields represented by the selected backup?"))return;labor=w.labor_entries;schedule=w.chore_schedule;save(LABOR_KEY,labor);save(SCHEDULE_KEY,schedule);save(SETTINGS_KEY,w.labor_settings||{});if(["1.1","1.2"].includes(w.schema_version)){if(!Array.isArray(w.equipment_maintenance)||!Array.isArray(w.harvest_entries)||!Array.isArray(w.sales_entries))throw new Error("Incomplete workspace backup");save(EQUIPMENT_KEY,w.equipment_maintenance);save(HARVEST_KEY,w.harvest_entries);save(SALES_KEY,w.sales_entries)}if(w.schema_version==="1.2"){if(!Array.isArray(w.parts_inventory))throw new Error("Incomplete workspace 1.2 backup");save(PARTS_KEY,w.parts_inventory)}if(Array.isArray(w.observation_events)){observations=w.observation_events;save(OBS_KEY,observations)}if(Array.isArray(w.learning_cycles)){learningCycles=w.learning_cycles;save(LEARN_KEY,learningCycles)}if(Array.isArray(w.hypothesis_memory)){hypothesisMemory=w.hypothesis_memory;save(HYP_KEY,hypothesisMemory)}$("b-status").textContent="Workspace restored. Older backups preserve collections introduced in newer workspace versions.";renderAll()}catch(e){$("b-status").textContent="Restore failed: "+e.message}});
+  $("b-export").addEventListener("click",()=>{const workspace={schema_version:"1.2",exported_at:new Date().toISOString(),labor_entries:labor,labor_settings:load(SETTINGS_KEY,{}),chore_schedule:schedule,observation_events:observations,learning_cycles:learningCycles,hypothesis_memory:hypothesisMemory,relationship_map:relationshipMap,...extraWorkspace()},blob=new Blob([JSON.stringify(workspace,null,2)+"\n"],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="cropcircuit-local-workspace-v1.2.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)});
+  $("b-import").addEventListener("click",async()=>{const f=$("b-file").files[0];if(!f){$("b-status").textContent="Choose a backup JSON file.";return}try{const w=JSON.parse(await f.text());if(!["1.0","1.1","1.2"].includes(String(w.schema_version))||!Array.isArray(w.labor_entries)||!Array.isArray(w.chore_schedule)){throw new Error("Unsupported or invalid workspace file")}if(!confirm("Replace this browser's CropCircuit fields represented by the selected backup?"))return;labor=w.labor_entries;schedule=w.chore_schedule;save(LABOR_KEY,labor);save(SCHEDULE_KEY,schedule);save(SETTINGS_KEY,w.labor_settings||{});if(["1.1","1.2"].includes(w.schema_version)){if(!Array.isArray(w.equipment_maintenance)||!Array.isArray(w.harvest_entries)||!Array.isArray(w.sales_entries))throw new Error("Incomplete workspace backup");save(EQUIPMENT_KEY,w.equipment_maintenance);save(HARVEST_KEY,w.harvest_entries);save(SALES_KEY,w.sales_entries)}if(w.schema_version==="1.2"){if(!Array.isArray(w.parts_inventory))throw new Error("Incomplete workspace 1.2 backup");save(PARTS_KEY,w.parts_inventory)}if(Array.isArray(w.observation_events)){observations=w.observation_events;save(OBS_KEY,observations)}if(Array.isArray(w.learning_cycles)){learningCycles=w.learning_cycles;save(LEARN_KEY,learningCycles)}if(Array.isArray(w.hypothesis_memory)){hypothesisMemory=w.hypothesis_memory;save(HYP_KEY,hypothesisMemory)}if(w.relationship_map&&typeof w.relationship_map==="object"&&Array.isArray(w.relationship_map.nodes)&&Array.isArray(w.relationship_map.edges)){relationshipMap=w.relationship_map;save(REL_KEY,relationshipMap)}$("b-status").textContent="Workspace restored. Older backups preserve collections introduced in newer workspace versions.";renderAll()}catch(e){$("b-status").textContent="Restore failed: "+e.message}});
   renderAll();
 })();
 </script></body></html>
