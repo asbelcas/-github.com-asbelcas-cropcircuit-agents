@@ -182,6 +182,17 @@ The first shared fast-loop substrate now exists:
 
 The Reflex Loop intentionally does not diagnose causes or authorize irreversible actions.
 
+The first full slow-loop path is now implemented in the Pocket Console:
+
+- an observation can seed a learning cycle
+- prediction, confidence, falsifier, action, reversibility, and stop rule are recorded before outcome
+- outcomes append rather than replace the original prediction
+- mixed or contradicted outcomes create unresolved contradiction memory
+- confidence updates preserve rationale and next action
+- learning cycles persist in local storage and workspace backup
+
+See `POCKET_LEARNING_LOOP.md` and `pocket_learning_cycle.test.mjs`.
+
 ## 7. Minimum viable nervous system
 
 Build in this sequence:

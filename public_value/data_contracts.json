@@ -103,6 +103,70 @@
       ]
     },
     {
+      "id": "learning_cycles",
+      "label": "Learning cycles",
+      "workspace_collection": "learning_cycles",
+      "storage_key": "cropcircuit_learning_cycles_v1",
+      "schema_ref": "learning_cycle.schema.json",
+      "required": [
+        "schema_version",
+        "cycle_id",
+        "created_at",
+        "question",
+        "prediction",
+        "action",
+        "stop_rule",
+        "provenance",
+        "observations",
+        "contradictions",
+        "updates"
+      ],
+      "fields": [
+        {
+          "name": "cycle_id",
+          "type": "string"
+        },
+        {
+          "name": "created_at",
+          "type": "date-time"
+        },
+        {
+          "name": "question",
+          "type": "string"
+        },
+        {
+          "name": "prediction",
+          "type": "object",
+          "description": "Original statement, confidence, and falsifiers; preserved after outcomes are known."
+        },
+        {
+          "name": "action",
+          "type": "object",
+          "description": "Action/test, reversibility, optional cost cap, and owner."
+        },
+        {
+          "name": "stop_rule",
+          "type": "object"
+        },
+        {
+          "name": "provenance",
+          "type": "array"
+        },
+        {
+          "name": "observations",
+          "type": "array"
+        },
+        {
+          "name": "contradictions",
+          "type": "array"
+        },
+        {
+          "name": "updates",
+          "type": "array"
+        }
+      ]
+    },
+    {
       "id": "labor",
       "label": "Labor log",
       "workspace_collection": "labor_entries",

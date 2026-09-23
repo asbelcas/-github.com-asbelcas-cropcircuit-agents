@@ -18,43 +18,98 @@
     "updates"
   ],
   "properties": {
-    "schema_version": { "const": "0.1" },
-    "cycle_id": { "type": "string", "minLength": 1 },
-    "created_at": { "type": "string", "format": "date-time" },
-    "question": { "type": "string", "minLength": 1 },
+    "schema_version": {
+      "const": "0.1"
+    },
+    "cycle_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "question": {
+      "type": "string",
+      "minLength": 1
+    },
     "prediction": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["statement", "confidence", "falsifiers"],
+      "required": [
+        "statement",
+        "confidence",
+        "falsifiers"
+      ],
       "properties": {
-        "statement": { "type": "string", "minLength": 1 },
-        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
         "falsifiers": {
           "type": "array",
           "minItems": 1,
-          "items": { "type": "string", "minLength": 1 }
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
         }
       }
     },
     "action": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["description", "reversible"],
+      "required": [
+        "description",
+        "reversible"
+      ],
       "properties": {
-        "description": { "type": "string", "minLength": 1 },
-        "reversible": { "type": "boolean" },
-        "cost_cap": { "type": ["number", "null"], "minimum": 0 },
-        "owner": { "type": "string" }
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reversible": {
+          "type": "boolean"
+        },
+        "cost_cap": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "owner": {
+          "type": "string"
+        }
       }
     },
     "stop_rule": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["description", "status"],
+      "required": [
+        "description",
+        "status"
+      ],
       "properties": {
-        "description": { "type": "string", "minLength": 1 },
-        "status": { "enum": ["not_met", "met", "unknown"] },
-        "evidence": { "type": "string" }
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "not_met",
+            "met",
+            "unknown"
+          ]
+        },
+        "evidence": {
+          "type": "string"
+        }
       }
     },
     "provenance": {
@@ -62,7 +117,9 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["kind"],
+        "required": [
+          "kind"
+        ],
         "properties": {
           "kind": {
             "enum": [
@@ -71,16 +128,29 @@
               "transaction",
               "experiment",
               "external_source",
+              "import",
               "model_inference",
               "assumption"
             ]
           },
-          "ref": { "type": "string" },
-          "note": { "type": "string" }
+          "ref": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          }
         },
         "anyOf": [
-          { "required": ["ref"] },
-          { "required": ["note"] }
+          {
+            "required": [
+              "ref"
+            ]
+          },
+          {
+            "required": [
+              "note"
+            ]
+          }
         ]
       }
     },
@@ -89,21 +159,45 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["recorded_at", "result"],
+        "required": [
+          "recorded_at",
+          "result"
+        ],
         "properties": {
-          "recorded_at": { "type": "string", "format": "date-time" },
-          "result": { "type": "string", "minLength": 1 },
+          "recorded_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "result": {
+            "type": "string",
+            "minLength": 1
+          },
           "evidence_refs": {
             "type": "array",
-            "items": { "type": "string" }
+            "items": {
+              "type": "string"
+            }
           },
           "surprise": {
-            "type": ["object", "null"],
+            "type": [
+              "object",
+              "null"
+            ],
             "additionalProperties": false,
-            "required": ["score", "reason"],
+            "required": [
+              "score",
+              "reason"
+            ],
             "properties": {
-              "score": { "type": "number", "minimum": 0, "maximum": 1 },
-              "reason": { "type": "string", "minLength": 1 }
+              "score": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
             }
           }
         }
@@ -114,15 +208,30 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["statement", "status"],
+        "required": [
+          "statement",
+          "status"
+        ],
         "properties": {
-          "statement": { "type": "string", "minLength": 1 },
-          "status": { "enum": ["unresolved", "resolved"] },
+          "statement": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "unresolved",
+              "resolved"
+            ]
+          },
           "evidence_refs": {
             "type": "array",
-            "items": { "type": "string" }
+            "items": {
+              "type": "string"
+            }
           },
-          "note": { "type": "string" }
+          "note": {
+            "type": "string"
+          }
         }
       }
     },
@@ -131,14 +240,37 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["recorded_at", "confidence_before", "confidence_after", "rationale"],
+        "required": [
+          "recorded_at",
+          "confidence_before",
+          "confidence_after",
+          "rationale"
+        ],
         "properties": {
-          "recorded_at": { "type": "string", "format": "date-time" },
-          "confidence_before": { "type": "number", "minimum": 0, "maximum": 1 },
-          "confidence_after": { "type": "number", "minimum": 0, "maximum": 1 },
-          "rationale": { "type": "string", "minLength": 1 },
-          "model_change": { "type": "string" },
-          "next_action": { "type": "string" }
+          "recorded_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "confidence_before": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "confidence_after": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 1
+          },
+          "model_change": {
+            "type": "string"
+          },
+          "next_action": {
+            "type": "string"
+          }
         }
       }
     }
