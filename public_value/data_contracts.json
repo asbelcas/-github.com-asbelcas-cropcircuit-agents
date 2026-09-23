@@ -311,6 +311,67 @@
       ]
     },
     {
+      "id": "pilot_decisions",
+      "label": "Repeated-decision pilot records",
+      "workspace_collection": "pilot_decisions",
+      "schema_ref": "pilot_decision_record.schema.json",
+      "required": [
+        "schema_version",
+        "record_id",
+        "pilot_id",
+        "decision_class",
+        "created_at",
+        "context_tags",
+        "governance",
+        "predictors",
+        "outcome",
+        "evaluations",
+        "metrics"
+      ],
+      "fields": [
+        {
+          "name": "record_id",
+          "type": "string"
+        },
+        {
+          "name": "pilot_id",
+          "type": "string"
+        },
+        {
+          "name": "decision_class",
+          "type": "string"
+        },
+        {
+          "name": "created_at",
+          "type": "date-time"
+        },
+        {
+          "name": "context_tags",
+          "type": "array"
+        },
+        {
+          "name": "governance",
+          "type": "object"
+        },
+        {
+          "name": "predictors",
+          "type": "array"
+        },
+        {
+          "name": "outcome",
+          "type": "object_or_null"
+        },
+        {
+          "name": "evaluations",
+          "type": "array"
+        },
+        {
+          "name": "metrics",
+          "type": "object"
+        }
+      ]
+    },
+    {
       "id": "labor",
       "label": "Labor log",
       "workspace_collection": "labor_entries",
