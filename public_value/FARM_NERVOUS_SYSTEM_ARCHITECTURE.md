@@ -161,6 +161,13 @@ Instead produce a tension record:
 
 If no hard constraint resolves the tension, route the decision to the authorized human.
 
+Model tension and hypothesis memory now have executable primitives:
+
+- `model_tension.js` preserves each model's recommendation, confidence, evidence, hard constraints, time sensitivity, and reversibility without choosing a winner
+- hard-constraint failures block; hard unknowns hold; unresolved model disagreement routes to human arbitration
+- `hypothesis_memory.js` creates searchable memory records from learning cycles and never auto-rejects a hypothesis from one contradiction
+- the Pocket Console **Memory** tab stores disposition, conditions, tags, reason, outcomes, contradictions, and confidence history locally
+
 ## 6. Hypothesis graveyard
 
 A failed hypothesis is not deleted.

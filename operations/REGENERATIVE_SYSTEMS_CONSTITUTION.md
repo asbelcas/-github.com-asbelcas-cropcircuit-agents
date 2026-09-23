@@ -235,9 +235,13 @@ Pasture, animal, labor, finance, soil, weather, and infrastructure models may di
 
 Do not erase this disagreement with one opaque score. Preserve each model's recommendation, evidence, uncertainty, time sensitivity, reversibility, and implicated hard constraints. Route unresolved tensions to the authorized human.
 
+Implementation: `public_value/model_tension.js` preserves disagreement without producing a winning score.
+
 ## 12B. Hypothesis memory
 
 Failed and suspended hypotheses remain part of system memory. Preserve the conditions under which they failed, the evidence, the outcome, and the reason they were rejected. A hypothesis that failed under one set of conditions may become relevant under another.
+
+Implementation: `public_value/hypothesis_memory.js` preserves searchable hypothesis memory. A contradiction alone must not automatically mark a hypothesis rejected.
 
 ## 13. Agent-specific requirements
 

@@ -181,6 +181,103 @@
       ]
     },
     {
+      "id": "hypothesis_memory",
+      "label": "Hypothesis memory",
+      "workspace_collection": "hypothesis_memory",
+      "storage_key": "cropcircuit_hypothesis_memory_v1",
+      "required": [
+        "schema_version",
+        "memory_id",
+        "cycle_id",
+        "original_prediction",
+        "initial_confidence",
+        "current_confidence",
+        "disposition"
+      ],
+      "fields": [
+        {
+          "name": "memory_id",
+          "type": "string"
+        },
+        {
+          "name": "cycle_id",
+          "type": "string"
+        },
+        {
+          "name": "created_at",
+          "type": "date-time",
+          "optional": true
+        },
+        {
+          "name": "updated_at",
+          "type": "date-time",
+          "optional": true
+        },
+        {
+          "name": "original_prediction",
+          "type": "string"
+        },
+        {
+          "name": "initial_confidence",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        {
+          "name": "current_confidence",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        {
+          "name": "disposition",
+          "type": "enum",
+          "values": [
+            "active",
+            "supported",
+            "inconclusive",
+            "suspended",
+            "rejected"
+          ]
+        },
+        {
+          "name": "conditions",
+          "type": "array",
+          "optional": true
+        },
+        {
+          "name": "tags",
+          "type": "array",
+          "optional": true
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "outcomes",
+          "type": "array",
+          "optional": true
+        },
+        {
+          "name": "contradictions",
+          "type": "array",
+          "optional": true
+        },
+        {
+          "name": "updates",
+          "type": "array",
+          "optional": true
+        },
+        {
+          "name": "source_refs",
+          "type": "array",
+          "optional": true
+        }
+      ]
+    },
+    {
       "id": "labor",
       "label": "Labor log",
       "workspace_collection": "labor_entries",
