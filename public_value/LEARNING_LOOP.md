@@ -80,6 +80,22 @@ When recorded, surprise has:
 
 This makes the quantity inspectable rather than magical.
 
+## Lateral contradiction
+
+Not every model failure appears as a direct prediction/outcome mismatch. Independent signals from different domains can converge on the same possible anomaly.
+
+CropCircuit therefore also supports [Signal Convergence](signal_convergence.js), which can create an explicitly provisional hypothesis token when multiple distinct domains point toward the same hypothesis key.
+
+A convergence token:
+- is evidence to investigate;
+- carries no action authorization;
+- preserves the contributing signal IDs and domains;
+- does not claim a diagnosis.
+
+## Hypothesis memory
+
+A failed prediction should not disappear when confidence falls. Preserve it with its conditions, evidence, outcome, contradiction, and update. This makes failure searchable rather than disposable and prevents later operators from rediscovering the same dead end without context.
+
 ## Relationship to governed decisions
 
 The Learning Loop does **not** replace:
