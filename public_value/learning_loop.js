@@ -14,6 +14,7 @@ const PROVENANCE_KINDS = new Set([
   "transaction",
   "experiment",
   "external_source",
+  "import",
   "model_inference",
   "assumption",
 ]);
