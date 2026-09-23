@@ -67,6 +67,20 @@
           "optional": true
         },
         {
+          "name": "hypothesis_key",
+          "type": "string",
+          "optional": true,
+          "description": "User-supplied normalized key linking observations that may support the same provisional hypothesis."
+        },
+        {
+          "name": "hypothesis_confidence",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "optional": true,
+          "description": "User-supplied confidence that this observation supports the tagged provisional hypothesis."
+        },
+        {
           "name": "summary",
           "type": "string"
         },
