@@ -241,6 +241,8 @@ Implementation: `public_value/model_tension.js` preserves disagreement without p
 
 Failed and suspended hypotheses remain part of system memory. Preserve the conditions under which they failed, the evidence, the outcome, and the reason they were rejected. A hypothesis that failed under one set of conditions may become relevant under another.
 
+Implementation: `public_value/hypothesis_memory.js` preserves searchable hypothesis memory. A contradiction alone must not automatically mark a hypothesis rejected.
+
 ## 13. Agent-specific requirements
 
 AI operators are partial participants, not central authorities.
