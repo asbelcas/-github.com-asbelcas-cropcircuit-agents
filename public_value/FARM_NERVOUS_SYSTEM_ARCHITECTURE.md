@@ -171,6 +171,8 @@ The graveyard is searchable memory, not a trash bin.
 
 ### Implemented foundation
 
+The Pocket Console now implements the first capture surface: a local-first **Quick observe** tab that stores source-aware observation events and preserves them in workspace backups. It intentionally allows capture before full structure; signal keys and values are optional.
+
 The first shared fast-loop substrate now exists:
 
 - `observation_event.schema.json` defines a source-aware observation event
