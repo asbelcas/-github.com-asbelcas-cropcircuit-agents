@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/asbelcas/-github.com-asbelcas-cropcircuit-agents/main/public_value/observation_event.schema.json",
+  "title": "CropCircuit Observation Event v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "event_id", "recorded_at", "source", "domain", "summary"],
+  "properties": {
+    "schema_version": { "const": "0.1" },
+    "event_id": { "type": "string", "minLength": 1 },
+    "recorded_at": { "type": "string", "format": "date-time" },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind"],
+      "properties": {
+        "kind": {
+          "enum": ["human_observation", "sensor_observation", "transaction", "import", "external_source", "model_inference"]
+        },
+        "ref": { "type": "string" },
+        "actor": { "type": "string" },
+        "device": { "type": "string" }
+      }
+    },
+    "domain": {
+      "enum": [
+        "animal_welfare", "livestock", "water", "infrastructure", "safety",
+        "pasture", "soil", "crop", "labor", "finance", "weather", "market", "other"
+      ]
+    },
+    "signal_key": { "type": "string", "minLength": 1 },
+    "summary": { "type": "string", "minLength": 1 },
+    "value": { "type": ["number", "string", "boolean", "null"] },
+    "unit": { "type": "string" },
+    "severity_hint": { "enum": ["normal", "watch", "urgent", "emergency"] },
+    "subject_refs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "location_label": { "type": "string" },
+    "evidence_refs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "privacy": { "enum": ["private", "shareable"] },
+    "note": { "type": "string" }
+  }
+}
