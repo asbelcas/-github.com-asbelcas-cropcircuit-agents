@@ -37,6 +37,7 @@ table{width:100%;border-collapse:collapse;font-size:.83rem}th,td{text-align:left
 <div class="metric"><strong id="d-categories">0</strong><span>active categories</span></div>
 <div class="metric"><strong id="d-upcoming">0</strong><span>upcoming chore occurrences</span></div>
 <div class="metric"><strong id="d-learning">0</strong><span>open learning cycles</span></div>
+<div class="metric"><strong id="d-convergence">0</strong><span>cross-domain patterns</span></div>
 </div></div>
 <div class="card"><h2>Labor by category</h2><div class="scroll"><table><thead><tr><th>Category</th><th>Entries</th><th>Worker-hours</th><th>%</th></tr></thead><tbody id="d-cats"></tbody></table></div></div>
 <div class="card"><h2>Next 7 days</h2><div class="scroll"><table><thead><tr><th>Date</th><th>Work</th><th>Estimated minutes</th></tr></thead><tbody id="d-schedule"></tbody></table></div></div>
@@ -63,20 +64,30 @@ table{width:100%;border-collapse:collapse;font-size:.83rem}th,td{text-align:left
 <label>Signal key (optional)<input id="o-signal" type="text" placeholder="tank_percent"></label>
 <label>Value (optional)<input id="o-value" type="text" placeholder="12"></label>
 <label>Unit (optional)<input id="o-unit" type="text" placeholder="%"></label>
+<label>Possible pattern (optional)<input id="o-pattern" type="text" list="o-pattern-list" placeholder="northwest-paddock-anomaly"></label>
+<label>Pattern support (%)<input id="o-pattern-confidence" type="number" min="0" max="100" step="1" placeholder="50"></label>
 </div>
+<datalist id="o-pattern-list"></datalist>
 <label style="margin-top:10px">What happened?<input id="o-summary" type="text" placeholder="Ewe avoided the northwest corner twice during this move" autocomplete="off"></label>
 <button id="o-add">Save observation</button>
-<p class="small">Stored locally in this browser. Model inference stays explicitly labeled as inference; it is not converted into a direct observation.</p>
+<p class="small">Stored locally in this browser. Pattern tagging is optional and deliberate: CropCircuit does not automatically invent a shared cause. If you tag a possible pattern, add how strongly this observation supports it. Model inference stays explicitly labeled as inference.</p>
 </div>
-<div class="card"><h2>Recent observations</h2><div class="scroll"><table><thead><tr><th>Time</th><th>Domain</th><th>Observation</th><th>Signal</th><th>Value</th><th>Source</th><th></th></tr></thead><tbody id="o-body"></tbody></table></div></div>
+<div class="card"><h2>Recent observations</h2><div class="scroll"><table><thead><tr><th>Time</th><th>Domain</th><th>Observation</th><th>Signal</th><th>Value</th><th>Pattern</th><th>Source</th><th></th></tr></thead><tbody id="o-body"></tbody></table></div></div>
 </section>
 
 <section id="learn" class="panel">
+<div class="card">
+<h2>Cross-domain convergence</h2>
+<p class="small">CropCircuit surfaces a provisional pattern only when at least three distinct domains have been deliberately tagged with the same possible pattern and each tagged signal meets the minimum support threshold. This is evidence to investigate, not a diagnosis or authorization.</p>
+<div class="scroll"><table><thead><tr><th>Possible pattern</th><th>Domains</th><th>Signals</th><th>Mean support</th><th></th></tr></thead><tbody id="cv-body"></tbody></table></div>
+</div>
+
 <div class="card entry-controls">
 <h2>Start a learning cycle</h2>
 <p class="small">Write the prediction before the outcome is known. The original prediction is preserved even if reality disagrees later.</p>
 <div class="grid">
 <label>Based on observation (optional)<select id="lc-source"><option value="">— none / direct question —</option></select></label>
+<p id="lc-convergence-note" class="small"></p>
 <label>Confidence now (%)<input id="lc-confidence" type="number" min="0" max="100" step="1" value="60"></label>
 <label>Reversible?<select id="lc-reversible"><option value="true" selected>Yes</option><option value="false">No</option></select></label>
 </div>
@@ -148,7 +159,7 @@ table{width:100%;border-collapse:collapse;font-size:.83rem}th,td{text-align:left
   const $=id=>document.getElementById(id),esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;"),num=(v,d=1)=>Number(v).toLocaleString(undefined,{maximumFractionDigits:d});
   function load(key,fallback){try{const x=JSON.parse(localStorage.getItem(key)||"null");return x??fallback}catch{return fallback}}
   function save(key,value){localStorage.setItem(key,JSON.stringify(value))}
-  let labor=load(LABOR_KEY,[]), schedule=load(SCHEDULE_KEY,[]), observations=load(OBS_KEY,[]), learningCycles=load(LEARN_KEY,[]);
+  let labor=load(LABOR_KEY,[]), schedule=load(SCHEDULE_KEY,[]), observations=load(OBS_KEY,[]), learningCycles=load(LEARN_KEY,[]), selectedConvergenceKey="";
   if(!Array.isArray(labor))labor=[];if(!Array.isArray(schedule))schedule=[];if(!Array.isArray(observations))observations=[];if(!Array.isArray(learningCycles))learningCycles=[];
   function extraWorkspace(){return {equipment_maintenance:Array.isArray(load(EQUIPMENT_KEY,[]))?load(EQUIPMENT_KEY,[]):[],harvest_entries:Array.isArray(load(HARVEST_KEY,[]))?load(HARVEST_KEY,[]):[],sales_entries:Array.isArray(load(SALES_KEY,[]))?load(SALES_KEY,[]):[],parts_inventory:Array.isArray(load(PARTS_KEY,[]))?load(PARTS_KEY,[]):[]}}
 
@@ -173,6 +184,43 @@ table{width:100%;border-collapse:collapse;font-size:.83rem}th,td{text-align:left
     return out;
   }
 
+  function normalizePatternKey(v){return String(v||"").trim().toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"")}
+  function fillPatternList(){
+    const keys=[...new Set(observations.map(o=>normalizePatternKey(o.hypothesis_key)).filter(Boolean))].sort();
+    $("o-pattern-list").innerHTML=keys.map(k=>`<option value="${esc(k)}"></option>`).join("");
+  }
+  function convergenceTokens(){
+    const groups=new Map();
+    observations.forEach(o=>{
+      const key=normalizePatternKey(o.hypothesis_key),confidence=Number(o.hypothesis_confidence);
+      if(!key||!Number.isFinite(confidence)||confidence<0.25||confidence>1)return;
+      const group=groups.get(key)||[];group.push(o);groups.set(key,group);
+    });
+    const tokens=[];
+    for(const [key,group] of groups.entries()){
+      const domains=[...new Set(group.map(o=>o.domain).filter(Boolean))].sort();
+      if(domains.length<3)continue;
+      const confidences=group.map(o=>Number(o.hypothesis_confidence));
+      tokens.push({
+        hypothesis_key:key,
+        domains,
+        distinct_domains:domains.length,
+        signal_count:group.length,
+        signal_ids:group.map(o=>o.event_id),
+        mean:confidences.reduce((a,b)=>a+b,0)/confidences.length,
+        authorization:"none"
+      });
+    }
+    return tokens.sort((a,b)=>b.distinct_domains-a.distinct_domains||b.signal_count-a.signal_count);
+  }
+  function convergenceProvenance(key){
+    const normalized=normalizePatternKey(key);
+    return observations.filter(o=>normalizePatternKey(o.hypothesis_key)===normalized).map(o=>({
+      kind:o?.source?.kind||"human_observation",
+      ref:o.event_id,
+      note:o.summary||""
+    }));
+  }
   function cycleCurrentConfidence(cycle){
     const updates=Array.isArray(cycle.updates)?cycle.updates:[];
     return updates.length?Number(updates[updates.length-1].confidence_after):Number(cycle?.prediction?.confidence);
@@ -199,11 +247,30 @@ table{width:100%;border-collapse:collapse;font-size:.83rem}th,td{text-align:left
   }
   function renderObservations(){
     const rows=[...observations].sort((a,b)=>String(b.recorded_at||"").localeCompare(String(a.recorded_at||""))).slice(0,75);
-    $("o-body").innerHTML=rows.length?rows.map(r=>`<tr><td>${esc(String(r.recorded_at||"").replace("T"," ").slice(0,16))}</td><td>${esc(r.domain||"")}</td><td>${esc(r.summary||"")}</td><td><code>${esc(r.signal_key||"")}</code></td><td>${esc(r.value??"")} ${esc(r.unit||"")}</td><td>${esc(r.source?.kind||"")}</td><td><button class="secondary" data-o-learn="${esc(r.event_id)}">Learn</button><button class="danger" data-o-del="${esc(r.event_id)}">Delete</button></td></tr>`).join(""):'<tr><td colspan="7" class="empty">No observations yet.</td></tr>';
+    $("o-body").innerHTML=rows.length?rows.map(r=>`<tr><td>${esc(String(r.recorded_at||"").replace("T"," ").slice(0,16))}</td><td>${esc(r.domain||"")}</td><td>${esc(r.summary||"")}</td><td><code>${esc(r.signal_key||"")}</code></td><td>${esc(r.value??"")} ${esc(r.unit||"")}</td><td>${r.hypothesis_key?`<code>${esc(r.hypothesis_key)}</code> ${Number.isFinite(Number(r.hypothesis_confidence))?`(${num(100*Number(r.hypothesis_confidence),0)}%)`:""}`:"—"}</td><td>${esc(r.source?.kind||"")}</td><td><button class="secondary" data-o-learn="${esc(r.event_id)}">Learn</button><button class="danger" data-o-del="${esc(r.event_id)}">Delete</button></td></tr>`).join(""):'<tr><td colspan="7" class="empty">No observations yet.</td></tr>';
     document.querySelectorAll("[data-o-del]").forEach(b=>b.addEventListener("click",()=>{observations=observations.filter(x=>x.event_id!==b.dataset.oDel);save(OBS_KEY,observations);renderAll()}));
     document.querySelectorAll("[data-o-learn]").forEach(b=>b.addEventListener("click",()=>{fillLearningSelectors();$("lc-source").value=b.dataset.oLearn;const o=observations.find(x=>x.event_id===b.dataset.oLearn);if(o&&!$("lc-question").value.trim())$("lc-question").value="What explains: "+o.summary+"?";setTab("learn");$("lc-prediction").focus()}));
   }
+  function renderConvergence(){
+    const tokens=convergenceTokens();
+    $("cv-body").innerHTML=tokens.length?tokens.map(t=>`<tr><td><code>${esc(t.hypothesis_key)}</code></td><td>${esc(t.domains.join(", "))}</td><td>${t.signal_count}</td><td>${num(100*t.mean,0)}%</td><td><button class="secondary" data-cv-investigate="${esc(t.hypothesis_key)}">Investigate</button></td></tr>`).join(""):'<tr><td colspan="5" class="empty">No cross-domain convergence yet. A token appears only after the same possible pattern has support from at least three distinct domains.</td></tr>';
+    document.querySelectorAll("[data-cv-investigate]").forEach(b=>b.addEventListener("click",()=>{
+      const key=b.dataset.cvInvestigate;
+      selectedConvergenceKey=key;
+      $("lc-source").value="";
+      $("lc-convergence-note").textContent="Provisional convergence: "+key+" · "+convergenceProvenance(key).length+" tagged observations will be attached as provenance. No diagnosis has been made.";
+      $("lc-question").value='What could explain the cross-domain pattern "'+key+'"?';
+      $("lc-prediction").value="";
+      $("lc-falsifier").value="";
+      $("lc-action").value="";
+      $("lc-stop").value="";
+      $("lc-confidence").value="50";
+      setTab("learn");
+      $("lc-prediction").focus();
+    }));
+  }
   function renderLearning(){
+    fillPatternList();
     fillLearningSelectors();
     const rows=[...learningCycles].sort((a,b)=>String(b.created_at||"").localeCompare(String(a.created_at||""))).slice(0,100);
     $("lc-body").innerHTML=rows.length?rows.map(c=>{const obs=Array.isArray(c.observations)?c.observations:[],latest=obs.length?obs[obs.length-1].result:"";return `<tr><td>${esc(cycleState(c))}</td><td>${esc(c.question||"")}</td><td>${esc(c?.prediction?.statement||"")}</td><td>${num(100*cycleCurrentConfidence(c),0)}%</td><td>${obs.length}</td><td>${esc(latest||"—")}</td></tr>`}).join(""):'<tr><td colspan="6" class="empty">No learning cycles yet. Start with a prediction you are willing to let reality change.</td></tr>';
@@ -225,19 +292,19 @@ table{width:100%;border-collapse:collapse;font-size:.83rem}th,td{text-align:left
     const cats=[...byCat.entries()].sort((a,b)=>b[1].hours-a[1].hours);$("d-cats").innerHTML=cats.length?cats.map(([cat,v])=>`<tr><td>${esc(cat)}</td><td>${v.entries}</td><td>${num(v.hours)}</td><td>${num(hours?100*v.hours/hours:0,1)}%</td></tr>`).join(""):'<tr><td colspan="4" class="empty">No labor observations in the last 7 days.</td></tr>';
     const futureStart=addDays(end,1),futureEnd=addDays(end,7),map=new Map();
     schedule.forEach(t=>{for(const d of occurrences(t,dateObj(futureStart),dateObj(futureEnd))){const v=map.get(d)||{minutes:0,tasks:[]},m=Math.max(Number(t.minutes??t.estimated_minutes)||0,0);v.minutes+=m;v.tasks.push(t);map.set(d,v)}});
-    const days=[...map.entries()].sort((a,b)=>a[0].localeCompare(b[0]));$("d-upcoming").textContent=days.reduce((s,[,v])=>s+v.tasks.length,0);$("d-schedule").innerHTML=days.length?days.map(([d,v])=>`<tr><td>${d}</td><td>${v.tasks.map(t=>esc(t.task)+(t.chore_code?` <code>${esc(t.chore_code)}</code>`:"")).join("<br>")}</td><td>${num(v.minutes,0)}</td></tr>`).join(""):'<tr><td colspan="3" class="empty">No scheduled chores in the next 7 days.</td></tr>';$("d-learning").textContent=openLearningCycles().length;
+    const days=[...map.entries()].sort((a,b)=>a[0].localeCompare(b[0]));$("d-upcoming").textContent=days.reduce((s,[,v])=>s+v.tasks.length,0);$("d-schedule").innerHTML=days.length?days.map(([d,v])=>`<tr><td>${d}</td><td>${v.tasks.map(t=>esc(t.task)+(t.chore_code?` <code>${esc(t.chore_code)}</code>`:"")).join("<br>")}</td><td>${num(v.minutes,0)}</td></tr>`).join(""):'<tr><td colspan="3" class="empty">No scheduled chores in the next 7 days.</td></tr>';$("d-learning").textContent=openLearningCycles().length;$("d-convergence").textContent=convergenceTokens().length;
   }
-  function renderAll(){renderObservations();renderLearning();renderLabor();renderSchedule();renderDashboard()}
+  function renderAll(){renderObservations();renderConvergence();renderLearning();renderLabor();renderSchedule();renderDashboard()}
 
   document.querySelectorAll("[data-o-preset]").forEach(b=>b.addEventListener("click",()=>{$("o-domain").value=b.dataset.oPreset;$("o-summary").focus()}));
-  $("o-add").addEventListener("click",()=>{const summary=$("o-summary").value.trim();if(!summary){alert("Write a short observation first.");return}const raw=$("o-value").value.trim(),n=Number(raw),value=raw===""?null:(Number.isFinite(n)&&String(n)===raw? n:raw);observations.push({schema_version:"0.1",event_id:crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random(),recorded_at:new Date().toISOString(),source:{kind:$("o-source").value},domain:$("o-domain").value,signal_key:$("o-signal").value.trim()||undefined,summary,value,unit:$("o-unit").value.trim()||undefined,severity_hint:$("o-severity").value,evidence_refs:[],tags:[],privacy:"private"});save(OBS_KEY,observations);$("o-summary").value="";$("o-signal").value="";$("o-value").value="";$("o-unit").value="";renderAll()});
+  $("o-add").addEventListener("click",()=>{const summary=$("o-summary").value.trim();if(!summary){alert("Write a short observation first.");return}const raw=$("o-value").value.trim(),n=Number(raw),value=raw===""?null:(Number.isFinite(n)&&String(n)===raw? n:raw),pattern=normalizePatternKey($("o-pattern").value),supportRaw=$("o-pattern-confidence").value.trim();let support;if(pattern){if(supportRaw===""){alert("If you tag a possible pattern, add how strongly this observation supports it.");return}const pct=Number(supportRaw);if(!Number.isFinite(pct)||pct<0||pct>100){alert("Pattern support must be between 0 and 100%.");return}support=pct/100}observations.push({schema_version:"0.1",event_id:crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random(),recorded_at:new Date().toISOString(),source:{kind:$("o-source").value},domain:$("o-domain").value,signal_key:$("o-signal").value.trim()||undefined,hypothesis_key:pattern||undefined,hypothesis_confidence:pattern?support:undefined,summary,value,unit:$("o-unit").value.trim()||undefined,severity_hint:$("o-severity").value,evidence_refs:[],tags:[],privacy:"private"});save(OBS_KEY,observations);$("o-summary").value="";$("o-signal").value="";$("o-value").value="";$("o-unit").value="";$("o-pattern").value="";$("o-pattern-confidence").value="";renderAll()});
 
   $("lc-add").addEventListener("click",()=>{
     const question=$("lc-question").value.trim(),prediction=$("lc-prediction").value.trim(),falsifier=$("lc-falsifier").value.trim(),action=$("lc-action").value.trim(),stop=$("lc-stop").value.trim();
     const pct=Math.min(100,Math.max(0,Number($("lc-confidence").value)||0));
     if(!question||!prediction||!falsifier||!action||!stop){alert("Enter the question, prediction, falsifier, action, and stopping rule before acting.");return}
     const sourceId=$("lc-source").value,source=observations.find(x=>x.event_id===sourceId);
-    const provenance=source?[{kind:source?.source?.kind||"human_observation",ref:source.event_id,note:source.summary||""}]:[];
+    const provenance=selectedConvergenceKey?convergenceProvenance(selectedConvergenceKey):(source?[{kind:source?.source?.kind||"human_observation",ref:source.event_id,note:source.summary||""}]:[]);
     learningCycles.push({
       schema_version:"0.1",
       cycle_id:crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random(),
@@ -253,8 +320,10 @@ table{width:100%;border-collapse:collapse;font-size:.83rem}th,td{text-align:left
     });
     save(LEARN_KEY,learningCycles);
     ["lc-question","lc-prediction","lc-falsifier","lc-action","lc-stop"].forEach(id=>$(id).value="");
-    $("lc-source").value="";$("lc-confidence").value="60";$("lc-reversible").value="true";renderAll();
+    selectedConvergenceKey="";$("lc-convergence-note").textContent="";$("lc-source").value="";$("lc-confidence").value="60";$("lc-reversible").value="true";renderAll();
   });
+
+  $("lc-source").addEventListener("change",()=>{if($("lc-source").value){selectedConvergenceKey="";$("lc-convergence-note").textContent=""}});
 
   $("lc-cycle").addEventListener("change",()=>{
     const cycle=learningCycles.find(x=>x.cycle_id===$("lc-cycle").value);
